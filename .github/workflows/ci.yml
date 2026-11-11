@@ -1,0 +1,32 @@
+name: ci
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.9
+          channel: stable
+      - run: flutter pub get
+      - name: No DateTime.now() outside the clock layer
+        shell: bash
+        run: |
+          if grep -rn "DateTime\.now(" app/lib packages/owghat_lib/lib packages/prayer_core/lib | grep -v "// allow-now"; then
+            echo "DateTime.now() is forbidden; use the injected Clock"; exit 1; fi
+      - run: dart format --output=none --set-exit-if-changed .
+      - run: flutter analyze
+      - run: dart test
+        working-directory: packages/prayer_core
+      - run: flutter test
+        working-directory: packages/owghat_lib
+      - run: flutter build windows --release
+        working-directory: app
+      - uses: actions/upload-artifact@v4
+        with:
+          name: owghat-windows
+          path: app/build/windows/x64/runner/Release

@@ -7,4 +7,5 @@ environment:
 
 workspace:
   - app
+  - packages/owghat_lib
   - packages/prayer_core

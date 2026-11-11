@@ -1,0 +1,19 @@
+{
+  "@@locale": "fa",
+  "appName": "اوقات",
+  "navCalendar": "تقویم",
+  "navHome": "خانه",
+  "navQibla": "قبله",
+  "navSettings": "تنظیمات",
+  "navTimetable": "جدول ماهانه",
+  "navWakeUp": "بیدارباش",
+  "prayerAsr": "عصر",
+  "prayerDhuhr": "اذان ظهر",
+  "prayerFajr": "اذان صبح",
+  "prayerImsak": "امساک",
+  "prayerIsha": "عشا",
+  "prayerMaghrib": "اذان مغرب",
+  "prayerMidnight": "نیمه‌شب شرعی",
+  "prayerSunrise": "طلوع آفتاب",
+  "prayerSunset": "غروب آفتاب"
+}

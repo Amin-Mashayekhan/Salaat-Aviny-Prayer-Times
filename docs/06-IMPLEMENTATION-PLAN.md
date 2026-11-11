@@ -245,7 +245,7 @@ user: (1) `schtasks /Create … /XML` with `WakeToRun` succeeds and the task wak
 and from hibernate; (2) `SetWaitableTimer(fResume=TRUE)` via FFI wakes the PC while the app runs;
 (3) `SetThreadExecutionState` keeps it awake during a 3-minute sound; (4) `SetSuspendState` sleeps
 and hibernates (enable `SeShutdownPrivilege` first if required); (5) reading the `RTCWAKE` power
-setting. Write the findings to `docs/adr/0001-wake-timers.md`. **Fallbacks**: if (1) needs
+setting. Write the findings to `docs/adr/0003-wake-timers.md` (ADRs 0001 and 0002 are taken). **Fallbacks**: if (1) needs
 elevation → use only the in-process timer and say so in the UI ("works while the app is running");
 if (4) fails → `rundll32 powrprof.dll,SetSuspendState` for sleep and `shutdown /h` for hibernate;
 on Modern Standby devices where wake is unreliable → the capability panel says so.

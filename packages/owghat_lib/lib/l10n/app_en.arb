@@ -1,0 +1,19 @@
+{
+  "@@locale": "en",
+  "appName": "Owghat",
+  "navCalendar": "Calendar",
+  "navHome": "Home",
+  "navQibla": "Qibla",
+  "navSettings": "Settings",
+  "navTimetable": "Timetable",
+  "navWakeUp": "Wake-up",
+  "prayerAsr": "Asr",
+  "prayerDhuhr": "Dhuhr",
+  "prayerFajr": "Fajr",
+  "prayerImsak": "Imsak",
+  "prayerIsha": "Isha",
+  "prayerMaghrib": "Maghrib",
+  "prayerMidnight": "Midnight",
+  "prayerSunrise": "Sunrise",
+  "prayerSunset": "Sunset"
+}

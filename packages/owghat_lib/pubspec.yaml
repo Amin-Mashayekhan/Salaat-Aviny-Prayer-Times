@@ -1,0 +1,39 @@
+name: owghat_lib
+description: >-
+  Owghat application library: UI, state, scheduling and platform interfaces.
+  Contains no plugin with a native-assets build hook, so its tests run on any
+  machine; Windows plugin glue lives in the app package.
+version: 1.0.0
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ^3.13.7
+
+dependencies:
+  clock: ^1.1.3
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_riverpod: ^3.5.0
+  hijri: ^3.0.1
+  intl: any
+  logging: ^1.3.0
+  ntp_dart: ^1.5.2
+  path: ^1.9.1
+  prayer_core:
+  shamsi_date: ^1.1.1
+  timezone: ^0.11.2
+
+dev_dependencies:
+  fake_async: ^1.3.3
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.5
+  very_good_analysis: ^11.0.0
+
+flutter:
+  generate: true
+  assets:
+    - assets/data/
