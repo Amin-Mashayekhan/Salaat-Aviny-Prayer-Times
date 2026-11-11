@@ -9,6 +9,7 @@ import 'package:owghat_lib/src/features/scheduler/application/schedule_engine.da
 import 'package:owghat_lib/src/features/scheduler/domain/event_dispatcher.dart';
 import 'package:owghat_lib/src/features/scheduler/domain/handled_events_store.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
+import 'package:owghat_lib/src/features/wake_alarm/application/wake_plan_providers.dart';
 import 'package:prayer_core/prayer_core.dart';
 
 /// Where handled events are remembered. Injected at start-up.
@@ -30,9 +31,12 @@ final powerEventsProvider = Provider<PowerEvents>(
 /// running `Stopwatch`; tests inject their own.
 final monotonicClockProvider = Provider<Duration Function()?>((ref) => null);
 
-/// Resolved wake-up alarm occurrences to schedule (filled by the wake-up
-/// feature; empty until then).
-final alarmOccurrencesProvider = Provider<List<AlarmOccurrence>>((ref) => []);
+/// Resolved wake-up alarm occurrences to schedule: read from the wake-up
+/// feature (empty while there is no enabled alarm). Nothing needs to override
+/// it; tests that want fixed occurrences still can.
+final alarmOccurrencesProvider = Provider<List<AlarmOccurrence>>(
+  (ref) => ref.watch(wakeAlarmOccurrencesProvider),
+);
 
 /// Local time of day, in seconds, at which a day-rollover marker fires.
 const Duration rolloverOffset = Duration(seconds: 5);
@@ -93,14 +97,19 @@ final scheduleEngineProvider = Provider<ScheduleEngine>((ref) {
     monotonic: ref.read(monotonicClockProvider),
   );
 
-  void rebuild() => unawaited(engine.rebuild());
+  // The rebuild reads derived providers (for example the wake-up occurrences).
+  // Inside a listener callback those are still stale, so it starts one
+  // microtask later, when they are current.
+  void rebuild() => unawaited(Future<void>.microtask(engine.rebuild));
 
   // Anything that changes what is scheduled rebuilds the engine. Rebuilding
   // is cheap and idempotent, so a coarse trigger is fine.
   ref
     ..listen(settingsProvider, (_, _) => rebuild())
     ..listen(effectiveCorrectionProvider, (_, _) => rebuild())
-    ..listen(alarmOccurrencesProvider, (_, _) => rebuild());
+    ..listen(alarmOccurrencesProvider, (_, _) => rebuild())
+    // The wake-up bookkeeping changes when an alarm fires or is edited.
+    ..listen(wakeBookkeepingProvider, (_, _) => rebuild());
 
   final subscription = ref.read(powerEventsProvider).events.listen((event) {
     if (event != PowerEvent.suspending) rebuild();

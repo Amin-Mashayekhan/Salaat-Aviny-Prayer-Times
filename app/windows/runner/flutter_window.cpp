@@ -1,6 +1,8 @@
 #include "flutter_window.h"
 
+#include <cwchar>
 #include <optional>
+#include <string>
 
 #include "flutter/generated_plugin_registrant.h"
 
@@ -27,8 +29,16 @@ bool FlutterWindow::OnCreate() {
   RegisterPlugins(flutter_controller_->engine());
   SetChildContent(flutter_controller_->view()->GetNativeWindow());
 
+  power_channel_ =
+      std::make_unique<flutter::MethodChannel<flutter::EncodableValue>>(
+          flutter_controller_->engine()->messenger(), "owghat/power",
+          &flutter::StandardMethodCodec::GetInstance());
+
   flutter_controller_->engine()->SetNextFrameCallback([&]() {
-    this->Show();
+    // With --minimized the window stays hidden; the Dart side shows it.
+    if (!start_hidden_) {
+      this->Show();
+    }
   });
 
   // Flutter can complete the first frame before the "show window" callback is
@@ -40,6 +50,7 @@ bool FlutterWindow::OnCreate() {
 }
 
 void FlutterWindow::OnDestroy() {
+  power_channel_ = nullptr;
   if (flutter_controller_) {
     flutter_controller_ = nullptr;
   }
@@ -65,7 +76,37 @@ FlutterWindow::MessageHandler(HWND hwnd, UINT const message,
     case WM_FONTCHANGE:
       flutter_controller_->engine()->ReloadSystemFonts();
       break;
+    case WM_POWERBROADCAST:
+      // Sleep and resume. Both resume notifications may arrive; the Dart side
+      // treats every "resumed" as "rebuild the schedule", which is idempotent.
+      if (wparam == PBT_APMSUSPEND) {
+        NotifyPower("suspending");
+      } else if (wparam == PBT_APMRESUMEAUTOMATIC ||
+                 wparam == PBT_APMRESUMESUSPEND) {
+        NotifyPower("resumed");
+      }
+      break;
+    case WM_TIMECHANGE:
+      // The system clock (or time zone) was changed.
+      NotifyPower("timeChanged");
+      break;
+    case WM_SETTINGCHANGE:
+      // For string-type changes lparam names the setting that changed.
+      if (wparam == 0 && lparam != 0 &&
+          wcscmp(reinterpret_cast<const wchar_t*>(lparam),
+                 L"TimeZoneInformation") == 0) {
+        NotifyPower("timeChanged");
+      }
+      break;
   }
 
   return Win32Window::MessageHandler(hwnd, message, wparam, lparam);
+}
+
+void FlutterWindow::NotifyPower(const char* event) {
+  if (!power_channel_) {
+    return;
+  }
+  power_channel_->InvokeMethod(
+      "event", std::make_unique<flutter::EncodableValue>(std::string(event)));
 }

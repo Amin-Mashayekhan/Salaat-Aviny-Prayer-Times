@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:owghat_lib/src/app/app.dart';
 import 'package:owghat_lib/src/app/shell/destination.dart';
 import 'package:owghat_lib/src/app/shell/destination_controller.dart';
+import 'package:owghat_lib/src/features/locations/data/location_repository.dart';
+
+import 'support/app_harness.dart';
+import 'support/test_data.dart';
 
 void main() {
+  // The shell hosts the home page, which needs the city database and a fake
+  // clock, so the app harness builds the whole app around the shell.
+  late LocationRepository repo;
+  late AppHarness harness;
+  setUpAll(() async => repo = await loadTestRepository());
+
   Future<void> pump(
     WidgetTester tester,
     Locale locale, {
     Size size = const Size(1200, 800),
   }) async {
-    tester.view.physicalSize = size;
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
-    await tester.pumpWidget(
-      ProviderScope(
-        overrides: [localeProvider.overrideWithValue(locale)],
-        child: const OwghatApp(),
-      ),
+    harness = await AppHarness.pump(
+      tester,
+      repository: repo,
+      size: size,
+      overrides: [localeProvider.overrideWithValue(locale)],
     );
-    await tester.pumpAndSettle();
   }
 
   TextDirection directionOf(WidgetTester tester) =>
@@ -35,10 +39,7 @@ void main() {
     expect(find.text('خانه'), findsWidgets);
     await tester.tap(find.text('قبله'));
     await tester.pumpAndSettle();
-    final container = ProviderScope.containerOf(
-      tester.element(find.byType(Scaffold)),
-    );
-    expect(container.read(destinationProvider), Destination.qibla);
+    expect(harness.container.read(destinationProvider), Destination.qibla);
   });
 
   testWidgets('shell is left-to-right in English', (tester) async {

@@ -36,7 +36,7 @@ Decoded and cleaned copies are in `seed/locations/` (script: `tools/legacy/decod
 Data problems found and how the seed handles them:
 
 - 25 Iranian cities appear twice (province centre plus a plain row a few km away). Seed keeps one.
-- 175 Iranian rows are unapproved and most have a Latin string in the Persian-name column. Seed keeps them with `verified: false`. **The app ships only `verified: true` rows (567 cities).**
+- 175 Iranian rows are unapproved and most have a Latin string in the Persian-name column. Seed keeps them with `verified: false`. **The app ships only `verified: true` rows (566 cities).**
 - 1 Iranian row has no province (`Emamzadeh 'Abdollah`); it stays `province_id: null`.
 - 1 foreign row has coordinates 0,0. Dropped.
 - Iran's country row says `Daylight = Y`, `1390/01/01` to `1390/06/30`. This is the data half of bug B-01. **The seed drops the three daylight columns entirely.**

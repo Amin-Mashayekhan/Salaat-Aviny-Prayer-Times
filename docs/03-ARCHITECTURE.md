@@ -1,5 +1,11 @@
 # 03 — Architecture
 
+> **Update (ADR 0001, ADR 0002):** the app is split into `packages/owghat_lib` (all testable code:
+> UI, state, scheduling, platform interfaces and fakes) and `app/` (thin Windows runner with the
+> plugin-based implementations). Where this document says `app/lib/src/...`, read
+> `packages/owghat_lib/lib/src/...`; plugin implementations live in `app/lib/src/platform/`.
+> Models are hand-written instead of `freezed`. `launch_at_startup` is not used (ADR 0001).
+
 ## 1. Stack
 
 Versions below were checked on pub.dev / the Flutter release index on 2026-11-11. **Do not type
@@ -14,7 +20,7 @@ pure-Dart package) so the resolver picks compatible versions, then commit `pubsp
 | Models | `freezed` + `json_serializable` (+ `build_runner`) | 4.0.3 / 6.15.2 | For settings, locations, alarms. `prayer_core` uses plain immutable classes and has no code generation. |
 | Lints | `very_good_analysis` | 11.0.0 | Zero analyzer warnings is a merge requirement. |
 | Settings storage | One versioned JSON file via `path_provider` | — | See §5. Not `shared_preferences`: settings are nested and must be written atomically. |
-| City data | Bundled JSON asset, loaded once, held in memory | — | 567 rows. Behind `LocationRepository`, so P1 (25k world cities) can switch to SQLite (`drift`) without touching callers. |
+| City data | Bundled JSON asset, loaded once, held in memory | — | 566 rows. Behind `LocationRepository`, so P1 (25k world cities) can switch to SQLite (`drift`) without touching callers. |
 | Window | `window_manager` | 0.6.0 | Hide to tray, size, min size, show/focus. |
 | Tray | `tray_manager` | 0.8.3 | |
 | Single instance | `windows_single_instance` | 1.2.0 | |
@@ -110,18 +116,22 @@ Inside a feature: `presentation → application → domain ← data`.
 8. No `DateTime.now()`, no `Timer` created outside `core/time` and `scheduler` (lint rule + grep check in CI).
 9. Prayer identity is the `Prayer` enum everywhere. A display string is never compared.
 
-## 4. Platform interfaces (`app/lib/src/core/platform/`)
+## 4. Platform interfaces (`packages/owghat_lib/lib/src/core/platform/`)
 
-Each has an abstract class, a Windows implementation, and a fake for tests. Providers expose the
-interface; `bootstrap.dart` overrides them per platform.
+Each has an abstract class, a Windows implementation (in `app/lib/src/platform/`), and a fake for
+tests (`core/platform/fakes/`). Providers expose the interface; `bootstrap(args, PlatformServices)`
+overrides them (ADR 0003).
 
 | Interface | Methods (essence) | Windows implementation |
 |---|---|---|
 | `AudioOutput` | `play(SoundRef, {volume, fadeIn})`, `stop()`, `Stream<PlaybackState>`, `Duration? duration` | `audioplayers` |
-| `Notifier` | `show(NotificationSpec)` with optional actions (`stop`, `open`), `Stream<NotificationAction>` | `flutter_local_notifications` |
+| `AppNotifier` (not `Notifier`: that name is Riverpod's) | `show(NotificationSpec)` with optional buttons (`stop`, `open`), `Stream<NotificationAction>` | `flutter_local_notifications` |
 | `TrayHost` | `setIcon`, `setTooltip`, `setMenu(TrayMenu)`, `Stream<TrayEvent>` | `tray_manager` |
-| `WindowHost` | `show`, `hide`, `focus`, `isVisible`, `setPreventClose`, `Stream<WindowEvent>` | `window_manager` |
-| `AutostartService` | `isEnabled`, `enable`, `disable` | `launch_at_startup` |
+| `WindowHost` | `initialize(min/default size, savedBounds)`, `show`, `hide`, `focus`, `isVisible`, `bounds`, `quit`, `Stream<WindowEventKind>` (`closeRequested`, `boundsChanged`; the close button never closes by itself) | `window_manager` |
+| `AutostartService` | `isEnabled`, `enable`, `disable` | `reg.exe` on `HKCU\...\Run` (ADR 0001) |
+| `SingleInstance` | `ensure(args)` (false = another copy runs), `Stream<List<String>> forwardedArgs` | `windows_single_instance` |
+| `FileDialogs` | `pickSoundFile`, `pickBackupSavePath`, `pickBackupOpenPath` | `file_selector` |
+| `PlatformPaths` | `appSupportDir`, `settingsFile`, `stateFile`, `logDir` | `path_provider` |
 | `PowerEvents` | `Stream<PowerEvent>` (`suspending`, `resumed`, `timeChanged`) | `WM_POWERBROADCAST` / `WM_TIMECHANGE` via the runner's message handler + a method channel |
 | `WakeTimerService` | `Future<WakeCapability> probe()`, `scheduleWake(DateTime utc, id)`, `cancel(id)`, `keepAwake(Duration)` | See §6 |
 | `PowerControl` | `sleep()`, `hibernate()` | `SetSuspendState` via FFI |

@@ -31,6 +31,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/audio/
+    - assets/icons/
     - assets/fonts/OFL.txt
   fonts:
     - family: Vazirmatn

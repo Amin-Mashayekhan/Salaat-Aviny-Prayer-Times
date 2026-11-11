@@ -22,12 +22,21 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   std::vector<std::string> command_line_arguments =
       GetCommandLineArguments();
 
+  // Started by Windows at sign-in with --minimized: stay hidden in the tray.
+  bool start_hidden = false;
+  for (const std::string& argument : command_line_arguments) {
+    if (argument == "--minimized") {
+      start_hidden = true;
+    }
+  }
+
   project.set_dart_entrypoint_arguments(std::move(command_line_arguments));
 
   FlutterWindow window(project);
+  window.SetStartHidden(start_hidden);
   Win32Window::Point origin(10, 10);
-  Win32Window::Size size(1280, 720);
-  if (!window.Create(L"owghat", origin, size)) {
+  Win32Window::Size size(1040, 680);
+  if (!window.Create(L"Owghat", origin, size)) {
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);

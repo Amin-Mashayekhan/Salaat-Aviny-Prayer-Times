@@ -1,12 +1,559 @@
 {
   "@@locale": "fa",
+  "aboutFontNote": "قلم وزیرمتن با مجوز SIL Open Font License 1.1 همراه برنامه است.",
+  "aboutLicences": "مجوزهای نرم‌افزارهای متن‌باز",
+  "aboutSoundNote": "صداهای همراه برنامه (اذان پیش‌فرض و زنگ یادآوری) نمونه‌هایی ساده و ساختگی‌اند، ضبط هیچ مؤذنی نیستند و با مجوز CC0 منتشر شده‌اند. صدای اذان دلخواه خود را از بخش تنظیمات انتخاب کنید.",
+  "aboutTagline": "اوقات شرعی و اذان برای ویندوز؛ بدون اینترنت، بدون تبلیغ، بدون حساب کاربری و بدون ردیابی.",
+  "aboutTitle": "درباره",
+  "aboutVersion": "نسخه‌ی {version}",
+  "@aboutVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "appName": "اوقات",
+  "calendarAdjustEarlier": "یک روز زودتر",
+  "calendarAdjustLater": "یک روز دیرتر",
+  "calendarAdjustValue": "{value} روز",
+  "@calendarAdjustValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarConvErrDay": "روز باید از {first} تا {days} باشد.",
+  "@calendarConvErrDay": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarConvErrIncomplete": "سال، ماه و روز را کامل کنید.",
+  "calendarConvErrMonth": "ماه باید از یک تا دوازده باشد.",
+  "calendarConvErrNumber": "فقط عدد بنویسید.",
+  "calendarConvErrRange": "این تاریخ بیرون از بازه‌ی پشتیبانی‌شده‌ی تقویم است.",
+  "calendarConverterHint": "تاریخ را در یکی از سه تقویم بنویسید؛ دو تقویم دیگر هم‌زمان تغییر می‌کنند.",
+  "calendarConverterShow": "نمایش در تقویم",
+  "calendarConverterTitle": "مبدل تاریخ",
+  "calendarDayMonthYear": "{day} {month} {year}",
+  "@calendarDayMonthYear": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "month": {
+        "type": "String"
+      },
+      "year": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarFieldDay": "روز",
+  "calendarFieldMonth": "ماه",
+  "calendarFieldYear": "سال",
+  "calendarGridLabel": "تقویم ماهانه",
+  "calendarHijriAdjust": "تنظیم تاریخ قمری",
+  "calendarHijriApproxHint": "تقریبی؛ تقویم قمری رسمی ایران بر پایه‌ی رؤیت ماه است و ممکن است یک روز متفاوت باشد.",
+  "calendarHijriUnavailable": "برای این روز تاریخ قمری در جدول نیست",
+  "calendarKindGregorian": "میلادی",
+  "calendarKindHijri": "قمری",
+  "calendarKindJalali": "شمسی",
+  "calendarMonthGregorian": "{month, select, m1{ژانویه} m2{فوریه} m3{مارس} m4{آوریل} m5{مه} m6{ژوئن} m7{ژوئیه} m8{اوت} m9{سپتامبر} m10{اکتبر} m11{نوامبر} m12{دسامبر} other{}}",
+  "@calendarMonthGregorian": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarMonthHijri": "{month, select, m1{محرم} m2{صفر} m3{ربیع‌الاول} m4{ربیع‌الثانی} m5{جمادی‌الاول} m6{جمادی‌الثانی} m7{رجب} m8{شعبان} m9{رمضان} m10{شوال} m11{ذی‌القعده} m12{ذی‌الحجه} other{}}",
+  "@calendarMonthHijri": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarMonthJalali": "{month, select, m1{فروردین} m2{اردیبهشت} m3{خرداد} m4{تیر} m5{مرداد} m6{شهریور} m7{مهر} m8{آبان} m9{آذر} m10{دی} m11{بهمن} m12{اسفند} other{}}",
+  "@calendarMonthJalali": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarMonthYear": "{month} {year}",
+  "@calendarMonthYear": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "year": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarMoonNote": "تاریخ قمری بر پایه‌ی جدول ام‌القری است. تقویم رسمی ایران با رؤیت ماه تعیین می‌شود و ممکن است یک روز تفاوت داشته باشد؛ در این صورت آن را اینجا یک روز جابه‌جا کنید.",
+  "calendarNextMonth": "ماه بعد",
+  "calendarOpenOnHome": "نمایش در صفحه‌ی اصلی",
+  "calendarPanelTimes": "اوقات این روز",
+  "calendarPreviousMonth": "ماه قبل",
+  "calendarSeparator": "، ",
+  "calendarToday": "امروز",
+  "calendarWeekday": "{day, select, d1{دوشنبه} d2{سه‌شنبه} d3{چهارشنبه} d4{پنجشنبه} d5{جمعه} d6{شنبه} d7{یکشنبه} other{}}",
+  "@calendarWeekday": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarWeekdayShort": "{day, select, d1{د} d2{س} d3{چ} d4{پ} d5{ج} d6{ش} d7{ی} other{}}",
+  "@calendarWeekdayShort": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "diagAudioFailed": "صدای آزمایشی پخش نشد. بلندگو و میزان صدای ویندوز را بررسی کنید.",
+  "diagAudioOk": "صدای آزمایشی پخش شد.",
+  "diagAudioPlay": "پخش صدای آزمایشی",
+  "diagAudioStop": "توقف",
+  "diagAudioTitle": "آزمایش صدا",
+  "diagClockOk": "مشکلی در ساعت رایانه پیدا نشد.",
+  "diagClockTitle": "ساعت",
+  "diagClockUnchecked": "مشکلی دیده نشد، ولی بررسی ساعت با اینترنت خاموش است و انحراف ساعت اندازه‌گیری نمی‌شود.",
+  "diagCopied": "رونوشت شد. نام، مکان دقیق و مختصات دقیق در آن نیست.",
+  "diagCopy": "رونوشت عیب‌یابی",
+  "diagCopyFailed": "رونوشت انجام نشد.",
+  "diagEventAzan": "{prayer}",
+  "@diagEventAzan": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "diagEventReminder": "یادآوری {prayer}",
+  "@diagEventReminder": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "diagEventTimes": "UTC {utc} | محلی {local}",
+  "@diagEventTimes": {
+    "placeholders": {
+      "utc": {
+        "type": "String"
+      },
+      "local": {
+        "type": "String"
+      }
+    }
+  },
+  "diagEventWake": "بیدارباش",
+  "diagEventsEmpty": "چیزی زمان‌بندی نشده است.",
+  "diagEventsTitle": "رویدادهای زمان‌بندی‌شده‌ی بعدی",
+  "diagLogNone": "در دسترس نیست.",
+  "diagLogTitle": "فایل‌های گزارش",
+  "diagTitle": "عیب‌یابی",
+  "diagValue": "{value, select, yes{بله} no{نه} unknown{نامشخص} enabled{مجاز} disabled{خاموش} importantOnly{فقط مهم‌ها} ok{سالم} failed{ناموفق} other{}}",
+  "@diagValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "diagWakeAc": "تایمر بیدارکننده با برق شهر: {value}",
+  "@diagWakeAc": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "diagWakeBattery": "تایمر بیدارکننده با باتری: {value}",
+  "@diagWakeBattery": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "diagWakeCheck": "بررسی کن",
+  "diagWakeInProcess": "تایمر داخل برنامه: {value}",
+  "@diagWakeInProcess": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "diagWakeModern": "آماده‌به‌کار مدرن: {value}",
+  "@diagWakeModern": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "diagWakeNotChecked": "هنوز بررسی نشده است.",
+  "diagWakeTask": "وظیفه‌ی زمان‌بندی‌شده: {value}",
+  "@diagWakeTask": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "diagWakeTitle": "بررسی بیدارباش",
+  "formatAm": "ق.ظ",
+  "formatHours": "{hours} ساعت",
+  "@formatHours": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "formatHoursMinutes": "{hours} ساعت و {minutes} دقیقه",
+  "@formatHoursMinutes": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "formatMinutes": "{minutes} دقیقه",
+  "@formatMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "formatPm": "ب.ظ",
+  "formatRemaining": "{duration} دیگر",
+  "@formatRemaining": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "formatRemainingLessThan": "کمتر از {minutes} دقیقه دیگر",
+  "@formatRemainingLessThan": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "formatSeconds": "{seconds} ثانیه",
+  "@formatSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "homeAzanMutedIndefinite": "اذان: بی‌صدا تا اطلاع ثانوی",
+  "homeAzanMutedUntil": "اذان: بی‌صدا تا {time}",
+  "@homeAzanMutedUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeAzanOff": "اذان: خاموش",
+  "homeAzanOn": "اذان: روشن",
+  "homeAzanToggleOff": "خاموش کردن اذان {prayer}",
+  "@homeAzanToggleOff": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "homeAzanToggleOn": "روشن کردن اذان {prayer}",
+  "@homeAzanToggleOn": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "homeBackToToday": "بازگشت به امروز",
+  "homeBannerClockSkew": "ساعت رایانه حدود {amount} با ساعت دقیق اختلاف دارد.",
+  "@homeBannerClockSkew": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "homeBannerDismiss": "بستن",
+  "homeBannerMutedIndefinite": "اذان تا اطلاع ثانوی بی‌صدا است.",
+  "homeBannerMutedUntil": "اذان تا {time} بی‌صدا است.",
+  "@homeBannerMutedUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeBannerSettingsReset": "فایل تنظیمات خوانده نشد و تنظیمات به حالت اولیه برگشت.",
+  "homeBannerStaleZone": "ویندوز برای این مکان ساعتی متفاوت از پایگاه داده‌ی منطقه‌ی زمانی نشان می‌دهد. اوقات برنامه درست است؛ ساعت ویندوز را بررسی کنید.",
+  "homeCompass": "{point, select, p0{شمال} p1{شمال شرقی} p2{شرق} p3{جنوب شرقی} p4{جنوب} p5{جنوب غربی} p6{غرب} p7{شمال غربی} other{}}",
+  "@homeCompass": {
+    "placeholders": {
+      "point": {
+        "type": "String"
+      }
+    }
+  },
+  "homeCountdownSemantics": "{event} {duration}",
+  "@homeCountdownSemantics": {
+    "placeholders": {
+      "event": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "homeDayTimes": "اوقات {date}",
+  "@homeDayTimes": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "homeEventAt": "{event} {time}",
+  "@homeEventAt": {
+    "placeholders": {
+      "event": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeHeroNoNext": "وقتی برای شمارش معکوس نیست",
+  "homeMute": "بی‌صدا",
+  "homeMuteCancel": "لغو بی‌صدا",
+  "homeMuteForDuration": "{duration}",
+  "@homeMuteForDuration": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "homeMuteIndefinite": "تا اطلاع ثانوی",
+  "homeMuteUntilNext": "تا اذان بعدی",
+  "homeNextDay": "روز بعد",
+  "homeNextMarker": "وقت بعدی",
+  "homeNextWakeAlarm": "بیدارباش بعدی: {value}",
+  "@homeNextWakeAlarm": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "homeNoTimesAction": "تنظیمات محاسبه",
+  "homeNoTimesInfo": "در این روز برای این مکان همه‌ی وقت‌ها قابل محاسبه نیست. قاعده‌ی عرض‌های جغرافیایی بالا را در تنظیمات می‌توانید تغییر دهید.",
+  "homeNoValue": "—",
+  "homeNowPlaying": "در حال پخش: {prayer}",
+  "@homeNowPlaying": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "homeNowPlayingGeneric": "در حال پخش اذان",
+  "homeOtherDayHint": "اوقات این روز؛ شمارش معکوس فقط برای امروز است.",
+  "homePreviousDay": "روز قبل",
+  "homeQiblaSummary": "قبله: {degrees}° {direction}",
+  "@homeQiblaSummary": {
+    "placeholders": {
+      "degrees": {
+        "type": "String"
+      },
+      "direction": {
+        "type": "String"
+      }
+    }
+  },
+  "homeReminderMinutes": "یادآوری: {minutes} دقیقه قبل",
+  "@homeReminderMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "homeReminderOff": "یادآوری: خاموش",
+  "homeReminderRange": "یادآوری: {min} تا {max} دقیقه قبل",
+  "@homeReminderRange": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "homeStatusTitle": "وضعیت",
+  "homeStop": "توقف",
+  "homeSwitchLocation": "تغییر مکان",
+  "homeTimelineLabel": "خط زمانی روز",
+  "homeToday": "امروز",
+  "homeTodayTimes": "اوقات امروز",
+  "homeTomorrowTimes": "اوقات فردا",
+  "homeUntilEvent": "تا {event}",
+  "@homeUntilEvent": {
+    "placeholders": {
+      "event": {
+        "type": "String"
+      }
+    }
+  },
+  "homeViewingDay": "نمایش {date}",
+  "@homeViewingDay": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "navCalendar": "تقویم",
   "navHome": "خانه",
   "navQibla": "قبله",
   "navSettings": "تنظیمات",
   "navTimetable": "جدول ماهانه",
   "navWakeUp": "بیدارباش",
+  "notifAzanBody": "{place} · {time}",
+  "@notifAzanBody": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "notifAzanFailed": "پخش اذان ممکن نشد.",
+  "notifAzanTitle": "{prayer}",
+  "@notifAzanTitle": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "notifMissedBody": "رایانه در ساعت {time} در حالت خواب بود.",
+  "@notifMissedBody": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "notifMissedTitle": "{prayer} پخش نشد",
+  "@notifMissedTitle": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "notifReminderBody": "{place} · ساعت {time}",
+  "@notifReminderBody": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "notifReminderTitle": "{minutes} دقیقه تا {prayer}",
+  "@notifReminderTitle": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      },
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "notifSoundFallback": "فایل صدای اذان پیدا نشد؛ صدای پیش‌فرض پخش شد.",
+  "notifStopAction": "توقف",
+  "notifTrayHint": "برنامه در کنار ساعت ویندوز فعال می‌ماند.",
+  "onboardingAzanBody": "صدای اذان را بشنوید و تعیین کنید برنامه با روشن شدن ویندوز هم اجرا شود.",
+  "onboardingAzanTitle": "اذان و شروع برنامه",
+  "onboardingBack": "قبلی",
+  "onboardingCityBody": "شهر خود را جستجو کنید یا از فهرست استان‌ها انتخاب کنید.",
+  "onboardingCityNone": "شهری پیدا نشد.",
+  "onboardingCitySearchHint": "جستجوی شهر",
+  "onboardingCitySelected": "مکان انتخاب‌شده: {city}",
+  "@onboardingCitySelected": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingCityTitle": "شهر شما",
+  "onboardingFinish": "شروع",
+  "onboardingLanguageBody": "زبان را انتخاب کنید. بعداً در تنظیمات هم می‌توانید آن را عوض کنید.",
+  "onboardingLanguageEn": "English",
+  "onboardingLanguageFa": "فارسی",
+  "onboardingLanguageTitle": "زبان برنامه",
+  "onboardingNext": "بعدی",
+  "onboardingPreview": "پخش نمونه‌ی اذان",
+  "onboardingProvinceAll": "همه‌ی استان‌ها",
+  "onboardingSkip": "رد کردن",
+  "onboardingStartWithWindows": "اجرا همراه با ویندوز",
+  "onboardingStartWithWindowsHint": "برنامه بی‌صدا در کنار ساعت ویندوز شروع می‌شود.",
+  "onboardingStepProgress": "مرحله {step} از {total}",
+  "@onboardingStepProgress": {
+    "placeholders": {
+      "step": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingStopPreview": "توقف",
   "prayerAsr": "عصر",
   "prayerDhuhr": "اذان ظهر",
   "prayerFajr": "اذان صبح",
@@ -15,5 +562,765 @@
   "prayerMaghrib": "اذان مغرب",
   "prayerMidnight": "نیمه‌شب شرعی",
   "prayerSunrise": "طلوع آفتاب",
-  "prayerSunset": "غروب آفتاب"
+  "prayerSunset": "غروب آفتاب",
+  "qiblaBearingLabel": "زاویه‌ی قبله (از شمال حقیقی، ساعت‌گرد)",
+  "qiblaBearingValue": "{degrees}° ({direction})",
+  "@qiblaBearingValue": {
+    "placeholders": {
+      "degrees": {
+        "type": "String"
+      },
+      "direction": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaCardinal": "{point, select, n{شمال} e{شرق} s{جنوب} w{غرب} other{}}",
+  "@qiblaCardinal": {
+    "placeholders": {
+      "point": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaCompassSemantics": "قطب‌نما: قبله در {degrees} درجه ({direction})",
+  "@qiblaCompassSemantics": {
+    "placeholders": {
+      "degrees": {
+        "type": "String"
+      },
+      "direction": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaCompassSemanticsSun": "{base}؛ خورشید در {azimuth} درجه",
+  "@qiblaCompassSemanticsSun": {
+    "placeholders": {
+      "base": {
+        "type": "String"
+      },
+      "azimuth": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaDistanceLabel": "فاصله تا کعبه",
+  "qiblaDistanceValue": "{km} کیلومتر",
+  "@qiblaDistanceValue": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaForLocation": "جهت قبله برای {place}",
+  "@qiblaForLocation": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaNoCompassNote": "رایانه قطب‌نما ندارد؛ شکل نسبت به شمال حقیقی رسم شده است (شمال بالاست).",
+  "qiblaSunBelow": "خورشید زیر افق است.",
+  "qiblaSunInHelp": "در این لحظه خورشید دقیقاً در جهت قبله است؛ رو به خورشید بایستید.",
+  "qiblaSunInTitle": "خورشید در جهت قبله (مقارنه)",
+  "qiblaSunNone": "امروز رخ نمی‌دهد.",
+  "qiblaSunNowLabel": "خورشید اکنون",
+  "qiblaSunNowValue": "سمت {azimuth}°، ارتفاع {altitude}°",
+  "@qiblaSunNowValue": {
+    "placeholders": {
+      "azimuth": {
+        "type": "String"
+      },
+      "altitude": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaSunOppHelp": "در این لحظه سایه‌ی شاخص جهت قبله را نشان می‌دهد.",
+  "qiblaSunOppTitle": "خورشید در جهت مخالف قبله (مقابله)",
+  "qiblaSunTimesTitle": "خورشید و قبله امروز",
+  "qiblaTitle": "قبله",
+  "settingsAboutPlaceholder": "نسخه، مجوزها و صفحه‌ی عیب‌یابی در این بخش نمایش داده می‌شود.",
+  "settingsAppAutostart": "اجرا با ویندوز",
+  "settingsAppAutostartHelp": "برنامه با ورود به ویندوز بی‌سروصدا در کنار ساعت اجرا می‌شود.",
+  "settingsAppCloseToTray": "بستن پنجره به کنار ساعت",
+  "settingsAppCloseToTrayHelp": "با بستن پنجره، برنامه در کنار ساعت ویندوز می‌ماند و اذان پخش می‌شود. اگر خاموش باشد، برنامه بسته می‌شود.",
+  "settingsAppMinimized": "شروع در کنار ساعت",
+  "settingsAppMinimizedHelp": "هنگام اجرا با ویندوز پنجره باز نمی‌شود.",
+  "settingsAsrHanafi": "حنفی (سایه دو برابر شاخص)",
+  "settingsAsrStandard": "استاندارد (سایه برابر شاخص)",
+  "settingsAzanChoose": "انتخاب پرونده…",
+  "settingsAzanEnabled": "پخش اذان",
+  "settingsAzanEnabledHelp": "کلید اصلی؛ با خاموش کردن آن هیچ اذانی پخش نمی‌شود.",
+  "settingsAzanFade": "شروع تدریجی صدا",
+  "settingsAzanFadeHelp": "اذان به آرامی به بلندی کامل می‌رسد.",
+  "settingsAzanMute": "بی‌صدا",
+  "settingsAzanMuteHelp": "اذان را موقتاً بی‌صدا کنید.",
+  "settingsAzanNotMuted": "بی‌صدا نیست",
+  "settingsAzanPrayerSwitch": "اذان {prayer}",
+  "@settingsAzanPrayerSwitch": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsAzanPrayerVolume": "بلندی این اذان",
+  "settingsAzanPreview": "پیش‌شنیدن",
+  "settingsAzanSound": "صدا",
+  "settingsAzanSoundDefault": "اذان پیش‌فرض برنامه",
+  "settingsAzanSoundFile": "پرونده: {name}",
+  "@settingsAzanSoundFile": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsAzanUseDefault": "استفاده از صدای پیش‌فرض",
+  "settingsAzanVolume": "بلندی صدا",
+  "settingsAzanVolumeHelp": "بلندی کلی همه‌ی اذان‌ها",
+  "settingsBackupExport": "ذخیره‌ی پشتیبان",
+  "settingsBackupExportFailed": "پشتیبان ذخیره نشد.",
+  "settingsBackupExportHelp": "همه‌ی تنظیمات، مکان‌ها و بیدارباش‌ها در یک پرونده ذخیره می‌شود.",
+  "settingsBackupExported": "پشتیبان ذخیره شد: {path}",
+  "@settingsBackupExported": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsBackupImport": "بازیابی از پشتیبان",
+  "settingsBackupImportBody": "همه‌ی تنظیمات فعلی با محتوای این پرونده جایگزین می‌شود.",
+  "settingsBackupImportConfirm": "بازیابی",
+  "settingsBackupImportHelp": "تنظیمات را از پرونده‌ی پشتیبان برمی‌گرداند.",
+  "settingsBackupImportInvalid": "این پرونده پشتیبان تنظیمات معتبر نیست؛ تنظیمات تغییری نکرد.",
+  "settingsBackupImportReadFailed": "پرونده خوانده نشد؛ تنظیمات تغییری نکرد.",
+  "settingsBackupImportTitle": "تنظیمات بازیابی شود؟",
+  "settingsBackupImported": "تنظیمات بازیابی شد.",
+  "settingsBackupTitle": "پشتیبان‌گیری و بازیابی",
+  "settingsCalcAngleHelp": "زاویه‌ی خورشید زیر افق، به درجه",
+  "settingsCalcAsr": "قاعده‌ی عصر",
+  "settingsCalcFajrAngle": "زاویه‌ی اذان صبح",
+  "settingsCalcHighLat": "عرض‌های جغرافیایی بالا",
+  "settingsCalcHighLatHelp": "برای جاهایی که شب بسیار کوتاه است و زاویه‌ی گرگ‌ومیش به دست نمی‌آید.",
+  "settingsCalcImsak": "امساک",
+  "settingsCalcImsakHelp": "چند دقیقه پیش از اذان صبح",
+  "settingsCalcIshaAngle": "زاویه‌ی عشا",
+  "settingsCalcIshaMinutes": "دقیقه پس از مغرب",
+  "settingsCalcIshaMode": "تعریف عشا",
+  "settingsCalcIshaModeAngle": "زاویه‌ی خورشید",
+  "settingsCalcIshaModeMinutes": "دقیقه پس از مغرب",
+  "settingsCalcMaghribAngle": "زاویه‌ی مغرب",
+  "settingsCalcMaghribSunset": "مغرب هنگام غروب خورشید",
+  "settingsCalcMaghribSunsetHelp": "اگر خاموش باشد، مغرب با زاویه‌ی زیر محاسبه می‌شود.",
+  "settingsCalcMethod": "روش محاسبه",
+  "settingsCalcMethodHelp": "با تغییر هر زاویه، روش به «دلخواه» تبدیل می‌شود.",
+  "settingsCalcMidnight": "نیمه‌شب شرعی",
+  "settingsCalcOffsetsHelp": "هر وقت را تا {max} دقیقه جلو یا عقب ببرید.",
+  "@settingsCalcOffsetsHelp": {
+    "placeholders": {
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsCalcOffsetsReset": "صفر کردن همه",
+  "settingsCalcOffsetsTitle": "تنظیم دقیقه‌ای هر وقت",
+  "settingsCalcPreviewHelp": "اوقات امروز ({date}) با تنظیمات بالا",
+  "@settingsCalcPreviewHelp": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsCalcPreviewTitle": "پیش‌نمایش زنده",
+  "settingsCalcRestore": "بازگرداندن مقدارهای پیش‌فرض این روش",
+  "settingsCalcRestoreHelp": "زاویه‌ها، قاعده‌ها و امساک به مقدار «{method}» برمی‌گردد؛ دقیقه‌های تنظیم‌شده‌ی هر وقت تغییر نمی‌کند.",
+  "@settingsCalcRestoreHelp": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsCalcRowsHelp": "اذان صبح، طلوع آفتاب، اذان ظهر، اذان مغرب و نیمه‌شب شرعی همیشه نمایش داده می‌شوند.",
+  "settingsCalcRowsTitle": "ردیف‌های نمایش‌داده‌شده",
+  "settingsCancel": "انصراف",
+  "settingsDecrease": "کم کردن",
+  "settingsDigitsLatin": "لاتین (123)",
+  "settingsDigitsPersian": "فارسی (۱۲۳)",
+  "settingsDispDigits": "رقم‌ها",
+  "settingsDispHijri": "تنظیم تاریخ قمری",
+  "settingsDispHijriHelp": "ایران ماه قمری را با رؤیت هلال تعیین می‌کند؛ اگر تاریخ نمایش‌داده‌شده با اعلام رسمی تفاوت دارد، آن را یک یا دو روز جابه‌جا کنید.",
+  "settingsDispHour": "ساعت",
+  "settingsDispLanguage": "زبان",
+  "settingsDispLanguageHelp": "بدون راه‌اندازی دوباره اعمال می‌شود.",
+  "settingsDispTheme": "پوسته",
+  "settingsHighLatAngleBased": "بر پایه‌ی زاویه",
+  "settingsHighLatNightMiddle": "نیمه‌ی شب",
+  "settingsHighLatNone": "بدون تغییر",
+  "settingsHighLatOneSeventh": "یک‌هفتم شب",
+  "settingsHour12": "۱۲ ساعته",
+  "settingsHour24": "۲۴ ساعته",
+  "settingsIncrease": "افزایش",
+  "settingsInvalidNumber": "یک عدد معتبر بین {min} و {max} وارد کنید.",
+  "@settingsInvalidNumber": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLanguageEn": "English",
+  "settingsLanguageFa": "فارسی",
+  "settingsLocActive": "فعال",
+  "settingsLocAdd": "افزودن",
+  "settingsLocAddCustom": "مکان دلخواه",
+  "settingsLocAddFromDb": "از فهرست شهرها",
+  "settingsLocAddTitle": "افزودن مکان",
+  "settingsLocAdded": "{name} اضافه شد.",
+  "@settingsLocAdded": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLocAllProvinces": "همه‌ی استان‌ها",
+  "settingsLocAlreadySaved": "ذخیره شده",
+  "settingsLocClose": "بستن",
+  "settingsLocCoords": "عرض {lat}، طول {lon}",
+  "@settingsLocCoords": {
+    "placeholders": {
+      "lat": {
+        "type": "String"
+      },
+      "lon": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLocCustomBadge": "دلخواه",
+  "settingsLocDegrees": "درجه",
+  "settingsLocDelete": "حذف",
+  "settingsLocDeleteBody": "این مکان از فهرست شما برداشته می‌شود.",
+  "settingsLocDeleteLast": "آخرین مکان را نمی‌توان حذف کرد.",
+  "settingsLocDeleteTitle": "{name} حذف شود؟",
+  "@settingsLocDeleteTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLocEast": "شرقی",
+  "settingsLocEdit": "ویرایش",
+  "settingsLocElevation": "ارتفاع از سطح دریا (متر)",
+  "settingsLocErrElevation": "ارتفاع باید بین {min} و {max} متر باشد.",
+  "@settingsLocErrElevation": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLocErrLatitude": "عرض جغرافیایی باید عددی بین {min} و {max} باشد.",
+  "@settingsLocErrLatitude": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLocErrLongitude": "طول جغرافیایی باید عددی بین {min} و {max} باشد.",
+  "@settingsLocErrLongitude": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLocErrName": "نام را وارد کنید.",
+  "settingsLocErrOffset": "اختلاف ساعت باید بین {min} و {max} باشد.",
+  "@settingsLocErrOffset": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLocErrZone": "منطقه‌ی زمانی را از فهرست انتخاب کنید.",
+  "settingsLocFormatDecimal": "درجه‌ی اعشاری",
+  "settingsLocFormatDms": "درجه، دقیقه، ثانیه",
+  "settingsLocLatitude": "عرض جغرافیایی",
+  "settingsLocLongitude": "طول جغرافیایی",
+  "settingsLocMinutes": "دقیقه",
+  "settingsLocName": "نام",
+  "settingsLocNoResults": "شهری پیدا نشد.",
+  "settingsLocNorth": "شمالی",
+  "settingsLocProvince": "استان",
+  "settingsLocSave": "ذخیره",
+  "settingsLocSavedHelp": "اوقات شرعی برای مکان فعال محاسبه می‌شود.",
+  "settingsLocSavedTitle": "مکان‌های ذخیره‌شده",
+  "settingsLocSearchHint": "جستجوی شهر",
+  "settingsLocSeconds": "ثانیه",
+  "settingsLocSetActive": "فعال کن",
+  "settingsLocSouth": "جنوبی",
+  "settingsLocWest": "غربی",
+  "settingsLocZoneNone": "منطقه‌ای پیدا نشد.",
+  "settingsLocZoneSearch": "جستجوی منطقه‌ی زمانی",
+  "settingsLocZoneSelected": "منطقه‌ی زمانی انتخاب‌شده: {zone}",
+  "@settingsLocZoneSelected": {
+    "placeholders": {
+      "zone": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsMethodCustom": "دلخواه",
+  "settingsMethodEgypt": "سازمان نقشه‌برداری مصر",
+  "settingsMethodIsna": "جامعه‌ی اسلامی آمریکای شمالی",
+  "settingsMethodJafari": "شیعه اثنی‌عشری، مؤسسه‌ی لوا (قم)",
+  "settingsMethodKarachi": "دانشگاه علوم اسلامی کراچی",
+  "settingsMethodMakkah": "دانشگاه ام‌القری، مکه",
+  "settingsMethodMwl": "رابطه‌ی جهان اسلام",
+  "settingsMethodTehran": "مؤسسه‌ی ژئوفیزیک دانشگاه تهران",
+  "settingsMidnightJafari": "میانه‌ی غروب تا اذان صبح",
+  "settingsMidnightStandard": "میانه‌ی غروب تا طلوع",
+  "settingsOff": "خاموش",
+  "settingsPercent": "{value}٪",
+  "@settingsPercent": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsRemChime": "صدای ملایم یادآوری",
+  "settingsRemChimeHelp": "همراه اعلان یادآوری یک زنگ آرام پخش می‌شود.",
+  "settingsRemChimeTest": "پخش نمونه",
+  "settingsRemHelp": "۰ یعنی خاموش؛ تا {max} دقیقه پیش از اذان.",
+  "@settingsRemHelp": {
+    "placeholders": {
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsRemIndependent": "خاموش کردن یادآوری هرگز روی اذان اثر نمی‌گذارد.",
+  "settingsRemSummary": "{minutes} دقیقه پیش از اذان",
+  "@settingsRemSummary": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsRemTitle": "یادآوری پیش از {prayer}",
+  "@settingsRemTitle": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsResetConfirm": "پاک کردن",
+  "settingsResetConfirmBody": "تنظیمات به حالت اولیه برمی‌گردد و مکان فعال تهران می‌شود. این کار برگشت‌پذیر نیست.",
+  "settingsResetConfirmTitle": "همه‌ی تنظیمات پاک شود؟",
+  "settingsResetDone": "تنظیمات به حالت اولیه برگشت.",
+  "settingsResetHelp": "همه‌ی تنظیمات، مکان‌های ذخیره‌شده و بیدارباش‌ها پاک می‌شود.",
+  "settingsResetTitle": "بازگشت به تنظیمات اولیه",
+  "settingsSaved": "ذخیره شد",
+  "settingsSectionAbout": "درباره و عیب‌یابی",
+  "settingsSectionApp": "برنامه",
+  "settingsSectionAzan": "اذان",
+  "settingsSectionCalculation": "محاسبه",
+  "settingsSectionDisplay": "نمایش",
+  "settingsSectionLocation": "مکان",
+  "settingsSectionReminders": "یادآوری",
+  "settingsSectionTime": "زمان",
+  "settingsSectionsLabel": "بخش‌های تنظیمات",
+  "settingsThemeDark": "تیره",
+  "settingsThemeLight": "روشن",
+  "settingsThemeSystem": "مطابق ویندوز",
+  "settingsTimeCheck": "بررسی ساعت با زمان شبکه",
+  "settingsTimeCheckHelp": "هنگام شروع برنامه و هر شش ساعت یک بار؛ پیش‌فرض خاموش است.",
+  "settingsTimeCheckNow": "اکنون بررسی کن",
+  "settingsTimeCheckedAt": "بررسی در ساعت {time}",
+  "@settingsTimeCheckedAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsTimeChecking": "در حال بررسی…",
+  "settingsTimeCorrect": "اصلاح ساعت در برنامه",
+  "settingsTimeCorrectHelp": "ساعت ویندوز هرگز تغییر نمی‌کند.",
+  "settingsTimeDiagLocation": "اختلاف مکان فعال طبق پایگاه‌داده: {offset}",
+  "@settingsTimeDiagLocation": {
+    "placeholders": {
+      "offset": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsTimeDiagOk": "مشکلی در ساعت دیده نشد.",
+  "settingsTimeDiagTitle": "عیب‌یابی ساعت",
+  "settingsTimeDiagWindows": "اختلاف ساعت ویندوز با زمان جهانی: {offset}",
+  "@settingsTimeDiagWindows": {
+    "placeholders": {
+      "offset": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsTimeError": "اتصال به کارساز زمان ممکن نشد. اینترنت و نام کارساز را بررسی کنید.",
+  "settingsTimeNever": "هنوز بررسی نشده است.",
+  "settingsTimeServer": "کارساز زمان",
+  "settingsTimeServerHelp": "نام کارساز زمان، مثلاً pool.ntp.org",
+  "settingsTimeServerInvalid": "نام کارساز معتبر نیست.",
+  "settingsTimeSkewAhead": "ساعت رایانه {amount} جلو است.",
+  "@settingsTimeSkewAhead": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsTimeSkewBehind": "ساعت رایانه {amount} عقب است.",
+  "@settingsTimeSkewBehind": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsTimeSkewZero": "ساعت رایانه با زمان شبکه یکی است.",
+  "settingsTimeStatusTitle": "آخرین بررسی",
+  "settingsZoneAuto": "خودکار (پیشنهادی)",
+  "settingsZoneAutoHelp": "از پایگاه‌داده‌ی منطقه‌های زمانی برنامه استفاده می‌شود: {zone}",
+  "@settingsZoneAutoHelp": {
+    "placeholders": {
+      "zone": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsZoneFixed": "اختلاف ثابت",
+  "settingsZoneFixedAllYear": "اختلاف ثابت است و در همه‌ی روزهای سال یکسان می‌ماند.",
+  "settingsZoneFixedHelp": "یک اختلاف ثابت با زمان جهانی که در همه‌ی روزهای سال یکسان است.",
+  "settingsZoneFixedValue": "اختلاف ثابت: {offset}",
+  "@settingsZoneFixedValue": {
+    "placeholders": {
+      "offset": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsZoneHourLess": "یک ساعت کمتر",
+  "settingsZoneHourMore": "یک ساعت بیشتر",
+  "settingsZoneNext": "تغییر بعدی: {date}، ساعت {time}، اختلاف {offset}",
+  "@settingsZoneNext": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      },
+      "offset": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsZoneNoChange": "تغییر دیگری برای این منطقه‌ی زمانی برنامه‌ریزی نشده است.",
+  "settingsZoneNow": "اختلاف با زمان جهانی در امروز: {offset}",
+  "@settingsZoneNow": {
+    "placeholders": {
+      "offset": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsZoneQuarterLess": "یک ربع ساعت کمتر",
+  "settingsZoneQuarterMore": "یک ربع ساعت بیشتر",
+  "settingsZoneTitle": "منطقه‌ی زمانی",
+  "timetableCalendarSwitch": "نوع تقویم",
+  "timetableColDay": "روز",
+  "timetableColWeekday": "روز هفته",
+  "timetableMonthUnavailable": "این ماه در جدول تقویم قمری نیست.",
+  "timetableNextMonth": "ماه بعد",
+  "timetableOpenDay": "نمایش {date} در صفحه‌ی خانه",
+  "@timetableOpenDay": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "timetablePreviousMonth": "ماه قبل",
+  "timetableToday": "امروز",
+  "trayMenuLocation": "مکان",
+  "trayMenuMute": "بی‌صدا",
+  "trayMenuMuted": "بی‌صدا (فعال)",
+  "trayMenuQuit": "خروج",
+  "trayMenuSettings": "تنظیمات",
+  "trayMenuShow": "نمایش پنجره",
+  "trayMenuStopAzan": "توقف اذان",
+  "trayMuteCancel": "لغو بی‌صدا",
+  "trayMuteHours": "{n} ساعت",
+  "@trayMuteHours": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "trayMuteIndefinite": "تا اطلاع ثانوی",
+  "trayMuteUntilNext": "تا اذان بعدی",
+  "trayNextLine": "بعدی: {prayer} · {time}",
+  "@trayNextLine": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "trayTimeRow": "{prayer}   {time}",
+  "@trayTimeRow": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "trayTooltip": "{prayer} {time} · {remaining}",
+  "@trayTooltip": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      },
+      "remaining": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeAdd": "افزودن",
+  "wakeAfterHibernate": "پس از صدا: خواب زمستانی",
+  "wakeAfterHibernateChoice": "خواب زمستانی",
+  "wakeAfterNote": "پیش از خواب یا خواب زمستانی، یک شمارش معکوس سی‌ثانیه‌ای فرصت لغو می‌دهد.",
+  "wakeAfterNothing": "کاری نکن",
+  "wakeAfterSleep": "پس از صدا: خواب",
+  "wakeAfterSleepChoice": "خواب",
+  "wakeAfterTitle": "پس از پایان صدا",
+  "wakeCancel": "انصراف",
+  "wakeCapabilityChecking": "در حال بررسی این رایانه…",
+  "wakeCapabilityOkBody": "بررسی مانعی پیدا نکرد. برای اطمینان، آزمایش دو دقیقه‌ای را اجرا کنید.",
+  "wakeCapabilityOkTitle": "این رایانه می‌تواند خودش را بیدار کند",
+  "wakeCapabilityRefresh": "بررسی دوباره",
+  "wakeCapabilityUnknown": "هنوز بررسی نشده است.",
+  "wakeCapabilityWarnTitle": "ممکن است این رایانه برای بیدارباش بیدار نشود",
+  "wakeChoiceFixed": "ساعت معین",
+  "wakeChoiceRelative": "قبل از یک نماز",
+  "wakeChooseFile": "انتخاب فایل…",
+  "wakeCountdownAfterAlarm": "بیدارباش تمام شد.",
+  "wakeCountdownCancel": "لغو",
+  "wakeCountdownHibernate": "رایانه تا {time} دیگر به خواب زمستانی می‌رود.",
+  "@wakeCountdownHibernate": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeCountdownSleep": "رایانه تا {time} دیگر به خواب می‌رود.",
+  "@wakeCountdownSleep": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeDelete": "حذف",
+  "wakeDeleteBody": "بیدارباش و درخواست بیدار شدن آن از ویندوز برداشته می‌شود.",
+  "wakeDeleteConfirm": "حذف",
+  "wakeDeleteTitle": "این بیدارباش حذف شود؟",
+  "wakeDismiss": "بستن",
+  "wakeEdit": "ویرایش",
+  "wakeEditorTitleAdd": "بیدارباش جدید",
+  "wakeEditorTitleEdit": "ویرایش بیدارباش",
+  "wakeEmpty": "هنوز بیدارباشی نساخته‌اید. یکی اضافه کنید تا رایانه در ساعت دلخواه بیدار شود.",
+  "wakeEnabledSwitch": "روشن",
+  "wakeErrorMinutes": "عددی صحیح بین {min} تا {max} بنویسید.",
+  "@wakeErrorMinutes": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeFieldHour": "ساعت",
+  "wakeFieldLabel": "نام (اختیاری)",
+  "wakeFieldMinute": "دقیقه",
+  "wakeFieldMinutesBefore": "چند دقیقه قبل",
+  "wakeFieldPrayer": "وقت",
+  "wakeHibernateNow": "خواب زمستانی",
+  "wakeIssueImportantOnly": "ویندوز فقط تایمرهای «مهم» را اجازه می‌دهد که معمولاً شامل این برنامه نیست.",
+  "wakeIssueInProcessTimer": "تایمر پشتیبان داخل برنامه ساخته نشد.",
+  "wakeIssueModernStandby": "این رایانه از حالت «آماده‌به‌کار مدرن» استفاده می‌کند که بیدار شدن در ساعت معین در آن اغلب نامطمئن است.",
+  "wakeIssueTaskCreationFailed": "ویندوز اجازه‌ی ساختن وظیفه‌ی زمان‌بندی‌شده برای حساب شما را نداد؛ بیدارباش فقط تا وقتی برنامه باز است کار می‌کند.",
+  "wakeIssueTimersOffAc": "ویندوز هنگام اتصال به برق، تایمرهای بیدارکننده را خاموش کرده است.",
+  "wakeIssueTimersOffBattery": "ویندوز هنگام کار با باتری، تایمرهای بیدارکننده را خاموش کرده است.",
+  "wakeIssueUnknown": "تنظیم تایمرهای بیدارکننده‌ی ویندوز خوانده نشد.",
+  "wakeListSeparator": "، ",
+  "wakeNext": "بعدی: {remaining} ({time})",
+  "@wakeNext": {
+    "placeholders": {
+      "remaining": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeNextNone": "بعدی: —",
+  "wakeNextOtherDay": "بعدی: {remaining} ({weekday} {time})",
+  "@wakeNextOtherDay": {
+    "placeholders": {
+      "remaining": {
+        "type": "String"
+      },
+      "weekday": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeOff": "خاموش",
+  "wakeOpenPowerFailed": "تنظیمات برق باز نشد. از «کنترل پنل ← گزینه‌های برق» خودتان آن را باز کنید.",
+  "wakeOpenPowerOptions": "باز کردن تنظیمات برق ویندوز",
+  "wakePercent": "{percent}٪",
+  "@wakePercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "wakePlaySound": "پخش صدا",
+  "wakePowerHint": "در ویندوز: گزینه‌های برق ← تغییر تنظیمات طرح ← تنظیمات پیشرفته ← خواب ← اجازه‌ی تایمرهای بیدارکننده. برنامه هیچ تنظیم برقی را خودش تغییر نمی‌دهد.",
+  "wakePreview": "پیش‌شنود",
+  "wakePreviewStop": "توقف پیش‌شنود",
+  "wakeProblemHibernateUnavailable": "خواب زمستانی در این رایانه روشن نیست.",
+  "wakeProblemProbeFailed": "بررسی این رایانه کامل نشد.",
+  "wakeProblemSoundFailed": "صدای بیدارباش پخش نشد. فایل صدا و بلندگو را بررسی کنید.",
+  "wakeProblemSuspendRefused": "ویندوز اجازه‌ی خواب نداد.",
+  "wakeRepeatDaily": "هر روز",
+  "wakeRepeatOnce": "یک بار",
+  "wakeRepeatTitle": "تکرار",
+  "wakeRepeatWeekdays": "در روزهای {days}",
+  "@wakeRepeatWeekdays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeRepeatWeekdaysChoice": "روزهای انتخابی",
+  "wakeRinging": "بیدارباش در حال پخش است",
+  "wakeSave": "ذخیره",
+  "wakeSaveFailed": "این مقادیر ذخیره نشد. ساعت و روزها را بررسی کنید.",
+  "wakeSleepHint": "رایانه پس از یک شمارش معکوس پنج‌ثانیه‌ای که می‌توانید لغو کنید، می‌خوابد.",
+  "wakeSleepNow": "خواب",
+  "wakeSoundDefault": "صدای پیش‌فرض اذان",
+  "wakeSoundFile": "فایل: {name}",
+  "@wakeSoundFile": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeSoundTitle": "صدا",
+  "wakeStop": "توقف",
+  "wakeSyncError": "درخواست بیدار شدن به ویندوز ثبت نشد؛ بیدارباش ممکن است فقط تا وقتی برنامه باز است کار کند.",
+  "wakeTest": "آزمایش در دو دقیقه",
+  "wakeTestCancel": "لغو آزمایش",
+  "wakeTestPending": "بیدارباش آزمایشی ساعت {time} زنگ می‌زند. حالا رایانه را بخوابانید تا ببینید بیدار می‌شود.",
+  "@wakeTestPending": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeTitle": "بیدارباش",
+  "wakeTriggerAtPrayer": "هنگام {prayer}",
+  "@wakeTriggerAtPrayer": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeTriggerFixed": "ساعت {time}",
+  "@wakeTriggerFixed": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeTriggerRelative": "{minutes} قبل از {prayer}",
+  "@wakeTriggerRelative": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      },
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeTriggerTypeTitle": "زمان",
+  "wakeUseDefault": "صدای پیش‌فرض",
+  "wakeVolume": "بلندی صدا",
+  "wakeWeekdaysError": "دست‌کم یک روز را انتخاب کنید."
 }

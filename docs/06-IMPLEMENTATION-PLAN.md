@@ -23,7 +23,7 @@ Difficulty tags tell you which model to give a task to: **[S]** simple and mecha
 | Q-2 | Azan recordings. The two MP3s in the legacy app have no known licence. Which recordings may be shipped? | Ship none of the legacy files. Bundle one short, clearly licensed placeholder (`azan_default`) and a chime; the user can pick any audio file of their own. |
 | Q-3 | Sources for the occasions data (F-21). | Deferred to P1. |
 | Q-4 | Where releases are published (for the update check, F-28). | Deferred to P1. |
-| Q-5 | Should the 175 unverified legacy cities be reviewed and added? | No; ship the 567 verified ones. |
+| Q-5 | Should the 175 unverified legacy cities be reviewed and added? | No; ship the 566 verified ones that have a province. |
 
 ---
 
@@ -140,7 +140,7 @@ for legacy bug B-01 and must never be deleted or weakened.
 `seed/locations/{cities_iran,provinces,countries}.json` to `app/assets/data/`, keeping only
 `verified: true` cities and dropping fields the app does not need. `City`, `Province`, `Country`
 models; `LocationRepository` (asset-backed, loaded once) with `provinces()`, `citiesOf(province)`,
-`byId`, `search(query)`. Done when: 567 cities and 31 provinces load; every city has a province
+`byId`, `search(query)`. Done when: 566 cities and 31 provinces load; every city has a province
 or is listed under "سایر"; the province centre exists for all 31.
 
 **M3.4 Search.** `TextNormalizer`: lower-case, ي→ی, ك→ک, remove ZWNJ/spaces/diacritics, آ→ا,
@@ -245,7 +245,7 @@ user: (1) `schtasks /Create … /XML` with `WakeToRun` succeeds and the task wak
 and from hibernate; (2) `SetWaitableTimer(fResume=TRUE)` via FFI wakes the PC while the app runs;
 (3) `SetThreadExecutionState` keeps it awake during a 3-minute sound; (4) `SetSuspendState` sleeps
 and hibernates (enable `SeShutdownPrivilege` first if required); (5) reading the `RTCWAKE` power
-setting. Write the findings to `docs/adr/0003-wake-timers.md` (ADRs 0001 and 0002 are taken). **Fallbacks**: if (1) needs
+setting. Write the findings to `docs/adr/0005-wake-timers.md` (ADRs 0001-0003 are taken; 0004 is reserved). **Fallbacks**: if (1) needs
 elevation → use only the in-process timer and say so in the UI ("works while the app is running");
 if (4) fails → `rundll32 powrprof.dll,SetSuspendState` for sleep and `shutdown /h` for hibernate;
 on Modern Standby devices where wake is unreliable → the capability panel says so.

@@ -35,6 +35,31 @@ class ZoneOffsetResolver {
     return tz.TZDateTime.from(instant.toUtc(), location).timeZoneOffset;
   }
 
+  /// The next instant after [instant] at which the offset of [zoneId] differs
+  /// from the offset at [instant], according to the database; null when the
+  /// database lists no further change. The settings screen shows it.
+  ({DateTime at, Duration before, Duration after})? nextOffsetChange(
+    String zoneId,
+    DateTime instant,
+  ) {
+    final location = tz.getLocation(zoneId);
+    final from = instant.toUtc().millisecondsSinceEpoch;
+    final before = offsetAt(zoneId, instant);
+    for (var i = 0; i < location.transitionAt.length; i++) {
+      final at = location.transitionAt[i];
+      if (at <= from) continue;
+      final after = location.zones[location.transitionZone[i]].offset;
+      if (after != before) {
+        return (
+          at: DateTime.fromMillisecondsSinceEpoch(at, isUtc: true),
+          before: before,
+          after: after,
+        );
+      }
+    }
+    return null;
+  }
+
   /// The offset used for all prayer times of the civil [date].
   ///
   /// Fixed rule: the typed offset on every date. Automatic rule: the offset

@@ -1,12 +1,559 @@
 {
   "@@locale": "en",
+  "aboutFontNote": "The Vazirmatn font is bundled under the SIL Open Font License 1.1.",
+  "aboutLicences": "Open-source licences",
+  "aboutSoundNote": "The bundled sounds (the default azan and the reminder chime) are simple generated placeholders, not recordings of anyone, released under CC0. Choose your own azan sound in Settings.",
+  "aboutTagline": "Prayer times and azan for Windows. Works offline, with no ads, no account and no tracking.",
+  "aboutTitle": "About",
+  "aboutVersion": "Version {version}",
+  "@aboutVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "appName": "Owghat",
+  "calendarAdjustEarlier": "One day earlier",
+  "calendarAdjustLater": "One day later",
+  "calendarAdjustValue": "{value} days",
+  "@calendarAdjustValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarConvErrDay": "The day must be from {first} to {days}.",
+  "@calendarConvErrDay": {
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarConvErrIncomplete": "Fill in the year, month and day.",
+  "calendarConvErrMonth": "The month must be from 1 to 12.",
+  "calendarConvErrNumber": "Use digits only.",
+  "calendarConvErrRange": "This date is outside the range the calendar supports.",
+  "calendarConverterHint": "Type a date in any of the three calendars; the other two change with it.",
+  "calendarConverterShow": "Show in calendar",
+  "calendarConverterTitle": "Date converter",
+  "calendarDayMonthYear": "{day} {month} {year}",
+  "@calendarDayMonthYear": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "month": {
+        "type": "String"
+      },
+      "year": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarFieldDay": "Day",
+  "calendarFieldMonth": "Month",
+  "calendarFieldYear": "Year",
+  "calendarGridLabel": "Month calendar",
+  "calendarHijriAdjust": "Lunar date adjustment",
+  "calendarHijriApproxHint": "Approximate: Iran's official lunar calendar follows moon sighting and may differ by a day.",
+  "calendarHijriUnavailable": "No lunar date in the table for this day",
+  "calendarKindGregorian": "Gregorian",
+  "calendarKindHijri": "Lunar Hijri",
+  "calendarKindJalali": "Solar Hijri",
+  "calendarMonthGregorian": "{month, select, m1{January} m2{February} m3{March} m4{April} m5{May} m6{June} m7{July} m8{August} m9{September} m10{October} m11{November} m12{December} other{}}",
+  "@calendarMonthGregorian": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarMonthHijri": "{month, select, m1{Muharram} m2{Safar} m3{Rabi al-Awwal} m4{Rabi al-Thani} m5{Jumada al-Awwal} m6{Jumada al-Thani} m7{Rajab} m8{Shaban} m9{Ramadan} m10{Shawwal} m11{Dhu al-Qadah} m12{Dhu al-Hijjah} other{}}",
+  "@calendarMonthHijri": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarMonthJalali": "{month, select, m1{Farvardin} m2{Ordibehesht} m3{Khordad} m4{Tir} m5{Mordad} m6{Shahrivar} m7{Mehr} m8{Aban} m9{Azar} m10{Dey} m11{Bahman} m12{Esfand} other{}}",
+  "@calendarMonthJalali": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarMonthYear": "{month} {year}",
+  "@calendarMonthYear": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "year": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarMoonNote": "The lunar date comes from the Umm al-Qura table. Iran's official calendar follows moon sighting and can differ by a day; if so, shift it here.",
+  "calendarNextMonth": "Next month",
+  "calendarOpenOnHome": "Show on the home screen",
+  "calendarPanelTimes": "Prayer times for this day",
+  "calendarPreviousMonth": "Previous month",
+  "calendarSeparator": ", ",
+  "calendarToday": "Today",
+  "calendarWeekday": "{day, select, d1{Monday} d2{Tuesday} d3{Wednesday} d4{Thursday} d5{Friday} d6{Saturday} d7{Sunday} other{}}",
+  "@calendarWeekday": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarWeekdayShort": "{day, select, d1{Mon} d2{Tue} d3{Wed} d4{Thu} d5{Fri} d6{Sat} d7{Sun} other{}}",
+  "@calendarWeekdayShort": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "diagAudioFailed": "The test sound could not be played. Check the speakers and the Windows volume.",
+  "diagAudioOk": "The test sound played.",
+  "diagAudioPlay": "Play a test sound",
+  "diagAudioStop": "Stop",
+  "diagAudioTitle": "Audio test",
+  "diagClockOk": "No clock problem found.",
+  "diagClockTitle": "Clock",
+  "diagClockUnchecked": "No problem seen, but the network time check is off, so clock skew is not measured.",
+  "diagCopied": "Copied to the clipboard. It has no names and no exact coordinates.",
+  "diagCopy": "Copy diagnostics",
+  "diagCopyFailed": "Could not copy.",
+  "diagEventAzan": "Azan: {prayer}",
+  "@diagEventAzan": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "diagEventReminder": "Reminder: {prayer}",
+  "@diagEventReminder": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "diagEventTimes": "UTC {utc} | local {local}",
+  "@diagEventTimes": {
+    "placeholders": {
+      "utc": {
+        "type": "String"
+      },
+      "local": {
+        "type": "String"
+      }
+    }
+  },
+  "diagEventWake": "Wake-up alarm",
+  "diagEventsEmpty": "Nothing is scheduled.",
+  "diagEventsTitle": "Next scheduled events",
+  "diagLogNone": "Not available.",
+  "diagLogTitle": "Log files",
+  "diagTitle": "Diagnostics",
+  "diagValue": "{value, select, yes{yes} no{no} unknown{unknown} enabled{allowed} disabled{off} importantOnly{important only} ok{works} failed{failed} other{}}",
+  "@diagValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "diagWakeAc": "Wake timers, plugged in: {value}",
+  "@diagWakeAc": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "diagWakeBattery": "Wake timers, on battery: {value}",
+  "@diagWakeBattery": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "diagWakeCheck": "Check now",
+  "diagWakeInProcess": "Timer inside the app: {value}",
+  "@diagWakeInProcess": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "diagWakeModern": "Modern Standby: {value}",
+  "@diagWakeModern": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "diagWakeNotChecked": "Not checked yet.",
+  "diagWakeTask": "Scheduled task: {value}",
+  "@diagWakeTask": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "diagWakeTitle": "Wake-up check",
+  "formatAm": "AM",
+  "formatHours": "{hours} h",
+  "@formatHours": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "formatHoursMinutes": "{hours} h {minutes} min",
+  "@formatHoursMinutes": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "formatMinutes": "{minutes} min",
+  "@formatMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "formatPm": "PM",
+  "formatRemaining": "in {duration}",
+  "@formatRemaining": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "formatRemainingLessThan": "in less than {minutes} min",
+  "@formatRemainingLessThan": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "formatSeconds": "{seconds} s",
+  "@formatSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "homeAzanMutedIndefinite": "Azan: muted until you turn it back on",
+  "homeAzanMutedUntil": "Azan: muted until {time}",
+  "@homeAzanMutedUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeAzanOff": "Azan: off",
+  "homeAzanOn": "Azan: on",
+  "homeAzanToggleOff": "Turn off the azan for {prayer}",
+  "@homeAzanToggleOff": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "homeAzanToggleOn": "Turn on the azan for {prayer}",
+  "@homeAzanToggleOn": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "homeBackToToday": "Back to today",
+  "homeBannerClockSkew": "The PC clock is off by about {amount}.",
+  "@homeBannerClockSkew": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "homeBannerDismiss": "Dismiss",
+  "homeBannerMutedIndefinite": "The azan is muted until you turn it back on.",
+  "homeBannerMutedUntil": "The azan is muted until {time}.",
+  "@homeBannerMutedUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeBannerSettingsReset": "The settings file could not be read and the settings were reset to the defaults.",
+  "homeBannerStaleZone": "Windows shows a different time for this place than the time-zone database. The times in this app are correct; check the Windows clock.",
+  "homeCompass": "{point, select, p0{north} p1{north-east} p2{east} p3{south-east} p4{south} p5{south-west} p6{west} p7{north-west} other{}}",
+  "@homeCompass": {
+    "placeholders": {
+      "point": {
+        "type": "String"
+      }
+    }
+  },
+  "homeCountdownSemantics": "{event} {duration}",
+  "@homeCountdownSemantics": {
+    "placeholders": {
+      "event": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "homeDayTimes": "Times for {date}",
+  "@homeDayTimes": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "homeEventAt": "{event} {time}",
+  "@homeEventAt": {
+    "placeholders": {
+      "event": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeHeroNoNext": "Nothing to count down to",
+  "homeMute": "Mute",
+  "homeMuteCancel": "Cancel mute",
+  "homeMuteForDuration": "For {duration}",
+  "@homeMuteForDuration": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "homeMuteIndefinite": "Until I turn it back on",
+  "homeMuteUntilNext": "Until the next azan",
+  "homeNextDay": "Next day",
+  "homeNextMarker": "Next",
+  "homeNextWakeAlarm": "Next wake-up: {value}",
+  "@homeNextWakeAlarm": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "homeNoTimesAction": "Calculation settings",
+  "homeNoTimesInfo": "Not every time can be calculated for this place on this day. You can change the high-latitude rule in the settings.",
+  "homeNoValue": "—",
+  "homeNowPlaying": "Playing: {prayer}",
+  "@homeNowPlaying": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "homeNowPlayingGeneric": "Playing the azan",
+  "homeOtherDayHint": "Times of this day; the countdown is only for today.",
+  "homePreviousDay": "Previous day",
+  "homeQiblaSummary": "Qibla: {degrees}° {direction}",
+  "@homeQiblaSummary": {
+    "placeholders": {
+      "degrees": {
+        "type": "String"
+      },
+      "direction": {
+        "type": "String"
+      }
+    }
+  },
+  "homeReminderMinutes": "Reminder: {minutes} min before",
+  "@homeReminderMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "homeReminderOff": "Reminders: off",
+  "homeReminderRange": "Reminders: {min} to {max} min before",
+  "@homeReminderRange": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "homeStatusTitle": "Status",
+  "homeStop": "Stop",
+  "homeSwitchLocation": "Change location",
+  "homeTimelineLabel": "Day timeline",
+  "homeToday": "Today",
+  "homeTodayTimes": "Today's times",
+  "homeTomorrowTimes": "Tomorrow's times",
+  "homeUntilEvent": "Until {event}",
+  "@homeUntilEvent": {
+    "placeholders": {
+      "event": {
+        "type": "String"
+      }
+    }
+  },
+  "homeViewingDay": "Viewing {date}",
+  "@homeViewingDay": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "navCalendar": "Calendar",
   "navHome": "Home",
   "navQibla": "Qibla",
   "navSettings": "Settings",
   "navTimetable": "Timetable",
   "navWakeUp": "Wake-up",
+  "notifAzanBody": "{place} · {time}",
+  "@notifAzanBody": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "notifAzanFailed": "The azan could not be played.",
+  "notifAzanTitle": "{prayer} azan",
+  "@notifAzanTitle": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "notifMissedBody": "The computer was asleep at {time}.",
+  "@notifMissedBody": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "notifMissedTitle": "{prayer} azan was not played",
+  "@notifMissedTitle": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "notifReminderBody": "{place} · {time}",
+  "@notifReminderBody": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "notifReminderTitle": "{minutes} min to {prayer}",
+  "@notifReminderTitle": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      },
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "notifSoundFallback": "The azan sound file was not found; the default sound was played.",
+  "notifStopAction": "Stop",
+  "notifTrayHint": "The app keeps running next to the Windows clock.",
+  "onboardingAzanBody": "Listen to the azan and choose whether the app starts with Windows.",
+  "onboardingAzanTitle": "Azan and start-up",
+  "onboardingBack": "Back",
+  "onboardingCityBody": "Search for your city or pick it from a province.",
+  "onboardingCityNone": "No city found.",
+  "onboardingCitySearchHint": "Search for a city",
+  "onboardingCitySelected": "Selected: {city}",
+  "@onboardingCitySelected": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingCityTitle": "Your city",
+  "onboardingFinish": "Start",
+  "onboardingLanguageBody": "Choose your language. You can change it later in the settings.",
+  "onboardingLanguageEn": "English",
+  "onboardingLanguageFa": "فارسی",
+  "onboardingLanguageTitle": "Language",
+  "onboardingNext": "Next",
+  "onboardingPreview": "Play a sample azan",
+  "onboardingProvinceAll": "All provinces",
+  "onboardingSkip": "Skip",
+  "onboardingStartWithWindows": "Start with Windows",
+  "onboardingStartWithWindowsHint": "The app starts quietly in the system tray.",
+  "onboardingStepProgress": "Step {step} of {total}",
+  "@onboardingStepProgress": {
+    "placeholders": {
+      "step": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "onboardingStopPreview": "Stop",
   "prayerAsr": "Asr",
   "prayerDhuhr": "Dhuhr",
   "prayerFajr": "Fajr",
@@ -15,5 +562,765 @@
   "prayerMaghrib": "Maghrib",
   "prayerMidnight": "Midnight",
   "prayerSunrise": "Sunrise",
-  "prayerSunset": "Sunset"
+  "prayerSunset": "Sunset",
+  "qiblaBearingLabel": "Bearing (clockwise from true north)",
+  "qiblaBearingValue": "{degrees}° ({direction})",
+  "@qiblaBearingValue": {
+    "placeholders": {
+      "degrees": {
+        "type": "String"
+      },
+      "direction": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaCardinal": "{point, select, n{N} e{E} s{S} w{W} other{}}",
+  "@qiblaCardinal": {
+    "placeholders": {
+      "point": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaCompassSemantics": "Compass rose: the qibla is at {degrees} degrees ({direction})",
+  "@qiblaCompassSemantics": {
+    "placeholders": {
+      "degrees": {
+        "type": "String"
+      },
+      "direction": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaCompassSemanticsSun": "{base}; the sun is at {azimuth} degrees",
+  "@qiblaCompassSemanticsSun": {
+    "placeholders": {
+      "base": {
+        "type": "String"
+      },
+      "azimuth": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaDistanceLabel": "Distance to the Kaaba",
+  "qiblaDistanceValue": "{km} km",
+  "@qiblaDistanceValue": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaForLocation": "Qibla direction for {place}",
+  "@qiblaForLocation": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaNoCompassNote": "A PC has no compass, so the drawing is relative to true north (north is at the top).",
+  "qiblaSunBelow": "The sun is below the horizon.",
+  "qiblaSunInHelp": "At this moment the sun is exactly in the qibla direction; face the sun.",
+  "qiblaSunInTitle": "Sun in the qibla direction",
+  "qiblaSunNone": "Does not happen today.",
+  "qiblaSunNowLabel": "Sun now",
+  "qiblaSunNowValue": "Azimuth {azimuth}°, altitude {altitude}°",
+  "@qiblaSunNowValue": {
+    "placeholders": {
+      "azimuth": {
+        "type": "String"
+      },
+      "altitude": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaSunOppHelp": "At this moment the shadow of an upright rod points toward the qibla.",
+  "qiblaSunOppTitle": "Sun opposite the qibla",
+  "qiblaSunTimesTitle": "The sun and the qibla today",
+  "qiblaTitle": "Qibla",
+  "settingsAboutPlaceholder": "Version, licences and the diagnostics page appear in this section.",
+  "settingsAppAutostart": "Start with Windows",
+  "settingsAppAutostartHelp": "The app starts quietly next to the clock when you sign in to Windows.",
+  "settingsAppCloseToTray": "Close to the tray",
+  "settingsAppCloseToTrayHelp": "Closing the window keeps the app next to the Windows clock so the azan still plays. When off, closing quits the app.",
+  "settingsAppMinimized": "Start minimised",
+  "settingsAppMinimizedHelp": "The window stays closed when Windows starts the app.",
+  "settingsAsrHanafi": "Hanafi (shadow twice the object)",
+  "settingsAsrStandard": "Standard (shadow equals the object)",
+  "settingsAzanChoose": "Choose a file…",
+  "settingsAzanEnabled": "Play the azan",
+  "settingsAzanEnabledHelp": "The master switch; when it is off no azan plays.",
+  "settingsAzanFade": "Fade in",
+  "settingsAzanFadeHelp": "The azan rises gently to full volume.",
+  "settingsAzanMute": "Quick mute",
+  "settingsAzanMuteHelp": "Silence the azan for a while.",
+  "settingsAzanNotMuted": "Not muted",
+  "settingsAzanPrayerSwitch": "{prayer} azan",
+  "@settingsAzanPrayerSwitch": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsAzanPrayerVolume": "Volume of this azan",
+  "settingsAzanPreview": "Preview",
+  "settingsAzanSound": "Sound",
+  "settingsAzanSoundDefault": "Bundled azan",
+  "settingsAzanSoundFile": "File: {name}",
+  "@settingsAzanSoundFile": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsAzanUseDefault": "Use the bundled sound",
+  "settingsAzanVolume": "Volume",
+  "settingsAzanVolumeHelp": "The overall volume of every azan",
+  "settingsBackupExport": "Export backup",
+  "settingsBackupExportFailed": "The backup could not be saved.",
+  "settingsBackupExportHelp": "All settings, locations and wake-up alarms are saved in one file.",
+  "settingsBackupExported": "Backup saved: {path}",
+  "@settingsBackupExported": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsBackupImport": "Import backup",
+  "settingsBackupImportBody": "All current settings are replaced by the content of this file.",
+  "settingsBackupImportConfirm": "Restore",
+  "settingsBackupImportHelp": "Restores the settings from a backup file.",
+  "settingsBackupImportInvalid": "This file is not a valid settings backup; the settings were not changed.",
+  "settingsBackupImportReadFailed": "The file could not be read; the settings were not changed.",
+  "settingsBackupImportTitle": "Restore the settings?",
+  "settingsBackupImported": "The settings were restored.",
+  "settingsBackupTitle": "Backup and restore",
+  "settingsCalcAngleHelp": "Angle of the sun below the horizon, in degrees",
+  "settingsCalcAsr": "Asr rule",
+  "settingsCalcFajrAngle": "Fajr angle",
+  "settingsCalcHighLat": "High latitudes",
+  "settingsCalcHighLatHelp": "For places where the night is very short and the twilight angle is never reached.",
+  "settingsCalcImsak": "Imsak",
+  "settingsCalcImsakHelp": "Minutes before Fajr",
+  "settingsCalcIshaAngle": "Isha angle",
+  "settingsCalcIshaMinutes": "Minutes after Maghrib",
+  "settingsCalcIshaMode": "Isha definition",
+  "settingsCalcIshaModeAngle": "Sun angle",
+  "settingsCalcIshaModeMinutes": "Minutes after Maghrib",
+  "settingsCalcMaghribAngle": "Maghrib angle",
+  "settingsCalcMaghribSunset": "Maghrib at sunset",
+  "settingsCalcMaghribSunsetHelp": "When off, Maghrib is calculated with the angle below.",
+  "settingsCalcMethod": "Method",
+  "settingsCalcMethodHelp": "Changing any angle turns the method into Custom.",
+  "settingsCalcMidnight": "Midnight",
+  "settingsCalcOffsetsHelp": "Move any time earlier or later by up to {max} minutes.",
+  "@settingsCalcOffsetsHelp": {
+    "placeholders": {
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsCalcOffsetsReset": "Reset all",
+  "settingsCalcOffsetsTitle": "Minute adjustment per time",
+  "settingsCalcPreviewHelp": "Today's times ({date}) with the settings above",
+  "@settingsCalcPreviewHelp": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsCalcPreviewTitle": "Live preview",
+  "settingsCalcRestore": "Restore defaults for this method",
+  "settingsCalcRestoreHelp": "Angles, rules and Imsak return to the values of {method}; the minute adjustments of each time are not changed.",
+  "@settingsCalcRestoreHelp": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsCalcRowsHelp": "Fajr, Sunrise, Dhuhr, Maghrib and Midnight are always shown.",
+  "settingsCalcRowsTitle": "Rows to show",
+  "settingsCancel": "Cancel",
+  "settingsDecrease": "Decrease",
+  "settingsDigitsLatin": "Latin (123)",
+  "settingsDigitsPersian": "Persian (۱۲۳)",
+  "settingsDispDigits": "Digits",
+  "settingsDispHijri": "Hijri date adjustment",
+  "settingsDispHijriHelp": "Iran follows moon sighting, so the shown Hijri date can differ from the official one; shift it by a day or two here.",
+  "settingsDispHour": "Clock",
+  "settingsDispLanguage": "Language",
+  "settingsDispLanguageHelp": "Applies without a restart.",
+  "settingsDispTheme": "Theme",
+  "settingsHighLatAngleBased": "Angle based",
+  "settingsHighLatNightMiddle": "Middle of the night",
+  "settingsHighLatNone": "No adjustment",
+  "settingsHighLatOneSeventh": "One seventh of the night",
+  "settingsHour12": "12-hour",
+  "settingsHour24": "24-hour",
+  "settingsIncrease": "Increase",
+  "settingsInvalidNumber": "Enter a number between {min} and {max}.",
+  "@settingsInvalidNumber": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLanguageEn": "English",
+  "settingsLanguageFa": "فارسی",
+  "settingsLocActive": "Active",
+  "settingsLocAdd": "Add",
+  "settingsLocAddCustom": "Custom location",
+  "settingsLocAddFromDb": "From the city list",
+  "settingsLocAddTitle": "Add a location",
+  "settingsLocAdded": "{name} was added.",
+  "@settingsLocAdded": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLocAllProvinces": "All provinces",
+  "settingsLocAlreadySaved": "Already saved",
+  "settingsLocClose": "Close",
+  "settingsLocCoords": "Lat {lat}, lon {lon}",
+  "@settingsLocCoords": {
+    "placeholders": {
+      "lat": {
+        "type": "String"
+      },
+      "lon": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLocCustomBadge": "Custom",
+  "settingsLocDegrees": "Degrees",
+  "settingsLocDelete": "Delete",
+  "settingsLocDeleteBody": "This location is removed from your list.",
+  "settingsLocDeleteLast": "The last location cannot be deleted.",
+  "settingsLocDeleteTitle": "Delete {name}?",
+  "@settingsLocDeleteTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLocEast": "East",
+  "settingsLocEdit": "Edit",
+  "settingsLocElevation": "Elevation (metres)",
+  "settingsLocErrElevation": "Elevation must be between {min} and {max} metres.",
+  "@settingsLocErrElevation": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLocErrLatitude": "Latitude must be a number between {min} and {max}.",
+  "@settingsLocErrLatitude": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLocErrLongitude": "Longitude must be a number between {min} and {max}.",
+  "@settingsLocErrLongitude": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLocErrName": "Enter a name.",
+  "settingsLocErrOffset": "The offset must be between {min} and {max}.",
+  "@settingsLocErrOffset": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLocErrZone": "Choose a time zone from the list.",
+  "settingsLocFormatDecimal": "Decimal degrees",
+  "settingsLocFormatDms": "Degrees, minutes, seconds",
+  "settingsLocLatitude": "Latitude",
+  "settingsLocLongitude": "Longitude",
+  "settingsLocMinutes": "Minutes",
+  "settingsLocName": "Name",
+  "settingsLocNoResults": "No city found.",
+  "settingsLocNorth": "North",
+  "settingsLocProvince": "Province",
+  "settingsLocSave": "Save",
+  "settingsLocSavedHelp": "The times are calculated for the active location.",
+  "settingsLocSavedTitle": "Saved locations",
+  "settingsLocSearchHint": "Search for a city",
+  "settingsLocSeconds": "Seconds",
+  "settingsLocSetActive": "Set active",
+  "settingsLocSouth": "South",
+  "settingsLocWest": "West",
+  "settingsLocZoneNone": "No time zone found.",
+  "settingsLocZoneSearch": "Search time zones",
+  "settingsLocZoneSelected": "Selected time zone: {zone}",
+  "@settingsLocZoneSelected": {
+    "placeholders": {
+      "zone": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsMethodCustom": "Custom",
+  "settingsMethodEgypt": "Egyptian General Authority of Survey",
+  "settingsMethodIsna": "Islamic Society of North America",
+  "settingsMethodJafari": "Shia Ithna-Ashari, Leva Institute (Qom)",
+  "settingsMethodKarachi": "University of Islamic Sciences, Karachi",
+  "settingsMethodMakkah": "Umm al-Qura University, Makkah",
+  "settingsMethodMwl": "Muslim World League",
+  "settingsMethodTehran": "University of Tehran, Institute of Geophysics",
+  "settingsMidnightJafari": "Between sunset and Fajr",
+  "settingsMidnightStandard": "Between sunset and sunrise",
+  "settingsOff": "Off",
+  "settingsPercent": "{value}%",
+  "@settingsPercent": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsRemChime": "Soft chime",
+  "settingsRemChimeHelp": "A soft chime plays with the reminder notification.",
+  "settingsRemChimeTest": "Play a sample",
+  "settingsRemHelp": "0 means off; up to {max} minutes before the azan.",
+  "@settingsRemHelp": {
+    "placeholders": {
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsRemIndependent": "Turning reminders off never affects the azan.",
+  "settingsRemSummary": "{minutes} min before the azan",
+  "@settingsRemSummary": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsRemTitle": "Reminder before {prayer}",
+  "@settingsRemTitle": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsResetConfirm": "Clear",
+  "settingsResetConfirmBody": "The settings return to their defaults and the active location becomes Tehran. This cannot be undone.",
+  "settingsResetConfirmTitle": "Clear all settings?",
+  "settingsResetDone": "The settings were reset to the defaults.",
+  "settingsResetHelp": "All settings, saved locations and wake-up alarms are cleared.",
+  "settingsResetTitle": "Reset to defaults",
+  "settingsSaved": "Saved",
+  "settingsSectionAbout": "About and diagnostics",
+  "settingsSectionApp": "App",
+  "settingsSectionAzan": "Azan",
+  "settingsSectionCalculation": "Calculation",
+  "settingsSectionDisplay": "Display",
+  "settingsSectionLocation": "Location",
+  "settingsSectionReminders": "Reminders",
+  "settingsSectionTime": "Time",
+  "settingsSectionsLabel": "Settings sections",
+  "settingsThemeDark": "Dark",
+  "settingsThemeLight": "Light",
+  "settingsThemeSystem": "Follow Windows",
+  "settingsTimeCheck": "Check the clock against network time",
+  "settingsTimeCheckHelp": "When the app starts and every six hours; off by default.",
+  "settingsTimeCheckNow": "Check now",
+  "settingsTimeCheckedAt": "Checked at {time}",
+  "@settingsTimeCheckedAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsTimeChecking": "Checking…",
+  "settingsTimeCorrect": "Correct the time inside the app",
+  "settingsTimeCorrectHelp": "The Windows clock is never changed.",
+  "settingsTimeDiagLocation": "Offset of the active location (database): {offset}",
+  "@settingsTimeDiagLocation": {
+    "placeholders": {
+      "offset": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsTimeDiagOk": "No clock problem found.",
+  "settingsTimeDiagTitle": "Clock diagnostics",
+  "settingsTimeDiagWindows": "Windows offset from UTC: {offset}",
+  "@settingsTimeDiagWindows": {
+    "placeholders": {
+      "offset": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsTimeError": "Could not reach the time server. Check the internet connection and the server name.",
+  "settingsTimeNever": "Not checked yet.",
+  "settingsTimeServer": "Time server",
+  "settingsTimeServerHelp": "Name of the time server, for example pool.ntp.org",
+  "settingsTimeServerInvalid": "The server name is not valid.",
+  "settingsTimeSkewAhead": "The PC clock is {amount} ahead.",
+  "@settingsTimeSkewAhead": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsTimeSkewBehind": "The PC clock is {amount} behind.",
+  "@settingsTimeSkewBehind": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsTimeSkewZero": "The PC clock matches network time.",
+  "settingsTimeStatusTitle": "Last check",
+  "settingsZoneAuto": "Automatic (recommended)",
+  "settingsZoneAutoHelp": "Uses the time-zone database built into the app: {zone}",
+  "@settingsZoneAutoHelp": {
+    "placeholders": {
+      "zone": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsZoneFixed": "Fixed offset",
+  "settingsZoneFixedAllYear": "The offset is fixed and stays the same on every day of the year.",
+  "settingsZoneFixedHelp": "One fixed difference from UTC that applies on every day of the year.",
+  "settingsZoneFixedValue": "Fixed offset: {offset}",
+  "@settingsZoneFixedValue": {
+    "placeholders": {
+      "offset": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsZoneHourLess": "One hour less",
+  "settingsZoneHourMore": "One hour more",
+  "settingsZoneNext": "Next change: {date} at {time}, offset {offset}",
+  "@settingsZoneNext": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      },
+      "offset": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsZoneNoChange": "No further change is planned for this time zone.",
+  "settingsZoneNow": "Offset in effect today: {offset}",
+  "@settingsZoneNow": {
+    "placeholders": {
+      "offset": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsZoneQuarterLess": "A quarter of an hour less",
+  "settingsZoneQuarterMore": "A quarter of an hour more",
+  "settingsZoneTitle": "Time zone",
+  "timetableCalendarSwitch": "Calendar type",
+  "timetableColDay": "Day",
+  "timetableColWeekday": "Weekday",
+  "timetableMonthUnavailable": "This month is outside the lunar calendar table.",
+  "timetableNextMonth": "Next month",
+  "timetableOpenDay": "Show {date} on the home screen",
+  "@timetableOpenDay": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "timetablePreviousMonth": "Previous month",
+  "timetableToday": "Today",
+  "trayMenuLocation": "Location",
+  "trayMenuMute": "Mute",
+  "trayMenuMuted": "Muted",
+  "trayMenuQuit": "Quit",
+  "trayMenuSettings": "Settings",
+  "trayMenuShow": "Show window",
+  "trayMenuStopAzan": "Stop azan",
+  "trayMuteCancel": "Cancel mute",
+  "trayMuteHours": "{n} h",
+  "@trayMuteHours": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "trayMuteIndefinite": "Until I turn it off",
+  "trayMuteUntilNext": "Until the next azan",
+  "trayNextLine": "Next: {prayer} · {time}",
+  "@trayNextLine": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "trayTimeRow": "{prayer}   {time}",
+  "@trayTimeRow": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "trayTooltip": "{prayer} {time} · {remaining}",
+  "@trayTooltip": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      },
+      "remaining": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeAdd": "Add alarm",
+  "wakeAfterHibernate": "After the sound: hibernate",
+  "wakeAfterHibernateChoice": "Hibernate",
+  "wakeAfterNote": "Before the PC sleeps or hibernates, a 30-second countdown lets you cancel.",
+  "wakeAfterNothing": "Do nothing",
+  "wakeAfterSleep": "After the sound: sleep",
+  "wakeAfterSleepChoice": "Sleep",
+  "wakeAfterTitle": "After the sound",
+  "wakeCancel": "Cancel",
+  "wakeCapabilityChecking": "Checking this PC…",
+  "wakeCapabilityOkBody": "The check found no obstacle. Run the two-minute test to be sure.",
+  "wakeCapabilityOkTitle": "This PC can wake itself",
+  "wakeCapabilityRefresh": "Check again",
+  "wakeCapabilityUnknown": "Not checked yet.",
+  "wakeCapabilityWarnTitle": "This PC may not wake up for an alarm",
+  "wakeChoiceFixed": "At a fixed time",
+  "wakeChoiceRelative": "Before a prayer",
+  "wakeChooseFile": "Choose a file…",
+  "wakeCountdownAfterAlarm": "The alarm has finished.",
+  "wakeCountdownCancel": "Cancel",
+  "wakeCountdownHibernate": "The PC will hibernate in {time}.",
+  "@wakeCountdownHibernate": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeCountdownSleep": "The PC will go to sleep in {time}.",
+  "@wakeCountdownSleep": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeDelete": "Delete",
+  "wakeDeleteBody": "The alarm and its wake-up request will be removed.",
+  "wakeDeleteConfirm": "Delete",
+  "wakeDeleteTitle": "Delete this alarm?",
+  "wakeDismiss": "Dismiss",
+  "wakeEdit": "Edit",
+  "wakeEditorTitleAdd": "New alarm",
+  "wakeEditorTitleEdit": "Edit alarm",
+  "wakeEmpty": "No alarms yet. Add one to wake this PC at a time you choose.",
+  "wakeEnabledSwitch": "On",
+  "wakeErrorMinutes": "Enter a whole number from {min} to {max}.",
+  "@wakeErrorMinutes": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeFieldHour": "Hour",
+  "wakeFieldLabel": "Name (optional)",
+  "wakeFieldMinute": "Minute",
+  "wakeFieldMinutesBefore": "Minutes before",
+  "wakeFieldPrayer": "Prayer",
+  "wakeHibernateNow": "Hibernate now",
+  "wakeIssueImportantOnly": "Windows only allows important wake timers, which usually does not include this app.",
+  "wakeIssueInProcessTimer": "The backup timer inside the app could not be created.",
+  "wakeIssueModernStandby": "This PC uses Modern Standby, where waking at a set time is often unreliable.",
+  "wakeIssueTaskCreationFailed": "Windows did not allow a scheduled wake-up task for your account, so an alarm only works while this app is running.",
+  "wakeIssueTimersOffAc": "Windows has wake timers turned off while the PC is plugged in.",
+  "wakeIssueTimersOffBattery": "Windows has wake timers turned off while the PC runs on battery.",
+  "wakeIssueUnknown": "The Windows wake-timer setting could not be read.",
+  "wakeListSeparator": ", ",
+  "wakeNext": "Next: {remaining} ({time})",
+  "@wakeNext": {
+    "placeholders": {
+      "remaining": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeNextNone": "Next: —",
+  "wakeNextOtherDay": "Next: {remaining} ({weekday} {time})",
+  "@wakeNextOtherDay": {
+    "placeholders": {
+      "remaining": {
+        "type": "String"
+      },
+      "weekday": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeOff": "Off",
+  "wakeOpenPowerFailed": "The power settings could not be opened. Open Control Panel > Power Options yourself.",
+  "wakeOpenPowerOptions": "Open Windows power settings",
+  "wakePercent": "{percent}%",
+  "@wakePercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "wakePlaySound": "Play a sound",
+  "wakePowerHint": "In Windows: Power Options > Change plan settings > Change advanced power settings > Sleep > Allow wake timers. This app never changes a power setting by itself.",
+  "wakePreview": "Preview",
+  "wakePreviewStop": "Stop preview",
+  "wakeProblemHibernateUnavailable": "Hibernation is not turned on for this PC.",
+  "wakeProblemProbeFailed": "The check of this PC could not be completed.",
+  "wakeProblemSoundFailed": "The alarm sound could not be played. Check the sound file and the speakers.",
+  "wakeProblemSuspendRefused": "Windows did not allow the PC to sleep.",
+  "wakeRepeatDaily": "Every day",
+  "wakeRepeatOnce": "Once",
+  "wakeRepeatTitle": "Repeat",
+  "wakeRepeatWeekdays": "On {days}",
+  "@wakeRepeatWeekdays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeRepeatWeekdaysChoice": "Chosen days",
+  "wakeRinging": "An alarm is ringing",
+  "wakeSave": "Save",
+  "wakeSaveFailed": "These values could not be saved. Check the time and the days.",
+  "wakeSleepHint": "The PC goes to sleep after a five-second countdown that you can cancel.",
+  "wakeSleepNow": "Sleep now",
+  "wakeSoundDefault": "Default azan sound",
+  "wakeSoundFile": "File: {name}",
+  "@wakeSoundFile": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeSoundTitle": "Sound",
+  "wakeStop": "Stop",
+  "wakeSyncError": "The wake-up request could not be registered with Windows; an alarm may only work while the app is running.",
+  "wakeTest": "Test in 2 minutes",
+  "wakeTestCancel": "Cancel the test",
+  "wakeTestPending": "A test alarm will ring at {time}. Put the PC to sleep now to see whether it wakes.",
+  "@wakeTestPending": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeTitle": "Wake-up alarms",
+  "wakeTriggerAtPrayer": "At {prayer}",
+  "@wakeTriggerAtPrayer": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeTriggerFixed": "At {time}",
+  "@wakeTriggerFixed": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeTriggerRelative": "{minutes} before {prayer}",
+  "@wakeTriggerRelative": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      },
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "wakeTriggerTypeTitle": "When",
+  "wakeUseDefault": "Use the default",
+  "wakeVolume": "Volume",
+  "wakeWeekdaysError": "Choose at least one day."
 }

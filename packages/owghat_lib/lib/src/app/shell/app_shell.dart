@@ -4,8 +4,12 @@ import 'package:owghat_lib/l10n/gen/app_localizations.dart';
 import 'package:owghat_lib/src/app/shell/destination.dart';
 import 'package:owghat_lib/src/app/shell/destination_controller.dart';
 import 'package:owghat_lib/src/app/shell/destination_pages.dart';
+import 'package:owghat_lib/src/features/onboarding/presentation/onboarding_page.dart';
+import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
+import 'package:owghat_lib/src/features/wake_alarm/presentation/countdown_overlay.dart';
 
-/// Navigation rail plus the page of the selected destination.
+/// Navigation rail plus the page of the selected destination; the first-run
+/// flow instead while `settings.onboardingCompleted` is false.
 class AppShell extends ConsumerWidget {
   /// Creates the shell.
   const AppShell({super.key});
@@ -15,6 +19,11 @@ class AppShell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final onboarded = ref.watch(
+      settingsProvider.select((s) => s.onboardingCompleted),
+    );
+    if (!onboarded) return const OnboardingPage();
+
     final l10n = AppLocalizations.of(context);
     final current = ref.watch(destinationProvider);
     final narrow = MediaQuery.sizeOf(context).width < 900;
@@ -30,26 +39,45 @@ class AppShell extends ConsumerWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Row(
+        child: Stack(
+          fit: StackFit.expand,
           children: [
-            NavigationRail(
-              labelType: narrow
-                  ? NavigationRailLabelType.none
-                  : NavigationRailLabelType.all,
-              selectedIndex: Destination.values.indexOf(current),
-              onDestinationSelected: (i) => ref
-                  .read(destinationProvider.notifier)
-                  .select(Destination.values[i]),
-              destinations: items,
-            ),
-            const VerticalDivider(width: 1),
-            Expanded(
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: maxContentWidth),
-                  child: destinationPage(current),
+            Row(
+              children: [
+                NavigationRail(
+                  labelType: narrow
+                      ? NavigationRailLabelType.none
+                      : NavigationRailLabelType.all,
+                  selectedIndex: Destination.values.indexOf(current),
+                  onDestinationSelected: (i) => ref
+                      .read(destinationProvider.notifier)
+                      .select(Destination.values[i]),
+                  destinations: items,
                 ),
+                const VerticalDivider(width: 1),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        maxWidth: maxContentWidth,
+                      ),
+                      child: destinationPage(current),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            // The sleep countdown after an alarm must be visible and
+            // cancellable on every screen (it is not a modal dialog).
+            const Positioned(
+              left: 16,
+              right: 16,
+              bottom: 16,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                heightFactor: 1,
+                child: SizedBox(width: 520, child: WakeCountdownOverlay()),
               ),
             ),
           ],
