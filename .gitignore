@@ -9,3 +9,4 @@ pubspec.lock.bak
 app/pubspec.lock
 packages/prayer_core/pubspec.lock
 .flutter-plugins*
+coverage/

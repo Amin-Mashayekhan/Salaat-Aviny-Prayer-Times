@@ -1,0 +1,17 @@
+name: prayer_core
+description: >-
+  Pure-Dart prayer-time calculator, qibla maths and schedule builder.
+  No Flutter, no I/O, no clock, no time zones.
+version: 1.0.0
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ^3.13.7
+
+dependencies:
+  meta: ^1.16.0
+
+dev_dependencies:
+  test: ^1.25.6
+  very_good_analysis: ^11.0.0

@@ -1,0 +1,10 @@
+name: owghat_workspace
+description: Workspace root for the Owghat prayer-times app. Holds no code of its own.
+publish_to: none
+
+environment:
+  sdk: ^3.13.7
+
+workspace:
+  - app
+  - packages/prayer_core
