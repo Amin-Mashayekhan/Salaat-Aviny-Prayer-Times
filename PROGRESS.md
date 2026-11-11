@@ -1,94 +1,94 @@
 # Progress
 
-Update this file at the end of every work session. One line per task; add notes the next session needs.
+Legend: `[x]` done and covered by automated tests; `[~]` code written and analysed but NOT yet run on a
+real Windows PC (needs the manual checklist in `docs/manual-test-checklist*.md`); `[ ]` not done.
 
-## Status
+## Status (2026-11-11)
 
-- Current milestone: **M0** (not started)
-- Next task: **M0.1**
+- Library `packages/owghat_lib`: 767 tests, `flutter analyze` clean. `packages/prayer_core`: 374 tests,
+  100 % line coverage, `dart analyze` clean. `app/`: `flutter analyze` clean.
+- **Nothing in `app/` has ever been compiled or run**: this machine has no Visual Studio (C++ workload),
+  so `flutter build windows` / `flutter run -d windows` were never executed. That covers the C++ runner
+  code, every plugin class (tray, window, audio, toasts, autostart, single instance, file dialogs) and the
+  wake-up FFI/Task Scheduler code. Install Visual Studio Build Tools (Desktop development with C++), run
+  `flutter build windows --release` in `app/`, then work through the manual checklists.
+- Next steps for the owner: (1) install the C++ toolchain, build, fix compile errors in `app/windows` and
+  `app/lib/src/platform`; (2) run `docs/manual-test-checklist.md` and `docs/manual-test-checklist-wake.md`
+  on Windows 10 and 11; (3) answer the open questions below; (4) tag `v1.0.0`.
 
 ## Blocked
 
-_(nothing)_
+- M9.4 (release build, tag): needs the Visual Studio C++ toolchain.
+- Hardware verification of M4.3-M4.5, M5.4-M5.6 and M7: needs a real PC (see manual checklists).
 
 ## Open questions for the owner
 
-See the table at the top of `docs/06-IMPLEMENTATION-PLAN.md` (Q-1 … Q-5). Record answers here.
+See the table at the top of `docs/06-IMPLEMENTATION-PLAN.md` (Q-1 ... Q-5). Defaults in force: name
+"Owghat", generated placeholder sounds only (no azan recording shipped), 566 verified cities.
 
 ## Tasks
 
-### M0 — Repository and toolchain
-- [ ] M0.1 Install and pin the toolchain
-- [ ] M0.2 Create the workspace
-- [ ] M0.3 CI
-- [ ] M0.4 App skeleton
+### M0 - Repository and toolchain
+- [x] M0.1 Install and pin the toolchain (Flutter 3.47.9 at `E:\Ermile	oolslutter`; VS C++ missing)
+- [x] M0.2 Create the workspace
+- [x] M0.3 CI (`.github/workflows/ci.yml`, not yet run on GitHub)
+- [x] M0.4 App skeleton
 
-### M1 — prayer_core
-- [ ] M1.1 Math helpers
-- [ ] M1.2 Types
-- [ ] M1.3 PrayerCalculator.compute (300 golden vectors)
-- [ ] M1.4 Adjustments and rounding
-- [ ] M1.5 Qibla and sun
-- [ ] M1.6 Schedule builder and catch-up policy
+### M1 - prayer_core
+- [x] M1.1 - M1.6 (calculator with 300 golden vectors, adjustments, qibla and sun, schedule builder, catch-up policy)
 
-### M2 — Settings and storage
-- [ ] M2.1 Models
-- [ ] M2.2 JsonStore
-- [ ] M2.3 Migrations
-- [ ] M2.4 SettingsController
-- [ ] M2.5 Backup / restore / reset
+### M2 - Settings and storage
+- [x] M2.1 - M2.5 (models, atomic JSON store, migrations, controller, backup/restore/reset)
 
-### M3 — Time and locations
-- [ ] M3.1 Clock and zones (Iran no-DST test)
-- [ ] M3.2 T-5 guard test
-- [ ] M3.3 Location data
-- [ ] M3.4 Search
-- [ ] M3.5 Saved locations
-- [ ] M3.6 Network time and clock diagnostics
+### M3 - Time and locations
+- [x] M3.1 Clock and zones (Iran no-DST test)
+- [x] M3.2 T-5 guard test (`t5_guard_test.dart`)
+- [x] M3.3 - M3.5 Location data, search, saved locations
+- [x] M3.6 Network time and clock diagnostics
 
-### M4 — Schedule engine and audio
-- [ ] M4.1 Derived prayer providers
-- [ ] M4.2 ScheduleEngine (simulations a–g)
-- [ ] M4.3 Power events
-- [ ] M4.4 Audio
-- [ ] M4.5 Notifications and reminders
+### M4 - Schedule engine and audio
+- [x] M4.1 Derived prayer providers
+- [x] M4.2 ScheduleEngine (simulations a-g)
+- [~] M4.3 Power events (C++ uncompiled)
+- [~] M4.4 Audio
+- [~] M4.5 Notifications and reminders
 - [ ] Gate: review + 1-hour manual run
 
-### M5 — Home, tray, window
+### M5 - Home, tray, window
 - [x] M5.1 Formatting helpers
 - [x] M5.2 Tri-calendar
 - [x] M5.3 Home screen
-- [ ] M5.4 Window behaviour
-- [ ] M5.5 Tray
-- [ ] M5.6 Autostart
+- [~] M5.4 Window behaviour
+- [~] M5.5 Tray
+- [~] M5.6 Autostart
 - [x] M5.7 Onboarding
 
-### M6 — Remaining screens
+### M6 - Remaining screens
 - [x] M6.1 Settings UI
 - [x] M6.2 Timetable
 - [x] M6.3 Calendar and converter
 - [x] M6.4 Qibla
-- [x] M6.5 Diagnostics and About (widget done and tested; reachable once Settings overrides `aboutSectionBuilderProvider`)
+- [x] M6.5 Diagnostics and About (wired in `bootstrap`)
 
-### M7 — Wake-up alarms
-- [ ] M7.1 Spike + ADR 0001
-- [ ] M7.2 WakeTimerService, PowerControl
-- [ ] M7.3 WakeAlarmController
-- [ ] M7.4 Engine integration
-- [ ] M7.5 UI
+### M7 - Wake-up alarms
+- [ ] M7.1 Hardware spike (see `docs/adr/0005-wake-timers.md`, `docs/manual-test-checklist-wake.md`)
+- [~] M7.2 WakeTimerService, PowerControl
+- [x] M7.3 WakeAlarmController
+- [x] M7.4 Engine integration
+- [x] M7.5 UI
 
-### M8 — Polish, accessibility, performance
-- [ ] Keyboard, semantics, contrast
-- [ ] States and banners
-- [ ] Performance targets
-- [ ] Parity checklist pass
+### M8 - Polish, accessibility, performance
+- [x] Keyboard: Ctrl+1..6, Ctrl+comma, global Esc (stop azan / cancel countdown)
+- [x] Idle ticking: minute ticks while the window is hidden
+- [~] Semantics, contrast, text scale 200 % (widget tests pass with the test font; not seen with Vazirmatn)
+- [ ] Parity checklist pass on a real run
 
-### M9 — Packaging and release
-- [ ] M9.1 Metadata and icon
-- [ ] M9.2 Installer
-- [ ] M9.3 Manual test checklist
+### M9 - Packaging and release
+- [x] M9.1 Metadata and icons (Runner.rc company/product "Owghat", generated icons)
+- [~] M9.2 Installer script `app/windows/installer/owghat.iss` (never compiled)
+- [x] M9.3 Manual test checklists
 - [ ] M9.4 Release build and tag
-- [ ] M9.5 User README, CONTRIBUTING
+- [x] M9.5 User README, CONTRIBUTING
 
 ## Session log
 

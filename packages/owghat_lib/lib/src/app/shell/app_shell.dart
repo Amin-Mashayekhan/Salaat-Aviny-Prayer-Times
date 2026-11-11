@@ -10,6 +10,7 @@ import 'package:owghat_lib/src/app/shell/destination_pages.dart';
 import 'package:owghat_lib/src/features/azan/application/azan_playback.dart';
 import 'package:owghat_lib/src/features/onboarding/presentation/onboarding_page.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
+import 'package:owghat_lib/src/features/wake_alarm/application/wake_alarm_controller.dart';
 import 'package:owghat_lib/src/features/wake_alarm/presentation/countdown_overlay.dart';
 
 /// Navigation rail plus the page of the selected destination; the first-run
@@ -51,6 +52,10 @@ class AppShell extends ConsumerWidget {
       const SingleActivator(LogicalKeyboardKey.comma, control: true): () =>
           ref.read(destinationProvider.notifier).select(Destination.settings),
       const SingleActivator(LogicalKeyboardKey.escape): () {
+        if (ref.read(wakeCountdownProvider).active) {
+          ref.read(wakeAlarmControllerProvider.notifier).cancelCountdown();
+          return;
+        }
         if (ref.read(azanPlaybackProvider).playing) {
           unawaited(ref.read(azanPlaybackProvider.notifier).stop());
         }
