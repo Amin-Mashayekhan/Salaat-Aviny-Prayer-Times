@@ -29,7 +29,7 @@ compact_provinces = [
 compact_cities = [
     {
         "id": c["id"], "p": c["province_id"], "fa": c["name_fa"], "en": c["name_en"],
-        "lat": c["latitude"], "lon": c["longitude"], "t": c["type"][0],
+        "lat": c["latitude"], "lon": c["longitude"], "t": {"capital": "c", "province_center": "s", "normal": "n"}[c["type"]],
     }
     for c in verified
 ]
