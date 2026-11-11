@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "locale": "en",
+  "theme": "dark",
+  "digits": "latin",
+  "hourFormat": "h12",
+  "activeLocationId": "custom:home",
+  "locations": [
+    {"id": "city:1", "kind": "builtin", "cityId": 1, "offset": {"mode": "automatic"}},
+    {"id": "custom:home", "kind": "custom", "name": "Home", "latitude": 35.7, "longitude": 51.4,
+     "elevationM": 1200, "zoneId": "Asia/Tehran", "offset": {"mode": "fixed", "minutes": 210}}
+  ],
+  "calculation": {
+    "methodId": "custom", "fajrAngle": 18, "ishaAngle": 14, "ishaMinutes": null, "maghribAngle": 4.5,
+    "midnight": "jafari", "asr": "hanafi", "highLatitude": "oneSeventh", "imsakMinutes": 12,
+    "offsetsMinutes": {"fajr": -3, "isha": 5}
+  },
+  "display": {"showImsak": true, "showAsr": false, "showIsha": true, "showSunset": false},
+  "azan": {
+    "enabled": true, "masterVolume": 0.4, "fadeIn": false,
+    "perPrayer": {
+      "fajr": {"enabled": true, "sound": "file:C:/sounds/fajr.mp3", "volume": 0.9},
+      "asr": {"enabled": true, "sound": "asset:azan_default", "volume": 1}
+    },
+    "mute": {"until": "2026-11-11T10:00:00.000Z", "indefinite": false}
+  },
+  "reminders": {"perPrayer": {"fajr": 15, "dhuhr": 0}, "chime": false},
+  "hijriAdjustmentDays": -1,
+  "window": {"closeToTray": false, "startMinimized": true, "launchAtStartup": true},
+  "networkTime": {"enabled": true, "host": "time.google.com", "applyCorrection": true},
+  "wakeAlarms": [
+    {"id": "a1", "label": "Sahar", "enabled": true, "trigger": "relativeToPrayer", "hour": 4, "minute": 0,
+     "prayer": "fajr", "minutesBefore": 40, "repeat": "weekdays", "weekdays": [1, 3, 5], "playSound": true,
+     "sound": "asset:azan_default", "volume": 1, "afterSound": "hibernate"}
+  ],
+  "onboardingCompleted": true,
+  "unknownFutureKey": {"ignored": true}
+}

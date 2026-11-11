@@ -1,0 +1,8 @@
+include: ../analysis_options.yaml
+
+# Test fixtures build many small literals; these style rules are noise there.
+linter:
+  rules:
+    prefer_const_literals_to_create_immutables: false
+    cascade_invocations: false
+    document_ignores: false

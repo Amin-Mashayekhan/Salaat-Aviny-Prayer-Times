@@ -1,6 +1,3 @@
-// Test fixtures build small maps of const values; const is noise here.
-// ignore_for_file: prefer_const_literals_to_create_immutables
-
 import 'package:prayer_core/prayer_core.dart';
 import 'package:test/test.dart';
 
