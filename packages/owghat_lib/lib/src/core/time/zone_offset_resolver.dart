@@ -54,6 +54,16 @@ class ZoneOffsetResolver {
     return offsetAt(zoneId, utcNoon.subtract(first));
   }
 
+  /// The offset in effect at [instant]. Used to find "today" in a place;
+  /// prayer times of a date use [offsetFor] instead.
+  Duration currentOffset({
+    required LocationOffset rule,
+    required String zoneId,
+    required DateTime instant,
+  }) => rule.mode == OffsetMode.fixed
+      ? Duration(minutes: rule.fixedMinutes ?? 0)
+      : offsetAt(zoneId, instant);
+
   /// The civil date at [instant] in a place with offset [offset].
   CivilDate civilDateAt(DateTime instant, Duration offset) =>
       CivilDate.fromDateTime(instant.toUtc().add(offset));
