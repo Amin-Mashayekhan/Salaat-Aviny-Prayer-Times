@@ -5,12 +5,17 @@ import 'package:owghat_lib/src/features/locations/application/location_providers
 import 'package:owghat_lib/src/features/prayer_times/domain/next_prayer.dart';
 import 'package:owghat_lib/src/features/prayer_times/domain/prayer_day.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
+import 'package:owghat_lib/src/features/window/application/window_visible_provider.dart';
 import 'package:prayer_core/prayer_core.dart';
 
 /// The current time (UTC), ticking once per second.
-final nowTickProvider = StreamProvider<DateTime>(
-  (ref) => secondTicks(ref.watch(clockProvider)),
-);
+final nowTickProvider = StreamProvider<DateTime>((ref) {
+  final clock = ref.watch(clockProvider);
+  // Hidden in the tray: nothing shows seconds, so tick once a minute.
+  return ref.watch(windowVisibleProvider)
+      ? secondTicks(clock)
+      : minuteTicks(clock);
+});
 
 /// The current time (UTC): the latest tick, or the clock before the first.
 final nowProvider = Provider<DateTime>((ref) {

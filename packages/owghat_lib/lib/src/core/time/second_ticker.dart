@@ -16,3 +16,17 @@ Stream<DateTime> secondTicks(Clock clock) async* {
     );
   }
 }
+
+/// Emits the current time of [clock] (as UTC) at the start of every minute,
+/// and immediately once. Used while the window is hidden.
+Stream<DateTime> minuteTicks(Clock clock) async* {
+  while (true) {
+    final now = clock.now().toUtc();
+    yield now;
+    final intoMinute =
+        now.microsecondsSinceEpoch % Duration.microsecondsPerMinute;
+    await Future<void>.delayed(
+      Duration(microseconds: Duration.microsecondsPerMinute - intoMinute),
+    );
+  }
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:owghat_lib/src/app/app.dart';
 import 'package:owghat_lib/src/app/shell/destination.dart';
@@ -54,5 +55,40 @@ void main() {
     await pump(tester, const Locale('fa'), size: const Size(800, 560));
     expect(tester.takeException(), isNull);
     expect(find.byIcon(Icons.home), findsOneWidget);
+  });
+
+  group('keyboard shortcuts', () {
+    testWidgets('Ctrl+1..6 select the destinations in rail order', (
+      tester,
+    ) async {
+      await pump(tester, const Locale('en'));
+      for (var i = 0; i < Destination.values.length; i++) {
+        final key = [
+          LogicalKeyboardKey.digit1,
+          LogicalKeyboardKey.digit2,
+          LogicalKeyboardKey.digit3,
+          LogicalKeyboardKey.digit4,
+          LogicalKeyboardKey.digit5,
+          LogicalKeyboardKey.digit6,
+        ][i];
+        await tester.sendKeyDownEvent(LogicalKeyboardKey.controlLeft);
+        await tester.sendKeyEvent(key);
+        await tester.sendKeyUpEvent(LogicalKeyboardKey.controlLeft);
+        await tester.pumpAndSettle();
+        expect(
+          harness.container.read(destinationProvider),
+          Destination.values[i],
+        );
+      }
+    });
+
+    testWidgets('Ctrl+comma opens Settings', (tester) async {
+      await pump(tester, const Locale('en'));
+      await tester.sendKeyDownEvent(LogicalKeyboardKey.controlLeft);
+      await tester.sendKeyEvent(LogicalKeyboardKey.comma);
+      await tester.sendKeyUpEvent(LogicalKeyboardKey.controlLeft);
+      await tester.pumpAndSettle();
+      expect(harness.container.read(destinationProvider), Destination.settings);
+    });
   });
 }

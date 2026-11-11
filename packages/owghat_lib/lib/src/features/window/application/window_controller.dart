@@ -8,6 +8,7 @@ import 'package:owghat_lib/src/core/utils/json_value.dart';
 import 'package:owghat_lib/src/features/notifications/application/notice_texts.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
 import 'package:owghat_lib/src/features/tray/application/tray_controller.dart';
+import 'package:owghat_lib/src/features/window/application/window_visible_provider.dart';
 import 'package:owghat_lib/src/features/window/domain/window_policy.dart';
 
 /// Runs the main window: close-to-tray, remembered bounds, start hidden,
@@ -66,7 +67,11 @@ class WindowController {
           unawaited(show());
         }),
       );
-    if (!startHidden) await show();
+    if (startHidden) {
+      _ref.read(windowVisibleProvider.notifier).set(visible: false);
+    } else {
+      await show();
+    }
   }
 
   /// Shows the window and brings it to the front.
@@ -76,6 +81,7 @@ class WindowController {
       await host.show();
       await host.focus();
       _visible = true;
+      _ref.read(windowVisibleProvider.notifier).set(visible: true);
     } on Object catch (error, stack) {
       _log.warning('Showing the window failed', error, stack);
     }
@@ -86,6 +92,7 @@ class WindowController {
     try {
       await _ref.read(windowHostProvider).hide();
       _visible = false;
+      _ref.read(windowVisibleProvider.notifier).set(visible: false);
     } on Object catch (error, stack) {
       _log.warning('Hiding the window failed', error, stack);
     }
