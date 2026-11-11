@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.dart_tool/
+build/
+*.iml
+.idea/
+.vscode/
+pubspec.lock.bak
+app/pubspec.lock
+packages/prayer_core/pubspec.lock
+.flutter-plugins*
