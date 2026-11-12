@@ -1,189 +1,115 @@
 # Progress
 
-Legend: `[x]` done and covered by automated tests; `[~]` code written and analysed but NOT yet run on a
-real Windows PC (needs the manual checklist in `docs/manual-test-checklist*.md`); `[ ]` not done.
+Status as of 2026-11-12. Version in `app/pubspec.yaml`: 1.0.0. Nothing is tagged or released yet.
 
-## Status (2026-11-12)
+This page says what exists, how far each part has been verified, what is known to be missing and what
+the owner still has to decide. Keep it honest: when you change something that is only verified by tests,
+do not write that it works on a real PC.
 
-- Library `packages/owghat_lib`: 841 tests, `flutter analyze` clean. `packages/prayer_core`: 390 tests,
-  100 % line coverage (427/427), `dart analyze` clean. `app/`: `flutter analyze` clean.
-- **`flutter build windows --release` now succeeds** (Visual Studio Build Tools 2022 with the VCTools
-  workload + ATL, Windows SDK 10.0.22621, Developer Mode on). The first launch of `owghat.exe` was checked:
-  the window opens, responds, and shows the Persian onboarding screen; no crash in 10 s. This was a smoke
-  test only. Tray, toasts, audio, autostart, single instance, power events and every wake-up path are still
-  `[~]`: compiled, not exercised.
-- 2026-11-12 fixes from the first hands-on session: (1) onboarding step 3 "play sample" did nothing (its
-  injection point was never overridden) and now plays the bundled azan; (2) the sound test could show
-  "stop" with the sound already over: the Windows output re-sent the previous sound's `completed` status
-  during the next sound's start (reproduced with a probe against the real plugin, fixed in
-  `AudioplayersOutput` and guarded in `AzanPlaybackController`), and previews now end after 15 s;
-  (3) a rotating file log (`<app data>\logs\salaat.log`) now exists; the About page showed a log folder
-  that was never written.
-- Qibla map (new, 2026-11-12): the Qibla page has a Map tab (position pin, great-circle line, arrow and
-  Kaaba marker on OpenStreetMap tiles; sources: prayer-times city, this device, any point by tap or
-  coordinates; camera: whole route / around me / Kaaba) next to the old compass tab. The map is opt-in
-  (`qibla.mapEnabled`, off by default). Checked in the real app window with real tiles (overview). Not
-  checked visually: the street-level zoom (only by tests) and a successful GPS fix: on the dev PC Windows
-  answers `permissionDenied` to desktop apps, which the page explains.
-- Build environment notes: the `audioplayers_windows` plugin fetches WIL through NuGet, so a NuGet source
-  (nuget.org) must be configured. `flutter_local_notifications_windows` needs the ATL component. If a
-  configure step fails once, or after renaming `BINARY_NAME` (the exe is now `salaat.exe`), delete `app/build/windows/x64/CMakeCache.txt`: the cache keeps the default
-  install prefix `C:/Program Files/owghat` and the INSTALL step then fails with "file cannot create directory".
-- Next steps for the owner: (1) run `docs/manual-test-checklist.md` and `docs/manual-test-checklist-wake.md`
-  on Windows 10 and 11; (2) compile `app/windows/installer/salaat.iss` (Inno Setup is not installed here);
-  (3) answer the open questions below; (4) tag `v1.0.0`.
+## What exists
 
-## Blocked
+- **Prayer times** for nine events (Imsak, Fajr, Sunrise, Dhuhr, Asr, Sunset, Maghrib, Isha, Islamic
+  midnight): the Tehran (Institute of Geophysics) and Jafari (Leva, Qom) methods, five international
+  methods, custom angles, per-prayer offsets, Asr and high-latitude rules. The calculator is checked
+  against 300 reference vectors. UTC offsets come only from the bundled time-zone database or a fixed
+  offset; there is no daylight-saving logic of our own ([docs/prayer-times.md](docs/prayer-times.md)).
+- **Schedule engine** with exactly-once delivery, catch-up after sleep or clock changes, reminders, mute,
+  azan playback with per-prayer sound and volume.
+- **Screens:** Home, Timetable, Calendar with converter, Qibla (compass tab and map tab), Wake-up alarms,
+  Settings (location, calculation, azan, reminders, time, display, app, about and diagnostics),
+  first-run onboarding ([docs/product.md](docs/product.md), [docs/ui-guidelines.md](docs/ui-guidelines.md)).
+- **Qibla map** (opt-in): OpenStreetMap street tiles or Esri satellite imagery, the great-circle line and
+  arrow to the Kaaba, measuring from the city, the device position (asked on request) or any point
+  (tap, coordinates, place search).
+- **Places:** the offline list of 566 verified Iranian cities, or an online search of any city (Nominatim
+  plus Open-Meteo, saved as a custom location so the app then works offline;
+  [docs/adr/0006-place-search-and-offline-use.md](docs/adr/0006-place-search-and-offline-use.md)).
+- **Windows integration:** tray icon and menu, toast notifications, close to tray, start with Windows,
+  single instance, backup and restore of settings, a rotating log file, About page with developer
+  information, support and contribution cards.
+- **Wake-up alarms:** a per-user Task Scheduler task plus an in-process timer, a cancellable countdown
+  before sleep or hibernate ([docs/adr/0005-wake-timers.md](docs/adr/0005-wake-timers.md)).
+- **Eight languages:** fa (template), en, ar, tr, ur, az, id, fr, with right-to-left layout and three
+  digit styles.
+- **Packaging and release files:** the Inno Setup script `app/windows/installer/salaat.iss`, GitHub
+  workflows for CI (`ci.yml`), a draft release on a version tag (`release.yml`: tests, build, bundles the
+  Visual C++ runtime DLLs, portable zip, installer, checksums) and the download page (`pages.yml`
+  publishing `site/`), `CHANGELOG.md` for the release notes.
+- **Download page:** `site/` is a static page in Persian, English and Arabic with per-OS detection,
+  install steps, screenshots of the real app (Windows 10) and a FAQ. Its screenshots are retaken by
+  running the release build with `--page <name>` (see below) against a temporary settings file.
+- **Launch arguments:** `--minimized`, `--wake <id>` and `--page <home|timetable|calendar|qibla|wakeup|settings>`.
 
-- M9.4 (release build, tag): needs the Visual Studio C++ toolchain.
-- Hardware verification of M4.3-M4.5, M5.4-M5.6 and M7: needs a real PC (see manual checklists).
+## What is verified, and how
 
-## Open questions for the owner
+| Area | By automated tests | On real hardware |
+|---|---|---|
+| Calculation, qibla, schedule builder, catch-up policy | Yes (golden vectors, unit tests in `prayer_core`) | n/a |
+| Time zones, no-DST guard, settings never rewritten, schedule engine simulations | Yes (`owghat_lib`) | n/a |
+| All screens, all eight languages at 1200x800 and 800x560, text scale 2x in the feature tests | Yes (widget tests, test font) | Looked at: the start window and the Persian onboarding. Not looked at with Vazirmatn on every screen |
+| Place search, qibla map logic | Yes (fake servers, blank tile provider) | Map overview with real OpenStreetMap tiles and the satellite style (Esri imagery) seen in the release build. Not checked in the app: street-level zoom, a search against the real Nominatim and Open-Meteo servers from inside the app, a real device position (on the development PC Windows answers "permission denied" to desktop apps, which the page explains) |
+| Audio | Yes (fake output) | A probe against the real audio plugin reproduced a stale "completed" status bug, which is now fixed. Azan on time through a real day not observed |
+| Tray, toasts and their Stop button, close to tray, start minimised | Controllers only (fakes) | **Not verified** |
+| Start with Windows (registry value), single instance, power and clock-change events | Controllers only (fakes) | **Not verified** |
+| Wake-up alarms (task creation without administrator rights, waking from sleep and hibernate, Modern Standby, suspend) | Logic only (fakes) | **Not verified**; the list of open questions is in [docs/adr/0005-wake-timers.md](docs/adr/0005-wake-timers.md) |
+| `flutter build windows --release` | n/a | Succeeds on the development PC; first launch of the built app checked for ten seconds |
+| Installer, uninstall clean-up, release workflow, Pages workflow | n/a | **Not verified**: Inno Setup is not installed on the development PC, so the installer script has never been compiled, and neither workflow has run |
+| Download page `site/` | n/a | Opened over a local web server: language switch, right-to-left layout, per-OS download links and screenshots load without errors |
 
-See the table at the top of `docs/06-IMPLEMENTATION-PLAN.md` (Q-1 ... Q-5). Defaults in force: name
-"Salaat | Aviny Prayer Times" (decided 2026-11-12), generated placeholder sounds only (no azan recording shipped), 566 verified cities.
+`app/` has no automated tests; the manual checklists in [docs/](docs) are the acceptance tests for tray,
+toasts, sound, autostart, installer and wake-up alarms.
 
-## Tasks
+## Known limitations
 
-### M0 - Repository and toolchain
-- [x] M0.1 Install and pin the toolchain (Flutter 3.47.9 at `E:\Ermile\tools\flutter`; VS C++ missing)
-- [x] M0.2 Create the workspace
-- [x] M0.3 CI (`.github/workflows/ci.yml`, not yet run on GitHub)
-- [x] M0.4 App skeleton
+- City names exist only in Persian and English; other languages show the English name.
+- The translations for Arabic, Turkish, Urdu, Azerbaijani, Indonesian and French have not been reviewed by
+  native speakers.
+- The public Nominatim and Esri servers are meant for light use. For a wide release, a keyed or
+  self-hosted provider is advisable (one constant for the map tiles, `qiblaTileUrlTemplate`, and the
+  `OnlinePlaceSearch` class for names).
+- No surveyed coordinates of the Kaaba gutter (Mizab al-Rahma) are available, so the qibla line ends at
+  the Kaaba reference point (21.422487, 39.826206). The difference does not change the direction.
+- Windows only. `app/` has only a Windows runner, and the library imports `dart:io` (files, HTTP,
+  processes), so a web build is not possible without changing it. No macOS, Linux, Android or iOS build
+  exists.
+- The project is under the MIT licence (`LICENSE`, 2026). The city database was decoded from the files of the previous Aviny program; the owner should be comfortable that those place names and coordinates (facts, not creative work) may be republished, or replace them over time.
+- The developer's mobile number (`+9892128870991`) and Telegram are on the About page; the number has 11 digits after +98 where an Iranian mobile number normally has 10, so the owner should confirm it. Calls and texts work only from Iran, which the page says.
+- The bundled azan and chime are generated placeholders, not recordings; users choose their own sound.
+- No holidays or religious occasions in the calendar, and no in-app update check.
 
-### M1 - prayer_core
-- [x] M1.1 - M1.6 (calculator with 300 golden vectors, adjustments, qibla and sun, schedule builder, catch-up policy)
+## Open decisions for the owner
 
-### M2 - Settings and storage
-- [x] M2.1 - M2.5 (models, atomic JSON store, migrations, controller, backup/restore/reset)
+| Question | State |
+|---|---|
+| Licence of the project | Decided: MIT (2026-11-12). |
+| Azan recordings that may be shipped (the legacy files have no known licence) | Open. Only generated placeholders ship. |
+| Map tile and place-search provider for a wide release | Open. Public servers in use, opt-in and light. |
+| Surveyed Kaaba gutter coordinates | Open. Add a second target only from a cited source. |
+| Sources for holidays and religious occasions | Open; the feature is not built. |
+| Where releases are published, and whether the app checks for updates | Partly decided: GitHub Releases through `release.yml`. An update check is not built. |
+| Review the 175 legacy cities that have no verified province and add them | Open; the 566 verified cities ship. |
+| Author's mobile number on the About page | Decided; the owner should confirm the number (see Known limitations). |
 
-### M3 - Time and locations
-- [x] M3.1 Clock and zones (Iran no-DST test)
-- [x] M3.2 T-5 guard test (`t5_guard_test.dart`)
-- [x] M3.3 - M3.5 Location data, search, saved locations
-- [x] M3.6 Network time and clock diagnostics
+Decided: the product name is "Salaat | Aviny Prayer Times" (2026-11-12).
 
-### M4 - Schedule engine and audio
-- [x] M4.1 Derived prayer providers
-- [x] M4.2 ScheduleEngine (simulations a-g)
-- [~] M4.3 Power events (C++ compiled, not exercised)
-- [~] M4.4 Audio
-- [~] M4.5 Notifications and reminders
-- [ ] Gate: review + 1-hour manual run
+## Next steps
 
-### M5 - Home, tray, window
-- [x] M5.1 Formatting helpers
-- [x] M5.2 Tri-calendar
-- [x] M5.3 Home screen
-- [~] M5.4 Window behaviour
-- [~] M5.5 Tray
-- [~] M5.6 Autostart
-- [x] M5.7 Onboarding
-
-### M6 - Remaining screens
-- [x] M6.1 Settings UI
-- [x] M6.2 Timetable
-- [x] M6.3 Calendar and converter
-- [x] M6.4 Qibla
-- [x] M6.5 Diagnostics and About (wired in `bootstrap`)
-
-### M7 - Wake-up alarms
-- [ ] M7.1 Hardware spike (see `docs/adr/0005-wake-timers.md`, `docs/manual-test-checklist-wake.md`)
-- [~] M7.2 WakeTimerService, PowerControl
-- [x] M7.3 WakeAlarmController
-- [x] M7.4 Engine integration
-- [x] M7.5 UI
-
-### M8 - Polish, accessibility, performance
-- [x] Keyboard: Ctrl+1..6, Ctrl+comma, global Esc (stop azan / cancel countdown)
-- [x] Idle ticking: minute ticks while the window is hidden
-- [~] Semantics, contrast, text scale 200 % (widget tests pass with the test font; not seen with Vazirmatn)
-- [ ] Parity checklist pass on a real run
-
-### M9 - Packaging and release
-- [x] M9.1 Metadata and icons (Runner.rc company/product "Salaat", generated icons)
-- [~] M9.2 Installer script `app/windows/installer/salaat.iss` (never compiled)
-- [x] M9.3 Manual test checklists
-- [ ] M9.4 Release build and tag
-- [x] M9.5 User README, CONTRIBUTING
-
-## Session log
-
-- 2026-11-11 — Planning package created: legacy app analysed, location data extracted and cleaned,
-  reference algorithm and 300 golden vectors generated, specs and plan written. No app code yet.
-- 2026-11-11 — Platform layer (parallel session, tasks M4.3-M4.5 and M5.4-M5.6; not ticked above because
-  their manual checks need a real PC). Library: platform interfaces + fakes (`core/platform/`),
-  `PlatformServices` + `bootstrap(args, services)` / `prepareApp`, audio (`AzanPlaybackController`:
-  master x prayer volume, fade-in, fallback to `asset:azan_default`, preview, chime), mute (evaluated, never
-  written back), `AppScheduleDispatcher` (override of `eventDispatcherProvider`; wake alarms go to
-  `wakeAlarmHandlerProvider`), notification texts, `TrayController`, `WindowController`,
-  `AutostartController`, locale/theme follow the settings. Runner: `app/lib/src/platform/` (audioplayers,
-  toasts, window_manager, tray_manager, `reg.exe` autostart, single instance, file_selector, path_provider,
-  power events channel `owghat/power`) and native code in `app/windows/runner/` (power messages,
-  `--minimized`). ADR 0003. Next session must know: the C++ and every `app/` plugin class are UNCOMPILED
-  and UNRUN (no Visual Studio here; verified by `flutter analyze` only). First manual run should check:
-  tray icon + menu, close-to-tray, `--minimized` start, toast Stop button, sleep/resume and clock change logs,
-  autostart value in `HKCU\...\Run`, second launch focusing the first window.
-- 2026-11-11 - UI core (parallel session, M5.1, M5.2, M5.3, M5.7, M6.2; ticked because their automated
-  "Done when" is met; not seen on a real screen or with the Vazirmatn font, tests run with the Ahem test font).
-  `core/format/Formatter` (+ `formatterProvider`, `appLocalizationsProvider`), `features/calendar` (`TriDate`,
-  `monthDays`, `CalendarNames`, `dateHeaderProvider`), Home (`prayer_times/presentation`, state in
-  `application/home_view.dart`, `home_status.dart`, `home_banners.dart`), `viewedDateProvider` (null = today;
-  the Timetable and the future Calendar screen open a day on Home through `.show(date)`), Timetable
-  (`timetable_providers.dart`, per-month cache), Onboarding (`features/onboarding`, shown by `AppShell` while
-  `onboardingCompleted` is false). Hooks other work must provide: override `settingsWasResetProvider` (true when
-  the settings file was reset) and `onboardingPreviewProvider` (plays the azan sample; default no-op). The Home
-  "next wake-up" line is a placeholder dash until the wake-up feature publishes the next occurrence. Esc stops
-  the audio only while Home is shown. Gregorian dates use the app language month names (Persian names in the
-  Persian UI), not the Latin names of the sketch.
-- 2026-11-11 - Wake-up alarm logic and platform glue (parallel session, M7.2-M7.4; NOT ticked: the "Done when" is the
-  manual wake checklist on a real PC, and M7.5 UI is not built; M7.1 spike is replaced by `docs/adr/0005-wake-timers.md`,
-  a design written without hardware). Library `features/wake_alarm/`: pure `nextOccurrence` + `buildWakePlan`
-  (fixed time or N min before a prayer, once/daily/weekdays, polar nulls, midnight crossing), `WakeAlarmController`
-  (add/update/delete/setEnabled, probe, sleepNow/hibernateNow 5 s countdown, 30 s after-alarm countdown, keep-awake,
-  `testInTwoMinutes`, OS wake re-arming), interfaces + fakes (`WakeTimerService`, `PowerControl`, `AlarmSoundPlayer`),
-  task XML / schtasks / powercfg pure builders and parsers, `CompositeWakeTimerService`, `AudioOutputAlarmSoundPlayer`.
-  Public barrel `package:owghat_lib/wake_alarm.dart`. Scheduler: `alarmOccurrencesProvider` now reads the wake plan, the
-  engine rebuild starts one microtask later and also listens to `wakeBookkeepingProvider` (derived providers are stale
-  inside listener callbacks). Runner `app/lib/src/platform/wake/`: dart:ffi waitable timer on a worker isolate,
-  `SetThreadExecutionState`, `SetSuspendState` + fallbacks, `WindowsWakeServices.create`. Bootstrap must (not done, belongs
-  to the platform session): pass `extraOverrides` with `wakeTimerServiceProvider`, `powerControlProvider`,
-  `alarmSoundPlayerProvider` (`AudioOutputAlarmSoundPlayer(ref.read(audioOutputProvider))`) and
-  `wakeAlarmHandlerProvider.overrideWith((ref) => ref.watch(wakeAlarmEventHandlerProvider))`, read
-  `wakeAlarmControllerProvider` once after the engine starts, and call `noteWakeLaunch(id)` for `LaunchArgs.wakeAlarmId`.
-  Home can show `nextWakeOccurrenceProvider`. The app/ code is UNRUN; see the ADR's list of unverified questions and
-  `docs/manual-test-checklist-wake.md`.
-- 2026-11-11 - Settings UI (parallel session, M6.1; ticked because its automated "Done when" is met: widget tests in fa/en,
-  light/dark, 1200x800 and 800x560, text scale 1.0 and 2.0 show every section without overflow; not seen on a real screen
-  or with Vazirmatn). `features/settings/presentation/` (`SettingsPage`, one file per section, `setting_widgets.dart`),
-  state in `features/settings/application/` (`settings_ui.dart`: `selectedSettingsSectionProvider` for deep links such as
-  the home "Calculation settings" link, `settingsSavedCountProvider`, `calculationBaseMethodProvider`,
-  `aboutSectionBuilderProvider`; `settings_actions.dart`: sound pick, preview, backup export/import/reset;
-  `zone_info.dart`: offset in effect; `location_draft.dart`, `number_input.dart`), `data/backup_files.dart`
-  (`backupFilesProvider`). Registered as `Destination.settings` in `destination_pages.dart`. Additive change in core:
-  `ZoneOffsetResolver.nextOffsetChange`. SLOT for M6.5: override `aboutSectionBuilderProvider` with a builder that returns
-  `AboutDiagnosticsSection` (placeholder text until then). Decisions: text fields (angles, server, steppers) apply on
-  Enter or when focus leaves, not per keystroke, so the schedule is not recalculated with half-typed numbers; "Custom"
-  method is shown but not selectable (typing any angle makes it custom) and "restore defaults for this method" returns to
-  the last built-in method used on this screen (Tehran after a restart); adding a city does not activate it; backup import
-  keeps `onboardingCompleted` true and is refused when a custom location names an unknown zone; start-with-Windows only
-  calls `setLaunchAtStartup`, the `AutostartController` listener started by `bootstrap` does the registry write.
-- 2026-11-11 - Calendar, Qibla, Wake-up page, About and diagnostics (parallel session, M6.3, M6.4, M6.5 ticked because
-  their automated "Done when" is met: widget tests in fa/en, light/dark, 1200x800 and 800x560, text scale 1.0 and 2.0,
-  no overflow; M7.5 UI is built and tested with the fake wake services but NOT ticked, the M7 "Done when" is the manual
-  checklist on a real PC; nothing seen on a real screen or with Vazirmatn). Calendar `features/calendar/presentation/`
-  (month grid in the Shamsi calendar, side panel, lunar adjustment stepper through `setHijriAdjustment`, date converter
-  with three linked fields; state `application/calendar_view.dart`, validation `domain/date_converter.dart`
-  `convertDate`). Qibla `features/qibla/` (`qiblaInfoProvider`, `sunNowProvider` updated each minute from
-  `nowMinuteProvider`, `sunOnQiblaTodayProvider`, `CustomPainter` `QiblaCompassPainter`). Wake-up page
-  `features/wake_alarm/presentation/` (`WakeUpPage`, `WakeCapabilityPanel`, `AlarmCard`, `showAlarmEditor`,
-  `WakeCountdownOverlay`; texts in `application/wake_labels.dart`). The Home status card now shows
-  `nextWakeOccurrenceProvider`. About `features/diagnostics/` (`AboutDiagnosticsSection`, `appVersionProvider`,
-  `diagnosticEventsProvider`, `diagnosticsReportProvider`, privacy rules in `buildDiagnosticsReport`). Registered
-  `Destination.calendar`, `.qibla`, `.wakeUp` in `destination_pages.dart` (the placeholder is gone; the switch is
-  exhaustive). Orchestrator must still: (1) override `aboutSectionBuilderProvider` with a builder returning
-  `const AboutDiagnosticsSection()`, (2) override `appVersionProvider` with the packaged version, (3) mount
-  `WakeCountdownOverlay` in `AppShell` so the 30 s countdown after an alarm is visible and cancellable on every screen
-  (today it exists only on the Wake-up page; it is deliberately not a modal dialog, rule 8), (4) the About page has no
-  project link yet (no URL is known). Known limits: the diagnostics list shows the events the engine holds (today and
-  tomorrow), so late in the day fewer than 10 exist; the report is English only on purpose.
+1. **First public release.** Run [docs/manual-test-checklist.md](docs/manual-test-checklist.md) and
+   [docs/manual-test-checklist-wake.md](docs/manual-test-checklist-wake.md) on Windows 10 and 11; choose a
+   make sure `CHANGELOG.md` and the `app/pubspec.yaml` version agree; push the
+   work, then a `v1.0.0` tag so the release workflow builds the installer and the portable zip as a draft
+   (fix the workflow if its first run fails: Inno Setup via Chocolatey is the likeliest place); set
+   Pages > Source to "GitHub Actions" so `pages.yml` publishes `site/`; read the draft and publish. The
+   installer is not code-signed, so Windows SmartScreen warns on first run (the page explains how to
+   continue); signing needs a certificate.
+2. **Native-speaker review** of the six unreviewed translations (ar, tr, ur, az, id, fr), including the
+   texts that explain network use and location permission.
+3. **Hardware verification** of tray, toasts, sound, autostart, single instance, power events and
+   wake-up alarms on several PCs (standard account, battery, Modern Standby), then update the table above.
+4. **Wide-release readiness:** a keyed or self-hosted tile and place-search provider; city names in the
+   other languages.
+5. **Other platforms:** mobile and other desktop runners. The platform interfaces and fakes are already in
+   `packages/owghat_lib`; each platform needs a runner and its own implementations, and the `dart:io`
+   dependency of the library must be handled for web.
+6. **Later ideas:** mini always-on-top widget, holidays and occasions, Ramadan mode, timetable export
+   (PDF, CSV), global hotkeys, a prayer-time display mode for mosques.

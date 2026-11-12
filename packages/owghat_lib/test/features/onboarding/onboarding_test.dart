@@ -2,9 +2,12 @@ import 'package:flutter/material.dart' hide HourFormat;
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_audio_output.dart';
+import 'package:owghat_lib/src/core/platform/fakes/fake_place_search.dart';
+import 'package:owghat_lib/src/core/platform/place_search.dart';
 import 'package:owghat_lib/src/core/platform/platform_providers.dart';
 import 'package:owghat_lib/src/features/azan/application/azan_playback.dart';
 import 'package:owghat_lib/src/features/locations/data/location_repository.dart';
+import 'package:owghat_lib/src/features/locations/domain/saved_location.dart';
 import 'package:owghat_lib/src/features/onboarding/application/onboarding_providers.dart';
 import 'package:owghat_lib/src/features/settings/domain/app_settings.dart';
 import 'package:owghat_lib/src/features/settings/domain/sound_ref.dart';
@@ -45,6 +48,8 @@ void main() {
       tester.widget<Text>(find.byKey(Key(key))).data!;
 
   Future<void> tapKey(WidgetTester tester, String key) async {
+    await tester.ensureVisible(find.byKey(Key(key)));
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(Key(key)));
     await tester.pumpAndSettle();
   }
@@ -147,6 +152,174 @@ void main() {
       expect(harness.current.digits, DigitStyle.persian);
       expect(find.text('بعدی'), findsOneWidget);
     });
+  });
+
+  group('language step: all languages', () {
+    testWidgets('lists every language by its own name', (tester) async {
+      await open(tester);
+      for (final language in AppLanguage.values) {
+        expect(
+          find.byKey(Key('onboarding-language-${language.name}')),
+          findsOneWidget,
+        );
+        expect(find.text(language.nativeName), findsOneWidget);
+      }
+    });
+
+    for (final language in AppLanguage.values) {
+      testWidgets('${language.name}: switches the UI, direction and digits', (
+        tester,
+      ) async {
+        final harness = await open(tester);
+        await tapKey(tester, 'onboarding-language-${language.name}');
+        expect(harness.current.language, language);
+        expect(harness.current.digits, language.digits);
+        expect(
+          Directionality.of(
+            tester.element(find.byKey(const Key('onboarding-card'))),
+          ),
+          language.rtl ? TextDirection.rtl : TextDirection.ltr,
+        );
+        expect(tester.takeException(), isNull);
+      });
+    }
+
+    test('each language comes with its natural digits', () {
+      expect(AppLanguage.fa.digits, DigitStyle.persian);
+      expect(AppLanguage.ur.digits, DigitStyle.persian);
+      expect(AppLanguage.ar.digits, DigitStyle.arabic);
+      for (final language in [
+        AppLanguage.en,
+        AppLanguage.tr,
+        AppLanguage.az,
+        AppLanguage.id,
+        AppLanguage.fr,
+      ]) {
+        expect(language.digits, DigitStyle.latin);
+      }
+    });
+  });
+
+  group('city step: search the world online', () {
+    late FakePlaceSearch search;
+
+    setUp(() => search = FakePlaceSearch());
+
+    Future<AppHarness> openOnline(WidgetTester tester) async {
+      final harness = await open(
+        tester,
+        settings: englishSettings,
+        overrides: [placeSearchProvider.overrideWithValue(search)],
+      );
+      await tapKey(tester, 'onboarding-next');
+      await tapKey(tester, 'onboarding-mode-online');
+      return harness;
+    }
+
+    Future<void> find0(WidgetTester tester, String text) async {
+      await tester.enterText(
+        find.byKey(const Key('onboarding-place-field')),
+        text,
+      );
+      await tapKey(tester, 'onboarding-place-button');
+    }
+
+    testWidgets('the list is the default and both ways are offered', (
+      tester,
+    ) async {
+      await open(tester, settings: englishSettings);
+      await tapKey(tester, 'onboarding-next');
+      expect(find.byKey(const Key('onboarding-mode-list')), findsOneWidget);
+      expect(find.byKey(const Key('onboarding-search')), findsOneWidget);
+      expect(find.byKey(const Key('onboarding-place-field')), findsNothing);
+      expect(search.queries, isEmpty);
+    });
+
+    testWidgets('the online way explains the single use of the internet', (
+      tester,
+    ) async {
+      await openOnline(tester);
+      expect(find.byKey(const Key('onboarding-place-notice')), findsOneWidget);
+      expect(find.byKey(const Key('onboarding-search')), findsNothing);
+      expect(
+        find.textContaining('only for this search'),
+        findsOneWidget,
+        reason: 'the step text says the internet is needed once',
+      );
+      expect(search.queries, isEmpty);
+    });
+
+    testWidgets('search, choose: the place becomes the active location', (
+      tester,
+    ) async {
+      final harness = await openOnline(tester);
+      await find0(tester, 'Mumbai, India');
+      expect(search.settlementFlags, [true]);
+      await tapKey(tester, 'onboarding-place-result-0');
+      final active = harness.current.activeLocation;
+      expect(active.kind, LocationKind.custom);
+      expect(active.name, 'Mumbai');
+      expect(active.zoneId, 'Asia/Kolkata');
+      expect(active.elevationMeters, 9);
+      expect(text(tester, 'onboarding-selected'), 'Selected: Mumbai');
+      expect(search.detailsCalls, 1);
+    });
+
+    testWidgets('choosing the same place twice keeps one saved location', (
+      tester,
+    ) async {
+      final harness = await openOnline(tester);
+      await find0(tester, 'Mumbai');
+      await tapKey(tester, 'onboarding-place-result-0');
+      final count = harness.current.locations.length;
+      await tapKey(tester, 'onboarding-place-result-0');
+      expect(harness.current.locations.length, count);
+    });
+
+    testWidgets('a zone the app does not know is explained and not saved', (
+      tester,
+    ) async {
+      search.detailsResult = const PlaceDetails(zoneId: 'Mars/Olympus');
+      final harness = await openOnline(tester);
+      final before = harness.current.locations.length;
+      await find0(tester, 'Mumbai');
+      await tapKey(tester, 'onboarding-place-result-0');
+      expect(harness.current.locations.length, before);
+      expect(
+        find.byKey(const Key('onboarding-place-unusable')),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('offline: the message is shown and the list still works', (
+      tester,
+    ) async {
+      search.failure = const PlaceSearchException(PlaceSearchFailure.offline);
+      final harness = await openOnline(tester);
+      await find0(tester, 'Mumbai');
+      expect(find.byKey(const Key('onboarding-place-message')), findsOneWidget);
+      await tapKey(tester, 'onboarding-mode-list');
+      expect(find.byKey(const Key('onboarding-search')), findsOneWidget);
+      expect(harness.current.activeLocation.kind, LocationKind.builtin);
+    });
+
+    for (final language in AppLanguage.values) {
+      testWidgets('${language.name}: the online step fits a small window', (
+        tester,
+      ) async {
+        final harness = await open(
+          tester,
+          settings: AppSettings(language: language, digits: language.digits),
+          size: const Size(800, 560),
+          overrides: [placeSearchProvider.overrideWithValue(search)],
+        );
+        await tapKey(tester, 'onboarding-next');
+        await tapKey(tester, 'onboarding-mode-online');
+        await find0(tester, 'Mumbai');
+        expect(tester.takeException(), isNull);
+        expect(harness.current.language, language);
+      });
+    }
   });
 
   group('city step', () {

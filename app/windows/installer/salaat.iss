@@ -1,8 +1,11 @@
-; Inno Setup 7 script for Salaat | Aviny Prayer Times (per-user install, no administrator rights).
+; Inno Setup script for Salaat | Aviny Prayer Times (per-user install, no administrator rights).
 ;
 ; Build first:   flutter build windows --release        (inside app/)
-; Then compile:  iscc app\windows\installer\salaat.iss
-; Output:        app\build\installer\Salaat-Setup-<version>.exe
+; Then compile:  iscc /DAppVersion=1.0.0 app\windows\installer\salaat.iss
+; Output:        app\build\installer\Salaat-Setup.exe
+;
+; The release workflow (.github/workflows/release.yml) does both steps and passes the
+; version of the tag. Without /DAppVersion the default below is used.
 ;
 ; The data folder below must match Runner.rc (CompanyName\ProductName), because
 ; path_provider stores application support data in %APPDATA%\<Company>\<Product>.
@@ -12,7 +15,9 @@
 ; never used for a file, folder or shortcut name (AppName is used for those).
 #define AppTitle "Salaat | Aviny Prayer Times"
 #define AppExe "salaat.exe"
+#ifndef AppVersion
 #define AppVersion "1.0.0"
+#endif
 #define AppPublisher "Salaat"
 #define AppDataSub "Salaat\Salaat"
 #define BuildDir "..\..\build\windows\x64\runner\Release"
@@ -27,7 +32,7 @@ DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 OutputDir=..\..\build\installer
-OutputBaseFilename=Salaat-Setup-{#AppVersion}
+OutputBaseFilename=Salaat-Setup
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
@@ -39,7 +44,10 @@ RestartApplications=no
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
+; The Persian wizard texts are not part of every Inno Setup release.
+#if FileExists(CompilerPath + "Languages\Farsi.isl")
 Name: "persian"; MessagesFile: "compiler:Languages\Farsi.isl"
+#endif
 
 [Tasks]
 Name: "autostart"; Description: "Start {#AppTitle} with Windows"; Flags: unchecked

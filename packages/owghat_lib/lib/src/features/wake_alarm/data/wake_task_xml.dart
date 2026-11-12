@@ -92,7 +92,7 @@ String _escape(String text) => text
 
 /// The Task Scheduler XML of a one-time wake task.
 ///
-/// Matches `docs/03-ARCHITECTURE.md` section 6: `WakeToRun`, a one-time
+/// Follows `docs/architecture.md`: `WakeToRun`, a one-time
 /// `TimeTrigger`, `InteractiveToken` + `LeastPrivilege` (no elevation), and
 /// an action that starts [executablePath] with `--wake <alarmId>`.
 ///

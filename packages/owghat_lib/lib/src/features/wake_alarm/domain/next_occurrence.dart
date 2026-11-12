@@ -52,14 +52,14 @@ class WakeOccurrence {
 
 /// The first time [alarm] fires strictly after [nowUtc], or null.
 ///
-/// See "Wake-up alarms" in `docs/04-DOMAIN-SPEC.md`.
+/// See `docs/prayer-times.md`.
 ///
 /// - A fixed-time alarm fires at its clock time in the location. A relative
 ///   alarm fires `minutesBefore` minutes before the chosen prayer, recomputed
 ///   for every day, so it follows the prayer through the year (even across
 ///   local midnight).
 /// - The UTC offset of a date always comes from the same place as the prayer
-///   times (`ZoneOffsetResolver`, rule T-7: one offset for the whole civil
+///   times (`ZoneOffsetResolver`: one offset for the whole civil
 ///   date). This function has no daylight-saving logic of its own.
 /// - `weekdays` is checked against the civil date *on which the alarm rings*
 ///   (so "40 minutes before Fajr" on a Friday means Friday morning).

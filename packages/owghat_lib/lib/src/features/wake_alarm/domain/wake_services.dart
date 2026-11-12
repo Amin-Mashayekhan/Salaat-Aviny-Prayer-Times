@@ -15,7 +15,7 @@ class WakeServiceException implements Exception {
 
 /// Asks the OS to wake the PC at a given instant and keeps it awake while
 /// an alarm runs. The Windows implementation lives in
-/// `app/lib/src/platform/wake/`; see `docs/adr/0005-wake-timers.md`.
+/// `app/lib/src/platform/wake/`.
 ///
 /// None of the methods may change a Windows power setting.
 abstract interface class WakeTimerService {

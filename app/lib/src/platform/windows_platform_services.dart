@@ -5,6 +5,7 @@ import 'package:owghat/src/platform/flutter_local_notifier.dart';
 import 'package:owghat/src/platform/geolocator_device_location.dart';
 import 'package:owghat/src/platform/path_provider_paths.dart';
 import 'package:owghat/src/platform/registry_autostart.dart';
+import 'package:owghat/src/platform/shell_link_opener.dart';
 import 'package:owghat/src/platform/tray_manager_host.dart';
 import 'package:owghat/src/platform/window_manager_host.dart';
 import 'package:owghat/src/platform/windows_power_events.dart';
@@ -29,5 +30,7 @@ Future<PlatformServices> createWindowsPlatformServices() async {
     singleInstance: WindowsSingleInstanceGuard(),
     assetLoader: rootBundle.loadString,
     deviceLocation: const GeolocatorDeviceLocation(),
+    linkOpener: const ShellLinkOpener(),
+    placeSearch: OnlinePlaceSearch(),
   );
 }

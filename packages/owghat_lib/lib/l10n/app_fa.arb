@@ -1,7 +1,20 @@
 {
   "@@locale": "fa",
+  "aboutAuthorIntro": "این برنامه را یک توسعه‌دهنده‌ی مستقل می‌سازد و نگهداری می‌کند. برای گزارش مشکل، پیشنهاد یا همکاری با من در تماس باشید.",
+  "aboutAuthorTitle": "درباره‌ی سازنده",
+  "aboutContactEmail": "ایمیل",
+  "aboutContactGithub": "GitHub",
+  "aboutContactName": "نام",
+  "aboutContactPhone": "موبایل",
+  "aboutContactTelegram": "تلگرام",
+  "aboutCopiedValue": "کپی شد.",
+  "aboutCopy": "کپی",
   "aboutFontNote": "قلم وزیرمتن با مجوز SIL Open Font License 1.1 همراه برنامه است.",
+  "aboutLicenceNote": "این برنامه با مجوز MIT منتشر شده است: می‌توانید آزادانه از آن استفاده کنید، آن را تغییر دهید و پخش کنید.",
   "aboutLicences": "مجوزهای نرم‌افزارهای متن‌باز",
+  "aboutOpen": "باز کردن",
+  "aboutOpenFailed": "باز نشد. نشانی را کپی کنید و در مرورگر یا برنامه‌ی ایمیل خود بگذارید.",
+  "aboutPhoneNote": "تماس و پیامک فقط از داخل ایران. از خارج از ایران فقط تلگرام.",
   "aboutSoundNote": "صداهای همراه برنامه (اذان پیش‌فرض و زنگ یادآوری) نمونه‌هایی ساده و ساختگی‌اند، ضبط هیچ مؤذنی نیستند و با مجوز CC0 منتشر شده‌اند. صدای اذان دلخواه خود را از بخش تنظیمات انتخاب کنید.",
   "aboutTagline": "اوقات شرعی و اذان برای ویندوز؛ بدون اینترنت، بدون تبلیغ، بدون حساب کاربری و بدون ردیابی.",
   "aboutTitle": "درباره",
@@ -124,6 +137,16 @@
       }
     }
   },
+  "contributeIntro": "کد این برنامه در GitHub است و هر کمکی پذیرفته می‌شود. راه‌های مشارکت:",
+  "contributeOpenGuide": "راهنمای مشارکت",
+  "contributeOpenIssues": "گزارش خطا یا پیشنهاد",
+  "contributeOpenRepo": "باز کردن مخزن در GitHub",
+  "contributeTitle": "مشارکت در پروژه",
+  "contributeWayCode": "کد: مخزن را Fork کنید، تغییر را در یک شاخه انجام دهید، آزمون‌ها را اجرا کنید و Pull Request بفرستید. راهنمای ساخت و آزمون در CONTRIBUTING.md است.",
+  "contributeWayData": "داده: نام، مختصات یا منطقه‌ی زمانی شهرها را اصلاح کنید یا شهر تازه اضافه کنید.",
+  "contributeWayIssues": "گزارش خطا یا پیشنهاد: در GitHub یک Issue بسازید و شماره‌ی نسخه و گزارش عیب‌یابی همین صفحه را ضمیمه کنید (نام و مختصات ندارد).",
+  "contributeWayTest": "آزمایش: برنامه را روی نسخه‌ها و سخت‌افزارهای مختلف ویندوز بیازمایید (اذان، سینی سیستم، بیدارباش) و نتیجه را گزارش کنید.",
+  "contributeWayTranslate": "ترجمه: متن‌های برنامه در پوشه‌ی lib/l10n هستند. ترجمه‌ی یک زبان تازه یا اصلاح ترجمه‌ی موجود را بفرستید؛ بازبینی یک گویشور بومی بسیار ارزشمند است.",
   "diagAudioFailed": "صدای آزمایشی پخش نشد. بلندگو و میزان صدای ویندوز را بررسی کنید.",
   "diagAudioOk": "صدای آزمایشی پخش شد.",
   "diagAudioPlay": "پخش صدای آزمایشی",
@@ -533,10 +556,11 @@
   "onboardingCityTitle": "شهر شما",
   "onboardingFinish": "شروع",
   "onboardingLanguageBody": "زبان را انتخاب کنید. بعداً در تنظیمات هم می‌توانید آن را عوض کنید.",
-  "onboardingLanguageEn": "English",
-  "onboardingLanguageFa": "فارسی",
   "onboardingLanguageTitle": "زبان برنامه",
+  "onboardingModeList": "شهرهای ایران (فهرست آفلاین)",
+  "onboardingModeOnline": "هر شهر دنیا (جستجوی آنلاین)",
   "onboardingNext": "بعدی",
+  "onboardingOnlineBody": "شهرتان در فهرست نیست؟ هر شهری در دنیا را جستجو کنید. اینترنت فقط برای همین جستجو لازم است و بعد برنامه بدون اینترنت کار می‌کند.",
   "onboardingPreview": "پخش نمونه‌ی اذان",
   "onboardingProvinceAll": "همه‌ی استان‌ها",
   "onboardingSkip": "رد کردن",
@@ -554,6 +578,36 @@
     }
   },
   "onboardingStopPreview": "توقف",
+  "placeSearchAttribution": "مکان‌ها © مشارکت‌کنندگان OpenStreetMap (Nominatim). منطقه‌ی زمانی و ارتفاع: Open-Meteo.",
+  "placeSearchButton": "جستجو",
+  "placeSearchFailBusy": "سرویس جستجو شلوغ است. یک دقیقه صبر کنید و دوباره امتحان کنید.",
+  "placeSearchFailDetails": "مکان پیدا شد، اما منطقه‌ی زمانی آن دریافت نشد. اتصال را بررسی کنید و دوباره آن را انتخاب کنید.",
+  "placeSearchFailGeneric": "جستجو انجام نشد. کمی بعد دوباره امتحان کنید.",
+  "placeSearchFailOffline": "اینترنت وصل نیست. وصل شوید و دوباره جستجو را بزنید. بقیه‌ی برنامه بدون اینترنت کار می‌کند.",
+  "placeSearchFailTimeout": "سرویس جستجو به‌موقع پاسخ نداد. دوباره امتحان کنید.",
+  "placeSearchHint": "شهر، کشور (مثلاً بمبئی، هند)",
+  "placeSearchNone": "مکانی برای «{query}» پیدا نشد. املا را بررسی کنید یا کشور را هم بنویسید، مثلاً بمبئی، هند.",
+  "@placeSearchNone": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "placeSearchNotice": "جستجو فقط همین یک بار به اینترنت نیاز دارد. متنی که می‌نویسید به سرویس جستجوی OpenStreetMap (Nominatim) فرستاده می‌شود و چیز دیگری فرستاده نمی‌شود. بعد از انتخاب مکان، برنامه آنچه لازم دارد را نگه می‌دارد و دوباره بدون اینترنت کار می‌کند.",
+  "placeSearchResolving": "در حال دریافت منطقه‌ی زمانی و ارتفاع {place}…",
+  "@placeSearchResolving": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "placeSearchResultsTitle": "نتایج: مکان خود را انتخاب کنید",
+  "placeSearchTitle": "جستجوی مکان",
+  "placeSearchTooShort": "دست‌کم دو حرف بنویسید و جستجو را بزنید.",
+  "placeSearchUnknownZone": "منطقه‌ی زمانی این مکان در پایگاه داده‌ی برنامه نیست. مکان دیگری را امتحان کنید یا آن را با «مکان دلخواه» در تنظیمات اضافه کنید.",
+  "placeSearching": "در حال جستجو…",
   "prayerAsr": "عصر",
   "prayerDhuhr": "اذان ظهر",
   "prayerFajr": "اذان صبح",
@@ -620,6 +674,15 @@
   "qiblaCoordsHint": "مثلاً ۳۶٫۲۱۳۳، ۵۸٫۷۹۵۸",
   "qiblaCoordsInvalid": "مختصات معتبر نیست. عرض باید بین ۹۰- و ۹۰ و طول بین ۱۸۰- و ۱۸۰ باشد.",
   "qiblaCoordsLabel": "عرض و طول جغرافیایی",
+  "qiblaCoordsOr": "یا مختصات را خودتان وارد کنید",
+  "qiblaCustomPlaceShown": "اندازه‌گیری از {place}.",
+  "@qiblaCustomPlaceShown": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      }
+    }
+  },
   "qiblaDeviceFixShown": "موقعیت دستگاه نشان داده می‌شود.",
   "qiblaDistanceLabel": "فاصله تا کعبه",
   "qiblaDistanceValue": "{km} کیلومتر",
@@ -631,9 +694,9 @@
     }
   },
   "qiblaFailGeneric": "موقعیت خوانده نشد؛ شهر انتخاب‌شده نشان داده می‌شود.",
-  "qiblaFailPermissionDenied": "ویندوز اجازه‌ی خواندن موقعیت را به این برنامه نداده است. در تنظیمات ویندوز (حریم خصوصی و امنیت، موقعیت مکانی) هم «موقعیت مکانی» و هم «اجازه به برنامه‌های رومیزی» را روشن کنید و دوباره امتحان کنید؛ یا از شهر انتخاب‌شده استفاده کنید.",
-  "qiblaFailPermissionForever": "دسترسی به موقعیت مکانی رد شده است. در تنظیمات ویندوز (حریم خصوصی و امنیت، موقعیت مکانی) «اجازه به برنامه‌های رومیزی» را روشن کنید.",
-  "qiblaFailServiceDisabled": "سرویس موقعیت‌یابی ویندوز خاموش است. آن را در تنظیمات ویندوز (حریم خصوصی، موقعیت مکانی) روشن کنید، یا «شهر انتخاب‌شده» و «نقطه‌ی دلخواه» را به کار ببرید.",
+  "qiblaFailPermissionDenied": "ویندوز اجازه‌ی خواندن موقعیت را به این برنامه نداده است. مراحل زیر را انجام دهید و دوباره امتحان کنید؛ یا از شهر انتخاب‌شده استفاده کنید.",
+  "qiblaFailPermissionForever": "دسترسی به موقعیت مکانی رد شده است. برای فعال‌کردن دوباره، مراحل زیر را انجام دهید.",
+  "qiblaFailServiceDisabled": "سرویس موقعیت مکانی دستگاه خاموش است. مراحل زیر را انجام دهید؛ یا از شهر انتخاب‌شده یا هر نقطه‌ی دلخواه استفاده کنید.",
   "qiblaFailTimeout": "موقعیت به‌موقع به دست نیامد. رایانه‌ها معمولاً GPS ندارند و ویندوز موقعیت را از Wi-Fi تخمین می‌زند. دوباره امتحان کنید یا شهر را به کار ببرید.",
   "qiblaFailUnsupported": "این دستگاه موقعیت‌یابی ندارد؛ شهر انتخاب‌شده نشان داده می‌شود.",
   "qiblaForLocation": "جهت قبله برای {place}",
@@ -644,11 +707,19 @@
       }
     }
   },
+  "qiblaHelpOther": "موقعیت مکانی را در تنظیمات سیستم‌عامل روشن کنید، به این برنامه اجازه‌ی استفاده از آن را بدهید و دوباره امتحان کنید.",
+  "qiblaHelpTitleOther": "چطور موقعیت مکانی را روشن کنم؟",
+  "qiblaHelpTitleWindows": "چطور موقعیت مکانی را در ویندوز روشن کنم؟",
+  "qiblaHelpWin1": "دکمه‌ی بالا را بزنید تا صفحه‌ی Location در تنظیمات ویندوز باز شود. اگر باز نشد، دستی بروید: Start > Settings > Privacy & security > Location (در ویندوز ۱۰: Privacy > Location)",
+  "qiblaHelpWin2": "کلید Location services را روشن کنید. اگر بالای صفحه نوشته Location for this device is off، دکمه‌ی Change را بزنید و آن را روشن کنید.",
+  "qiblaHelpWin3": "کمی پایین‌تر کلید Let desktop apps access your location را روشن کنید (در ویندوز ۱۰: Allow desktop apps to access your location). Salaat یک برنامه‌ی رومیزی است و فقط با همین کلید اجازه می‌گیرد.",
+  "qiblaHelpWin4": "به Salaat برگردید و «یافتن موقعیت من» را دوباره بزنید. اگر باز هم نشد، برنامه را یک بار ببندید و باز کنید.",
   "qiblaLocateAgain": "یافتن دوباره",
   "qiblaLocateButton": "یافتن موقعیت من",
   "qiblaLocating": "در حال یافتن موقعیت…",
   "qiblaMapAttribution": "© مشارکت‌کنندگان OpenStreetMap",
-  "qiblaMapConsentBody": "برای دیدن خط قبله روی نقشه، تصاویر نقشه از اینترنت (OpenStreetMap) گرفته می‌شود و ناحیه‌ای که می‌بینید به آن سرور فرستاده می‌شود. تا شما نخواهید هیچ درخواستی فرستاده نمی‌شود. بدون نقشه هم زاویه و فاصله‌ی قبله درست نشان داده می‌شود.",
+  "qiblaMapAttributionSatellite": "تصاویر © Esri، Maxar، Earthstar Geographics و جامعه‌ی کاربران GIS",
+  "qiblaMapConsentBody": "برای دیدن خط قبله روی نقشه، تصاویر نقشه از اینترنت گرفته می‌شود و ناحیه‌ای که می‌بینید به آن سرور فرستاده می‌شود: نقشه‌ی خیابانی از OpenStreetMap، و اگر «ماهواره» را انتخاب کنید عکس‌های هوایی از Esri. تا شما نخواهید هیچ درخواستی فرستاده نمی‌شود. بدون نقشه هم زاویه و فاصله‌ی قبله درست نشان داده می‌شود.",
   "qiblaMapConsentButton": "نمایش نقشه",
   "qiblaMapConsentTitle": "نقشه‌ی قبله",
   "qiblaMapKaaba": "کعبه",
@@ -672,6 +743,9 @@
   "qiblaMapTurnOff": "خاموش‌کردن نقشه",
   "qiblaMapYou": "موقعیت شما",
   "qiblaNoCompassNote": "رایانه قطب‌نما ندارد؛ شکل نسبت به شمال حقیقی رسم شده است (شمال بالاست).",
+  "qiblaOpenSettingsFailed": "تنظیمات باز نشد؛ مراحل بالا را دستی انجام دهید.",
+  "qiblaOpenSettingsOther": "باز کردن تنظیمات موقعیت",
+  "qiblaOpenSettingsWindows": "باز کردن تنظیمات موقعیت ویندوز",
   "qiblaSourceCity": "شهر انتخاب‌شده",
   "qiblaSourceCityHelp": "شهری که برای اوقات شرعی انتخاب کرده‌اید: {city}.",
   "@qiblaSourceCityHelp": {
@@ -682,12 +756,15 @@
     }
   },
   "qiblaSourceCustom": "نقطه‌ی دلخواه",
-  "qiblaSourceCustomHelp": "روی نقشه بزنید یا مختصات را وارد کنید.",
+  "qiblaSourceCustomHelp": "مکان را با نام جستجو کنید (یک‌بار اینترنت لازم است)، روی نقشه بزنید یا مختصات را وارد کنید.",
   "qiblaSourceDevice": "موقعیت دستگاه",
   "qiblaSourceDeviceHelp": "موقعیت فقط وقتی دکمه را بزنید از دستگاه خوانده می‌شود و ذخیره یا فرستاده نمی‌شود.",
   "qiblaSourceTitle": "قبله را از کجا حساب کنم؟",
   "qiblaStatLatitude": "عرض جغرافیایی",
   "qiblaStatLongitude": "طول جغرافیایی",
+  "qiblaStyleLabel": "نوع نقشه",
+  "qiblaStyleSatellite": "ماهواره",
+  "qiblaStyleStreet": "نقشه",
   "qiblaSunBelow": "خورشید زیر افق است.",
   "qiblaSunInHelp": "در این لحظه خورشید دقیقاً در جهت قبله است؛ رو به خورشید بایستید.",
   "qiblaSunInTitle": "خورشید در جهت قبله (مقارنه)",
@@ -820,6 +897,7 @@
   "settingsCalcRowsTitle": "ردیف‌های نمایش‌داده‌شده",
   "settingsCancel": "انصراف",
   "settingsDecrease": "کم کردن",
+  "settingsDigitsArabic": "عربی (٠١٢)",
   "settingsDigitsLatin": "لاتین (123)",
   "settingsDigitsPersian": "فارسی (۱۲۳)",
   "settingsDispDigits": "رقم‌ها",
@@ -847,12 +925,11 @@
       }
     }
   },
-  "settingsLanguageEn": "English",
-  "settingsLanguageFa": "فارسی",
   "settingsLocActive": "فعال",
   "settingsLocAdd": "افزودن",
   "settingsLocAddCustom": "مکان دلخواه",
   "settingsLocAddFromDb": "از فهرست شهرها",
+  "settingsLocAddSearch": "جستجوی آنلاین",
   "settingsLocAddTitle": "افزودن مکان",
   "settingsLocAdded": "{name} اضافه شد.",
   "@settingsLocAdded": {
@@ -1134,6 +1211,19 @@
   "settingsZoneQuarterLess": "یک ربع ساعت کمتر",
   "settingsZoneQuarterMore": "یک ربع ساعت بیشتر",
   "settingsZoneTitle": "منطقه‌ی زمانی",
+  "supportAvailableIn": "قابل استفاده در:",
+  "supportCardCountries": "فقط ایران: کارت‌های بانکی ایرانی عضو شبکه‌ی شتاب. از خارج از ایران با این کارت نمی‌شود پرداخت کرد؛ از رمزارز استفاده کنید.",
+  "supportCardNumberLabel": "شماره‌ی کارت",
+  "supportCardTitle": "کارت بانکی ایران",
+  "supportCheckNote": "پیش از پرداخت، شماره یا آدرس را با نشانی رسمی پروژه در GitHub هم تطبیق دهید. ممنون از حمایت شما.",
+  "supportCryptoAddressLabel": "آدرس کیف پول",
+  "supportCryptoCountries": "همه‌ی کشورها: از هر جا که کیف پول یا صرافی رمزارز در دسترس باشد، بدون نیاز به کارت بانکی.",
+  "supportCryptoNetworkLabel": "شبکه",
+  "supportCryptoNetworkValue": "BEP20 (BNB Smart Chain یا BSC)",
+  "supportCryptoTitle": "رمزارز USDT (تتر)",
+  "supportCryptoWarning": "فقط USDT را از طریق شبکه‌ی BEP20 بفرستید. ارسال رمزارز دیگر یا ارسال از شبکه‌ی دیگر به این آدرس باعث از دست رفتن مبلغ می‌شود.",
+  "supportIntro": "این برنامه رایگان است، تبلیغ ندارد، حساب کاربری نمی‌خواهد و هیچ قابلیتی پشت پرداخت قفل نیست. اگر برایتان مفید بود و خواستید از ادامه‌ی توسعه‌ی آن حمایت کنید، از یکی از راه‌های زیر استفاده کنید. حمایت کاملاً اختیاری است و از هر مبلغی سپاسگزارم.",
+  "supportTitle": "حمایت مالی",
   "timetableCalendarSwitch": "نوع تقویم",
   "timetableColDay": "روز",
   "timetableColWeekday": "روز هفته",

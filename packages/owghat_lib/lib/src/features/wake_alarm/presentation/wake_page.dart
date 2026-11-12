@@ -19,7 +19,7 @@ import 'package:owghat_lib/src/features/wake_alarm/domain/wake_alarm.dart';
 import 'package:owghat_lib/src/features/wake_alarm/presentation/alarm_editor_dialog.dart';
 import 'package:owghat_lib/src/features/wake_alarm/presentation/capability_panel.dart';
 
-/// The Wake-up screen (`docs/05-UI-UX-SPEC.md` 4.5): the capability panel,
+/// The Wake-up screen: the capability panel,
 /// the alarm cards with an add button, the "test in 2 minutes" action, the
 /// "sleep now" / "hibernate now" buttons with their cancellable countdown,
 /// and the plain-language notices for anything that went wrong.

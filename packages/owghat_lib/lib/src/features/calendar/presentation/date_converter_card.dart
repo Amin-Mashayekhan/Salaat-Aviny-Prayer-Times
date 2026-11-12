@@ -14,7 +14,7 @@ import 'package:owghat_lib/src/features/settings/application/settings_controller
 /// Editing one calendar fills in the other two; an impossible date is
 /// explained under the calendar being edited and leaves the others alone.
 ///
-/// It is also the "pick a date in any calendar" control of F-11: "Show in
+/// It is also the "pick a date in any calendar" control: "Show in
 /// calendar" opens the converted day in the month grid.
 class DateConverterCard extends ConsumerStatefulWidget {
   /// Creates the card.

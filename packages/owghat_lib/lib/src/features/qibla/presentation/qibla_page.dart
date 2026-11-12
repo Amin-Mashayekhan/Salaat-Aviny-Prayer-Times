@@ -11,7 +11,7 @@ import 'package:owghat_lib/src/features/qibla/presentation/qibla_map_tab.dart';
 import 'package:owghat_lib/src/features/settings/application/formatter_provider.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
 
-/// The Qibla screen (`docs/05-UI-UX-SPEC.md` 4.4) with two tabs:
+/// The Qibla screen with two tabs:
 ///
 /// * **Map**: the line from the chosen position (the prayer-times city, this
 ///   device, or any point) to the Kaaba on a map, with the angle and distance.

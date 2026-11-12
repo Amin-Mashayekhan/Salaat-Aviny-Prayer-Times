@@ -1,7 +1,7 @@
 import 'package:owghat_lib/l10n/gen/app_localizations.dart';
 import 'package:prayer_core/prayer_core.dart';
 
-/// Display names of the prayers (glossary of `docs/05-UI-UX-SPEC.md` §6).
+/// Display names of the prayers.
 ///
 /// Prayer identity is always the [Prayer] enum; text comes from here only.
 extension PrayerLabels on Prayer {

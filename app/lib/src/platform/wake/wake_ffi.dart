@@ -5,7 +5,7 @@
 // signature.
 //
 // Handles are carried as `int` (IntPtr). Nothing here has been run on real
-// hardware; see docs/adr/0005-wake-timers.md.
+// hardware; see docs/manual-test-checklist-wake.md.
 // ignore_for_file: non_constant_identifier_names
 import 'dart:ffi';
 

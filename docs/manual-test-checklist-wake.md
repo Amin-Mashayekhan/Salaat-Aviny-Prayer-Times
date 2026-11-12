@@ -1,9 +1,9 @@
-# Manual test checklist: wake-up alarms (M7 gate)
+# Manual test checklist: wake-up alarms
 
-Everything here needs a real Windows PC that can sleep. Nothing in the wake feature has been run on
-hardware yet (see `docs/adr/0005-wake-timers.md`). Run it on Windows 10 and Windows 11, on a **standard
-(non-admin) account**, once on mains power and once on battery if the PC has one. Do not change the
-Windows clock. Do not run any `powercfg` command that sets a value; only read.
+Everything here needs a real Windows PC that can sleep; wake timers depend on the hardware, the power plan
+and Windows policy, so none of it can be covered by the automated tests. Run it on Windows 10 and
+Windows 11, on a **standard (non-admin) account**, once on mains power and once on battery if the PC has
+one. Do not change the Windows clock. Do not run any `powercfg` command that sets a value; only read.
 
 Record at the bottom: date, Windows build, laptop or desktop, `powercfg /a` first line of the
 "available" list (Standby (S3) or Standby (S0 Low Power Idle)), app version.

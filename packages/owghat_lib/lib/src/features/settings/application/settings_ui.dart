@@ -78,11 +78,9 @@ final settingsSavedCountProvider = NotifierProvider<SettingsSavedCount, int>(
   SettingsSavedCount.new,
 );
 
-/// SLOT for the "About and diagnostics" section.
-///
-/// The other agent that builds `AboutDiagnosticsSection` overrides this
-/// provider (or replaces its default) with a builder that returns that
-/// widget. Until then a short placeholder text is shown.
+/// Builds the "About and diagnostics" section. `bootstrap` overrides it with
+/// `AboutDiagnosticsSection`; until then a short placeholder text is shown
+/// (for example in widget tests of the settings page alone).
 final aboutSectionBuilderProvider = Provider<WidgetBuilder>(
   (ref) =>
       (context) => Text(AppLocalizations.of(context).settingsAboutPlaceholder),

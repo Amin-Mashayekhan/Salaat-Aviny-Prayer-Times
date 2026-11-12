@@ -28,5 +28,5 @@ jobs:
         working-directory: app
       - uses: actions/upload-artifact@v4
         with:
-          name: owghat-windows
+          name: salaat-windows-x64
           path: app/build/windows/x64/runner/Release

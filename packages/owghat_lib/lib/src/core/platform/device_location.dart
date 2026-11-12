@@ -81,12 +81,21 @@ abstract interface class DeviceLocationService {
   Future<DeviceFix> currentPosition({
     Duration timeLimit = const Duration(seconds: 20),
   });
+
+  /// Opens the operating system's location settings page, where the person
+  /// can switch location on or allow this app. It only shows the page; the
+  /// app never changes the setting itself. Returns false when the page could
+  /// not be opened.
+  Future<bool> openSystemSettings();
 }
 
 /// The service of a platform that has no position source.
 class UnsupportedDeviceLocation implements DeviceLocationService {
   /// Creates it.
   const UnsupportedDeviceLocation();
+
+  @override
+  Future<bool> openSystemSettings() async => false;
 
   @override
   Future<DeviceFix> currentPosition({

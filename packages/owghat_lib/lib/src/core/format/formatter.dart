@@ -12,16 +12,22 @@ class Formatter {
   /// Creates a formatter.
   ///
   /// [persianDigits] selects the Persian digits and decimal separator,
+  /// [arabicDigits] the Arabic-Indic ones (ignored when [persianDigits] is
+  /// set),
   /// [twelveHour] the 12-hour clock, [l10n] supplies the words (AM/PM and
   /// the duration phrases).
   const Formatter({
     required this.persianDigits,
     required this.twelveHour,
     required this.l10n,
+    this.arabicDigits = false,
   });
 
   /// Whether digits are shown as Persian digits.
   final bool persianDigits;
+
+  /// Whether digits are shown as Arabic-Indic digits (٠١٢).
+  final bool arabicDigits;
 
   /// Whether times use the 12-hour clock.
   final bool twelveHour;
@@ -45,19 +51,24 @@ class Formatter {
   /// fragments never render reversed inside right-to-left text.
   static String isolate(String text) => '$lri$text$pdi';
 
-  /// Replaces the digits of [text] with the configured style (Persian or
-  /// Latin); other characters are unchanged.
+  /// The code point of the digit zero of the configured style.
+  int get _zero => persianDigits
+      ? 0x06f0
+      : arabicDigits
+      ? 0x0660
+      : 0x30;
+
+  /// Replaces the digits of [text] with the configured style (Persian,
+  /// Arabic-Indic or Latin); other characters are unchanged.
   String digits(String text) {
     final out = StringBuffer();
     for (final rune in text.runes) {
       if (rune >= 0x30 && rune <= 0x39) {
-        out.writeCharCode(persianDigits ? 0x06f0 + rune - 0x30 : rune);
+        out.writeCharCode(_zero + rune - 0x30);
       } else if (rune >= 0x06f0 && rune <= 0x06f9) {
-        out.writeCharCode(persianDigits ? rune : 0x30 + rune - 0x06f0);
+        out.writeCharCode(_zero + rune - 0x06f0);
       } else if (rune >= 0x0660 && rune <= 0x0669) {
-        out.writeCharCode(
-          persianDigits ? 0x06f0 + rune - 0x0660 : 0x30 + rune - 0x0660,
-        );
+        out.writeCharCode(_zero + rune - 0x0660);
       } else {
         out.writeCharCode(rune);
       }
@@ -70,10 +81,12 @@ class Formatter {
   String formatNumber(num value, {int fractionDigits = 0}) {
     final negative = value < 0;
     var text = value.abs().toStringAsFixed(fractionDigits);
-    if (persianDigits) text = text.replaceAll('.', persianDecimalSeparator);
+    if (persianDigits || arabicDigits) {
+      text = text.replaceAll('.', persianDecimalSeparator);
+    }
     final result = digits(text);
     // A rounded negative zero ("-0") is shown without the sign.
-    final isZero = !RegExp('[1-9۱-۹]').hasMatch(result);
+    final isZero = !RegExp('[1-9۱-۹١-٩]').hasMatch(result);
     return negative && !isZero ? '−$result' : result;
   }
 

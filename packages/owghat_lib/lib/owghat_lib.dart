@@ -10,6 +10,8 @@ export 'src/core/platform/autostart_service.dart';
 export 'src/core/platform/device_location.dart';
 export 'src/core/platform/file_dialogs.dart';
 export 'src/core/platform/launch_args.dart';
+export 'src/core/platform/link_opener.dart';
+export 'src/core/platform/place_search.dart';
 export 'src/core/platform/platform_paths.dart';
 export 'src/core/platform/platform_services.dart';
 export 'src/core/platform/power_events.dart';
@@ -21,4 +23,5 @@ export 'src/core/time/fade_ramp.dart';
 export 'src/features/diagnostics/application/app_version.dart';
 export 'src/features/locations/data/location_repository.dart'
     show AssetTextLoader;
+export 'src/features/places/data/online_place_search.dart';
 export 'src/features/settings/domain/sound_ref.dart';

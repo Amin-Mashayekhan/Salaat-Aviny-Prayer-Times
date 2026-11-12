@@ -11,9 +11,8 @@ import 'package:owghat_lib/src/features/wake_alarm/domain/wake_countdown_state.d
 /// The cancellable countdown before the PC is put to sleep or hibernated
 /// (5 seconds after "Sleep now" / "Hibernate now", 30 seconds after an
 /// alarm). It is drawn in place, never as a modal dialog: a countdown that a
-/// background alarm starts must not take over the screen (rule 8 in
-/// `CLAUDE.md`). Shows nothing while no countdown runs; `Esc` or the button
-/// cancels it.
+/// background alarm starts must not take over the screen. Shows nothing while no countdown runs; `Esc` or the
+/// button cancels it.
 ///
 /// The Wake-up page places it itself. Because an alarm can start the
 /// countdown while another screen is open, the app shell should show this

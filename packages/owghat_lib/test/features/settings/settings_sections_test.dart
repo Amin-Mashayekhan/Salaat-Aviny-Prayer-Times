@@ -519,7 +519,7 @@ void main() {
       expect(rig.ntp.hosts, ['pool.ntp.org']);
       expect(textOf(tester, 'set-time-status'), contains('45 s behind'));
       expect(textOf(tester, 'set-time-status'), contains('Checked at 15:30'));
-      // A skew of 30 s or more is the D-1 warning.
+      // A skew of 30 s or more shows the clock warning.
       expect(
         find.descendant(
           of: k('set-time-diagnosis'),
@@ -569,7 +569,7 @@ void main() {
       expect(find.text('The server name is not valid.'), findsNothing);
     });
 
-    testWidgets('stale Windows zone rules (D-2) are explained', (tester) async {
+    testWidgets('stale Windows zone rules are explained', (tester) async {
       final rig = await open(tester, SettingsSection.time);
       // The fake Windows zone is +03:30; Kabul is +04:30 in the database, so
       // Windows disagrees with the database by exactly one hour.

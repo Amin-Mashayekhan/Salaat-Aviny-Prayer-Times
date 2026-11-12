@@ -123,7 +123,14 @@ class SettingRow extends StatelessWidget {
               Expanded(child: text),
               const SizedBox(width: Gaps.m),
               if (controlWidth == null)
-                control
+                // A long label (some languages need more words) may take at
+                // most half of the row and wraps inside the control.
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: constraints.maxWidth / 2,
+                  ),
+                  child: control,
+                )
               else
                 SizedBox(width: controlWidth, child: control),
             ],

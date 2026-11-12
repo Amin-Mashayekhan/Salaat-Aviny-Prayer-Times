@@ -251,9 +251,7 @@ void main() {
       expect(rig.container.read(settingsSavedCountProvider), 2);
     });
 
-    testWidgets('opening a screen never writes a setting (rule T-5)', (
-      tester,
-    ) async {
+    testWidgets('opening a screen never writes a setting', (tester) async {
       final rig = await open(tester, section: SettingsSection.location);
       final before = rig.settings;
       for (final section in SettingsSection.values) {
@@ -357,7 +355,7 @@ void main() {
               );
           await tester.pumpAndSettle();
           await tapKey(tester, 'set-loc-edit-custom:1');
-          await tapKey(tester, 'set-loc-add-mode-1');
+          await tapKey(tester, 'set-loc-add-mode-2');
           final seen = <String>[...allStrings(tester)];
           await tapKey(tester, 'set-loc-custom:1-offset-mode-1');
           seen.addAll(allStrings(tester));

@@ -7,7 +7,7 @@ import 'dart:async';
 ///
 /// It counts ticks instead of reading a wall clock, so a clock change cannot
 /// shorten or lengthen it. It lives in `core/time` because timers are only
-/// allowed here and in the scheduler (rule 4 in `CLAUDE.md`).
+/// allowed here and in the scheduler.
 class Countdown {
   /// Starts a countdown of [total].
   ///

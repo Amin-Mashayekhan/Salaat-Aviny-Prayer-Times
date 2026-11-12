@@ -27,7 +27,7 @@ abstract final class WakeTimings {
   static const Duration manualCountdown = Duration(seconds: 5);
 
   /// Cancellable on-screen countdown before an alarm's `afterSound` action.
-  /// The PC is never suspended without it (`docs/04-DOMAIN-SPEC.md` 7).
+  /// The PC is never suspended without it.
   static const Duration afterAlarmCountdown = Duration(seconds: 30);
 
   /// How long the PC is kept awake after an alarm that does not suspend the
@@ -477,8 +477,8 @@ class WakeAlarmController extends Notifier<WakeAlarmState> {
         // A one-time alarm switches itself off after it fired. This is the
         // one background write to the settings and it is allowed: the user
         // chose "once" for this alarm, so disabling it is carrying out their
-        // own setting (rule T-5 forbids changing what the user did not ask
-        // for). Only `enabled` changes.
+        // own setting (the app never changes a setting the user did not ask
+        // to change). Only `enabled` changes.
         bookkeeping.fired(id);
         ref
             .read(settingsProvider.notifier)

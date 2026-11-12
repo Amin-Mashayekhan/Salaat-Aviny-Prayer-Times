@@ -7,7 +7,7 @@ import 'package:win32/win32.dart';
 /// [release] must run on the same thread. They are always called from the main
 /// isolate, which runs on the Flutter UI thread for the life of the process.
 /// (If that ever proves wrong, `PowerCreateRequest`/`PowerSetRequest` are
-/// process-wide alternatives; see the ADR.)
+/// process-wide alternatives.)
 ///
 /// UNVERIFIED on real hardware.
 class Win32AwakeHold implements AwakeHold {

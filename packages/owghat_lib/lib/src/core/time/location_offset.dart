@@ -1,6 +1,6 @@
 import 'package:owghat_lib/src/core/utils/json_value.dart';
 
-/// How the UTC offset of a location is determined (rule T-3).
+/// How the UTC offset of a location is determined.
 enum OffsetMode {
   /// From the bundled IANA time-zone database. Recommended.
   automatic,

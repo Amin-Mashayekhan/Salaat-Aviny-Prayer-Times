@@ -10,10 +10,45 @@ const int settingsSchemaVersion = 1;
 /// UI language.
 enum AppLanguage {
   /// Persian, right-to-left.
-  fa,
+  fa('فارسی', rtl: true, digits: DigitStyle.persian),
 
   /// English, left-to-right.
-  en,
+  en('English'),
+
+  /// Arabic, right-to-left.
+  ar('العربية', rtl: true, digits: DigitStyle.arabic),
+
+  /// Turkish, left-to-right.
+  tr('Türkçe'),
+
+  /// Urdu, right-to-left (written with the same digits as Persian).
+  ur('اردو', rtl: true, digits: DigitStyle.persian),
+
+  /// Azerbaijani (Latin script), left-to-right.
+  az('Azərbaycanca'),
+
+  /// Indonesian, left-to-right.
+  id('Bahasa Indonesia'),
+
+  /// French, left-to-right.
+  fr('Français');
+
+  AppLanguage(
+    this.nativeName, {
+    this.rtl = false,
+    this.digits = DigitStyle.latin,
+  });
+
+  /// The language written in itself. It is never translated, so a person who
+  /// cannot read the current language can still find theirs.
+  final String nativeName;
+
+  /// Whether the script runs right to left.
+  final bool rtl;
+
+  /// The digit style that goes with this language by default; it can be
+  /// changed on its own in the settings.
+  final DigitStyle digits;
 }
 
 /// Theme choice.
@@ -35,6 +70,9 @@ enum DigitStyle {
 
   /// Latin digits.
   latin,
+
+  /// Arabic-Indic digits (٠١٢).
+  arabic,
 }
 
 /// Clock style.
@@ -262,7 +300,7 @@ class PrayerAzan extends JsonValue {
 }
 
 /// The user quick-mute. Expiry is evaluated at read time and never written
-/// back (rule T-5).
+/// back.
 class MuteSetting extends JsonValue {
   /// Creates a mute setting.
   const MuteSetting({this.until, this.indefinite = false});
@@ -543,15 +581,38 @@ class NetworkTimeSettings extends JsonValue {
   };
 }
 
+/// What the qibla map draws under the line.
+enum QiblaMapStyle {
+  /// The street map (OpenStreetMap): roads, names, buildings drawn.
+  street,
+
+  /// Aerial photographs of the ground (satellite imagery).
+  satellite,
+}
+
 /// Qibla page.
 class QiblaSettings extends JsonValue {
   /// Creates the settings.
-  const QiblaSettings({this.mapEnabled = false});
+  const QiblaSettings({
+    this.mapEnabled = false,
+    this.mapStyle = QiblaMapStyle.street,
+  });
 
   /// Reads the JSON form.
-  factory QiblaSettings.fromJson(Object? raw) => QiblaSettings(
-    mapEnabled: Json.boolean(Json.map(raw)['mapEnabled'], fallback: false),
-  );
+  factory QiblaSettings.fromJson(Object? raw) {
+    final map = Json.map(raw);
+    return QiblaSettings(
+      mapEnabled: Json.boolean(map['mapEnabled'], fallback: false),
+      mapStyle: Json.enumValue(
+        QiblaMapStyle.values,
+        map['mapStyle'],
+        QiblaMapStyle.street,
+      ),
+    );
+  }
+
+  /// The map layer shown: street map or satellite photographs.
+  final QiblaMapStyle mapStyle;
 
   /// Whether the user agreed to load map tiles from the internet. Off until
   /// they press "show the map": the app works offline and does not contact
@@ -559,11 +620,17 @@ class QiblaSettings extends JsonValue {
   final bool mapEnabled;
 
   /// Copy with changes.
-  QiblaSettings copyWith({bool? mapEnabled}) =>
-      QiblaSettings(mapEnabled: mapEnabled ?? this.mapEnabled);
+  QiblaSettings copyWith({bool? mapEnabled, QiblaMapStyle? mapStyle}) =>
+      QiblaSettings(
+        mapEnabled: mapEnabled ?? this.mapEnabled,
+        mapStyle: mapStyle ?? this.mapStyle,
+      );
 
   @override
-  Map<String, Object?> toJson() => {'mapEnabled': mapEnabled};
+  Map<String, Object?> toJson() => {
+    'mapEnabled': mapEnabled,
+    'mapStyle': mapStyle.name,
+  };
 }
 
 /// All user settings. The only writer is `SettingsController`.

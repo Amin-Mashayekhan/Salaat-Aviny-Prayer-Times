@@ -3,8 +3,8 @@ import 'package:owghat_lib/src/core/time/tz_database.dart';
 import 'package:prayer_core/prayer_core.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-/// The only place that decides the UTC offset of a civil date (rules T-3,
-/// T-4 and T-7 in `docs/04-DOMAIN-SPEC.md`).
+/// The only place that decides the UTC offset of a civil date (see
+/// `docs/prayer-times.md`).
 ///
 /// There is no daylight-saving logic of our own here: a zone with DST is
 /// handled entirely by the bundled IANA database, and a user who distrusts
@@ -64,7 +64,7 @@ class ZoneOffsetResolver {
   ///
   /// Fixed rule: the typed offset on every date. Automatic rule: the offset
   /// the zone has at 12:00 local time of that date, resolved in two steps
-  /// (rule T-7) so the answer is right even for zones that change offset
+  /// so the answer is right even for zones that change offset
   /// near midnight.
   Duration offsetFor({
     required LocationOffset rule,

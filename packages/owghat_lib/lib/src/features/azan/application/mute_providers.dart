@@ -14,7 +14,7 @@ const Duration muteSlackAfterAzan = Duration(minutes: 4);
 ///
 /// Derived from `settings.azan.mute` and the clock: when a timed mute runs
 /// out this turns false by itself, and nothing is ever written back to the
-/// settings (rule T-5).
+/// settings.
 final muteActiveProvider = Provider<bool>((ref) {
   final mute = ref.watch(settingsProvider.select((s) => s.azan.mute));
   final now = ref.watch(nowProvider);

@@ -3,7 +3,8 @@ import 'package:owghat_lib/src/core/time/location_offset.dart';
 import 'package:owghat_lib/src/core/time/zone_offset_resolver.dart';
 import 'package:prayer_core/prayer_core.dart';
 
-/// Regression guard for legacy bug B-01.
+/// Regression guard: Iran has no daylight-saving time, and the times of the day
+/// must not shift by an hour.
 ///
 /// Iran abolished daylight saving time in 2022 (last DST period ended on
 /// 21 September 2022). If a time-zone database older than 2022b is ever

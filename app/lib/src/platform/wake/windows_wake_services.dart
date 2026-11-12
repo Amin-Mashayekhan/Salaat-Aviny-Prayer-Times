@@ -27,7 +27,7 @@ Future<CommandResult> runProcess(
 
 /// The Windows implementations of the wake-up interfaces.
 ///
-/// Bind them in the runner (see `docs/adr/0005-wake-timers.md`):
+/// Bind them in the runner:
 ///
 /// ```dart
 /// final wake = WindowsWakeServices.create(tempDirectory: ...);

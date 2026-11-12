@@ -32,6 +32,7 @@ class QiblaPointState {
     this.kind = QiblaSourceKind.city,
     this.deviceFix,
     this.customPoint,
+    this.customName,
     this.locating = false,
     this.failure,
   });
@@ -45,6 +46,10 @@ class QiblaPointState {
   /// The last point picked by hand, if any.
   final GeoPoint? customPoint;
 
+  /// The name of [customPoint] when it came from a place search, otherwise
+  /// null.
+  final String? customName;
+
   /// Whether a position request is in flight.
   final bool locating;
 
@@ -56,6 +61,8 @@ class QiblaPointState {
     QiblaSourceKind? kind,
     DeviceFix? deviceFix,
     GeoPoint? customPoint,
+    String? customName,
+    bool clearCustomName = false,
     bool? locating,
     DeviceLocationFailure? failure,
     bool clearFailure = false,
@@ -63,6 +70,7 @@ class QiblaPointState {
     kind: kind ?? this.kind,
     deviceFix: deviceFix ?? this.deviceFix,
     customPoint: customPoint ?? this.customPoint,
+    customName: clearCustomName ? null : (customName ?? this.customName),
     locating: locating ?? this.locating,
     failure: clearFailure ? null : (failure ?? this.failure),
   );
@@ -73,12 +81,13 @@ class QiblaPointState {
       other.kind == kind &&
       other.deviceFix == deviceFix &&
       other.customPoint == customPoint &&
+      other.customName == customName &&
       other.locating == locating &&
       other.failure == failure;
 
   @override
   int get hashCode =>
-      Object.hash(kind, deviceFix, customPoint, locating, failure);
+      Object.hash(kind, deviceFix, customPoint, customName, locating, failure);
 }
 
 /// Controls where the qibla map measures from.
@@ -151,13 +160,16 @@ class QiblaPointController extends Notifier<QiblaPointState> {
     }
   }
 
-  /// Measures from a point picked on the map or typed in.
-  void setCustom(double latitude, double longitude) {
+  /// Measures from a point picked on the map, typed in, or found by name
+  /// ([name] is then the name of the place; otherwise null).
+  void setCustom(double latitude, double longitude, {String? name}) {
     if (!isValidCoordinate(latitude, longitude)) return;
     _request++;
     state = state.copyWith(
       kind: QiblaSourceKind.custom,
       customPoint: (latitude: latitude, longitude: longitude),
+      customName: name,
+      clearCustomName: name == null,
       locating: false,
       clearFailure: true,
     );
@@ -204,7 +216,8 @@ class QiblaView {
   /// Bearing, distance and compass point.
   final QiblaInfo info;
 
-  /// The city name for [QiblaSourceKind.city], otherwise null.
+  /// The city name for [QiblaSourceKind.city] and the name of a place found
+  /// by search for [QiblaSourceKind.custom], otherwise null.
   final String? placeName;
 
   /// Accuracy of a device fix in metres, when known.
@@ -260,6 +273,7 @@ final qiblaViewProvider = Provider<QiblaView>((ref) {
           latitude: point.latitude,
           longitude: point.longitude,
           info: _infoFor(point.latitude, point.longitude),
+          placeName: choice.customName,
         );
       }
     case QiblaSourceKind.city:

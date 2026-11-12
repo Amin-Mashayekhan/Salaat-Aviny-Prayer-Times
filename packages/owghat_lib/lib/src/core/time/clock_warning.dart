@@ -3,7 +3,7 @@ sealed class ClockWarning {
   const ClockWarning();
 }
 
-/// D-1: the PC clock is off by [skew] or more.
+/// The PC clock is off by [skew] or more.
 final class ClockSkewWarning extends ClockWarning {
   /// Creates the warning.
   const ClockSkewWarning(this.skew);
@@ -12,7 +12,7 @@ final class ClockSkewWarning extends ClockWarning {
   final Duration skew;
 }
 
-/// D-2: Windows applies a different UTC offset than the bundled database for
+/// Windows applies a different UTC offset than the bundled database for
 /// the selected location, typically because it still uses abolished
 /// daylight-saving rules. The app times stay correct; the Windows clock is
 /// the one that is off.
@@ -30,14 +30,14 @@ final class StaleZoneRulesWarning extends ClockWarning {
   final Duration expectedOffset;
 }
 
-/// The skew from which D-1 is shown.
+/// The skew from which the clock warning is shown.
 const Duration clockSkewThreshold = Duration(seconds: 30);
 
 /// Decides which warning, if any, to show.
 ///
 /// - [measuredSkew]: network time minus PC time, null if never measured.
 /// - [windowsOffset] and [expectedOffset]: offsets at the same instant.
-/// - [automaticZone]: the active location uses the zone database (D-2 is
+/// - [automaticZone]: the active location uses the zone database (a stale-rules warning is
 ///   meaningless for a user-typed fixed offset).
 /// - [isIranZone]: the active location is in `Asia/Tehran`.
 ClockWarning? evaluateClockWarning({

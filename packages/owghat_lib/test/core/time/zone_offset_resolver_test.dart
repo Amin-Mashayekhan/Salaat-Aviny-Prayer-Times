@@ -43,7 +43,7 @@ void main() {
     });
   });
 
-  group('fixed offsets (rule T-3)', () {
+  group('fixed offsets', () {
     test('apply on every date of the year, even where the zone has DST', () {
       const fixed = LocationOffset.fixed(60);
       for (final date in [

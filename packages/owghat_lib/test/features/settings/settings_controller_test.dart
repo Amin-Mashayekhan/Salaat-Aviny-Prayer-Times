@@ -264,6 +264,17 @@ void main() {
       controller().setQiblaMapEnabled(enabled: false);
       expect(state().qibla.mapEnabled, isFalse);
     });
+
+    test('the qibla map style writes only its own field', () {
+      expect(state().qibla.mapStyle, QiblaMapStyle.street);
+      final before = state().copyWith(
+        qibla: const QiblaSettings(mapStyle: QiblaMapStyle.satellite),
+      );
+      controller().setQiblaMapStyle(QiblaMapStyle.satellite);
+      expect(state(), before);
+      controller().setQiblaMapStyle(QiblaMapStyle.street);
+      expect(state().qibla.mapStyle, QiblaMapStyle.street);
+    });
   });
 
   group('wake alarms', () {

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salaat | Aviny Prayer Times</title>
+  <meta name="description" content="Prayer times and azan for Windows. Offline, no ads, no account. فارسی · English · العربية">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="img/icon.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-row">
+      <a class="brand" href="#top"><img src="img/icon.png" alt="" width="32" height="32"><span>Salaat</span></a>
+      <nav aria-label="Sections">
+        <a href="#download" data-i18n="nav.download">Download</a>
+        <a href="#install" data-i18n="nav.install">Install</a>
+        <a href="#screens" data-i18n="nav.screens">Screenshots</a>
+        <a href="#privacy" data-i18n="nav.privacy">Privacy</a>
+        <a href="#help" data-i18n="nav.help">Help</a>
+      </nav>
+      <div class="langs" role="group" aria-label="Language">
+        <button type="button" data-lang="fa" lang="fa">فارسی</button>
+        <button type="button" data-lang="en" lang="en">English</button>
+        <button type="button" data-lang="ar" lang="ar">العربية</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <h1>Salaat <span class="light">| Aviny Prayer Times</span></h1>
+          <p class="lead" data-i18n="hero.lead">Prayer times and azan for Windows. It works offline, lives in the system tray and plays the azan on time. No ads, no account, no tracking.</p>
+          <div class="cta">
+            <a class="btn primary big" id="main-download" href="#download">
+              <span id="main-download-label" data-i18n="hero.download">Download for Windows</span>
+              <small id="main-download-sub" data-i18n="hero.sub">Installer · Windows 10 and 11, 64-bit</small>
+            </a>
+            <a class="btn" href="#install" data-i18n="hero.how">How to install</a>
+          </div>
+          <p class="notice" id="os-note" hidden data-i18n="hero.osnote">Salaat is for Windows for now. Versions for macOS, Linux and phones do not exist yet.</p>
+          <p class="meta"><span id="version-line"></span></p>
+        </div>
+        <figure class="shot hero-shot">
+          <img id="hero-image" src="img/home-en.png" alt="" width="1184" height="792">
+        </figure>
+      </div>
+    </section>
+
+    <section id="download" class="wrap">
+      <h2 data-i18n="dl.title">Download</h2>
+      <p class="sub" data-i18n="dl.sub">Choose the file for your computer. Both are free.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th data-i18n="dl.os">System</th>
+              <th data-i18n="dl.file">File</th>
+              <th data-i18n="dl.status">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="os-windows">
+              <td><strong>Windows 10 / 11</strong><br><span class="muted">64-bit</span></td>
+              <td>
+                <a class="btn primary" data-asset="Salaat-Setup.exe" href="#"><span data-i18n="dl.installer">Installer</span> <code>Salaat-Setup.exe</code></a>
+                <span class="tag" data-i18n="dl.recommended">Recommended</span><br>
+                <a class="btn" data-asset="Salaat-windows-x64.zip" href="#"><span data-i18n="dl.portable">Portable ZIP</span> <code>Salaat-windows-x64.zip</code></a>
+                <a class="link" data-asset="SHA256SUMS.txt" href="#">SHA256SUMS.txt</a>
+              </td>
+              <td><span class="ok" data-i18n="dl.available">Available</span></td>
+            </tr>
+            <tr class="os-mac"><td><strong>macOS</strong></td><td class="muted">—</td><td><span class="soon" data-i18n="dl.soon">Not available yet</span></td></tr>
+            <tr class="os-linux"><td><strong>Linux</strong></td><td class="muted">—</td><td><span class="soon" data-i18n="dl.soon2">Not available yet</span></td></tr>
+            <tr class="os-android"><td><strong>Android</strong></td><td class="muted">—</td><td><span class="soon" data-i18n="dl.soon3">Not available yet</span></td></tr>
+            <tr class="os-ios"><td><strong>iOS</strong></td><td class="muted">—</td><td><span class="soon" data-i18n="dl.soon4">Not available yet</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted small" data-i18n="dl.note">Only Windows is supported at the moment. If you need another system, say so on the project page so it can be planned.</p>
+      <p class="small"><a class="link" href="https://github.com/Amin-Mashayekhan/Salaat-Aviny-Prayer-Times/issues" data-i18n="dl.request">Ask for another system</a> ·
+        <a class="link" href="https://github.com/Amin-Mashayekhan/Salaat-Aviny-Prayer-Times/releases" data-i18n="dl.all">All versions</a></p>
+    </section>
+
+    <section id="install" class="wrap">
+      <h2 data-i18n="in.title">Install in four steps</h2>
+      <ol class="steps">
+        <li><strong data-i18n="in.s1t">Download</strong><p data-i18n="in.s1">Press the Download button and save <code>Salaat-Setup.exe</code>.</p></li>
+        <li><strong data-i18n="in.s2t">Open the file</strong><p data-i18n="in.s2">Windows may say "Windows protected your PC" because the program is new and not signed yet. Press <b>More info</b>, then <b>Run anyway</b>. You can compare the checksum with <code>SHA256SUMS.txt</code> first.</p></li>
+        <li><strong data-i18n="in.s3t">Install</strong><p data-i18n="in.s3">Press Next. No administrator rights are needed. You can tick "Start with Windows" here or later in the settings.</p></li>
+        <li><strong data-i18n="in.s4t">Choose language and city</strong><p data-i18n="in.s4">The first start asks for your language (eight are offered), your city and an azan sound. For a city outside Iran choose <b>Any city in the world</b> and search by name (for example "Mumbai, India"). The internet is needed once for that search; afterwards the app works offline.</p></li>
+      </ol>
+      <details class="more">
+        <summary data-i18n="in.portable">Portable version (no installer)</summary>
+        <p data-i18n="in.portablebody">Download <code>Salaat-windows-x64.zip</code>, extract it to any folder and run <code>salaat.exe</code>. Settings are kept in <code>%APPDATA%\Salaat\Salaat</code>.</p>
+      </details>
+      <details class="more">
+        <summary data-i18n="in.after">After installing</summary>
+        <ul data-i18n-html="in.afterlist">
+          <li>The tray icon (near the clock) keeps Salaat running. Close the window and it stays there to play the azan.</li>
+          <li>Qibla page: the map shows the shortest path to the Kaaba, in street or satellite style. The compass tab works without the internet.</li>
+          <li>To uninstall: Settings > Apps > Salaat. You are asked whether to keep your settings.</li>
+        </ul>
+      </details>
+    </section>
+
+    <section id="screens" class="wrap">
+      <h2 data-i18n="sc.title">What it looks like</h2>
+      <p class="sub" data-i18n="sc.sub">Screenshots from Windows 10. The program looks the same on Windows 11.</p>
+      <div class="gallery" id="gallery"></div>
+    </section>
+
+    <section id="privacy" class="wrap">
+      <h2 data-i18n="pv.title">Your privacy</h2>
+      <p data-i18n="pv.lead">No account, no ads, no tracking. The internet is used only when you ask for it:</p>
+      <ul data-i18n-html="pv.list">
+        <li>The optional clock check.</li>
+        <li>Map pictures, only after you switch the map on.</li>
+        <li>Place search, only when you press Search; the text you typed is sent to OpenStreetMap's search service.</li>
+        <li>Your position, only when you press "Find my position"; it is never stored.</li>
+      </ul>
+    </section>
+
+    <section id="help" class="wrap">
+      <h2 data-i18n="hp.title">Common questions</h2>
+      <details class="more"><summary data-i18n="hp.q1">Windows does not let the app read my location</summary>
+        <p data-i18n="hp.a1">Open Settings > Privacy and security > Location. Turn on <b>Location services</b> and <b>Let desktop apps access your location</b> (Windows 10: Allow desktop apps to access your location). The app has a button that opens this page.</p></details>
+      <details class="more"><summary data-i18n="hp.q2">Does it work without the internet?</summary>
+        <p data-i18n="hp.a2">Yes. Times, azan, calendars and the compass work offline. Only the map pictures and the place search need the internet.</p></details>
+      <details class="more"><summary data-i18n="hp.q3">The time is one hour off</summary>
+        <p data-i18n="hp.a3">Iran has had no daylight saving since 2022 and the app never adds an hour on its own. Check that the Windows time zone is right and open Settings > Time in the app for details.</p></details>
+      <details class="more"><summary data-i18n="hp.q4">Is it free?</summary>
+        <p data-i18n="hp.a4">Yes, and nothing is locked. If you want to support the work, the About page of the app and the project page explain how.</p></details>
+    </section>
+
+    <section class="wrap support">
+      <h2 data-i18n="sp.title">Support and contribute</h2>
+      <p data-i18n="sp.body">The code is on GitHub. Bug reports, translations, tests on different computers and code are welcome. You can also support the project financially; the project page lists each way and the countries it works from.</p>
+      <p><a class="btn" href="https://github.com/Amin-Mashayekhan/Salaat-Aviny-Prayer-Times#support-the-project" data-i18n="sp.support">Support the project</a>
+         <a class="btn" href="https://github.com/Amin-Mashayekhan/Salaat-Aviny-Prayer-Times/blob/main/CONTRIBUTING.md" data-i18n="sp.contribute">Contribute</a>
+         <a class="btn" href="https://github.com/Amin-Mashayekhan/Salaat-Aviny-Prayer-Times" >GitHub</a></p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <span>Salaat | Aviny Prayer Times</span> ·
+      <a class="link" href="https://github.com/Amin-Mashayekhan/Salaat-Aviny-Prayer-Times/blob/main/CHANGELOG.md" data-i18n="ft.changes">What is new</a> ·
+      <a class="link" href="https://github.com/Amin-Mashayekhan/Salaat-Aviny-Prayer-Times/blob/main/LICENSE" data-i18n="ft.licence">MIT licence</a>
+    </div>
+  </footer>
+
+  <script src="strings.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

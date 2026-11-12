@@ -49,8 +49,7 @@ String buildTrayTooltip({
   );
 }
 
-/// The tray menu for the given state, top to bottom as in
-/// `docs/05-UI-UX-SPEC.md` section 5.
+/// The tray menu for the given state, top to bottom.
 TrayMenu buildTrayMenu({
   required NoticeTexts texts,
   required TrayTime? next,

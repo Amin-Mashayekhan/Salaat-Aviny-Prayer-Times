@@ -24,7 +24,7 @@ IconData _iconOf(SettingsSection section) => switch (section) {
   SettingsSection.about => Icons.info_outline,
 };
 
-/// The settings screen (`docs/05-UI-UX-SPEC.md` section 4.6): the list of
+/// The settings screen: the list of
 /// sections on the start side and the open section beside it. Below
 /// [collapseWidth] (scaled with the text size) the list becomes a drop-down.
 /// Every change applies at once; a small tick confirms it.

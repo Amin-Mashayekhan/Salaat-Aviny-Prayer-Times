@@ -15,7 +15,7 @@ Output (UTF-8 JSON, stable ordering, one record per line for readable diffs):
 
 Deliberately DROPPED from the output: the legacy `Daylight`, `Daylight_Begin` and
 `Daylight_End` country columns. They are the root cause of the legacy one-hour bug
-(see docs/02-LEGACY-ANALYSIS.md) and must never be used by the new app.
+and must never be used by the new app.
 """
 from __future__ import annotations
 

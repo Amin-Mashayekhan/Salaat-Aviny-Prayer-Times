@@ -59,12 +59,12 @@ void main() {
       expect(eval(skew: const Duration(seconds: 29)), isNull);
     });
 
-    test('D-1: a skew of 30 seconds or more', () {
+    test('a skew of 30 seconds or more', () {
       expect(eval(skew: const Duration(seconds: 30)), isA<ClockSkewWarning>());
       expect(eval(skew: const Duration(minutes: -5)), isA<ClockSkewWarning>());
     });
 
-    test('D-2: Windows applies an hour the database does not', () {
+    test('Windows applies an hour the database does not', () {
       final w = eval(windows: const Duration(hours: 4, minutes: 30));
       expect(w, isA<StaleZoneRulesWarning>());
       final stale = w! as StaleZoneRulesWarning;
@@ -72,14 +72,14 @@ void main() {
       expect(stale.expectedOffset, iran);
     });
 
-    test('D-2 does not apply to a user-typed fixed offset', () {
+    test('stale rules do not apply to a user-typed fixed offset', () {
       expect(
         eval(windows: const Duration(hours: 4, minutes: 30), automatic: false),
         isNull,
       );
     });
 
-    test('an hour of skew in Iran gets the D-2 wording', () {
+    test('an hour of skew in Iran gets the stale-rules wording', () {
       expect(
         eval(skew: const Duration(minutes: 60, seconds: 20)),
         isA<StaleZoneRulesWarning>(),
@@ -218,7 +218,7 @@ void main() {
   });
 
   group('clockWarningProvider', () {
-    test('D-2 appears when Windows is an hour ahead of the database', () async {
+    test('the stale-rules warning appears when Windows is an hour ahead of the database', () async {
       final repo = await loadTestRepository();
       final container = ProviderContainer(
         overrides: [
@@ -253,33 +253,36 @@ void main() {
       expect(container.read(clockWarningProvider), isNull);
     });
 
-    test('a fixed-offset location never gets D-2', () async {
-      final repo = await loadTestRepository();
-      final container = ProviderContainer(
-        overrides: [
-          locationRepositoryProvider.overrideWithValue(repo),
-          systemClockProvider.overrideWithValue(
-            Clock.fixed(DateTime.utc(2026, 7, 1, 12)),
-          ),
-          systemZoneProvider.overrideWithValue(
-            _FakeZone(const Duration(hours: 4, minutes: 30)),
-          ),
-          initialSettingsProvider.overrideWithValue(
-            const AppSettings(
-              locations: [
-                SavedLocation.builtin(
-                  id: 'city:1',
-                  cityId: 1,
-                  offset: LocationOffset.fixed(210),
-                ),
-              ],
+    test(
+      'a fixed-offset location never gets the stale-rules warning',
+      () async {
+        final repo = await loadTestRepository();
+        final container = ProviderContainer(
+          overrides: [
+            locationRepositoryProvider.overrideWithValue(repo),
+            systemClockProvider.overrideWithValue(
+              Clock.fixed(DateTime.utc(2026, 7, 1, 12)),
             ),
-          ),
-        ],
-      );
-      addTearDown(container.dispose);
-      expect(container.read(clockWarningProvider), isNull);
-    });
+            systemZoneProvider.overrideWithValue(
+              _FakeZone(const Duration(hours: 4, minutes: 30)),
+            ),
+            initialSettingsProvider.overrideWithValue(
+              const AppSettings(
+                locations: [
+                  SavedLocation.builtin(
+                    id: 'city:1',
+                    cityId: 1,
+                    offset: LocationOffset.fixed(210),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+        addTearDown(container.dispose);
+        expect(container.read(clockWarningProvider), isNull);
+      },
+    );
   });
 
   test('the real DartSystemZone answers for any instant', () {

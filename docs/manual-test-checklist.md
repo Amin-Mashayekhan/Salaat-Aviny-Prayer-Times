@@ -1,12 +1,14 @@
-# Manual test checklist (release gate)
+# Manual test checklist
 
 Everything here needs a real Windows PC, real audio and a real tray, so it cannot be covered by the
 automated tests. Run it on **Windows 10 and Windows 11** before tagging a release, on a clean user
 account (no settings from earlier runs). Record date, Windows build, app version and result at the
 bottom. A failed item blocks the release unless it is written up as a known issue.
 
-Preparation: build the installer (`flutter build windows --release`, then compile
-`app/windows/installer/owghat.iss` with Inno Setup 7), and keep a stopwatch or a phone nearby.
+Wake-up alarms have their own checklist: [manual-test-checklist-wake.md](manual-test-checklist-wake.md).
+
+Preparation: build the installer (`flutter build windows --release` in `app/`, then compile
+`app/windows/installer/salaat.iss` with Inno Setup 7), and keep a stopwatch or a phone nearby.
 
 ## 1. Install, start, uninstall
 
@@ -43,7 +45,7 @@ from now. Do not change the PC clock.
 | 3.5 | Mute until the next prayer | No azan at the next time; reminder behaviour matches settings; mute clears by itself afterwards (Settings still shows the old choice until changed). |
 | 3.6 | Master switch off | Nothing plays. |
 
-## 4. Time handling (the legacy bug)
+## 4. Time handling
 
 | # | Step | Expected |
 |---|---|---|
@@ -54,7 +56,10 @@ from now. Do not change the PC clock.
 | 4.5 | Change the Windows clock back 1 hour right after an azan | The azan is not played again. |
 | 4.6 | Sleep the PC across an azan time and wake it 2 minutes later | The azan plays late if within 3 minutes, otherwise a quiet "missed" toast. |
 
-## 5. Wake-up alarms (see also `manual-test-checklist-wake.md`)
+## 5. Wake-up alarms
+
+The full procedure is in [manual-test-checklist-wake.md](manual-test-checklist-wake.md). As a quick smoke
+test:
 
 | # | Step | Expected |
 |---|---|---|
@@ -67,37 +72,38 @@ from now. Do not change the PC clock.
 
 | # | Step | Expected |
 |---|---|---|
-| 6.1 | Switch language Persian/English | Whole UI switches without restart; layout mirrors; times never render reversed. |
+| 6.1 | Switch through the languages (at least Persian, English, Arabic and Turkish) | Whole UI switches without restart; right-to-left languages mirror the layout; times never render reversed. |
 | 6.2 | Light, dark, follow Windows | Contrast is comfortable in all three. |
 | 6.3 | Windows text size 200% and the smallest window | No overflow or clipped text. |
 | 6.4 | Keyboard only: Tab through Home and Settings, Ctrl+1..6, Esc, Ctrl+, | Visible focus; every control reachable; shortcuts work. |
 | 6.5 | Narrator on Home | Prayer names and times are read; the countdown is announced about once a minute, not every second. |
 
-## 6b. Qibla map
+## 7. Qibla map
 
 | # | Step | Expected |
 |---|---|---|
-| 6b.1 | Open Qibla (Map tab) with the map never enabled | A card explains that tiles come from OpenStreetMap; no network request is made. The angle and distance are already shown. |
-| 6b.2 | Press "Show the map" | Tiles load; a pin at the selected city, a line to the Kaaba, an arrow turned to the bearing. |
-| 6b.3 | "Around me" | Street level around the pin; the line can be compared with real streets and buildings. "Kaaba" shows the Kaaba; "Whole route" returns. |
-| 6b.4 | Choose "This device" with Windows location off | A message says how to turn it on; the city stays in use. |
-| 6b.5 | Turn on Settings > Privacy > Location (and desktop apps), press "Find my position" | The pin moves to the PC position with its accuracy circle (Wi-Fi estimates can be 100 m or more off). |
-| 6b.6 | "Any point": tap the map, then type `36.2133, 58.7958` | The pin, bearing and distance follow; bad coordinates show an error and change nothing. |
-| 6b.7 | Disconnect the network, reopen the tab | A banner says map pictures cannot be loaded; angle, line and numbers still work. |
-| 6b.8 | Compare with a real compass or the sun-on-qibla time (Compass tab) | The bearing agrees within the compass error. |
+| 7.1 | Open Qibla (Map tab) with the map never enabled | A card explains that tiles come from OpenStreetMap; no network request is made. The angle and distance are already shown. |
+| 7.2 | Press "Show the map" | Tiles load; a pin at the selected city, a line to the Kaaba, an arrow turned to the bearing. |
+| 7.3 | "Around me" | Street level around the pin; the line can be compared with real streets and buildings. "Kaaba" shows the Kaaba; "Whole route" returns. |
+| 7.4 | Choose "This device" with Windows location off (or desktop apps not allowed) | A message and a card with four numbered steps appear; the city stays in use. |
+| 7.5 | Press "Open Windows location settings" in that card | The Location page of Windows Settings opens (`ms-settings:privacy-location`). Nothing is changed by the app, and the position is not read. |
+| 7.6 | Turn on Settings > Privacy > Location (and desktop apps), press "Find my position" | The pin moves to the PC position with its accuracy circle (Wi-Fi estimates can be 100 m or more off). |
+| 7.7 | "Any point": tap the map, then type `36.2133, 58.7958` | The pin, bearing and distance follow; bad coordinates show an error and change nothing. |
+| 7.8 | Disconnect the network, reopen the tab | A banner says map pictures cannot be loaded; angle, line and numbers still work. |
+| 7.9 | Compare with a real compass or the sun-on-qibla time (Compass tab) | The bearing agrees within the compass error. |
 
-## 7. Start with Windows
-
-| # | Step | Expected |
-|---|---|---|
-| 7.1 | Enable "start with Windows", sign out and in | The app is in the tray, window hidden. |
-| 7.2 | Disable it, sign out and in | The app does not start. |
-
-## 8. Backup
+## 8. Start with Windows
 
 | # | Step | Expected |
 |---|---|---|
-| 8.1 | Export settings, reset to defaults, import the file | Everything is restored exactly. |
+| 8.1 | Enable "start with Windows", sign out and in | The app is in the tray, window hidden. |
+| 8.2 | Disable it, sign out and in | The app does not start. |
+
+## 9. Backup
+
+| # | Step | Expected |
+|---|---|---|
+| 9.1 | Export settings, reset to defaults, import the file | Everything is restored exactly. |
 
 ## Result log
 

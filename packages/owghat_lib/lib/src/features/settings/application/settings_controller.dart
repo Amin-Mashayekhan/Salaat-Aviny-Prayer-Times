@@ -35,7 +35,7 @@ final settingsRepositoryProvider = Provider<SettingsRepository?>((ref) => null);
 ///
 /// Every change is a named method called from a user action. Nothing else
 /// writes settings: recalculation, date rollover, location loading and app
-/// start only read them (rule T-5 in `docs/04-DOMAIN-SPEC.md`).
+/// start only read them.
 class SettingsController extends Notifier<AppSettings> {
   @override
   AppSettings build() {
@@ -287,6 +287,10 @@ class SettingsController extends Notifier<AppSettings> {
   /// Agrees (or stops agreeing) to load qibla map tiles from the internet.
   void setQiblaMapEnabled({required bool enabled}) =>
       state = state.copyWith(qibla: state.qibla.copyWith(mapEnabled: enabled));
+
+  /// Chooses the street map or the satellite photographs for the qibla map.
+  void setQiblaMapStyle(QiblaMapStyle style) =>
+      state = state.copyWith(qibla: state.qibla.copyWith(mapStyle: style));
 
   // ---- wake-up alarms ------------------------------------------------
 

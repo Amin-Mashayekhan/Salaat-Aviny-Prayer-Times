@@ -12,11 +12,10 @@ import 'package:prayer_core/prayer_core.dart';
 import '../../support/sim_world.dart';
 import '../../support/test_data.dart';
 
-/// Regression guard for legacy bug B-01 (rule T-5): the legacy app rewrote the
-/// "daylight saving" dropdown from its own tables every second, undoing the
-/// user's choice. In this app only SettingsController methods called from a
-/// user action may change settings. This test lives here forever: never delete
-/// or weaken it.
+/// Regression guard: the previous version of the app rewrote the "daylight
+/// saving" dropdown from its own tables every second, undoing the user's
+/// choice. Here only SettingsController methods called from a user action may
+/// change settings. Never delete or weaken this test.
 void main() {
   late LocationRepository repo;
   setUpAll(() async => repo = await loadTestRepository());

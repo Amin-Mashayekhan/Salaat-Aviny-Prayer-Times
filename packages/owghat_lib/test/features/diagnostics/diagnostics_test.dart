@@ -211,7 +211,7 @@ void main() {
       expect(report(), contains('Status: no problem found'));
       expect(
         report(warning: const ClockSkewWarning(Duration(seconds: -45))),
-        contains('D-1 clock skew of about 45 s'),
+        contains('Clock skew of about 45 s'),
       );
       expect(
         report(
@@ -221,7 +221,7 @@ void main() {
           ),
         ),
         contains(
-          'D-2 Windows uses UTC+04:30 but the time-zone database says '
+          'Windows uses UTC+04:30 but the time-zone database says '
           'UTC+03:30',
         ),
       );
@@ -479,7 +479,7 @@ void main() {
       );
     });
 
-    diagTest('D-1: clock skew', (tester) async {
+    diagTest('clock skew', (tester) async {
       await pump(
         tester,
         settings: englishSettings.copyWith(
@@ -505,7 +505,7 @@ void main() {
       expect(text(tester, 'diag-clock'), 'No clock problem found.');
     });
 
-    diagTest('D-2: stale Windows zone rules', (tester) async {
+    diagTest('stale Windows zone rules', (tester) async {
       await pump(
         tester,
         settings: englishSettings,

@@ -5,7 +5,7 @@ import 'package:owghat_lib/src/features/clock/application/clock_providers.dart';
 import 'package:owghat_lib/src/features/locations/application/location_providers.dart';
 import 'package:prayer_core/prayer_core.dart';
 
-/// The clock problem to show on the home screen, if any (D-1 / D-2).
+/// The clock problem to show on the home screen, if any.
 final clockWarningProvider = Provider<ClockWarning?>((ref) {
   final location = ref.watch(activeLocationProvider);
   final resolver = ref.watch(zoneOffsetResolverProvider);

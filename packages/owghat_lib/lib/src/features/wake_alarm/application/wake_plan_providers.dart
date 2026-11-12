@@ -111,7 +111,7 @@ final wakeBookkeepingProvider =
 /// The resolved plan of all enabled alarms.
 ///
 /// It recomputes when the alarm list, the location, the calculation settings,
-/// the civil date or the bookkeeping change. Only reads settings (rule T-5).
+/// the civil date or the bookkeeping change. Only reads settings.
 final wakeAlarmPlanProvider = Provider<WakeAlarmPlan>((ref) {
   final alarms = ref.watch(settingsProvider.select((s) => s.wakeAlarms));
   final book = ref.watch(wakeBookkeepingProvider);

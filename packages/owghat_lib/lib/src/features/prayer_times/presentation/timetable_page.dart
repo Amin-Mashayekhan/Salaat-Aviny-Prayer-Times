@@ -21,7 +21,7 @@ import 'package:prayer_core/prayer_core.dart';
 /// Text put before today's day number so colour is not the only signal.
 const String todayMarker = '▶ ';
 
-/// The monthly timetable (`docs/05-UI-UX-SPEC.md` §4.2): one row per day,
+/// The monthly timetable: one row per day,
 /// one column per shown time, in the Shamsi (default), lunar or Gregorian
 /// calendar. Today is highlighted, Fridays are tinted, the header stays in
 /// place while the days scroll, and a click opens that day on Home.

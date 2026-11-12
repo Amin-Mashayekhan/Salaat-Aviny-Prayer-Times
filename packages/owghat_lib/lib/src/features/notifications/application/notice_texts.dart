@@ -8,7 +8,7 @@ import 'package:prayer_core/prayer_core.dart';
 /// Builds the user-visible texts of notifications and the tray, in the
 /// language, digit style and clock style of the settings.
 ///
-/// All words come from the ARB files (`docs/05-UI-UX-SPEC.md` section 5);
+/// All words come from the ARB files;
 /// numbers and times go through the shared [Formatter]. This class only
 /// fills in names, times and numbers.
 class NoticeTexts {
@@ -26,6 +26,7 @@ class NoticeTexts {
       l10n: l10n,
       formatter: Formatter(
         persianDigits: settings.digits == DigitStyle.persian,
+        arabicDigits: settings.digits == DigitStyle.arabic,
         twelveHour: settings.hourFormat == HourFormat.h12,
         l10n: l10n,
       ),
@@ -63,7 +64,9 @@ class NoticeTexts {
   /// time never renders reversed.
   String clock(DateTime instant, Duration offset) {
     final text = formatter.formatInstant(instant, offset);
-    final needsIsolate = language == AppLanguage.fa && !formatter.persianDigits;
+    // Latin digits inside right-to-left text need the isolate.
+    final needsIsolate =
+        language.rtl && !formatter.persianDigits && !formatter.arabicDigits;
     return needsIsolate ? Formatter.isolate(text) : text;
   }
 

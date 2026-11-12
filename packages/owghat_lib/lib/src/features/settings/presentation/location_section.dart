@@ -4,10 +4,14 @@ import 'package:owghat_lib/l10n/gen/app_localizations.dart';
 import 'package:owghat_lib/src/app/theme/app_colors.dart';
 import 'package:owghat_lib/src/app/theme/app_theme.dart';
 import 'package:owghat_lib/src/core/format/formatter.dart';
+import 'package:owghat_lib/src/features/clock/application/clock_providers.dart';
 import 'package:owghat_lib/src/features/locations/application/location_providers.dart';
 import 'package:owghat_lib/src/features/locations/domain/city.dart';
 import 'package:owghat_lib/src/features/locations/domain/resolved_location.dart';
 import 'package:owghat_lib/src/features/locations/domain/saved_location.dart';
+import 'package:owghat_lib/src/features/places/application/place_location.dart';
+import 'package:owghat_lib/src/features/places/application/place_search_model.dart';
+import 'package:owghat_lib/src/features/places/presentation/place_search_panel.dart';
 import 'package:owghat_lib/src/features/settings/application/formatter_provider.dart';
 import 'package:owghat_lib/src/features/settings/application/location_draft.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
@@ -27,9 +31,12 @@ class LocationSection extends ConsumerStatefulWidget {
   ConsumerState<LocationSection> createState() => _LocationSectionState();
 }
 
+enum _AddMode { list, search, custom }
+
 class _LocationSectionState extends ConsumerState<LocationSection> {
   String? _editing;
-  bool _addCustom = false;
+  _AddMode _addMode = _AddMode.list;
+  bool _searchUnusable = false;
   int _customFormGeneration = 0;
   String? _customAddedName;
 
@@ -58,6 +65,29 @@ class _LocationSectionState extends ConsumerState<LocationSection> {
     if (ok != true || !mounted) return;
     ref.read(settingsProvider.notifier).removeLocation(location.id);
     if (_editing == location.id) setState(() => _editing = null);
+  }
+
+  /// Saves a place found by an online search as a custom location (without
+  /// making it active, like the other ways of adding).
+  void _addFoundPlace(PickedPlace picked) {
+    final settings = ref.read(settingsProvider);
+    final controller = ref.read(settingsProvider.notifier);
+    final same = sameSavedPlace(picked, settings.locations);
+    final SavedLocation? location;
+    if (same != null) {
+      location = same;
+    } else {
+      location = savedLocationFromPlace(
+        picked,
+        existingIds: [for (final l in settings.locations) l.id],
+        resolver: ref.read(zoneOffsetResolverProvider),
+      );
+      if (location != null) controller.addLocation(location, activate: false);
+    }
+    setState(() {
+      _searchUnusable = location == null;
+      _customAddedName = location == null ? null : picked.place.name;
+    });
   }
 
   void _addCustomLocation(CustomLocationDraft draft) {
@@ -111,17 +141,55 @@ class _LocationSectionState extends ConsumerState<LocationSection> {
         SettingsGroup(
           title: l10n.settingsLocAddTitle,
           children: [
-            ChoiceChips<bool>(
+            ChoiceChips<_AddMode>(
               keyPrefix: 'set-loc-add-mode',
               semanticsLabel: l10n.settingsLocAddTitle,
-              value: _addCustom,
+              value: _addMode,
               options: [
-                (false, l10n.settingsLocAddFromDb),
-                (true, l10n.settingsLocAddCustom),
+                (_AddMode.list, l10n.settingsLocAddFromDb),
+                (_AddMode.search, l10n.settingsLocAddSearch),
+                (_AddMode.custom, l10n.settingsLocAddCustom),
               ],
-              onChanged: (value) => setState(() => _addCustom = value),
+              onChanged: (value) => setState(() {
+                _addMode = value;
+                _customAddedName = null;
+                _searchUnusable = false;
+              }),
             ),
-            if (_addCustom)
+            if (_addMode == _AddMode.search)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  PlaceSearchPanel(
+                    keyPrefix: 'set-place',
+                    settlementsOnly: true,
+                    resolveDetails: true,
+                    showTitle: false,
+                    onPicked: _addFoundPlace,
+                  ),
+                  if (_searchUnusable)
+                    Padding(
+                      padding: const EdgeInsets.only(top: Gaps.s),
+                      child: Text(
+                        l10n.placeSearchUnknownZone,
+                        key: const Key('set-place-unusable'),
+                        style: Theme.of(context).textTheme.bodyMedium
+                            ?.copyWith(color: colors.danger),
+                      ),
+                    ),
+                  if (_customAddedName != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: Gaps.s),
+                      child: StatusLine(
+                        key: const Key('set-place-added'),
+                        text: l10n.settingsLocAdded(_customAddedName!),
+                        icon: Icons.check_circle_outline,
+                        color: colors.success,
+                      ),
+                    ),
+                ],
+              )
+            else if (_addMode == _AddMode.custom)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [

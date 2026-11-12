@@ -13,7 +13,7 @@ import 'package:owghat_lib/src/features/settings/presentation/setting_widgets.da
 import 'package:prayer_core/prayer_core.dart';
 
 /// Section 5: the optional network time check, its last result, and the
-/// clock diagnostics (D-1 skew, D-2 stale Windows rules).
+/// clock diagnostics (clock skew, stale Windows rules).
 class TimeSection extends ConsumerWidget {
   /// Creates the section.
   const TimeSection({super.key});

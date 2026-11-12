@@ -33,7 +33,7 @@ final class MutedBanner extends HomeBanner {
   String get key => 'muted:${until?.toIso8601String() ?? 'indefinite'}';
 }
 
-/// D-1: the PC clock is off by [skew].
+/// The PC clock is off by [skew].
 final class ClockSkewBanner extends HomeBanner {
   /// Creates the banner.
   const ClockSkewBanner(this.skew);
@@ -45,7 +45,7 @@ final class ClockSkewBanner extends HomeBanner {
   String get key => 'skew';
 }
 
-/// D-2: Windows applies other offset rules than the bundled database.
+/// Windows applies other offset rules than the bundled database.
 final class StaleZoneBanner extends HomeBanner {
   /// Creates the banner.
   const StaleZoneBanner();
@@ -77,7 +77,7 @@ final dismissedBannersProvider =
     NotifierProvider<DismissedBanners, Set<String>>(DismissedBanners.new);
 
 /// All banners that currently apply, highest priority first: azan muted,
-/// clock skew (D-1), stale Windows zone rules (D-2), settings reset.
+/// clock skew, stale Windows zone rules, settings reset.
 final activeBannersProvider = Provider<List<HomeBanner>>((ref) {
   final now = ref.watch(nowProvider);
   final mute = ref.watch(settingsProvider.select((s) => s.azan.mute));

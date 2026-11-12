@@ -14,6 +14,7 @@ import 'package:owghat_lib/src/features/clock/application/local_offset_provider.
 import 'package:owghat_lib/src/features/diagnostics/application/app_version.dart';
 import 'package:owghat_lib/src/features/diagnostics/application/diagnostics_providers.dart';
 import 'package:owghat_lib/src/features/diagnostics/application/diagnostics_report.dart';
+import 'package:owghat_lib/src/features/diagnostics/presentation/about_project_cards.dart';
 import 'package:owghat_lib/src/features/prayer_times/application/prayer_labels.dart';
 import 'package:owghat_lib/src/features/settings/application/formatter_provider.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
@@ -22,7 +23,7 @@ import 'package:owghat_lib/src/features/wake_alarm/application/wake_alarm_contro
 import 'package:owghat_lib/src/features/wake_alarm/application/wake_labels.dart';
 import 'package:prayer_core/prayer_core.dart';
 
-/// "About and diagnostics" (settings section 8, F-18): the version, the
+/// "About and diagnostics" (the last settings section): the version, the
 /// licences, and a diagnostics block with the next scheduled events (UTC and
 /// local), the clock status, an audio test, the wake-up capability and a
 /// button that copies a report without personal data.
@@ -73,6 +74,12 @@ class _AboutDiagnosticsSectionState
       mainAxisSize: MainAxisSize.min,
       children: [
         const _AboutCard(),
+        const SizedBox(height: Gaps.l),
+        const AuthorCard(),
+        const SizedBox(height: Gaps.l),
+        const ContributeCard(),
+        const SizedBox(height: Gaps.l),
+        const SupportCard(),
         const SizedBox(height: Gaps.l),
         Card(
           key: const Key('diag-card'),

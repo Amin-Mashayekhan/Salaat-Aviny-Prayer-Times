@@ -5,8 +5,14 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_ar.dart';
+import 'app_localizations_az.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_fa.dart';
+import 'app_localizations_fr.dart';
+import 'app_localizations_id.dart';
+import 'app_localizations_tr.dart';
+import 'app_localizations_ur.dart';
 
 // ignore_for_file: type=lint
 
@@ -94,9 +100,69 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
+    Locale('az'),
     Locale('en'),
     Locale('fa'),
+    Locale('fr'),
+    Locale('id'),
+    Locale('tr'),
+    Locale('ur'),
   ];
+
+  /// No description provided for @aboutAuthorIntro.
+  ///
+  /// In fa, this message translates to:
+  /// **'این برنامه را یک توسعه‌دهنده‌ی مستقل می‌سازد و نگهداری می‌کند. برای گزارش مشکل، پیشنهاد یا همکاری با من در تماس باشید.'**
+  String get aboutAuthorIntro;
+
+  /// No description provided for @aboutAuthorTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'درباره‌ی سازنده'**
+  String get aboutAuthorTitle;
+
+  /// No description provided for @aboutContactEmail.
+  ///
+  /// In fa, this message translates to:
+  /// **'ایمیل'**
+  String get aboutContactEmail;
+
+  /// No description provided for @aboutContactGithub.
+  ///
+  /// In fa, this message translates to:
+  /// **'GitHub'**
+  String get aboutContactGithub;
+
+  /// No description provided for @aboutContactName.
+  ///
+  /// In fa, this message translates to:
+  /// **'نام'**
+  String get aboutContactName;
+
+  /// No description provided for @aboutContactPhone.
+  ///
+  /// In fa, this message translates to:
+  /// **'موبایل'**
+  String get aboutContactPhone;
+
+  /// No description provided for @aboutContactTelegram.
+  ///
+  /// In fa, this message translates to:
+  /// **'تلگرام'**
+  String get aboutContactTelegram;
+
+  /// No description provided for @aboutCopiedValue.
+  ///
+  /// In fa, this message translates to:
+  /// **'کپی شد.'**
+  String get aboutCopiedValue;
+
+  /// No description provided for @aboutCopy.
+  ///
+  /// In fa, this message translates to:
+  /// **'کپی'**
+  String get aboutCopy;
 
   /// No description provided for @aboutFontNote.
   ///
@@ -104,11 +170,35 @@ abstract class AppLocalizations {
   /// **'قلم وزیرمتن با مجوز SIL Open Font License 1.1 همراه برنامه است.'**
   String get aboutFontNote;
 
+  /// No description provided for @aboutLicenceNote.
+  ///
+  /// In fa, this message translates to:
+  /// **'این برنامه با مجوز MIT منتشر شده است: می‌توانید آزادانه از آن استفاده کنید، آن را تغییر دهید و پخش کنید.'**
+  String get aboutLicenceNote;
+
   /// No description provided for @aboutLicences.
   ///
   /// In fa, this message translates to:
   /// **'مجوزهای نرم‌افزارهای متن‌باز'**
   String get aboutLicences;
+
+  /// No description provided for @aboutOpen.
+  ///
+  /// In fa, this message translates to:
+  /// **'باز کردن'**
+  String get aboutOpen;
+
+  /// No description provided for @aboutOpenFailed.
+  ///
+  /// In fa, this message translates to:
+  /// **'باز نشد. نشانی را کپی کنید و در مرورگر یا برنامه‌ی ایمیل خود بگذارید.'**
+  String get aboutOpenFailed;
+
+  /// No description provided for @aboutPhoneNote.
+  ///
+  /// In fa, this message translates to:
+  /// **'تماس و پیامک فقط از داخل ایران. از خارج از ایران فقط تلگرام.'**
+  String get aboutPhoneNote;
 
   /// No description provided for @aboutSoundNote.
   ///
@@ -349,6 +439,66 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'{day, select, d1{د} d2{س} d3{چ} d4{پ} d5{ج} d6{ش} d7{ی} other{}}'**
   String calendarWeekdayShort(String day);
+
+  /// No description provided for @contributeIntro.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد این برنامه در GitHub است و هر کمکی پذیرفته می‌شود. راه‌های مشارکت:'**
+  String get contributeIntro;
+
+  /// No description provided for @contributeOpenGuide.
+  ///
+  /// In fa, this message translates to:
+  /// **'راهنمای مشارکت'**
+  String get contributeOpenGuide;
+
+  /// No description provided for @contributeOpenIssues.
+  ///
+  /// In fa, this message translates to:
+  /// **'گزارش خطا یا پیشنهاد'**
+  String get contributeOpenIssues;
+
+  /// No description provided for @contributeOpenRepo.
+  ///
+  /// In fa, this message translates to:
+  /// **'باز کردن مخزن در GitHub'**
+  String get contributeOpenRepo;
+
+  /// No description provided for @contributeTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'مشارکت در پروژه'**
+  String get contributeTitle;
+
+  /// No description provided for @contributeWayCode.
+  ///
+  /// In fa, this message translates to:
+  /// **'کد: مخزن را Fork کنید، تغییر را در یک شاخه انجام دهید، آزمون‌ها را اجرا کنید و Pull Request بفرستید. راهنمای ساخت و آزمون در CONTRIBUTING.md است.'**
+  String get contributeWayCode;
+
+  /// No description provided for @contributeWayData.
+  ///
+  /// In fa, this message translates to:
+  /// **'داده: نام، مختصات یا منطقه‌ی زمانی شهرها را اصلاح کنید یا شهر تازه اضافه کنید.'**
+  String get contributeWayData;
+
+  /// No description provided for @contributeWayIssues.
+  ///
+  /// In fa, this message translates to:
+  /// **'گزارش خطا یا پیشنهاد: در GitHub یک Issue بسازید و شماره‌ی نسخه و گزارش عیب‌یابی همین صفحه را ضمیمه کنید (نام و مختصات ندارد).'**
+  String get contributeWayIssues;
+
+  /// No description provided for @contributeWayTest.
+  ///
+  /// In fa, this message translates to:
+  /// **'آزمایش: برنامه را روی نسخه‌ها و سخت‌افزارهای مختلف ویندوز بیازمایید (اذان، سینی سیستم، بیدارباش) و نتیجه را گزارش کنید.'**
+  String get contributeWayTest;
+
+  /// No description provided for @contributeWayTranslate.
+  ///
+  /// In fa, this message translates to:
+  /// **'ترجمه: متن‌های برنامه در پوشه‌ی lib/l10n هستند. ترجمه‌ی یک زبان تازه یا اصلاح ترجمه‌ی موجود را بفرستید؛ بازبینی یک گویشور بومی بسیار ارزشمند است.'**
+  String get contributeWayTranslate;
 
   /// No description provided for @diagAudioFailed.
   ///
@@ -1004,29 +1154,35 @@ abstract class AppLocalizations {
   /// **'زبان را انتخاب کنید. بعداً در تنظیمات هم می‌توانید آن را عوض کنید.'**
   String get onboardingLanguageBody;
 
-  /// No description provided for @onboardingLanguageEn.
-  ///
-  /// In fa, this message translates to:
-  /// **'English'**
-  String get onboardingLanguageEn;
-
-  /// No description provided for @onboardingLanguageFa.
-  ///
-  /// In fa, this message translates to:
-  /// **'فارسی'**
-  String get onboardingLanguageFa;
-
   /// No description provided for @onboardingLanguageTitle.
   ///
   /// In fa, this message translates to:
   /// **'زبان برنامه'**
   String get onboardingLanguageTitle;
 
+  /// No description provided for @onboardingModeList.
+  ///
+  /// In fa, this message translates to:
+  /// **'شهرهای ایران (فهرست آفلاین)'**
+  String get onboardingModeList;
+
+  /// No description provided for @onboardingModeOnline.
+  ///
+  /// In fa, this message translates to:
+  /// **'هر شهر دنیا (جستجوی آنلاین)'**
+  String get onboardingModeOnline;
+
   /// No description provided for @onboardingNext.
   ///
   /// In fa, this message translates to:
   /// **'بعدی'**
   String get onboardingNext;
+
+  /// No description provided for @onboardingOnlineBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'شهرتان در فهرست نیست؟ هر شهری در دنیا را جستجو کنید. اینترنت فقط برای همین جستجو لازم است و بعد برنامه بدون اینترنت کار می‌کند.'**
+  String get onboardingOnlineBody;
 
   /// No description provided for @onboardingPreview.
   ///
@@ -1069,6 +1225,102 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'توقف'**
   String get onboardingStopPreview;
+
+  /// No description provided for @placeSearchAttribution.
+  ///
+  /// In fa, this message translates to:
+  /// **'مکان‌ها © مشارکت‌کنندگان OpenStreetMap (Nominatim). منطقه‌ی زمانی و ارتفاع: Open-Meteo.'**
+  String get placeSearchAttribution;
+
+  /// No description provided for @placeSearchButton.
+  ///
+  /// In fa, this message translates to:
+  /// **'جستجو'**
+  String get placeSearchButton;
+
+  /// No description provided for @placeSearchFailBusy.
+  ///
+  /// In fa, this message translates to:
+  /// **'سرویس جستجو شلوغ است. یک دقیقه صبر کنید و دوباره امتحان کنید.'**
+  String get placeSearchFailBusy;
+
+  /// No description provided for @placeSearchFailDetails.
+  ///
+  /// In fa, this message translates to:
+  /// **'مکان پیدا شد، اما منطقه‌ی زمانی آن دریافت نشد. اتصال را بررسی کنید و دوباره آن را انتخاب کنید.'**
+  String get placeSearchFailDetails;
+
+  /// No description provided for @placeSearchFailGeneric.
+  ///
+  /// In fa, this message translates to:
+  /// **'جستجو انجام نشد. کمی بعد دوباره امتحان کنید.'**
+  String get placeSearchFailGeneric;
+
+  /// No description provided for @placeSearchFailOffline.
+  ///
+  /// In fa, this message translates to:
+  /// **'اینترنت وصل نیست. وصل شوید و دوباره جستجو را بزنید. بقیه‌ی برنامه بدون اینترنت کار می‌کند.'**
+  String get placeSearchFailOffline;
+
+  /// No description provided for @placeSearchFailTimeout.
+  ///
+  /// In fa, this message translates to:
+  /// **'سرویس جستجو به‌موقع پاسخ نداد. دوباره امتحان کنید.'**
+  String get placeSearchFailTimeout;
+
+  /// No description provided for @placeSearchHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'شهر، کشور (مثلاً بمبئی، هند)'**
+  String get placeSearchHint;
+
+  /// No description provided for @placeSearchNone.
+  ///
+  /// In fa, this message translates to:
+  /// **'مکانی برای «{query}» پیدا نشد. املا را بررسی کنید یا کشور را هم بنویسید، مثلاً بمبئی، هند.'**
+  String placeSearchNone(String query);
+
+  /// No description provided for @placeSearchNotice.
+  ///
+  /// In fa, this message translates to:
+  /// **'جستجو فقط همین یک بار به اینترنت نیاز دارد. متنی که می‌نویسید به سرویس جستجوی OpenStreetMap (Nominatim) فرستاده می‌شود و چیز دیگری فرستاده نمی‌شود. بعد از انتخاب مکان، برنامه آنچه لازم دارد را نگه می‌دارد و دوباره بدون اینترنت کار می‌کند.'**
+  String get placeSearchNotice;
+
+  /// No description provided for @placeSearchResolving.
+  ///
+  /// In fa, this message translates to:
+  /// **'در حال دریافت منطقه‌ی زمانی و ارتفاع {place}…'**
+  String placeSearchResolving(String place);
+
+  /// No description provided for @placeSearchResultsTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'نتایج: مکان خود را انتخاب کنید'**
+  String get placeSearchResultsTitle;
+
+  /// No description provided for @placeSearchTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'جستجوی مکان'**
+  String get placeSearchTitle;
+
+  /// No description provided for @placeSearchTooShort.
+  ///
+  /// In fa, this message translates to:
+  /// **'دست‌کم دو حرف بنویسید و جستجو را بزنید.'**
+  String get placeSearchTooShort;
+
+  /// No description provided for @placeSearchUnknownZone.
+  ///
+  /// In fa, this message translates to:
+  /// **'منطقه‌ی زمانی این مکان در پایگاه داده‌ی برنامه نیست. مکان دیگری را امتحان کنید یا آن را با «مکان دلخواه» در تنظیمات اضافه کنید.'**
+  String get placeSearchUnknownZone;
+
+  /// No description provided for @placeSearching.
+  ///
+  /// In fa, this message translates to:
+  /// **'در حال جستجو…'**
+  String get placeSearching;
 
   /// No description provided for @prayerAsr.
   ///
@@ -1202,6 +1454,18 @@ abstract class AppLocalizations {
   /// **'عرض و طول جغرافیایی'**
   String get qiblaCoordsLabel;
 
+  /// No description provided for @qiblaCoordsOr.
+  ///
+  /// In fa, this message translates to:
+  /// **'یا مختصات را خودتان وارد کنید'**
+  String get qiblaCoordsOr;
+
+  /// No description provided for @qiblaCustomPlaceShown.
+  ///
+  /// In fa, this message translates to:
+  /// **'اندازه‌گیری از {place}.'**
+  String qiblaCustomPlaceShown(String place);
+
   /// No description provided for @qiblaDeviceFixShown.
   ///
   /// In fa, this message translates to:
@@ -1229,19 +1493,19 @@ abstract class AppLocalizations {
   /// No description provided for @qiblaFailPermissionDenied.
   ///
   /// In fa, this message translates to:
-  /// **'ویندوز اجازه‌ی خواندن موقعیت را به این برنامه نداده است. در تنظیمات ویندوز (حریم خصوصی و امنیت، موقعیت مکانی) هم «موقعیت مکانی» و هم «اجازه به برنامه‌های رومیزی» را روشن کنید و دوباره امتحان کنید؛ یا از شهر انتخاب‌شده استفاده کنید.'**
+  /// **'ویندوز اجازه‌ی خواندن موقعیت را به این برنامه نداده است. مراحل زیر را انجام دهید و دوباره امتحان کنید؛ یا از شهر انتخاب‌شده استفاده کنید.'**
   String get qiblaFailPermissionDenied;
 
   /// No description provided for @qiblaFailPermissionForever.
   ///
   /// In fa, this message translates to:
-  /// **'دسترسی به موقعیت مکانی رد شده است. در تنظیمات ویندوز (حریم خصوصی و امنیت، موقعیت مکانی) «اجازه به برنامه‌های رومیزی» را روشن کنید.'**
+  /// **'دسترسی به موقعیت مکانی رد شده است. برای فعال‌کردن دوباره، مراحل زیر را انجام دهید.'**
   String get qiblaFailPermissionForever;
 
   /// No description provided for @qiblaFailServiceDisabled.
   ///
   /// In fa, this message translates to:
-  /// **'سرویس موقعیت‌یابی ویندوز خاموش است. آن را در تنظیمات ویندوز (حریم خصوصی، موقعیت مکانی) روشن کنید، یا «شهر انتخاب‌شده» و «نقطه‌ی دلخواه» را به کار ببرید.'**
+  /// **'سرویس موقعیت مکانی دستگاه خاموش است. مراحل زیر را انجام دهید؛ یا از شهر انتخاب‌شده یا هر نقطه‌ی دلخواه استفاده کنید.'**
   String get qiblaFailServiceDisabled;
 
   /// No description provided for @qiblaFailTimeout.
@@ -1261,6 +1525,48 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'جهت قبله برای {place}'**
   String qiblaForLocation(String place);
+
+  /// No description provided for @qiblaHelpOther.
+  ///
+  /// In fa, this message translates to:
+  /// **'موقعیت مکانی را در تنظیمات سیستم‌عامل روشن کنید، به این برنامه اجازه‌ی استفاده از آن را بدهید و دوباره امتحان کنید.'**
+  String get qiblaHelpOther;
+
+  /// No description provided for @qiblaHelpTitleOther.
+  ///
+  /// In fa, this message translates to:
+  /// **'چطور موقعیت مکانی را روشن کنم؟'**
+  String get qiblaHelpTitleOther;
+
+  /// No description provided for @qiblaHelpTitleWindows.
+  ///
+  /// In fa, this message translates to:
+  /// **'چطور موقعیت مکانی را در ویندوز روشن کنم؟'**
+  String get qiblaHelpTitleWindows;
+
+  /// No description provided for @qiblaHelpWin1.
+  ///
+  /// In fa, this message translates to:
+  /// **'دکمه‌ی بالا را بزنید تا صفحه‌ی Location در تنظیمات ویندوز باز شود. اگر باز نشد، دستی بروید: Start > Settings > Privacy & security > Location (در ویندوز ۱۰: Privacy > Location)'**
+  String get qiblaHelpWin1;
+
+  /// No description provided for @qiblaHelpWin2.
+  ///
+  /// In fa, this message translates to:
+  /// **'کلید Location services را روشن کنید. اگر بالای صفحه نوشته Location for this device is off، دکمه‌ی Change را بزنید و آن را روشن کنید.'**
+  String get qiblaHelpWin2;
+
+  /// No description provided for @qiblaHelpWin3.
+  ///
+  /// In fa, this message translates to:
+  /// **'کمی پایین‌تر کلید Let desktop apps access your location را روشن کنید (در ویندوز ۱۰: Allow desktop apps to access your location). Salaat یک برنامه‌ی رومیزی است و فقط با همین کلید اجازه می‌گیرد.'**
+  String get qiblaHelpWin3;
+
+  /// No description provided for @qiblaHelpWin4.
+  ///
+  /// In fa, this message translates to:
+  /// **'به Salaat برگردید و «یافتن موقعیت من» را دوباره بزنید. اگر باز هم نشد، برنامه را یک بار ببندید و باز کنید.'**
+  String get qiblaHelpWin4;
 
   /// No description provided for @qiblaLocateAgain.
   ///
@@ -1286,10 +1592,16 @@ abstract class AppLocalizations {
   /// **'© مشارکت‌کنندگان OpenStreetMap'**
   String get qiblaMapAttribution;
 
+  /// No description provided for @qiblaMapAttributionSatellite.
+  ///
+  /// In fa, this message translates to:
+  /// **'تصاویر © Esri، Maxar، Earthstar Geographics و جامعه‌ی کاربران GIS'**
+  String get qiblaMapAttributionSatellite;
+
   /// No description provided for @qiblaMapConsentBody.
   ///
   /// In fa, this message translates to:
-  /// **'برای دیدن خط قبله روی نقشه، تصاویر نقشه از اینترنت (OpenStreetMap) گرفته می‌شود و ناحیه‌ای که می‌بینید به آن سرور فرستاده می‌شود. تا شما نخواهید هیچ درخواستی فرستاده نمی‌شود. بدون نقشه هم زاویه و فاصله‌ی قبله درست نشان داده می‌شود.'**
+  /// **'برای دیدن خط قبله روی نقشه، تصاویر نقشه از اینترنت گرفته می‌شود و ناحیه‌ای که می‌بینید به آن سرور فرستاده می‌شود: نقشه‌ی خیابانی از OpenStreetMap، و اگر «ماهواره» را انتخاب کنید عکس‌های هوایی از Esri. تا شما نخواهید هیچ درخواستی فرستاده نمی‌شود. بدون نقشه هم زاویه و فاصله‌ی قبله درست نشان داده می‌شود.'**
   String get qiblaMapConsentBody;
 
   /// No description provided for @qiblaMapConsentButton.
@@ -1352,6 +1664,24 @@ abstract class AppLocalizations {
   /// **'رایانه قطب‌نما ندارد؛ شکل نسبت به شمال حقیقی رسم شده است (شمال بالاست).'**
   String get qiblaNoCompassNote;
 
+  /// No description provided for @qiblaOpenSettingsFailed.
+  ///
+  /// In fa, this message translates to:
+  /// **'تنظیمات باز نشد؛ مراحل بالا را دستی انجام دهید.'**
+  String get qiblaOpenSettingsFailed;
+
+  /// No description provided for @qiblaOpenSettingsOther.
+  ///
+  /// In fa, this message translates to:
+  /// **'باز کردن تنظیمات موقعیت'**
+  String get qiblaOpenSettingsOther;
+
+  /// No description provided for @qiblaOpenSettingsWindows.
+  ///
+  /// In fa, this message translates to:
+  /// **'باز کردن تنظیمات موقعیت ویندوز'**
+  String get qiblaOpenSettingsWindows;
+
   /// No description provided for @qiblaSourceCity.
   ///
   /// In fa, this message translates to:
@@ -1373,7 +1703,7 @@ abstract class AppLocalizations {
   /// No description provided for @qiblaSourceCustomHelp.
   ///
   /// In fa, this message translates to:
-  /// **'روی نقشه بزنید یا مختصات را وارد کنید.'**
+  /// **'مکان را با نام جستجو کنید (یک‌بار اینترنت لازم است)، روی نقشه بزنید یا مختصات را وارد کنید.'**
   String get qiblaSourceCustomHelp;
 
   /// No description provided for @qiblaSourceDevice.
@@ -1405,6 +1735,24 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'طول جغرافیایی'**
   String get qiblaStatLongitude;
+
+  /// No description provided for @qiblaStyleLabel.
+  ///
+  /// In fa, this message translates to:
+  /// **'نوع نقشه'**
+  String get qiblaStyleLabel;
+
+  /// No description provided for @qiblaStyleSatellite.
+  ///
+  /// In fa, this message translates to:
+  /// **'ماهواره'**
+  String get qiblaStyleSatellite;
+
+  /// No description provided for @qiblaStyleStreet.
+  ///
+  /// In fa, this message translates to:
+  /// **'نقشه'**
+  String get qiblaStyleStreet;
 
   /// No description provided for @qiblaSunBelow.
   ///
@@ -1886,6 +2234,12 @@ abstract class AppLocalizations {
   /// **'کم کردن'**
   String get settingsDecrease;
 
+  /// No description provided for @settingsDigitsArabic.
+  ///
+  /// In fa, this message translates to:
+  /// **'عربی (٠١٢)'**
+  String get settingsDigitsArabic;
+
   /// No description provided for @settingsDigitsLatin.
   ///
   /// In fa, this message translates to:
@@ -1988,18 +2342,6 @@ abstract class AppLocalizations {
   /// **'یک عدد معتبر بین {min} و {max} وارد کنید.'**
   String settingsInvalidNumber(String min, String max);
 
-  /// No description provided for @settingsLanguageEn.
-  ///
-  /// In fa, this message translates to:
-  /// **'English'**
-  String get settingsLanguageEn;
-
-  /// No description provided for @settingsLanguageFa.
-  ///
-  /// In fa, this message translates to:
-  /// **'فارسی'**
-  String get settingsLanguageFa;
-
   /// No description provided for @settingsLocActive.
   ///
   /// In fa, this message translates to:
@@ -2023,6 +2365,12 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'از فهرست شهرها'**
   String get settingsLocAddFromDb;
+
+  /// No description provided for @settingsLocAddSearch.
+  ///
+  /// In fa, this message translates to:
+  /// **'جستجوی آنلاین'**
+  String get settingsLocAddSearch;
 
   /// No description provided for @settingsLocAddTitle.
   ///
@@ -2702,6 +3050,84 @@ abstract class AppLocalizations {
   /// **'منطقه‌ی زمانی'**
   String get settingsZoneTitle;
 
+  /// No description provided for @supportAvailableIn.
+  ///
+  /// In fa, this message translates to:
+  /// **'قابل استفاده در:'**
+  String get supportAvailableIn;
+
+  /// No description provided for @supportCardCountries.
+  ///
+  /// In fa, this message translates to:
+  /// **'فقط ایران: کارت‌های بانکی ایرانی عضو شبکه‌ی شتاب. از خارج از ایران با این کارت نمی‌شود پرداخت کرد؛ از رمزارز استفاده کنید.'**
+  String get supportCardCountries;
+
+  /// No description provided for @supportCardNumberLabel.
+  ///
+  /// In fa, this message translates to:
+  /// **'شماره‌ی کارت'**
+  String get supportCardNumberLabel;
+
+  /// No description provided for @supportCardTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'کارت بانکی ایران'**
+  String get supportCardTitle;
+
+  /// No description provided for @supportCheckNote.
+  ///
+  /// In fa, this message translates to:
+  /// **'پیش از پرداخت، شماره یا آدرس را با نشانی رسمی پروژه در GitHub هم تطبیق دهید. ممنون از حمایت شما.'**
+  String get supportCheckNote;
+
+  /// No description provided for @supportCryptoAddressLabel.
+  ///
+  /// In fa, this message translates to:
+  /// **'آدرس کیف پول'**
+  String get supportCryptoAddressLabel;
+
+  /// No description provided for @supportCryptoCountries.
+  ///
+  /// In fa, this message translates to:
+  /// **'همه‌ی کشورها: از هر جا که کیف پول یا صرافی رمزارز در دسترس باشد، بدون نیاز به کارت بانکی.'**
+  String get supportCryptoCountries;
+
+  /// No description provided for @supportCryptoNetworkLabel.
+  ///
+  /// In fa, this message translates to:
+  /// **'شبکه'**
+  String get supportCryptoNetworkLabel;
+
+  /// No description provided for @supportCryptoNetworkValue.
+  ///
+  /// In fa, this message translates to:
+  /// **'BEP20 (BNB Smart Chain یا BSC)'**
+  String get supportCryptoNetworkValue;
+
+  /// No description provided for @supportCryptoTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'رمزارز USDT (تتر)'**
+  String get supportCryptoTitle;
+
+  /// No description provided for @supportCryptoWarning.
+  ///
+  /// In fa, this message translates to:
+  /// **'فقط USDT را از طریق شبکه‌ی BEP20 بفرستید. ارسال رمزارز دیگر یا ارسال از شبکه‌ی دیگر به این آدرس باعث از دست رفتن مبلغ می‌شود.'**
+  String get supportCryptoWarning;
+
+  /// No description provided for @supportIntro.
+  ///
+  /// In fa, this message translates to:
+  /// **'این برنامه رایگان است، تبلیغ ندارد، حساب کاربری نمی‌خواهد و هیچ قابلیتی پشت پرداخت قفل نیست. اگر برایتان مفید بود و خواستید از ادامه‌ی توسعه‌ی آن حمایت کنید، از یکی از راه‌های زیر استفاده کنید. حمایت کاملاً اختیاری است و از هر مبلغی سپاسگزارم.'**
+  String get supportIntro;
+
+  /// No description provided for @supportTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'حمایت مالی'**
+  String get supportTitle;
+
   /// No description provided for @timetableCalendarSwitch.
   ///
   /// In fa, this message translates to:
@@ -3373,8 +3799,16 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'fa'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+    'ar',
+    'az',
+    'en',
+    'fa',
+    'fr',
+    'id',
+    'tr',
+    'ur',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -3383,10 +3817,22 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'ar':
+      return AppLocalizationsAr();
+    case 'az':
+      return AppLocalizationsAz();
     case 'en':
       return AppLocalizationsEn();
     case 'fa':
       return AppLocalizationsFa();
+    case 'fr':
+      return AppLocalizationsFr();
+    case 'id':
+      return AppLocalizationsId();
+    case 'tr':
+      return AppLocalizationsTr();
+    case 'ur':
+      return AppLocalizationsUr();
   }
 
   throw FlutterError(

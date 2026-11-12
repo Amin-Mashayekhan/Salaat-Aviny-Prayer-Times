@@ -19,6 +19,7 @@ final formatterProvider = Provider<Formatter>((ref) {
   final hourFormat = ref.watch(settingsProvider.select((s) => s.hourFormat));
   return Formatter(
     persianDigits: digits == DigitStyle.persian,
+    arabicDigits: digits == DigitStyle.arabic,
     twelveHour: hourFormat == HourFormat.h12,
     l10n: ref.watch(appLocalizationsProvider),
   );

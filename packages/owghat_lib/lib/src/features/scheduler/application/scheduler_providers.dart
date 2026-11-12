@@ -43,7 +43,7 @@ const Duration rolloverOffset = Duration(seconds: 5);
 
 /// Builds the events of today and tomorrow from the current settings.
 ///
-/// Only reads state; it never writes settings (rule T-5).
+/// Only reads state; it never writes settings.
 List<ScheduledEvent> buildScheduleEvents(Ref ref) {
   final now = ref.read(clockProvider).now().toUtc();
   final settings = ref.read(settingsProvider);

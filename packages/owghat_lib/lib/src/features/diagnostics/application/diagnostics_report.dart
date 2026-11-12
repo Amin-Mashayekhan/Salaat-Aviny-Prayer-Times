@@ -164,9 +164,9 @@ String _tri(bool? value) => value == null ? 'unknown' : '$value';
 String _clockStatus(ClockWarning? warning) => switch (warning) {
   null => 'no problem found',
   ClockSkewWarning(:final skew) =>
-    'D-1 clock skew of about ${skew.abs().inSeconds} s',
+    'Clock skew of about ${skew.abs().inSeconds} s',
   StaleZoneRulesWarning(:final windowsOffset, :final expectedOffset) =>
-    'D-2 Windows uses ${formatUtcOffset(windowsOffset)} but the time-zone '
+    'Windows uses ${formatUtcOffset(windowsOffset)} but the time-zone '
         'database says ${formatUtcOffset(expectedOffset)}',
 };
 

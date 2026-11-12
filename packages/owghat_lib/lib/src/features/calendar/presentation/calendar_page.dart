@@ -23,7 +23,7 @@ import 'package:prayer_core/prayer_core.dart';
 /// Weekday order of the Persian week, as ISO weekdays: Saturday first.
 const List<int> _weekOrder = [6, 7, 1, 2, 3, 4, 5];
 
-/// The Calendar screen (`docs/05-UI-UX-SPEC.md` 4.3): a Shamsi month grid
+/// The Calendar screen: a Shamsi month grid
 /// with the lunar and Gregorian day numbers in every cell, a side panel for
 /// the selected day, the lunar-date adjustment and the date converter.
 class CalendarPage extends ConsumerWidget {

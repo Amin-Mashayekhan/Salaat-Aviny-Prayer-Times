@@ -13,6 +13,16 @@ class GeolocatorDeviceLocation implements DeviceLocationService {
   /// Creates the service.
   const GeolocatorDeviceLocation();
 
+  /// Opens `ms-settings:privacy-location` (the plugin does it on Windows).
+  @override
+  Future<bool> openSystemSettings() async {
+    try {
+      return await Geolocator.openLocationSettings();
+    } on Object {
+      return false;
+    }
+  }
+
   @override
   Future<DeviceFix> currentPosition({
     Duration timeLimit = const Duration(seconds: 20),

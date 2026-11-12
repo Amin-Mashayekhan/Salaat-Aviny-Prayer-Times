@@ -7,8 +7,8 @@ import 'package:owghat_lib/owghat_lib.dart';
 ///
 /// The value is named `Salaat` and holds `"<exe>" --minimized`, exactly what
 /// the installer writes. It lives in the current user hive, so it never
-/// needs administrator rights. (`launch_at_startup` is not used, see
-/// ADR 0001.)
+/// needs administrator rights. (The `launch_at_startup` plugin is
+/// not used because it pulls in a native build hook.)
 class RegistryAutostart implements AutostartService {
   /// Creates the service. [executable] defaults to the running exe.
   RegistryAutostart({String? executable})

@@ -11,7 +11,7 @@ import 'package:owghat_lib/src/features/prayer_times/presentation/now_playing_ba
 import 'package:owghat_lib/src/features/prayer_times/presentation/status_card.dart';
 import 'package:owghat_lib/src/features/prayer_times/presentation/today_list.dart';
 
-/// The home screen (`docs/05-UI-UX-SPEC.md` §4.1): the next prayer and its
+/// The home screen: the next prayer and its
 /// countdown first, today's times and the status below, a now-playing bar
 /// at the bottom while audio plays.
 class HomePage extends ConsumerWidget {

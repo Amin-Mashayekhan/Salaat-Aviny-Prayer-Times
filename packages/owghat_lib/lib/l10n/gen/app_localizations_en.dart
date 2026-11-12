@@ -10,11 +10,54 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get aboutAuthorIntro =>
+      'This app is made and maintained by an independent developer. Get in touch to report a problem, suggest something or work together.';
+
+  @override
+  String get aboutAuthorTitle => 'About the developer';
+
+  @override
+  String get aboutContactEmail => 'Email';
+
+  @override
+  String get aboutContactGithub => 'GitHub';
+
+  @override
+  String get aboutContactName => 'Name';
+
+  @override
+  String get aboutContactPhone => 'Mobile';
+
+  @override
+  String get aboutContactTelegram => 'Telegram';
+
+  @override
+  String get aboutCopiedValue => 'Copied.';
+
+  @override
+  String get aboutCopy => 'Copy';
+
+  @override
   String get aboutFontNote =>
       'The Vazirmatn font is bundled under the SIL Open Font License 1.1.';
 
   @override
+  String get aboutLicenceNote =>
+      'This app is released under the MIT licence: you may use, change and share it freely.';
+
+  @override
   String get aboutLicences => 'Open-source licences';
+
+  @override
+  String get aboutOpen => 'Open';
+
+  @override
+  String get aboutOpenFailed =>
+      'Could not be opened. Copy the address and paste it into your browser or mail program.';
+
+  @override
+  String get aboutPhoneNote =>
+      'Calls and text messages only from Iran. From outside Iran, please use Telegram.';
 
   @override
   String get aboutSoundNote =>
@@ -227,6 +270,42 @@ class AppLocalizationsEn extends AppLocalizations {
     });
     return '$_temp0';
   }
+
+  @override
+  String get contributeIntro =>
+      'The code of this app is on GitHub and every kind of help is welcome. Ways to take part:';
+
+  @override
+  String get contributeOpenGuide => 'Contributing guide';
+
+  @override
+  String get contributeOpenIssues => 'Report a bug or idea';
+
+  @override
+  String get contributeOpenRepo => 'Open the repository on GitHub';
+
+  @override
+  String get contributeTitle => 'Contribute';
+
+  @override
+  String get contributeWayCode =>
+      'Code: fork the repository, make the change on a branch, run the tests and send a Pull Request. Build and test steps are in CONTRIBUTING.md.';
+
+  @override
+  String get contributeWayData =>
+      'Data: correct the name, coordinates or time zone of a city, or add a new city.';
+
+  @override
+  String get contributeWayIssues =>
+      'Report a bug or an idea: open an Issue on GitHub and attach the version and the diagnostics report from this page (it holds no names or coordinates).';
+
+  @override
+  String get contributeWayTest =>
+      'Testing: try the app on different versions and hardware of Windows (azan, tray, wake-up alarms) and report what you see.';
+
+  @override
+  String get contributeWayTranslate =>
+      'Translation: the texts of the app are in the lib/l10n folder. Send a new language or a fix to an existing one; a review by a native speaker is very valuable.';
 
   @override
   String get diagAudioFailed =>
@@ -669,16 +748,20 @@ class AppLocalizationsEn extends AppLocalizations {
       'Choose your language. You can change it later in the settings.';
 
   @override
-  String get onboardingLanguageEn => 'English';
-
-  @override
-  String get onboardingLanguageFa => 'فارسی';
-
-  @override
   String get onboardingLanguageTitle => 'Language';
 
   @override
+  String get onboardingModeList => 'Iran cities (offline list)';
+
+  @override
+  String get onboardingModeOnline => 'Any city in the world (search online)';
+
+  @override
   String get onboardingNext => 'Next';
+
+  @override
+  String get onboardingOnlineBody =>
+      'Your city is not in the list? Search any city in the world. The internet is needed only for this search; afterwards the app works offline.';
 
   @override
   String get onboardingPreview => 'Play a sample azan';
@@ -703,6 +786,67 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingStopPreview => 'Stop';
+
+  @override
+  String get placeSearchAttribution =>
+      'Places © OpenStreetMap contributors (Nominatim). Time zone and height: Open-Meteo.';
+
+  @override
+  String get placeSearchButton => 'Search';
+
+  @override
+  String get placeSearchFailBusy =>
+      'The search service is busy. Wait a minute and try again.';
+
+  @override
+  String get placeSearchFailDetails =>
+      'The place was found, but its time zone could not be fetched. Check the connection and choose it again.';
+
+  @override
+  String get placeSearchFailGeneric =>
+      'The search did not work. Try again in a moment.';
+
+  @override
+  String get placeSearchFailOffline =>
+      'There is no internet connection. Connect and press Search again. The rest of the app works offline.';
+
+  @override
+  String get placeSearchFailTimeout =>
+      'The search service did not answer in time. Try again.';
+
+  @override
+  String get placeSearchHint => 'City, country (for example Mumbai, India)';
+
+  @override
+  String placeSearchNone(String query) {
+    return 'No place found for “$query”. Check the spelling or add the country, for example Mumbai, India.';
+  }
+
+  @override
+  String get placeSearchNotice =>
+      'Searching needs the internet, only this once. The text you type is sent to the OpenStreetMap search service (Nominatim); nothing else is sent. After you choose a place, the app keeps what it needs and works offline again.';
+
+  @override
+  String placeSearchResolving(String place) {
+    return 'Getting the time zone and height of $place…';
+  }
+
+  @override
+  String get placeSearchResultsTitle => 'Results: choose your place';
+
+  @override
+  String get placeSearchTitle => 'Search for a place';
+
+  @override
+  String get placeSearchTooShort =>
+      'Type at least two letters, then press Search.';
+
+  @override
+  String get placeSearchUnknownZone =>
+      'The time zone of this place is not in the app database. Try another place, or add it with Custom location in the settings.';
+
+  @override
+  String get placeSearching => 'Searching…';
 
   @override
   String get prayerAsr => 'Asr';
@@ -789,6 +933,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get qiblaCoordsLabel => 'Latitude and longitude';
 
   @override
+  String get qiblaCoordsOr => 'Or enter the coordinates yourself';
+
+  @override
+  String qiblaCustomPlaceShown(String place) {
+    return 'Measuring from $place.';
+  }
+
+  @override
   String get qiblaDeviceFixShown => 'Showing the position of this device.';
 
   @override
@@ -805,15 +957,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get qiblaFailPermissionDenied =>
-      'Windows has not allowed this app to read the position. In Windows Settings (Privacy and security, Location) turn on both Location services and Let desktop apps access your location, then try again; or use the selected city.';
+      'Windows has not allowed this app to read the position. Follow the steps below and try again; or use the selected city.';
 
   @override
   String get qiblaFailPermissionForever =>
-      'Location access was refused. In Windows Settings (Privacy and security, Location) turn on Let desktop apps access your location.';
+      'Location access was refused. To allow it again, follow the steps below.';
 
   @override
   String get qiblaFailServiceDisabled =>
-      'Windows location services are off. Turn them on in Windows Settings (Privacy, Location), or use the selected city or any point.';
+      'Location services are off on this device. Follow the steps below; or use the selected city or any point.';
 
   @override
   String get qiblaFailTimeout =>
@@ -829,6 +981,32 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get qiblaHelpOther =>
+      'Turn location on in the operating system settings, allow this app to use it, and try again.';
+
+  @override
+  String get qiblaHelpTitleOther => 'How do I turn on location?';
+
+  @override
+  String get qiblaHelpTitleWindows => 'How do I turn on location in Windows?';
+
+  @override
+  String get qiblaHelpWin1 =>
+      'Press the button above to open the Location page of Windows Settings. If it does not open, go there by hand: Start > Settings > Privacy & security > Location (Windows 10: Privacy > Location)';
+
+  @override
+  String get qiblaHelpWin2 =>
+      'Turn on Location services. If the top of the page says Location for this device is off, press Change and turn it on.';
+
+  @override
+  String get qiblaHelpWin3 =>
+      'A little lower, turn on Let desktop apps access your location (Windows 10: Allow desktop apps to access your location). Salaat is a desktop app and is allowed only by this switch.';
+
+  @override
+  String get qiblaHelpWin4 =>
+      'Come back to Salaat and press Find my position again. If it still fails, close the app once and open it again.';
+
+  @override
   String get qiblaLocateAgain => 'Find again';
 
   @override
@@ -841,8 +1019,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get qiblaMapAttribution => '© OpenStreetMap contributors';
 
   @override
+  String get qiblaMapAttributionSatellite =>
+      'Imagery © Esri, Maxar, Earthstar Geographics, and the GIS User Community';
+
+  @override
   String get qiblaMapConsentBody =>
-      'To draw the qibla line on a map, map pictures are fetched from the internet (OpenStreetMap) and the area you look at is sent to that server. Nothing is requested until you agree. The qibla angle and distance are shown correctly without the map too.';
+      'To draw the qibla line on a map, map pictures are fetched from the internet and the area you look at is sent to that server: the street map from OpenStreetMap, and, if you choose Satellite, aerial photographs from Esri. Nothing is requested until you agree. The qibla angle and distance are shown correctly without the map too.';
 
   @override
   String get qiblaMapConsentButton => 'Show the map';
@@ -880,6 +1062,16 @@ class AppLocalizationsEn extends AppLocalizations {
       'A PC has no compass, so the drawing is relative to true north (north is at the top).';
 
   @override
+  String get qiblaOpenSettingsFailed =>
+      'The settings page could not be opened; follow the steps by hand.';
+
+  @override
+  String get qiblaOpenSettingsOther => 'Open location settings';
+
+  @override
+  String get qiblaOpenSettingsWindows => 'Open Windows location settings';
+
+  @override
   String get qiblaSourceCity => 'Selected city';
 
   @override
@@ -891,7 +1083,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get qiblaSourceCustom => 'Any point';
 
   @override
-  String get qiblaSourceCustomHelp => 'Tap the map or enter coordinates.';
+  String get qiblaSourceCustomHelp =>
+      'Search a place by name (needs the internet once), tap the map, or enter coordinates.';
 
   @override
   String get qiblaSourceDevice => 'This device';
@@ -908,6 +1101,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get qiblaStatLongitude => 'Longitude';
+
+  @override
+  String get qiblaStyleLabel => 'Map type';
+
+  @override
+  String get qiblaStyleSatellite => 'Satellite';
+
+  @override
+  String get qiblaStyleStreet => 'Map';
 
   @override
   String get qiblaSunBelow => 'The sun is below the horizon.';
@@ -1181,6 +1383,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsDecrease => 'Decrease';
 
   @override
+  String get settingsDigitsArabic => 'Arabic (٠١٢)';
+
+  @override
   String get settingsDigitsLatin => 'Latin (123)';
 
   @override
@@ -1235,12 +1440,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get settingsLanguageEn => 'English';
-
-  @override
-  String get settingsLanguageFa => 'فارسی';
-
-  @override
   String get settingsLocActive => 'Active';
 
   @override
@@ -1251,6 +1450,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsLocAddFromDb => 'From the city list';
+
+  @override
+  String get settingsLocAddSearch => 'Search online';
 
   @override
   String get settingsLocAddTitle => 'Add a location';
@@ -1645,6 +1847,51 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsZoneTitle => 'Time zone';
+
+  @override
+  String get supportAvailableIn => 'Can be used in:';
+
+  @override
+  String get supportCardCountries =>
+      'Iran only: Iranian bank cards on the Shetab network. It cannot be paid from outside Iran; use the cryptocurrency option instead.';
+
+  @override
+  String get supportCardNumberLabel => 'Card number';
+
+  @override
+  String get supportCardTitle => 'Iranian bank card';
+
+  @override
+  String get supportCheckNote =>
+      'Before paying, compare the number or address with the project\'s official page on GitHub. Thank you for your support.';
+
+  @override
+  String get supportCryptoAddressLabel => 'Wallet address';
+
+  @override
+  String get supportCryptoCountries =>
+      'All countries: from anywhere a crypto wallet or exchange is available, with no bank card needed.';
+
+  @override
+  String get supportCryptoNetworkLabel => 'Network';
+
+  @override
+  String get supportCryptoNetworkValue =>
+      'BEP20 (BNB Smart Chain, also called BSC)';
+
+  @override
+  String get supportCryptoTitle => 'USDT (Tether) cryptocurrency';
+
+  @override
+  String get supportCryptoWarning =>
+      'Send only USDT over the BEP20 network. Sending another coin, or using another network, to this address loses the money.';
+
+  @override
+  String get supportIntro =>
+      'This app is free, has no ads, needs no account and keeps no feature behind a payment. If it is useful to you and you would like to help it keep growing, you can use one of the ways below. Support is entirely optional and any amount is appreciated.';
+
+  @override
+  String get supportTitle => 'Support the project';
 
   @override
   String get timetableCalendarSwitch => 'Calendar type';

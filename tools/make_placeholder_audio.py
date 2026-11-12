@@ -2,7 +2,7 @@
 
 azan_default.wav  - a calm 11-second three-phrase tone melody. It is NOT an azan
                     recording; it exists so the app works out of the box. Users choose
-                    their own azan file in Settings (see Q-2 in the implementation plan).
+                    their own azan file in Settings.
 chime.wav         - a short two-note chime used for reminders.
 """
 import math

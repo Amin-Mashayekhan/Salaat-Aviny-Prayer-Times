@@ -11,7 +11,7 @@ import 'package:prayer_core/prayer_core.dart';
 /// Runs the schedule: arms one timer for the next event, handles everything
 /// that is due exactly once, and recovers from sleep and clock changes.
 ///
-/// See "Schedule engine" in `docs/04-DOMAIN-SPEC.md`. The engine is plain
+/// See `docs/prayer-times.md`. The engine is plain
 /// Dart; Riverpod wiring lives in `scheduler_providers.dart`.
 class ScheduleEngine {
   /// Creates an engine.

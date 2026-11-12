@@ -10,11 +10,54 @@ class AppLocalizationsFa extends AppLocalizations {
   AppLocalizationsFa([String locale = 'fa']) : super(locale);
 
   @override
+  String get aboutAuthorIntro =>
+      'این برنامه را یک توسعه‌دهنده‌ی مستقل می‌سازد و نگهداری می‌کند. برای گزارش مشکل، پیشنهاد یا همکاری با من در تماس باشید.';
+
+  @override
+  String get aboutAuthorTitle => 'درباره‌ی سازنده';
+
+  @override
+  String get aboutContactEmail => 'ایمیل';
+
+  @override
+  String get aboutContactGithub => 'GitHub';
+
+  @override
+  String get aboutContactName => 'نام';
+
+  @override
+  String get aboutContactPhone => 'موبایل';
+
+  @override
+  String get aboutContactTelegram => 'تلگرام';
+
+  @override
+  String get aboutCopiedValue => 'کپی شد.';
+
+  @override
+  String get aboutCopy => 'کپی';
+
+  @override
   String get aboutFontNote =>
       'قلم وزیرمتن با مجوز SIL Open Font License 1.1 همراه برنامه است.';
 
   @override
+  String get aboutLicenceNote =>
+      'این برنامه با مجوز MIT منتشر شده است: می‌توانید آزادانه از آن استفاده کنید، آن را تغییر دهید و پخش کنید.';
+
+  @override
   String get aboutLicences => 'مجوزهای نرم‌افزارهای متن‌باز';
+
+  @override
+  String get aboutOpen => 'باز کردن';
+
+  @override
+  String get aboutOpenFailed =>
+      'باز نشد. نشانی را کپی کنید و در مرورگر یا برنامه‌ی ایمیل خود بگذارید.';
+
+  @override
+  String get aboutPhoneNote =>
+      'تماس و پیامک فقط از داخل ایران. از خارج از ایران فقط تلگرام.';
 
   @override
   String get aboutSoundNote =>
@@ -226,6 +269,42 @@ class AppLocalizationsFa extends AppLocalizations {
     });
     return '$_temp0';
   }
+
+  @override
+  String get contributeIntro =>
+      'کد این برنامه در GitHub است و هر کمکی پذیرفته می‌شود. راه‌های مشارکت:';
+
+  @override
+  String get contributeOpenGuide => 'راهنمای مشارکت';
+
+  @override
+  String get contributeOpenIssues => 'گزارش خطا یا پیشنهاد';
+
+  @override
+  String get contributeOpenRepo => 'باز کردن مخزن در GitHub';
+
+  @override
+  String get contributeTitle => 'مشارکت در پروژه';
+
+  @override
+  String get contributeWayCode =>
+      'کد: مخزن را Fork کنید، تغییر را در یک شاخه انجام دهید، آزمون‌ها را اجرا کنید و Pull Request بفرستید. راهنمای ساخت و آزمون در CONTRIBUTING.md است.';
+
+  @override
+  String get contributeWayData =>
+      'داده: نام، مختصات یا منطقه‌ی زمانی شهرها را اصلاح کنید یا شهر تازه اضافه کنید.';
+
+  @override
+  String get contributeWayIssues =>
+      'گزارش خطا یا پیشنهاد: در GitHub یک Issue بسازید و شماره‌ی نسخه و گزارش عیب‌یابی همین صفحه را ضمیمه کنید (نام و مختصات ندارد).';
+
+  @override
+  String get contributeWayTest =>
+      'آزمایش: برنامه را روی نسخه‌ها و سخت‌افزارهای مختلف ویندوز بیازمایید (اذان، سینی سیستم، بیدارباش) و نتیجه را گزارش کنید.';
+
+  @override
+  String get contributeWayTranslate =>
+      'ترجمه: متن‌های برنامه در پوشه‌ی lib/l10n هستند. ترجمه‌ی یک زبان تازه یا اصلاح ترجمه‌ی موجود را بفرستید؛ بازبینی یک گویشور بومی بسیار ارزشمند است.';
 
   @override
   String get diagAudioFailed =>
@@ -666,16 +745,20 @@ class AppLocalizationsFa extends AppLocalizations {
       'زبان را انتخاب کنید. بعداً در تنظیمات هم می‌توانید آن را عوض کنید.';
 
   @override
-  String get onboardingLanguageEn => 'English';
-
-  @override
-  String get onboardingLanguageFa => 'فارسی';
-
-  @override
   String get onboardingLanguageTitle => 'زبان برنامه';
 
   @override
+  String get onboardingModeList => 'شهرهای ایران (فهرست آفلاین)';
+
+  @override
+  String get onboardingModeOnline => 'هر شهر دنیا (جستجوی آنلاین)';
+
+  @override
   String get onboardingNext => 'بعدی';
+
+  @override
+  String get onboardingOnlineBody =>
+      'شهرتان در فهرست نیست؟ هر شهری در دنیا را جستجو کنید. اینترنت فقط برای همین جستجو لازم است و بعد برنامه بدون اینترنت کار می‌کند.';
 
   @override
   String get onboardingPreview => 'پخش نمونه‌ی اذان';
@@ -700,6 +783,66 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get onboardingStopPreview => 'توقف';
+
+  @override
+  String get placeSearchAttribution =>
+      'مکان‌ها © مشارکت‌کنندگان OpenStreetMap (Nominatim). منطقه‌ی زمانی و ارتفاع: Open-Meteo.';
+
+  @override
+  String get placeSearchButton => 'جستجو';
+
+  @override
+  String get placeSearchFailBusy =>
+      'سرویس جستجو شلوغ است. یک دقیقه صبر کنید و دوباره امتحان کنید.';
+
+  @override
+  String get placeSearchFailDetails =>
+      'مکان پیدا شد، اما منطقه‌ی زمانی آن دریافت نشد. اتصال را بررسی کنید و دوباره آن را انتخاب کنید.';
+
+  @override
+  String get placeSearchFailGeneric =>
+      'جستجو انجام نشد. کمی بعد دوباره امتحان کنید.';
+
+  @override
+  String get placeSearchFailOffline =>
+      'اینترنت وصل نیست. وصل شوید و دوباره جستجو را بزنید. بقیه‌ی برنامه بدون اینترنت کار می‌کند.';
+
+  @override
+  String get placeSearchFailTimeout =>
+      'سرویس جستجو به‌موقع پاسخ نداد. دوباره امتحان کنید.';
+
+  @override
+  String get placeSearchHint => 'شهر، کشور (مثلاً بمبئی، هند)';
+
+  @override
+  String placeSearchNone(String query) {
+    return 'مکانی برای «$query» پیدا نشد. املا را بررسی کنید یا کشور را هم بنویسید، مثلاً بمبئی، هند.';
+  }
+
+  @override
+  String get placeSearchNotice =>
+      'جستجو فقط همین یک بار به اینترنت نیاز دارد. متنی که می‌نویسید به سرویس جستجوی OpenStreetMap (Nominatim) فرستاده می‌شود و چیز دیگری فرستاده نمی‌شود. بعد از انتخاب مکان، برنامه آنچه لازم دارد را نگه می‌دارد و دوباره بدون اینترنت کار می‌کند.';
+
+  @override
+  String placeSearchResolving(String place) {
+    return 'در حال دریافت منطقه‌ی زمانی و ارتفاع $place…';
+  }
+
+  @override
+  String get placeSearchResultsTitle => 'نتایج: مکان خود را انتخاب کنید';
+
+  @override
+  String get placeSearchTitle => 'جستجوی مکان';
+
+  @override
+  String get placeSearchTooShort => 'دست‌کم دو حرف بنویسید و جستجو را بزنید.';
+
+  @override
+  String get placeSearchUnknownZone =>
+      'منطقه‌ی زمانی این مکان در پایگاه داده‌ی برنامه نیست. مکان دیگری را امتحان کنید یا آن را با «مکان دلخواه» در تنظیمات اضافه کنید.';
+
+  @override
+  String get placeSearching => 'در حال جستجو…';
 
   @override
   String get prayerAsr => 'عصر';
@@ -786,6 +929,14 @@ class AppLocalizationsFa extends AppLocalizations {
   String get qiblaCoordsLabel => 'عرض و طول جغرافیایی';
 
   @override
+  String get qiblaCoordsOr => 'یا مختصات را خودتان وارد کنید';
+
+  @override
+  String qiblaCustomPlaceShown(String place) {
+    return 'اندازه‌گیری از $place.';
+  }
+
+  @override
   String get qiblaDeviceFixShown => 'موقعیت دستگاه نشان داده می‌شود.';
 
   @override
@@ -802,15 +953,15 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get qiblaFailPermissionDenied =>
-      'ویندوز اجازه‌ی خواندن موقعیت را به این برنامه نداده است. در تنظیمات ویندوز (حریم خصوصی و امنیت، موقعیت مکانی) هم «موقعیت مکانی» و هم «اجازه به برنامه‌های رومیزی» را روشن کنید و دوباره امتحان کنید؛ یا از شهر انتخاب‌شده استفاده کنید.';
+      'ویندوز اجازه‌ی خواندن موقعیت را به این برنامه نداده است. مراحل زیر را انجام دهید و دوباره امتحان کنید؛ یا از شهر انتخاب‌شده استفاده کنید.';
 
   @override
   String get qiblaFailPermissionForever =>
-      'دسترسی به موقعیت مکانی رد شده است. در تنظیمات ویندوز (حریم خصوصی و امنیت، موقعیت مکانی) «اجازه به برنامه‌های رومیزی» را روشن کنید.';
+      'دسترسی به موقعیت مکانی رد شده است. برای فعال‌کردن دوباره، مراحل زیر را انجام دهید.';
 
   @override
   String get qiblaFailServiceDisabled =>
-      'سرویس موقعیت‌یابی ویندوز خاموش است. آن را در تنظیمات ویندوز (حریم خصوصی، موقعیت مکانی) روشن کنید، یا «شهر انتخاب‌شده» و «نقطه‌ی دلخواه» را به کار ببرید.';
+      'سرویس موقعیت مکانی دستگاه خاموش است. مراحل زیر را انجام دهید؛ یا از شهر انتخاب‌شده یا هر نقطه‌ی دلخواه استفاده کنید.';
 
   @override
   String get qiblaFailTimeout =>
@@ -826,6 +977,33 @@ class AppLocalizationsFa extends AppLocalizations {
   }
 
   @override
+  String get qiblaHelpOther =>
+      'موقعیت مکانی را در تنظیمات سیستم‌عامل روشن کنید، به این برنامه اجازه‌ی استفاده از آن را بدهید و دوباره امتحان کنید.';
+
+  @override
+  String get qiblaHelpTitleOther => 'چطور موقعیت مکانی را روشن کنم؟';
+
+  @override
+  String get qiblaHelpTitleWindows =>
+      'چطور موقعیت مکانی را در ویندوز روشن کنم؟';
+
+  @override
+  String get qiblaHelpWin1 =>
+      'دکمه‌ی بالا را بزنید تا صفحه‌ی Location در تنظیمات ویندوز باز شود. اگر باز نشد، دستی بروید: Start > Settings > Privacy & security > Location (در ویندوز ۱۰: Privacy > Location)';
+
+  @override
+  String get qiblaHelpWin2 =>
+      'کلید Location services را روشن کنید. اگر بالای صفحه نوشته Location for this device is off، دکمه‌ی Change را بزنید و آن را روشن کنید.';
+
+  @override
+  String get qiblaHelpWin3 =>
+      'کمی پایین‌تر کلید Let desktop apps access your location را روشن کنید (در ویندوز ۱۰: Allow desktop apps to access your location). Salaat یک برنامه‌ی رومیزی است و فقط با همین کلید اجازه می‌گیرد.';
+
+  @override
+  String get qiblaHelpWin4 =>
+      'به Salaat برگردید و «یافتن موقعیت من» را دوباره بزنید. اگر باز هم نشد، برنامه را یک بار ببندید و باز کنید.';
+
+  @override
   String get qiblaLocateAgain => 'یافتن دوباره';
 
   @override
@@ -838,8 +1016,12 @@ class AppLocalizationsFa extends AppLocalizations {
   String get qiblaMapAttribution => '© مشارکت‌کنندگان OpenStreetMap';
 
   @override
+  String get qiblaMapAttributionSatellite =>
+      'تصاویر © Esri، Maxar، Earthstar Geographics و جامعه‌ی کاربران GIS';
+
+  @override
   String get qiblaMapConsentBody =>
-      'برای دیدن خط قبله روی نقشه، تصاویر نقشه از اینترنت (OpenStreetMap) گرفته می‌شود و ناحیه‌ای که می‌بینید به آن سرور فرستاده می‌شود. تا شما نخواهید هیچ درخواستی فرستاده نمی‌شود. بدون نقشه هم زاویه و فاصله‌ی قبله درست نشان داده می‌شود.';
+      'برای دیدن خط قبله روی نقشه، تصاویر نقشه از اینترنت گرفته می‌شود و ناحیه‌ای که می‌بینید به آن سرور فرستاده می‌شود: نقشه‌ی خیابانی از OpenStreetMap، و اگر «ماهواره» را انتخاب کنید عکس‌های هوایی از Esri. تا شما نخواهید هیچ درخواستی فرستاده نمی‌شود. بدون نقشه هم زاویه و فاصله‌ی قبله درست نشان داده می‌شود.';
 
   @override
   String get qiblaMapConsentButton => 'نمایش نقشه';
@@ -877,6 +1059,16 @@ class AppLocalizationsFa extends AppLocalizations {
       'رایانه قطب‌نما ندارد؛ شکل نسبت به شمال حقیقی رسم شده است (شمال بالاست).';
 
   @override
+  String get qiblaOpenSettingsFailed =>
+      'تنظیمات باز نشد؛ مراحل بالا را دستی انجام دهید.';
+
+  @override
+  String get qiblaOpenSettingsOther => 'باز کردن تنظیمات موقعیت';
+
+  @override
+  String get qiblaOpenSettingsWindows => 'باز کردن تنظیمات موقعیت ویندوز';
+
+  @override
   String get qiblaSourceCity => 'شهر انتخاب‌شده';
 
   @override
@@ -888,7 +1080,8 @@ class AppLocalizationsFa extends AppLocalizations {
   String get qiblaSourceCustom => 'نقطه‌ی دلخواه';
 
   @override
-  String get qiblaSourceCustomHelp => 'روی نقشه بزنید یا مختصات را وارد کنید.';
+  String get qiblaSourceCustomHelp =>
+      'مکان را با نام جستجو کنید (یک‌بار اینترنت لازم است)، روی نقشه بزنید یا مختصات را وارد کنید.';
 
   @override
   String get qiblaSourceDevice => 'موقعیت دستگاه';
@@ -905,6 +1098,15 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get qiblaStatLongitude => 'طول جغرافیایی';
+
+  @override
+  String get qiblaStyleLabel => 'نوع نقشه';
+
+  @override
+  String get qiblaStyleSatellite => 'ماهواره';
+
+  @override
+  String get qiblaStyleStreet => 'نقشه';
 
   @override
   String get qiblaSunBelow => 'خورشید زیر افق است.';
@@ -1177,6 +1379,9 @@ class AppLocalizationsFa extends AppLocalizations {
   String get settingsDecrease => 'کم کردن';
 
   @override
+  String get settingsDigitsArabic => 'عربی (٠١٢)';
+
+  @override
   String get settingsDigitsLatin => 'لاتین (123)';
 
   @override
@@ -1231,12 +1436,6 @@ class AppLocalizationsFa extends AppLocalizations {
   }
 
   @override
-  String get settingsLanguageEn => 'English';
-
-  @override
-  String get settingsLanguageFa => 'فارسی';
-
-  @override
   String get settingsLocActive => 'فعال';
 
   @override
@@ -1247,6 +1446,9 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get settingsLocAddFromDb => 'از فهرست شهرها';
+
+  @override
+  String get settingsLocAddSearch => 'جستجوی آنلاین';
 
   @override
   String get settingsLocAddTitle => 'افزودن مکان';
@@ -1637,6 +1839,50 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get settingsZoneTitle => 'منطقه‌ی زمانی';
+
+  @override
+  String get supportAvailableIn => 'قابل استفاده در:';
+
+  @override
+  String get supportCardCountries =>
+      'فقط ایران: کارت‌های بانکی ایرانی عضو شبکه‌ی شتاب. از خارج از ایران با این کارت نمی‌شود پرداخت کرد؛ از رمزارز استفاده کنید.';
+
+  @override
+  String get supportCardNumberLabel => 'شماره‌ی کارت';
+
+  @override
+  String get supportCardTitle => 'کارت بانکی ایران';
+
+  @override
+  String get supportCheckNote =>
+      'پیش از پرداخت، شماره یا آدرس را با نشانی رسمی پروژه در GitHub هم تطبیق دهید. ممنون از حمایت شما.';
+
+  @override
+  String get supportCryptoAddressLabel => 'آدرس کیف پول';
+
+  @override
+  String get supportCryptoCountries =>
+      'همه‌ی کشورها: از هر جا که کیف پول یا صرافی رمزارز در دسترس باشد، بدون نیاز به کارت بانکی.';
+
+  @override
+  String get supportCryptoNetworkLabel => 'شبکه';
+
+  @override
+  String get supportCryptoNetworkValue => 'BEP20 (BNB Smart Chain یا BSC)';
+
+  @override
+  String get supportCryptoTitle => 'رمزارز USDT (تتر)';
+
+  @override
+  String get supportCryptoWarning =>
+      'فقط USDT را از طریق شبکه‌ی BEP20 بفرستید. ارسال رمزارز دیگر یا ارسال از شبکه‌ی دیگر به این آدرس باعث از دست رفتن مبلغ می‌شود.';
+
+  @override
+  String get supportIntro =>
+      'این برنامه رایگان است، تبلیغ ندارد، حساب کاربری نمی‌خواهد و هیچ قابلیتی پشت پرداخت قفل نیست. اگر برایتان مفید بود و خواستید از ادامه‌ی توسعه‌ی آن حمایت کنید، از یکی از راه‌های زیر استفاده کنید. حمایت کاملاً اختیاری است و از هر مبلغی سپاسگزارم.';
+
+  @override
+  String get supportTitle => 'حمایت مالی';
 
   @override
   String get timetableCalendarSwitch => 'نوع تقویم';

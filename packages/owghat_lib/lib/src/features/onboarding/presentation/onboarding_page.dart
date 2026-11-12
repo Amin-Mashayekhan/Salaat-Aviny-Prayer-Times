@@ -6,11 +6,13 @@ import 'package:owghat_lib/src/features/azan/application/azan_playback.dart';
 import 'package:owghat_lib/src/features/locations/application/location_providers.dart';
 import 'package:owghat_lib/src/features/locations/domain/saved_location.dart';
 import 'package:owghat_lib/src/features/onboarding/application/onboarding_providers.dart';
+import 'package:owghat_lib/src/features/places/application/place_search_model.dart';
+import 'package:owghat_lib/src/features/places/presentation/place_search_panel.dart';
 import 'package:owghat_lib/src/features/settings/application/formatter_provider.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
 import 'package:owghat_lib/src/features/settings/domain/app_settings.dart';
 
-/// The first-run flow (`docs/05-UI-UX-SPEC.md` §4.7): one centred card with
+/// The first-run flow: one centred card with
 /// three steps (language, city, azan sample and start with Windows), a
 /// progress indicator, "next" and "skip". Skipping keeps every default.
 class OnboardingPage extends ConsumerWidget {
@@ -152,7 +154,7 @@ class _LanguageStep extends ConsumerWidget {
     final language = ref.watch(settingsProvider.select((s) => s.language));
     final controller = ref.read(onboardingProvider.notifier);
 
-    Widget choice(AppLanguage value, String label) => Card(
+    Widget choice(AppLanguage value) => Card(
       child: ListTile(
         key: Key('onboarding-language-${value.name}'),
         selected: language == value,
@@ -164,7 +166,10 @@ class _LanguageStep extends ConsumerWidget {
               ? Icons.radio_button_checked
               : Icons.radio_button_unchecked,
         ),
-        title: Text(label),
+        title: Text(
+          value.nativeName,
+          textDirection: value.rtl ? TextDirection.rtl : TextDirection.ltr,
+        ),
         onTap: () => controller.chooseLanguage(value),
       ),
     );
@@ -178,9 +183,10 @@ class _LanguageStep extends ConsumerWidget {
             body: l10n.onboardingLanguageBody,
           ),
           const SizedBox(height: Gaps.l),
-          choice(AppLanguage.fa, l10n.onboardingLanguageFa),
-          const SizedBox(height: Gaps.s),
-          choice(AppLanguage.en, l10n.onboardingLanguageEn),
+          for (final value in AppLanguage.values) ...[
+            choice(value),
+            const SizedBox(height: Gaps.s),
+          ],
         ],
       ),
     );
@@ -198,6 +204,13 @@ class _CityStepState extends ConsumerState<_CityStep> {
   late final TextEditingController _search = TextEditingController(
     text: ref.read(onboardingProvider).query,
   );
+  bool _online = false;
+  bool _unusableZone = false;
+
+  void _pickOnline(PickedPlace picked) {
+    final ok = ref.read(onboardingProvider.notifier).selectPlace(picked);
+    setState(() => _unusableZone = !ok);
+  }
 
   @override
   void dispose() {
@@ -244,58 +257,113 @@ class _CityStepState extends ConsumerState<_CityStep> {
             children: [
               _StepHeading(
                 title: l10n.onboardingCityTitle,
-                body: l10n.onboardingCityBody,
+                body: _online
+                    ? l10n.onboardingOnlineBody
+                    : l10n.onboardingCityBody,
               ),
               const SizedBox(height: Gaps.m),
-              TextField(
-                key: const Key('onboarding-search'),
-                controller: _search,
-                onChanged: controller.setQuery,
-                textInputAction: TextInputAction.search,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.search),
-                  hintText: l10n.onboardingCitySearchHint,
-                ),
+              Wrap(
+                spacing: Gaps.s,
+                runSpacing: Gaps.s,
+                children: [
+                  ChoiceChip(
+                    key: const Key('onboarding-mode-list'),
+                    avatar: const Icon(Icons.list_alt, size: 18),
+                    label: Text(l10n.onboardingModeList),
+                    selected: !_online,
+                    onSelected: (_) => setState(() => _online = false),
+                  ),
+                  ChoiceChip(
+                    key: const Key('onboarding-mode-online'),
+                    avatar: const Icon(Icons.public, size: 18),
+                    label: Text(l10n.onboardingModeOnline),
+                    selected: _online,
+                    onSelected: (_) => setState(() => _online = true),
+                  ),
+                ],
               ),
-              const SizedBox(height: Gaps.s),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsetsDirectional.only(end: Gaps.s),
-                      child: ChoiceChip(
-                        key: const Key('onboarding-province-all'),
-                        label: Text(l10n.onboardingProvinceAll),
-                        selected: state.provinceId == null,
-                        onSelected: (_) => controller.setProvince(null),
+              const SizedBox(height: Gaps.m),
+              if (_online) ...[
+                PlaceSearchPanel(
+                  keyPrefix: 'onboarding-place',
+                  settlementsOnly: true,
+                  resolveDetails: true,
+                  showTitle: false,
+                  onPicked: _pickOnline,
+                ),
+                if (_unusableZone)
+                  Padding(
+                    padding: const EdgeInsets.only(top: Gaps.s),
+                    child: Text(
+                      l10n.placeSearchUnknownZone,
+                      key: const Key('onboarding-place-unusable'),
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.error,
                       ),
                     ),
-                    for (final province in repository.provinces)
+                  ),
+                const SizedBox(height: Gaps.m),
+                Text(
+                  l10n.onboardingCitySelected(active.nameIn(language)),
+                  key: const Key('onboarding-selected'),
+                  style: theme.textTheme.labelLarge,
+                ),
+                const SizedBox(height: Gaps.s),
+              ] else ...[
+                TextField(
+                  key: const Key('onboarding-search'),
+                  controller: _search,
+                  onChanged: controller.setQuery,
+                  textInputAction: TextInputAction.search,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search),
+                    hintText: l10n.onboardingCitySearchHint,
+                  ),
+                ),
+                const SizedBox(height: Gaps.s),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
                       Padding(
                         padding: const EdgeInsetsDirectional.only(end: Gaps.s),
                         child: ChoiceChip(
-                          key: Key('onboarding-province-${province.id}'),
-                          label: Text(provinceName(province.id)),
-                          selected: state.provinceId == province.id,
-                          onSelected: (_) =>
-                              controller.setProvince(province.id),
+                          key: const Key('onboarding-province-all'),
+                          label: Text(l10n.onboardingProvinceAll),
+                          selected: state.provinceId == null,
+                          onSelected: (_) => controller.setProvince(null),
                         ),
                       ),
-                  ],
+                      for (final province in repository.provinces)
+                        Padding(
+                          padding: const EdgeInsetsDirectional.only(
+                            end: Gaps.s,
+                          ),
+                          child: ChoiceChip(
+                            key: Key('onboarding-province-${province.id}'),
+                            label: Text(provinceName(province.id)),
+                            selected: state.provinceId == province.id,
+                            onSelected: (_) =>
+                                controller.setProvince(province.id),
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: Gaps.s),
-              Text(
-                l10n.onboardingCitySelected(active.nameIn(language)),
-                key: const Key('onboarding-selected'),
-                style: theme.textTheme.labelLarge,
-              ),
-              const SizedBox(height: Gaps.s),
+                const SizedBox(height: Gaps.s),
+                Text(
+                  l10n.onboardingCitySelected(active.nameIn(language)),
+                  key: const Key('onboarding-selected'),
+                  style: theme.textTheme.labelLarge,
+                ),
+                const SizedBox(height: Gaps.s),
+              ],
             ],
           ),
         ),
-        if (cities.isEmpty)
+        if (_online)
+          const SliverToBoxAdapter(child: SizedBox.shrink())
+        else if (cities.isEmpty)
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(Gaps.l),

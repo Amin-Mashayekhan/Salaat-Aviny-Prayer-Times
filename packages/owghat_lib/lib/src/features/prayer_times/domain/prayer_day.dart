@@ -19,7 +19,7 @@ class PrayerDay {
   /// The civil date (in the location).
   final CivilDate date;
 
-  /// The UTC offset used for the whole day (rule T-7).
+  /// The UTC offset used for the whole day.
   final Duration utcOffset;
 
   /// Times after local midnight, with the user offsets applied and rounded to
@@ -45,7 +45,7 @@ class PrayerDay {
 
 /// Computes the [PrayerDay] of [date].
 ///
-/// The UTC offset comes from [resolver] (rule T-3) and the calculation is the
+/// The UTC offset comes from [resolver] and the calculation is the
 /// pure `PrayerCalculator`; user offsets are applied afterwards and the result
 /// is rounded to the minute, which is also what the azan is scheduled at.
 PrayerDay computePrayerDay({

@@ -29,6 +29,18 @@ class FakeDeviceLocation implements DeviceLocationService {
   /// The time limit of the last call.
   Duration? lastTimeLimit;
 
+  /// What `openSystemSettings` answers.
+  bool openSettingsResult = true;
+
+  /// Number of `openSystemSettings` calls.
+  int openSettingsCalls = 0;
+
+  @override
+  Future<bool> openSystemSettings() async {
+    openSettingsCalls++;
+    return openSettingsResult;
+  }
+
   @override
   Future<DeviceFix> currentPosition({
     Duration timeLimit = const Duration(seconds: 20),

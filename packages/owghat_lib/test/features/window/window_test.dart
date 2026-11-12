@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:owghat_lib/src/app/shell/destination.dart';
+import 'package:owghat_lib/src/app/shell/destination_controller.dart';
 import 'package:owghat_lib/src/core/platform/app_notifier.dart';
 import 'package:owghat_lib/src/core/platform/launch_args.dart';
+import 'package:owghat_lib/src/core/platform/platform_providers.dart';
 import 'package:owghat_lib/src/core/platform/window_host.dart';
 import 'package:owghat_lib/src/features/azan/application/azan_playback.dart';
 import 'package:owghat_lib/src/features/locations/data/location_repository.dart';
@@ -89,6 +93,59 @@ void main() {
       );
       expect(LaunchArgs.parse(const ['--wake=b2']).wakeAlarmId, 'b2');
       expect(LaunchArgs.parse(const ['--wake']).wakeAlarmId, isNull);
+    });
+
+    test('--page names the screen to open first', () {
+      expect(LaunchArgs.parse(const ['--page', 'qibla']).page, 'qibla');
+      expect(LaunchArgs.parse(const ['--page=settings']).page, 'settings');
+      expect(LaunchArgs.parse(const ['--page']).page, isNull);
+      expect(LaunchArgs.parse(const ['--page=']).page, isNull);
+      expect(
+        LaunchArgs.parse(const ['--page', 'home', '--minimized']),
+        const LaunchArgs(minimized: true, page: 'home'),
+      );
+      expect(
+        const LaunchArgs(page: 'a') == const LaunchArgs(page: 'b'),
+        isFalse,
+      );
+      expect(
+        const LaunchArgs(page: 'a').hashCode,
+        const LaunchArgs(page: 'a').hashCode,
+      );
+    });
+
+    test('screen names are matched without regard to case or dashes', () {
+      expect(destinationFromName('Qibla'), Destination.qibla);
+      expect(destinationFromName('wake-up'), Destination.wakeUp);
+      expect(destinationFromName('WAKE_UP'), Destination.wakeUp);
+      expect(destinationFromName('timetable'), Destination.timetable);
+      expect(destinationFromName('calendar'), Destination.calendar);
+      expect(destinationFromName('settings'), Destination.settings);
+      expect(destinationFromName('nonsense'), isNull);
+      expect(destinationFromName(null), isNull);
+    });
+
+    test('the shell opens on the named screen, otherwise on Home', () {
+      ProviderContainer open(LaunchArgs args) {
+        final c = ProviderContainer(
+          overrides: [launchArgsProvider.overrideWithValue(args)],
+        );
+        addTearDown(c.dispose);
+        return c;
+      }
+
+      expect(
+        open(const LaunchArgs(page: 'qibla')).read(destinationProvider),
+        Destination.qibla,
+      );
+      expect(
+        open(const LaunchArgs(page: 'nope')).read(destinationProvider),
+        Destination.home,
+      );
+      expect(
+        open(const LaunchArgs()).read(destinationProvider),
+        Destination.home,
+      );
     });
   });
 

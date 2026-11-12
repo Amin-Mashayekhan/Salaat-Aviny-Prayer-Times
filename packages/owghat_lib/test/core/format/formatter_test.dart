@@ -33,6 +33,32 @@ void main() {
       expect(en().digits('۱۷:۲۰'), '17:20');
     });
 
+    test('Arabic-Indic digits with the Arabic decimal separator', () {
+      final ar = Formatter(
+        persianDigits: false,
+        arabicDigits: true,
+        twelveHour: false,
+        l10n: lookupAppLocalizations(const Locale('ar')),
+      );
+      expect(ar.formatNumber(218.4, fractionDigits: 1), '٢١٨٫٤');
+      expect(ar.digits('17:20 abc 5'), '١٧:٢٠ abc ٥');
+      expect(ar.digits('۱۷:۲۰'), '١٧:٢٠');
+      expect(ar.formatTime(const Duration(hours: 5, minutes: 10)), '٠٥:١٠');
+      expect(ar.formatNumber(-0.01, fractionDigits: 1), '٠٫٠');
+      expect(ar.formatNumber(-3), '−٣');
+      // Persian digits win when both flags are set.
+      final both = Formatter(
+        persianDigits: true,
+        arabicDigits: true,
+        twelveHour: false,
+        l10n: lookupAppLocalizations(const Locale('fa')),
+      );
+      expect(both.formatNumber(7), '۷');
+      // Arabic-Indic input is converted to Latin or Persian too.
+      expect(en().digits('٣٤'), '34');
+      expect(fa().digits('٣٤'), '۳۴');
+    });
+
     test('negative numbers use a real minus, never -0', () {
       expect(en().formatNumber(-2), '−2');
       expect(fa().formatNumber(-3.5, fractionDigits: 1), '−۳٫۵');
@@ -164,6 +190,13 @@ void main() {
         ),
       );
       expect(f.formatTime(const Duration(hours: 17, minutes: 20)), '5:20 PM');
+    });
+
+    test('Arabic digits setting gives Arabic-Indic digits', () {
+      final f = read(
+        const AppSettings(language: AppLanguage.ar, digits: DigitStyle.arabic),
+      );
+      expect(f.formatTime(const Duration(hours: 17, minutes: 20)), '١٧:٢٠');
     });
 
     test('changing a setting changes the formatter', () {

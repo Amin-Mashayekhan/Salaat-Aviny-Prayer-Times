@@ -152,7 +152,7 @@ class FixedOffsetStepper extends ConsumerWidget {
   }
 }
 
-/// Automatic or fixed offset for one location (rule T-3): two choices, the
+/// Automatic or fixed offset for one location: two choices, the
 /// zone used when automatic, the stepper when fixed.
 class OffsetModeEditor extends ConsumerWidget {
   /// Creates the editor.

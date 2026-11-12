@@ -1,0 +1,108 @@
+name: release
+
+# Builds the Windows installer and the portable zip for a version tag and
+# attaches them to a DRAFT GitHub release. Read the draft, then press Publish.
+#
+#   git tag v1.0.0 && git push origin v1.0.0
+#
+# The tag must match `version:` in app/pubspec.yaml (without the +build part).
+
+on:
+  push:
+    tags: ['v*.*.*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to build, for example v1.0.0'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.9
+          channel: stable
+
+      - run: flutter pub get
+
+      - name: The tag must match the app version
+        shell: pwsh
+        run: |
+          $version = $env:TAG.TrimStart('v')
+          $line = Select-String -Path app/pubspec.yaml -Pattern '^version:\s*([0-9]+\.[0-9]+\.[0-9]+)'
+          $pubspec = $line.Matches[0].Groups[1].Value
+          if ($pubspec -ne $version) { throw "Tag $env:TAG does not match app/pubspec.yaml version $pubspec" }
+          "VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - name: Tests
+        shell: pwsh
+        run: |
+          Push-Location packages/prayer_core; dart test; Pop-Location
+          Push-Location packages/owghat_lib; flutter test; Pop-Location
+
+      - name: Build
+        working-directory: app
+        run: flutter build windows --release
+
+      # The app folder must also run on a PC that has never had the Visual C++
+      # runtime installed, so its three DLLs travel with the program.
+      - name: Bundle the Visual C++ runtime
+        shell: pwsh
+        run: |
+          foreach ($dll in 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll') {
+            Copy-Item "$env:WINDIR\System32\$dll" app/build/windows/x64/runner/Release/
+          }
+
+      - name: Portable zip
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path dist -Force | Out-Null
+          Compress-Archive -Path app/build/windows/x64/runner/Release/* -DestinationPath dist/Salaat-windows-x64.zip
+
+      - name: Installer
+        shell: pwsh
+        run: |
+          choco install innosetup -y --no-progress
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" "/DAppVersion=$env:VERSION" app/windows/installer/salaat.iss
+          if ($LASTEXITCODE -ne 0) { throw 'Inno Setup failed' }
+          Copy-Item app/build/installer/Salaat-Setup.exe dist/
+
+      - name: Checksums
+        shell: pwsh
+        run: |
+          Get-ChildItem dist -File | ForEach-Object {
+            $hash = (Get-FileHash -Algorithm SHA256 $_.FullName).Hash.ToLower()
+            "$hash  $($_.Name)"
+          } | Set-Content -Encoding ascii dist/SHA256SUMS.txt
+
+      - name: Release notes from CHANGELOG.md
+        shell: pwsh
+        run: |
+          $text = Get-Content CHANGELOG.md -Raw
+          $pattern = "(?ms)^## \[$([regex]::Escape($env:VERSION))\][^\r\n]*\r?\n(.*?)(?=^## \[|\z)"
+          $match = [regex]::Match($text, $pattern)
+          if ($match.Success) { $notes = $match.Groups[1].Value.Trim() } else { $notes = "Salaat $env:VERSION" }
+          $notes += "`n`nDownload **Salaat-Setup.exe** (installer) or **Salaat-windows-x64.zip** (portable). Checksums are in SHA256SUMS.txt. Guide with screenshots: https://amin-mashayekhan.github.io/Salaat-Aviny-Prayer-Times/"
+          Set-Content -Path release-notes.md -Value $notes -Encoding utf8
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG }}
+          name: Salaat ${{ env.VERSION }}
+          body_path: release-notes.md
+          draft: true
+          files: |
+            dist/Salaat-Setup.exe
+            dist/Salaat-windows-x64.zip
+            dist/SHA256SUMS.txt

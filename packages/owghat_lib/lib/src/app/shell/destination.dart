@@ -39,3 +39,15 @@ enum Destination {
     settings => l10n.navSettings,
   };
 }
+
+/// The destination named [name] (`home`, `timetable`, `calendar`, `qibla`,
+/// `wakeup` or `settings`, in any case; `wake-up` and `wake_up` are accepted
+/// too), or null.
+Destination? destinationFromName(String? name) {
+  if (name == null) return null;
+  final key = name.toLowerCase().replaceAll(RegExp('[-_ ]'), '');
+  for (final destination in Destination.values) {
+    if (destination.name.toLowerCase() == key) return destination;
+  }
+  return null;
+}

@@ -47,8 +47,7 @@ class DisplaySection extends ConsumerWidget {
             semanticsLabel: l10n.settingsDispLanguage,
             value: settings.language,
             options: [
-              (AppLanguage.fa, l10n.settingsLanguageFa),
-              (AppLanguage.en, l10n.settingsLanguageEn),
+              for (final value in AppLanguage.values) (value, value.nativeName),
             ],
             onChanged: controller.setLanguage,
           ),
@@ -63,6 +62,7 @@ class DisplaySection extends ConsumerWidget {
             options: [
               (DigitStyle.persian, l10n.settingsDigitsPersian),
               (DigitStyle.latin, l10n.settingsDigitsLatin),
+              (DigitStyle.arabic, l10n.settingsDigitsArabic),
             ],
             onChanged: controller.setDigits,
           ),

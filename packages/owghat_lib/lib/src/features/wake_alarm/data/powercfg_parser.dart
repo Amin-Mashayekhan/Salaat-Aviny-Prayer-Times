@@ -2,7 +2,7 @@ import 'package:owghat_lib/src/features/wake_alarm/domain/wake_capability.dart';
 
 /// The only `powercfg` invocations this app is allowed to make. Both are
 /// read-only. The app never calls `powercfg` with a set/change flag
-/// (rule 10 in `CLAUDE.md`).
+///.
 const List<String> powercfgQueryWakeTimersArgs = [
   '/query',
   'SCHEME_CURRENT',

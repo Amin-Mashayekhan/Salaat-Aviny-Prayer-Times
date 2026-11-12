@@ -1,16 +1,16 @@
-"""Reference implementation of the prayer-time algorithm specified in
-docs/04-DOMAIN-SPEC.md, plus the generator of the golden test vectors.
+"""Reference implementation of the prayer-time algorithm described in
+docs/prayer-times.md, plus the generator of the reference test data.
 
-This file is the executable form of the spec. The Dart implementation in
+The Dart implementation in
 `packages/prayer_core` must be a faithful port of `compute()` below and must
 reproduce `seed/golden/prayer_times_golden.json` to within +/- 1 second.
 
 It is a PURE function of (date, latitude, longitude, elevation, utc offset,
 method parameters). It knows nothing about time zones, DST, the system clock
-or settings - on purpose (see "Time model" in the domain spec).
+or settings - on purpose (see "Time model" in docs/prayer-times.md).
 
 Usage:
-    python -I prayer_times_reference.py generate <output.json>   # write golden vectors
+    python -I prayer_times_reference.py generate <output.json>   # write the reference data
     python -I prayer_times_reference.py show 2026-03-21 35.6892 51.3890 210 tehran
 """
 from __future__ import annotations
@@ -218,7 +218,7 @@ def display_minute(hours: float | None) -> str | None:
     return f"{minutes // 60:02d}:{minutes % 60:02d}"
 
 
-# --------------------------------------------------------------------------- golden vectors
+# --------------------------------------------------------------------------- reference data
 
 PLACES = [
     # id, name, lat, lon, elevation, [(method, asr)], offset rule

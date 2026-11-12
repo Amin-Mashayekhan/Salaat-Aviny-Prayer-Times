@@ -184,6 +184,52 @@ void main() {
     });
   });
 
+  group('AppLanguage', () {
+    test(
+      'eight languages, three of them right-to-left, in their own names',
+      () {
+        expect(AppLanguage.values.map((l) => l.name), [
+          'fa', 'en', 'ar', 'tr', 'ur', 'az', 'id', 'fr', //
+        ]);
+        expect(AppLanguage.values.where((l) => l.rtl).map((l) => l.name), [
+          'fa',
+          'ar',
+          'ur',
+        ]);
+        expect(AppLanguage.ar.nativeName, 'العربية');
+        expect(AppLanguage.tr.nativeName, 'Türkçe');
+        expect(AppLanguage.id.nativeName, 'Bahasa Indonesia');
+      },
+    );
+
+    test('every language survives the settings file', () {
+      for (final language in AppLanguage.values) {
+        final json = const AppSettings.defaults()
+            .copyWith(language: language)
+            .toJson();
+        expect(AppSettings.fromJson(json).language, language);
+      }
+    });
+
+    test('an unknown language falls back to Persian', () {
+      expect(
+        AppSettings.fromJson(<String, Object?>{'language': 'xx'}).language,
+        AppLanguage.fa,
+      );
+    });
+
+    test('the Arabic digit style round-trips and unknown falls back', () {
+      final json = const AppSettings.defaults()
+          .copyWith(digits: DigitStyle.arabic)
+          .toJson();
+      expect(AppSettings.fromJson(json).digits, DigitStyle.arabic);
+      expect(
+        AppSettings.fromJson(<String, Object?>{'digits': 'roman'}).digits,
+        DigitStyle.persian,
+      );
+    });
+  });
+
   group('QiblaSettings', () {
     test(
       'the map is off by default: no map server is contacted on its own',
@@ -209,10 +255,33 @@ void main() {
       final on = const AppSettings.defaults().copyWith(
         qibla: const QiblaSettings(mapEnabled: true),
       );
-      expect(on.toJson()['qibla'], {'mapEnabled': true});
+      expect(on.toJson()['qibla'], {'mapEnabled': true, 'mapStyle': 'street'});
       expect(AppSettings.fromJson(on.toJson()).qibla.mapEnabled, isTrue);
       expect(on.qibla.copyWith().mapEnabled, isTrue);
       expect(on.qibla.copyWith(mapEnabled: false).mapEnabled, isFalse);
+    });
+
+    test('the street map is the default style and the style round-trips', () {
+      expect(const QiblaSettings().mapStyle, QiblaMapStyle.street);
+      final sat = const QiblaSettings().copyWith(
+        mapStyle: QiblaMapStyle.satellite,
+      );
+      expect(sat.toJson()['mapStyle'], 'satellite');
+      expect(QiblaSettings.fromJson(sat.toJson()).mapStyle, sat.mapStyle);
+      expect(sat.copyWith().mapStyle, QiblaMapStyle.satellite);
+    });
+
+    test('a missing or unknown style reads as the street map', () {
+      expect(QiblaSettings.fromJson(null).mapStyle, QiblaMapStyle.street);
+      expect(
+        QiblaSettings.fromJson(<String, Object?>{'mapStyle': 'hybrid'})
+            .mapStyle,
+        QiblaMapStyle.street,
+      );
+      expect(
+        QiblaSettings.fromJson(<String, Object?>{'mapEnabled': true}).mapStyle,
+        QiblaMapStyle.street,
+      );
     });
   });
 

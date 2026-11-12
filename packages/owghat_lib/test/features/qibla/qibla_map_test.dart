@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart'
+    show debugDefaultTargetPlatformOverride;
 import 'package:flutter/material.dart' hide HourFormat;
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
@@ -9,10 +11,13 @@ import 'package:owghat_lib/src/app/shell/destination.dart';
 import 'package:owghat_lib/src/app/shell/destination_controller.dart';
 import 'package:owghat_lib/src/core/platform/device_location.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_device_location.dart';
+import 'package:owghat_lib/src/core/platform/fakes/fake_place_search.dart';
+import 'package:owghat_lib/src/core/platform/place_search.dart';
 import 'package:owghat_lib/src/core/platform/platform_providers.dart';
 import 'package:owghat_lib/src/features/locations/data/location_repository.dart';
 import 'package:owghat_lib/src/features/qibla/application/qibla_point.dart';
 import 'package:owghat_lib/src/features/qibla/presentation/qibla_map_support.dart';
+import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
 import 'package:owghat_lib/src/features/settings/domain/app_settings.dart';
 import 'package:prayer_core/prayer_core.dart';
 
@@ -76,6 +81,24 @@ void main() {
     return harness;
   }
 
+  /// A widget test that runs as if on [platform] (the help card is written
+  /// for the operating system); the override is always reset, even when an
+  /// expectation fails, because the framework checks it before tear-downs.
+  void platformWidgets(
+    TargetPlatform platform,
+    String description,
+    Future<void> Function(WidgetTester tester) body,
+  ) {
+    testWidgets(description, (tester) async {
+      debugDefaultTargetPlatformOverride = platform;
+      try {
+        await body(tester);
+      } finally {
+        debugDefaultTargetPlatformOverride = null;
+      }
+    });
+  }
+
   String text(WidgetTester tester, String key) =>
       tester.widget<Text>(find.byKey(Key(key))).data!;
 
@@ -87,12 +110,13 @@ void main() {
   }
 
   Future<void> chooseSource(WidgetTester tester, IconData icon) async {
-    await tester.tap(
-      find.descendant(
-        of: find.byKey(const Key('qibla-source')),
-        matching: find.byIcon(icon),
-      ),
+    final tile = find.descendant(
+      of: find.byKey(const Key('qibla-source')),
+      matching: find.byIcon(icon),
     );
+    await tester.ensureVisible(tile);
+    await tester.pump();
+    await tester.tap(tile);
     await tester.pumpAndSettle();
   }
 
@@ -235,8 +259,7 @@ void main() {
     });
 
     for (final entry in {
-      DeviceLocationFailure.serviceDisabled:
-          'Windows location services are off',
+      DeviceLocationFailure.serviceDisabled: 'Location services are off',
       DeviceLocationFailure.permissionDenied: 'has not allowed this app',
       DeviceLocationFailure.permissionDeniedForever:
           'Location access was refused',
@@ -262,6 +285,149 @@ void main() {
         expect(find.byKey(const Key('qibla-locate-failure')), findsNothing);
       });
     }
+
+    group('location help card', () {
+      const helpFailures = [
+        DeviceLocationFailure.serviceDisabled,
+        DeviceLocationFailure.permissionDenied,
+        DeviceLocationFailure.permissionDeniedForever,
+      ];
+      for (final failure in helpFailures) {
+        platformWidgets(
+          TargetPlatform.windows,
+          '${failure.name}: Windows shows the four steps and the '
+          'open button',
+          (tester) async {
+            gps.failure = DeviceLocationException(failure);
+            await open(tester);
+            await chooseSource(tester, Icons.my_location);
+            expect(
+              find.byKey(const Key('qibla-location-help')),
+              findsOneWidget,
+            );
+            expect(find.text('Open Windows location settings'), findsOneWidget);
+            for (var i = 0; i < 4; i++) {
+              expect(find.byKey(Key('qibla-help-step-$i')), findsOneWidget);
+            }
+            expect(
+              text(tester, 'qibla-help-step-2'),
+              contains('Let desktop apps access your location'),
+            );
+          },
+        );
+      }
+
+      platformWidgets(
+        TargetPlatform.windows,
+        'the button opens the OS settings page and nothing else',
+        (tester) async {
+          gps.failure = const DeviceLocationException(
+            DeviceLocationFailure.permissionDenied,
+          );
+          await open(tester);
+          await chooseSource(tester, Icons.my_location);
+          final callsBefore = gps.calls;
+          await tapKey(tester, 'qibla-open-os-settings');
+          expect(gps.openSettingsCalls, 1);
+          expect(
+            gps.calls,
+            callsBefore,
+            reason: 'it must not read the position',
+          );
+          expect(
+            find.byKey(const Key('qibla-open-os-settings-failed')),
+            findsNothing,
+          );
+        },
+      );
+
+      platformWidgets(
+        TargetPlatform.windows,
+        'if the page cannot be opened the steps stay and a note '
+        'says so',
+        (tester) async {
+          gps
+            ..failure = const DeviceLocationException(
+              DeviceLocationFailure.permissionDenied,
+            )
+            ..openSettingsResult = false;
+          await open(tester);
+          await chooseSource(tester, Icons.my_location);
+          await tapKey(tester, 'qibla-open-os-settings');
+          expect(
+            find.byKey(const Key('qibla-open-os-settings-failed')),
+            findsOneWidget,
+          );
+          expect(find.byKey(const Key('qibla-help-step-0')), findsOneWidget);
+        },
+      );
+
+      platformWidgets(
+        TargetPlatform.windows,
+        'an error while opening is treated as "could not open"',
+        (tester) async {
+          final fake = _OpenThrows()
+            ..failure = const DeviceLocationException(
+              DeviceLocationFailure.permissionDenied,
+            );
+          await open(tester, location: fake);
+          await chooseSource(tester, Icons.my_location);
+          await tapKey(tester, 'qibla-open-os-settings');
+          expect(
+            find.byKey(const Key('qibla-open-os-settings-failed')),
+            findsOneWidget,
+          );
+        },
+      );
+
+      platformWidgets(
+        TargetPlatform.android,
+        'another platform gets a short generic hint',
+        (tester) async {
+          gps.failure = const DeviceLocationException(
+            DeviceLocationFailure.permissionDenied,
+          );
+          await open(tester);
+          await chooseSource(tester, Icons.my_location);
+          expect(find.text('Open location settings'), findsOneWidget);
+          expect(find.byKey(const Key('qibla-help-step-0')), findsOneWidget);
+          expect(find.byKey(const Key('qibla-help-step-1')), findsNothing);
+        },
+      );
+
+      for (final failure in [
+        DeviceLocationFailure.timeout,
+        DeviceLocationFailure.unsupported,
+        DeviceLocationFailure.failed,
+      ]) {
+        platformWidgets(
+          TargetPlatform.windows,
+          '${failure.name}: no settings card (settings would not '
+          'help)',
+          (tester) async {
+            gps.failure = DeviceLocationException(failure);
+            await open(tester);
+            await chooseSource(tester, Icons.my_location);
+            expect(find.byKey(const Key('qibla-location-help')), findsNothing);
+          },
+        );
+      }
+
+      platformWidgets(
+        TargetPlatform.windows,
+        'Persian: steps use Persian digits and the Persian button',
+        (tester) async {
+          gps.failure = const DeviceLocationException(
+            DeviceLocationFailure.permissionDenied,
+          );
+          await open(tester, settings: withMap(persianSettings));
+          await chooseSource(tester, Icons.my_location);
+          expect(find.text('باز کردن تنظیمات موقعیت ویندوز'), findsOneWidget);
+          expect(find.text('۱'), findsOneWidget);
+          expect(find.text('۴'), findsOneWidget);
+        },
+      );
+    });
 
     testWidgets('an unexpected error is reported as a generic failure', (
       tester,
@@ -423,6 +589,250 @@ void main() {
     });
   });
 
+  group('any point: search a place by name', () {
+    late FakePlaceSearch search;
+
+    setUp(() => search = FakePlaceSearch());
+
+    Future<AppHarness> openSearch(WidgetTester tester) async {
+      final h = await open(
+        tester,
+        overrides: [placeSearchProvider.overrideWithValue(search)],
+      );
+      await chooseSource(tester, Icons.edit_location_alt_outlined);
+      return h;
+    }
+
+    Future<void> find0(WidgetTester tester, String text) async {
+      await tester.ensureVisible(find.byKey(const Key('qibla-place-field')));
+      await tester.enterText(find.byKey(const Key('qibla-place-field')), text);
+      await tapKey(tester, 'qibla-place-button');
+    }
+
+    QiblaPointState pointOf(AppHarness h) =>
+        h.container.read(qiblaPointProvider);
+
+    testWidgets('the search box appears only for the any-point source and '
+        'says it needs the internet', (tester) async {
+      await open(
+        tester,
+        overrides: [placeSearchProvider.overrideWithValue(search)],
+      );
+      expect(find.byKey(const Key('qibla-place-field')), findsNothing);
+      await chooseSource(tester, Icons.edit_location_alt_outlined);
+      expect(find.byKey(const Key('qibla-place-notice')), findsOneWidget);
+      expect(find.byKey(const Key('qibla-place-field')), findsOneWidget);
+      expect(search.queries, isEmpty);
+    });
+
+    testWidgets('choosing a result centres the map on that place at city '
+        'scale and measures from it', (tester) async {
+      final h = await openSearch(tester);
+      await find0(tester, 'Mumbai, India');
+      expect(search.settlementFlags, [false], reason: 'any kind of place');
+      expect(search.detailsCalls, 0, reason: 'no time zone is needed here');
+      await tapKey(tester, 'qibla-place-result-0');
+      final choice = pointOf(h);
+      expect(choice.kind, QiblaSourceKind.custom);
+      expect(choice.customName, 'Mumbai');
+      expect(text(tester, 'qibla-map-lat'), startsWith('19.07'));
+      final map = tester.widget<FlutterMap>(find.byKey(const Key('qibla-map')));
+      expect(map.mapController!.camera.zoom, 12);
+      expect(map.mapController!.camera.center.latitude, closeTo(19.0759, 1e-3));
+      expect(
+        map.mapController!.camera.center.longitude,
+        closeTo(72.8777, 1e-3),
+      );
+      expect(text(tester, 'qibla-source-help'), 'Measuring from Mumbai.');
+    });
+
+    testWidgets('the semantic description names the found place', (
+      tester,
+    ) async {
+      await openSearch(tester);
+      await find0(tester, 'Mumbai');
+      await tapKey(tester, 'qibla-place-result-0');
+      expect(
+        find.bySemanticsLabel(RegExp('Qibla map: from Mumbai to the Kaaba')),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('a tap on the map afterwards forgets the name', (tester) async {
+      final h = await openSearch(tester);
+      await find0(tester, 'Mumbai');
+      await tapKey(tester, 'qibla-place-result-0');
+      await tester.tapAt(tester.getCenter(find.byKey(const Key('qibla-map'))));
+      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pumpAndSettle();
+      expect(pointOf(h).customName, isNull);
+      expect(pointOf(h).kind, QiblaSourceKind.custom);
+    });
+
+    testWidgets('typed coordinates still work and clear the name', (
+      tester,
+    ) async {
+      final h = await openSearch(tester);
+      await find0(tester, 'Mumbai');
+      await tapKey(tester, 'qibla-place-result-0');
+      await tester.ensureVisible(find.byKey(const Key('qibla-coords-field')));
+      await tester.enterText(
+        find.byKey(const Key('qibla-coords-field')),
+        '36.2133, 58.7958',
+      );
+      await tapKey(tester, 'qibla-coords-apply');
+      expect(pointOf(h).customName, isNull);
+      expect(text(tester, 'qibla-map-lat'), startsWith('36.2'));
+    });
+
+    testWidgets('going back to the city and to any point again keeps the '
+        'found place', (tester) async {
+      final h = await openSearch(tester);
+      await find0(tester, 'Mumbai');
+      await tapKey(tester, 'qibla-place-result-0');
+      await chooseSource(tester, Icons.location_city_outlined);
+      await chooseSource(tester, Icons.edit_location_alt_outlined);
+      expect(pointOf(h).customName, 'Mumbai');
+    });
+
+    testWidgets('offline: the page explains and the map stays usable', (
+      tester,
+    ) async {
+      search.failure = const PlaceSearchException(PlaceSearchFailure.offline);
+      final h = await openSearch(tester);
+      await find0(tester, 'Mumbai');
+      expect(find.byKey(const Key('qibla-place-message')), findsOneWidget);
+      expect(pointOf(h).customName, isNull);
+      expect(find.byKey(const Key('qibla-map')), findsOneWidget);
+    });
+
+    testWidgets('the search box fits a narrow window and large text', (
+      tester,
+    ) async {
+      search.failure = const PlaceSearchException(PlaceSearchFailure.timeout);
+      await open(
+        tester,
+        size: const Size(400, 900),
+        textScale: 2,
+        overrides: [placeSearchProvider.overrideWithValue(search)],
+      );
+      await chooseSource(tester, Icons.edit_location_alt_outlined);
+      await find0(tester, 'Mumbai');
+      expect(tester.takeException(), isNull);
+    });
+  });
+
+  group('map style: street or satellite', () {
+    TileLayer tileLayer(WidgetTester tester) =>
+        tester.widget<TileLayer>(find.byType(TileLayer));
+
+    bool selected(WidgetTester tester, String key) =>
+        tester.widget<ChoiceChip>(find.byKey(Key(key))).selected;
+
+    testWidgets('starts on the street map', (tester) async {
+      final h = await open(tester);
+      expect(tileLayer(tester).urlTemplate, qiblaTileUrlTemplate);
+      expect(selected(tester, 'qibla-style-street'), isTrue);
+      expect(selected(tester, 'qibla-style-satellite'), isFalse);
+      expect(
+        h.container.read(settingsProvider).qibla.mapStyle,
+        QiblaMapStyle.street,
+      );
+    });
+
+    testWidgets('the satellite chip switches to aerial photographs, remembers '
+        'the choice and the street chip returns', (tester) async {
+      final h = await open(tester);
+      await tapKey(tester, 'qibla-style-satellite');
+      final layer = tileLayer(tester);
+      expect(layer.urlTemplate, qiblaSatelliteTileUrlTemplate);
+      expect(layer.maxNativeZoom, qiblaSatelliteNativeZoom);
+      expect(selected(tester, 'qibla-style-satellite'), isTrue);
+      expect(
+        h.container.read(settingsProvider).qibla.mapStyle,
+        QiblaMapStyle.satellite,
+      );
+
+      await tapKey(tester, 'qibla-style-street');
+      expect(tileLayer(tester).urlTemplate, qiblaTileUrlTemplate);
+      expect(
+        h.container.read(settingsProvider).qibla.mapStyle,
+        QiblaMapStyle.street,
+      );
+    });
+
+    testWidgets('a saved satellite choice opens on satellite', (tester) async {
+      await open(
+        tester,
+        settings: englishSettings.copyWith(
+          qibla: const QiblaSettings(
+            mapEnabled: true,
+            mapStyle: QiblaMapStyle.satellite,
+          ),
+        ),
+      );
+      expect(tileLayer(tester).urlTemplate, qiblaSatelliteTileUrlTemplate);
+      expect(selected(tester, 'qibla-style-satellite'), isTrue);
+    });
+
+    testWidgets('the line turns yellow with a dark outline on photographs', (
+      tester,
+    ) async {
+      await open(tester);
+      Polyline line() => tester
+          .widget<PolylineLayer>(find.byType(PolylineLayer))
+          .polylines
+          .single;
+      final streetColor = line().color;
+      await tapKey(tester, 'qibla-style-satellite');
+      expect(line().color, const Color(0xFFFFD60A));
+      expect(line().color, isNot(streetColor));
+      expect(line().borderColor, const Color(0xCC000000));
+      await tapKey(tester, 'qibla-style-street');
+      expect(line().color, streetColor);
+      expect(line().borderColor, Colors.white);
+    });
+
+    testWidgets('the credit names the imagery provider on satellite', (
+      tester,
+    ) async {
+      await open(tester);
+      String credit() {
+        final widget = tester.widget<RichAttributionWidget>(
+          find.byType(RichAttributionWidget),
+        );
+        return (widget.attributions.single as TextSourceAttribution).text;
+      }
+
+      expect(credit(), contains('OpenStreetMap'));
+      await tapKey(tester, 'qibla-style-satellite');
+      expect(credit(), contains('Esri'));
+    });
+
+    testWidgets('the same line, pin and Kaaba stay on both styles', (
+      tester,
+    ) async {
+      await open(tester);
+      await tapKey(tester, 'qibla-style-satellite');
+      expect(find.byKey(const Key('qibla-map-you')), findsOneWidget);
+      expect(find.byKey(const Key('qibla-map-kaaba')), findsOneWidget);
+      expect(find.byKey(const Key('qibla-map-arrow')), findsOneWidget);
+      expect(find.byType(PolylineLayer), findsOneWidget);
+    });
+
+    testWidgets('the Persian labels', (tester) async {
+      await open(tester, settings: withMap(persianSettings));
+      expect(find.text('ماهواره'), findsOneWidget);
+      expect(find.text('نقشه'), findsWidgets);
+    });
+
+    testWidgets('the consent text names both servers', (tester) async {
+      await open(tester, settings: withMap(englishSettings, enabled: false));
+      expect(find.textContaining('OpenStreetMap'), findsOneWidget);
+      expect(find.textContaining('Esri'), findsOneWidget);
+    });
+  });
+
   group('the map without the internet', () {
     testWidgets('failing tiles show the banner, and the numbers stay', (
       tester,
@@ -503,9 +913,17 @@ void main() {
   });
 }
 
+class _OpenThrows extends FakeDeviceLocation {
+  @override
+  Future<bool> openSystemSettings() => Future.error(StateError('no shell'));
+}
+
 class _ThrowingLocation implements DeviceLocationService {
   @override
   Future<DeviceFix> currentPosition({
     Duration timeLimit = const Duration(seconds: 20),
   }) => Future.error(StateError('boom'));
+
+  @override
+  Future<bool> openSystemSettings() => Future.error(StateError('boom'));
 }

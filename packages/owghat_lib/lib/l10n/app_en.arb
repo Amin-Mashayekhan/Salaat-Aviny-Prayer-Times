@@ -1,7 +1,20 @@
 {
   "@@locale": "en",
+  "aboutAuthorIntro": "This app is made and maintained by an independent developer. Get in touch to report a problem, suggest something or work together.",
+  "aboutAuthorTitle": "About the developer",
+  "aboutContactEmail": "Email",
+  "aboutContactGithub": "GitHub",
+  "aboutContactName": "Name",
+  "aboutContactPhone": "Mobile",
+  "aboutContactTelegram": "Telegram",
+  "aboutCopiedValue": "Copied.",
+  "aboutCopy": "Copy",
   "aboutFontNote": "The Vazirmatn font is bundled under the SIL Open Font License 1.1.",
+  "aboutLicenceNote": "This app is released under the MIT licence: you may use, change and share it freely.",
   "aboutLicences": "Open-source licences",
+  "aboutOpen": "Open",
+  "aboutOpenFailed": "Could not be opened. Copy the address and paste it into your browser or mail program.",
+  "aboutPhoneNote": "Calls and text messages only from Iran. From outside Iran, please use Telegram.",
   "aboutSoundNote": "The bundled sounds (the default azan and the reminder chime) are simple generated placeholders, not recordings of anyone, released under CC0. Choose your own azan sound in Settings.",
   "aboutTagline": "Prayer times and azan for Windows. Works offline, with no ads, no account and no tracking.",
   "aboutTitle": "About",
@@ -124,6 +137,16 @@
       }
     }
   },
+  "contributeIntro": "The code of this app is on GitHub and every kind of help is welcome. Ways to take part:",
+  "contributeOpenGuide": "Contributing guide",
+  "contributeOpenIssues": "Report a bug or idea",
+  "contributeOpenRepo": "Open the repository on GitHub",
+  "contributeTitle": "Contribute",
+  "contributeWayCode": "Code: fork the repository, make the change on a branch, run the tests and send a Pull Request. Build and test steps are in CONTRIBUTING.md.",
+  "contributeWayData": "Data: correct the name, coordinates or time zone of a city, or add a new city.",
+  "contributeWayIssues": "Report a bug or an idea: open an Issue on GitHub and attach the version and the diagnostics report from this page (it holds no names or coordinates).",
+  "contributeWayTest": "Testing: try the app on different versions and hardware of Windows (azan, tray, wake-up alarms) and report what you see.",
+  "contributeWayTranslate": "Translation: the texts of the app are in the lib/l10n folder. Send a new language or a fix to an existing one; a review by a native speaker is very valuable.",
   "diagAudioFailed": "The test sound could not be played. Check the speakers and the Windows volume.",
   "diagAudioOk": "The test sound played.",
   "diagAudioPlay": "Play a test sound",
@@ -533,10 +556,11 @@
   "onboardingCityTitle": "Your city",
   "onboardingFinish": "Start",
   "onboardingLanguageBody": "Choose your language. You can change it later in the settings.",
-  "onboardingLanguageEn": "English",
-  "onboardingLanguageFa": "فارسی",
   "onboardingLanguageTitle": "Language",
+  "onboardingModeList": "Iran cities (offline list)",
+  "onboardingModeOnline": "Any city in the world (search online)",
   "onboardingNext": "Next",
+  "onboardingOnlineBody": "Your city is not in the list? Search any city in the world. The internet is needed only for this search; afterwards the app works offline.",
   "onboardingPreview": "Play a sample azan",
   "onboardingProvinceAll": "All provinces",
   "onboardingSkip": "Skip",
@@ -554,6 +578,36 @@
     }
   },
   "onboardingStopPreview": "Stop",
+  "placeSearchAttribution": "Places © OpenStreetMap contributors (Nominatim). Time zone and height: Open-Meteo.",
+  "placeSearchButton": "Search",
+  "placeSearchFailBusy": "The search service is busy. Wait a minute and try again.",
+  "placeSearchFailDetails": "The place was found, but its time zone could not be fetched. Check the connection and choose it again.",
+  "placeSearchFailGeneric": "The search did not work. Try again in a moment.",
+  "placeSearchFailOffline": "There is no internet connection. Connect and press Search again. The rest of the app works offline.",
+  "placeSearchFailTimeout": "The search service did not answer in time. Try again.",
+  "placeSearchHint": "City, country (for example Mumbai, India)",
+  "placeSearchNone": "No place found for “{query}”. Check the spelling or add the country, for example Mumbai, India.",
+  "@placeSearchNone": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "placeSearchNotice": "Searching needs the internet, only this once. The text you type is sent to the OpenStreetMap search service (Nominatim); nothing else is sent. After you choose a place, the app keeps what it needs and works offline again.",
+  "placeSearchResolving": "Getting the time zone and height of {place}…",
+  "@placeSearchResolving": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "placeSearchResultsTitle": "Results: choose your place",
+  "placeSearchTitle": "Search for a place",
+  "placeSearchTooShort": "Type at least two letters, then press Search.",
+  "placeSearchUnknownZone": "The time zone of this place is not in the app database. Try another place, or add it with Custom location in the settings.",
+  "placeSearching": "Searching…",
   "prayerAsr": "Asr",
   "prayerDhuhr": "Dhuhr",
   "prayerFajr": "Fajr",
@@ -620,6 +674,15 @@
   "qiblaCoordsHint": "for example 36.2133, 58.7958",
   "qiblaCoordsInvalid": "Not valid coordinates. Latitude must be between -90 and 90 and longitude between -180 and 180.",
   "qiblaCoordsLabel": "Latitude and longitude",
+  "qiblaCoordsOr": "Or enter the coordinates yourself",
+  "qiblaCustomPlaceShown": "Measuring from {place}.",
+  "@qiblaCustomPlaceShown": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      }
+    }
+  },
   "qiblaDeviceFixShown": "Showing the position of this device.",
   "qiblaDistanceLabel": "Distance to the Kaaba",
   "qiblaDistanceValue": "{km} km",
@@ -631,9 +694,9 @@
     }
   },
   "qiblaFailGeneric": "The position could not be read; the selected city is shown.",
-  "qiblaFailPermissionDenied": "Windows has not allowed this app to read the position. In Windows Settings (Privacy and security, Location) turn on both Location services and Let desktop apps access your location, then try again; or use the selected city.",
-  "qiblaFailPermissionForever": "Location access was refused. In Windows Settings (Privacy and security, Location) turn on Let desktop apps access your location.",
-  "qiblaFailServiceDisabled": "Windows location services are off. Turn them on in Windows Settings (Privacy, Location), or use the selected city or any point.",
+  "qiblaFailPermissionDenied": "Windows has not allowed this app to read the position. Follow the steps below and try again; or use the selected city.",
+  "qiblaFailPermissionForever": "Location access was refused. To allow it again, follow the steps below.",
+  "qiblaFailServiceDisabled": "Location services are off on this device. Follow the steps below; or use the selected city or any point.",
   "qiblaFailTimeout": "No position arrived in time. PCs rarely have GPS and Windows estimates the position from Wi-Fi. Try again or use the city.",
   "qiblaFailUnsupported": "This device cannot report a position; the selected city is shown.",
   "qiblaForLocation": "Qibla direction for {place}",
@@ -644,11 +707,19 @@
       }
     }
   },
+  "qiblaHelpOther": "Turn location on in the operating system settings, allow this app to use it, and try again.",
+  "qiblaHelpTitleOther": "How do I turn on location?",
+  "qiblaHelpTitleWindows": "How do I turn on location in Windows?",
+  "qiblaHelpWin1": "Press the button above to open the Location page of Windows Settings. If it does not open, go there by hand: Start > Settings > Privacy & security > Location (Windows 10: Privacy > Location)",
+  "qiblaHelpWin2": "Turn on Location services. If the top of the page says Location for this device is off, press Change and turn it on.",
+  "qiblaHelpWin3": "A little lower, turn on Let desktop apps access your location (Windows 10: Allow desktop apps to access your location). Salaat is a desktop app and is allowed only by this switch.",
+  "qiblaHelpWin4": "Come back to Salaat and press Find my position again. If it still fails, close the app once and open it again.",
   "qiblaLocateAgain": "Find again",
   "qiblaLocateButton": "Find my position",
   "qiblaLocating": "Finding your position…",
   "qiblaMapAttribution": "© OpenStreetMap contributors",
-  "qiblaMapConsentBody": "To draw the qibla line on a map, map pictures are fetched from the internet (OpenStreetMap) and the area you look at is sent to that server. Nothing is requested until you agree. The qibla angle and distance are shown correctly without the map too.",
+  "qiblaMapAttributionSatellite": "Imagery © Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+  "qiblaMapConsentBody": "To draw the qibla line on a map, map pictures are fetched from the internet and the area you look at is sent to that server: the street map from OpenStreetMap, and, if you choose Satellite, aerial photographs from Esri. Nothing is requested until you agree. The qibla angle and distance are shown correctly without the map too.",
   "qiblaMapConsentButton": "Show the map",
   "qiblaMapConsentTitle": "Qibla map",
   "qiblaMapKaaba": "Kaaba",
@@ -672,6 +743,9 @@
   "qiblaMapTurnOff": "Turn the map off",
   "qiblaMapYou": "Your position",
   "qiblaNoCompassNote": "A PC has no compass, so the drawing is relative to true north (north is at the top).",
+  "qiblaOpenSettingsFailed": "The settings page could not be opened; follow the steps by hand.",
+  "qiblaOpenSettingsOther": "Open location settings",
+  "qiblaOpenSettingsWindows": "Open Windows location settings",
   "qiblaSourceCity": "Selected city",
   "qiblaSourceCityHelp": "The city you chose for the prayer times: {city}.",
   "@qiblaSourceCityHelp": {
@@ -682,12 +756,15 @@
     }
   },
   "qiblaSourceCustom": "Any point",
-  "qiblaSourceCustomHelp": "Tap the map or enter coordinates.",
+  "qiblaSourceCustomHelp": "Search a place by name (needs the internet once), tap the map, or enter coordinates.",
   "qiblaSourceDevice": "This device",
   "qiblaSourceDeviceHelp": "The position is read from the device only when you press the button; it is not stored or sent anywhere.",
   "qiblaSourceTitle": "Measure the qibla from",
   "qiblaStatLatitude": "Latitude",
   "qiblaStatLongitude": "Longitude",
+  "qiblaStyleLabel": "Map type",
+  "qiblaStyleSatellite": "Satellite",
+  "qiblaStyleStreet": "Map",
   "qiblaSunBelow": "The sun is below the horizon.",
   "qiblaSunInHelp": "At this moment the sun is exactly in the qibla direction; face the sun.",
   "qiblaSunInTitle": "Sun in the qibla direction",
@@ -820,6 +897,7 @@
   "settingsCalcRowsTitle": "Rows to show",
   "settingsCancel": "Cancel",
   "settingsDecrease": "Decrease",
+  "settingsDigitsArabic": "Arabic (٠١٢)",
   "settingsDigitsLatin": "Latin (123)",
   "settingsDigitsPersian": "Persian (۱۲۳)",
   "settingsDispDigits": "Digits",
@@ -847,12 +925,11 @@
       }
     }
   },
-  "settingsLanguageEn": "English",
-  "settingsLanguageFa": "فارسی",
   "settingsLocActive": "Active",
   "settingsLocAdd": "Add",
   "settingsLocAddCustom": "Custom location",
   "settingsLocAddFromDb": "From the city list",
+  "settingsLocAddSearch": "Search online",
   "settingsLocAddTitle": "Add a location",
   "settingsLocAdded": "{name} was added.",
   "@settingsLocAdded": {
@@ -1134,6 +1211,19 @@
   "settingsZoneQuarterLess": "A quarter of an hour less",
   "settingsZoneQuarterMore": "A quarter of an hour more",
   "settingsZoneTitle": "Time zone",
+  "supportAvailableIn": "Can be used in:",
+  "supportCardCountries": "Iran only: Iranian bank cards on the Shetab network. It cannot be paid from outside Iran; use the cryptocurrency option instead.",
+  "supportCardNumberLabel": "Card number",
+  "supportCardTitle": "Iranian bank card",
+  "supportCheckNote": "Before paying, compare the number or address with the project's official page on GitHub. Thank you for your support.",
+  "supportCryptoAddressLabel": "Wallet address",
+  "supportCryptoCountries": "All countries: from anywhere a crypto wallet or exchange is available, with no bank card needed.",
+  "supportCryptoNetworkLabel": "Network",
+  "supportCryptoNetworkValue": "BEP20 (BNB Smart Chain, also called BSC)",
+  "supportCryptoTitle": "USDT (Tether) cryptocurrency",
+  "supportCryptoWarning": "Send only USDT over the BEP20 network. Sending another coin, or using another network, to this address loses the money.",
+  "supportIntro": "This app is free, has no ads, needs no account and keeps no feature behind a payment. If it is useful to you and you would like to help it keep growing, you can use one of the ways below. Support is entirely optional and any amount is appreciated.",
+  "supportTitle": "Support the project",
   "timetableCalendarSwitch": "Calendar type",
   "timetableColDay": "Day",
   "timetableColWeekday": "Weekday",

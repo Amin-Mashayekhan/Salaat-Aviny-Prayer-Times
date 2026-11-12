@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:owghat_lib/src/core/platform/fakes/fake_place_search.dart';
+import 'package:owghat_lib/src/core/platform/place_search.dart';
+import 'package:owghat_lib/src/core/platform/platform_providers.dart';
 import 'package:owghat_lib/src/features/locations/data/location_repository.dart';
 import 'package:owghat_lib/src/features/locations/domain/city.dart';
 import 'package:owghat_lib/src/features/locations/domain/saved_location.dart';
@@ -24,12 +28,14 @@ void main() {
     WidgetTester tester, {
     AppSettings? settings,
     Size size = const Size(1200, 800),
+    List<Override> overrides = const [],
   }) => SettingsRig.open(
     tester,
     repository: repo,
     section: SettingsSection.location,
     settings: settings,
     size: size,
+    overrides: overrides,
   );
 
   SavedLocation? saved(SettingsRig rig, String id) {
@@ -40,6 +46,95 @@ void main() {
   }
 
   City city(String englishName) => repo.search(englishName).first;
+
+  group('add by searching online', () {
+    late FakePlaceSearch search;
+
+    setUp(() => search = FakePlaceSearch());
+
+    Future<SettingsRig> openSearch(WidgetTester tester) async {
+      final rig = await open(
+        tester,
+        overrides: [placeSearchProvider.overrideWithValue(search)],
+      );
+      await tapKey(tester, 'set-loc-add-mode-1');
+      return rig;
+    }
+
+    Future<void> find0(WidgetTester tester, String text) async {
+      await typeKey(tester, 'set-place-field', text, submit: false);
+      await tapKey(tester, 'set-place-button');
+    }
+
+    testWidgets('the third way shows the notice and searches only on request', (
+      tester,
+    ) async {
+      await openSearch(tester);
+      expect(k('set-place-notice'), findsOneWidget);
+      expect(search.queries, isEmpty);
+      await find0(tester, 'Mumbai, India');
+      expect(search.queries, ['Mumbai, India']);
+      expect(search.settlementFlags, [true], reason: 'cities only');
+      expect(k('set-place-result-0'), findsOneWidget);
+    });
+
+    testWidgets('choosing a result adds a custom location with its zone and '
+        'height, and keeps the active one', (tester) async {
+      final rig = await openSearch(tester);
+      await find0(tester, 'Mumbai');
+      await tapKey(tester, 'set-place-result-0');
+      final added = rig.settings.locations.last;
+      expect(added.kind, LocationKind.custom);
+      expect(added.name, 'Mumbai');
+      expect(added.zoneId, 'Asia/Kolkata');
+      expect(added.elevationMeters, 9);
+      expect(added.latitude, closeTo(19.0759, 1e-4));
+      expect(rig.settings.activeLocationId, isNot(added.id));
+      expect(textOf(tester, 'set-place-added'), 'Mumbai was added.');
+    });
+
+    testWidgets('choosing the same place again does not add it twice', (
+      tester,
+    ) async {
+      final rig = await openSearch(tester);
+      await find0(tester, 'Mumbai');
+      await tapKey(tester, 'set-place-result-0');
+      final count = rig.settings.locations.length;
+      await tapKey(tester, 'set-place-result-0');
+      expect(rig.settings.locations.length, count);
+    });
+
+    testWidgets('a zone the app does not know is refused with an explanation', (
+      tester,
+    ) async {
+      search.detailsResult = const PlaceDetails(zoneId: 'Mars/Olympus');
+      final rig = await openSearch(tester);
+      final before = rig.settings.locations.length;
+      await find0(tester, 'Mumbai');
+      await tapKey(tester, 'set-place-result-0');
+      expect(rig.settings.locations.length, before);
+      expect(k('set-place-unusable'), findsOneWidget);
+    });
+
+    testWidgets('offline: a message, and nothing changes', (tester) async {
+      search.failure = const PlaceSearchException(PlaceSearchFailure.offline);
+      final rig = await openSearch(tester);
+      final before = rig.settings.locations.length;
+      await find0(tester, 'Mumbai');
+      expect(k('set-place-message'), findsOneWidget);
+      expect(rig.settings.locations.length, before);
+    });
+
+    testWidgets('switching the way clears the notes', (tester) async {
+      await openSearch(tester);
+      await find0(tester, 'Mumbai');
+      await tapKey(tester, 'set-place-result-0');
+      expect(k('set-place-added'), findsOneWidget);
+      await tapKey(tester, 'set-loc-add-mode-0');
+      await tapKey(tester, 'set-loc-add-mode-1');
+      expect(k('set-place-added'), findsNothing);
+    });
+  });
 
   group('saved locations', () {
     testWidgets('lists them with the active one marked', (tester) async {
@@ -203,7 +298,7 @@ void main() {
 
     testWidgets('a valid location with a chosen zone is saved', (tester) async {
       final rig = await open(tester);
-      await tapKey(tester, 'set-loc-add-mode-1');
+      await tapKey(tester, 'set-loc-add-mode-2');
       await fill(tester);
       // Search the zone list and choose one.
       await typeKey(tester, 'set-loc-zone-search', 'berlin', submit: false);
@@ -235,7 +330,7 @@ void main() {
 
     testWidgets('every kind of mistake shows its own message', (tester) async {
       final rig = await open(tester);
-      await tapKey(tester, 'set-loc-add-mode-1');
+      await tapKey(tester, 'set-loc-add-mode-2');
       final before = rig.settings;
 
       await tapKey(tester, 'set-loc-submit');
@@ -279,7 +374,7 @@ void main() {
 
     testWidgets('degrees, minutes and seconds are accepted', (tester) async {
       final rig = await open(tester);
-      await tapKey(tester, 'set-loc-add-mode-1');
+      await tapKey(tester, 'set-loc-add-mode-2');
       await typeKey(tester, 'set-loc-name', 'DMS place', submit: false);
       await typeKey(tester, 'set-loc-lat', '35.6892', submit: false);
       await typeKey(tester, 'set-loc-lon', '51.389', submit: false);
@@ -310,7 +405,7 @@ void main() {
 
     testWidgets('minutes out of range are a latitude error', (tester) async {
       final rig = await open(tester);
-      await tapKey(tester, 'set-loc-add-mode-1');
+      await tapKey(tester, 'set-loc-add-mode-2');
       await tapKey(tester, 'set-loc-format-1');
       await typeKey(tester, 'set-loc-name', 'Bad DMS', submit: false);
       await typeKey(tester, 'set-loc-lat-deg', '35', submit: false);
@@ -323,7 +418,7 @@ void main() {
 
     testWidgets('a custom location can use a fixed offset', (tester) async {
       final rig = await open(tester);
-      await tapKey(tester, 'set-loc-add-mode-1');
+      await tapKey(tester, 'set-loc-add-mode-2');
       await fill(tester);
       await tapKey(tester, 'set-loc-offset-mode-1');
       // Starts at the zone offset now (Tehran +03:30).

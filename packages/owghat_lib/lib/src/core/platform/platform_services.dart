@@ -7,10 +7,14 @@ import 'package:owghat_lib/src/core/platform/device_location.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_app_notifier.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_audio_output.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_device_location.dart';
+import 'package:owghat_lib/src/core/platform/fakes/fake_link_opener.dart';
+import 'package:owghat_lib/src/core/platform/fakes/fake_place_search.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_simple_services.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_tray_host.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_window_host.dart';
 import 'package:owghat_lib/src/core/platform/file_dialogs.dart';
+import 'package:owghat_lib/src/core/platform/link_opener.dart';
+import 'package:owghat_lib/src/core/platform/place_search.dart';
 import 'package:owghat_lib/src/core/platform/platform_paths.dart';
 import 'package:owghat_lib/src/core/platform/power_events.dart';
 import 'package:owghat_lib/src/core/platform/single_instance.dart';
@@ -35,6 +39,8 @@ class PlatformServices {
     required this.singleInstance,
     required this.assetLoader,
     this.deviceLocation = const UnsupportedDeviceLocation(),
+    this.linkOpener = const UnsupportedLinkOpener(),
+    this.placeSearch = const UnsupportedPlaceSearch(),
   });
 
   /// A bundle of in-memory fakes. [supportDir] defaults to a new temporary
@@ -50,6 +56,8 @@ class PlatformServices {
     AutostartService? autostart,
     SingleInstance? singleInstance,
     DeviceLocationService? deviceLocation,
+    LinkOpener? linkOpener,
+    PlaceSearchService? placeSearch,
   }) => PlatformServices(
     audio: audio ?? FakeAudioOutput(),
     notifier: notifier ?? FakeAppNotifier(),
@@ -62,6 +70,8 @@ class PlatformServices {
     singleInstance: singleInstance ?? FakeSingleInstance(),
     assetLoader: assetLoader ?? _missingAsset,
     deviceLocation: deviceLocation ?? FakeDeviceLocation(),
+    linkOpener: linkOpener ?? FakeLinkOpener(),
+    placeSearch: placeSearch ?? FakePlaceSearch(),
   );
 
   static Future<String> _missingAsset(String path) =>
@@ -99,4 +109,10 @@ class PlatformServices {
 
   /// Reads the device position when the user asks (qibla map).
   final DeviceLocationService deviceLocation;
+
+  /// Opens web and mail links (About page).
+  final LinkOpener linkOpener;
+
+  /// Searches places by name on the internet (city choice, qibla map).
+  final PlaceSearchService placeSearch;
 }

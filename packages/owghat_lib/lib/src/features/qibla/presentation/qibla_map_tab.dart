@@ -9,10 +9,13 @@ import 'package:owghat_lib/l10n/gen/app_localizations.dart';
 import 'package:owghat_lib/src/app/theme/app_colors.dart';
 import 'package:owghat_lib/src/app/theme/app_theme.dart';
 import 'package:owghat_lib/src/core/platform/device_location.dart';
+import 'package:owghat_lib/src/core/platform/platform_providers.dart';
+import 'package:owghat_lib/src/features/places/presentation/place_search_panel.dart';
 import 'package:owghat_lib/src/features/qibla/application/qibla_point.dart';
 import 'package:owghat_lib/src/features/qibla/presentation/qibla_map_support.dart';
 import 'package:owghat_lib/src/features/settings/application/formatter_provider.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
+import 'package:owghat_lib/src/features/settings/domain/app_settings.dart';
 import 'package:prayer_core/prayer_core.dart';
 
 /// The "Map" tab of the Qibla screen: the position to measure from (the
@@ -104,7 +107,11 @@ class _SidePanelState extends ConsumerState<_SidePanel> {
               latitude: ref.read(qiblaViewProvider).latitude,
               longitude: ref.read(qiblaViewProvider).longitude,
             );
-        controller.setCustom(point.latitude, point.longitude);
+        controller.setCustom(
+          point.latitude,
+          point.longitude,
+          name: choice.customName,
+        );
     }
   }
 
@@ -132,7 +139,9 @@ class _SidePanelState extends ConsumerState<_SidePanel> {
       case QiblaSourceKind.device:
         sourceHelp = l10n.qiblaDeviceFixShown;
       case QiblaSourceKind.custom:
-        sourceHelp = l10n.qiblaSourceCustomHelp;
+        sourceHelp = view.placeName == null
+            ? l10n.qiblaSourceCustomHelp
+            : l10n.qiblaCustomPlaceShown(view.placeName!);
     }
 
     return Column(
@@ -186,6 +195,21 @@ class _SidePanelState extends ConsumerState<_SidePanel> {
                 ],
                 if (choice.kind == QiblaSourceKind.custom) ...[
                   const SizedBox(height: Gaps.m),
+                  PlaceSearchPanel(
+                    keyPrefix: 'qibla-place',
+                    onPicked: (picked) {
+                      ref
+                          .read(qiblaPointProvider.notifier)
+                          .setCustom(
+                            picked.place.latitude,
+                            picked.place.longitude,
+                            name: picked.place.name,
+                          );
+                    },
+                  ),
+                  const SizedBox(height: Gaps.m),
+                  Text(l10n.qiblaCoordsOr, style: muted),
+                  const SizedBox(height: Gaps.s),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -472,15 +496,133 @@ class _DeviceBlock extends ConsumerWidget {
               ),
             ],
           ),
+          if (failure == DeviceLocationFailure.serviceDisabled ||
+              failure == DeviceLocationFailure.permissionDenied ||
+              failure == DeviceLocationFailure.permissionDeniedForever) ...[
+            const SizedBox(height: Gaps.s),
+            const _LocationHelp(),
+          ],
         ],
       ],
     );
   }
 }
 
+/// Where to go and what to switch on when the operating system refuses the
+/// position, with a button that opens that settings page.
+class _LocationHelp extends ConsumerStatefulWidget {
+  const _LocationHelp();
+
+  @override
+  ConsumerState<_LocationHelp> createState() => _LocationHelpState();
+}
+
+class _LocationHelpState extends ConsumerState<_LocationHelp> {
+  bool _openFailed = false;
+  bool _opening = false;
+
+  Future<void> _open() async {
+    setState(() => _opening = true);
+    var opened = false;
+    try {
+      opened = await ref.read(deviceLocationProvider).openSystemSettings();
+    } on Object {
+      opened = false;
+    }
+    if (!mounted) return;
+    setState(() {
+      _opening = false;
+      _openFailed = !opened;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final windows = theme.platform == TargetPlatform.windows;
+    final steps = windows
+        ? [
+            l10n.qiblaHelpWin1,
+            l10n.qiblaHelpWin2,
+            l10n.qiblaHelpWin3,
+            l10n.qiblaHelpWin4,
+          ]
+        : [l10n.qiblaHelpOther];
+    return Card(
+      key: const Key('qibla-location-help'),
+      margin: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.all(Gaps.m),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              windows ? l10n.qiblaHelpTitleWindows : l10n.qiblaHelpTitleOther,
+              style: theme.textTheme.titleSmall,
+            ),
+            const SizedBox(height: Gaps.s),
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: FilledButton.icon(
+                key: const Key('qibla-open-os-settings'),
+                onPressed: _opening ? null : () => unawaited(_open()),
+                icon: const Icon(Icons.settings_outlined),
+                label: Text(
+                  windows
+                      ? l10n.qiblaOpenSettingsWindows
+                      : l10n.qiblaOpenSettingsOther,
+                ),
+              ),
+            ),
+            if (_openFailed) ...[
+              const SizedBox(height: Gaps.s),
+              Text(
+                l10n.qiblaOpenSettingsFailed,
+                key: const Key('qibla-open-os-settings-failed'),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.error,
+                ),
+              ),
+            ],
+            const SizedBox(height: Gaps.s),
+            for (var i = 0; i < steps.length; i++)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 24,
+                      child: Text(
+                        windows
+                            ? ref.watch(formatterProvider).formatNumber(i + 1)
+                            : '•',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        steps[i],
+                        key: Key('qibla-help-step-$i'),
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 // ----------------------------------------------------------------------- map
 
-enum _Camera { overview, nearby, kaaba }
+enum _Camera { overview, nearby, kaaba, place }
 
 LatLng _latLng(GeoPoint point) => LatLng(point.latitude, point.longitude);
 
@@ -499,14 +641,24 @@ class _MapAreaState extends ConsumerState<_MapArea> {
   /// Zoom of the Kaaba view.
   static const double kaabaZoom = 19;
 
+  /// Zoom after a place was found by name: the whole city around its centre.
+  static const double placeZoom = 12;
+
   /// Tile errors after which the "no internet" banner shows.
   static const int offlineAfterErrors = 4;
 
   final MapController _controller = MapController();
+  TileProvider? _ownTiles;
   _Camera _camera = _Camera.overview;
   bool _ready = false;
   bool _fromMapTap = false;
   int _tileErrors = 0;
+
+  @override
+  void dispose() {
+    _ownTiles?.dispose();
+    super.dispose();
+  }
 
   CameraFit _overviewFit(List<GeoPoint> path) => CameraFit.bounds(
     bounds: LatLngBounds.fromPoints([for (final p in path) _latLng(p)]),
@@ -526,6 +678,8 @@ class _MapAreaState extends ConsumerState<_MapArea> {
           const LatLng(kaabaLatitude, kaabaLongitude),
           kaabaZoom,
         );
+      case _Camera.place:
+        _controller.move(LatLng(view.latitude, view.longitude), placeZoom);
     }
   }
 
@@ -575,7 +729,12 @@ class _MapAreaState extends ConsumerState<_MapArea> {
         _fromMapTap = false;
         return;
       }
+      // A place found by name is shown around its centre, at city scale.
+      final foundByName =
+          next.kind == QiblaSourceKind.custom && next.placeName != null;
+      if (foundByName) _camera = _Camera.place;
       _moveCamera(_camera, next, ref.read(qiblaPathProvider));
+      if (foundByName) setState(() {});
     });
 
     final placeName = view.placeName ?? l10n.qiblaMapYou;
@@ -586,8 +745,18 @@ class _MapAreaState extends ConsumerState<_MapArea> {
     final distance = l10n.qiblaDistanceValue(
       fmt.formatNumber(view.info.distanceKm.round()),
     );
-    final tileProvider = ref.watch(qiblaTileProviderProvider);
-    final qiblaColor = theme.colorScheme.primary;
+    final tileProvider =
+        ref.watch(qiblaTileProviderProvider) ??
+        (_ownTiles ??= createNetworkTileProvider());
+    final style = ref.watch(settingsProvider.select((s) => s.qibla.mapStyle));
+    final satellite = style == QiblaMapStyle.satellite;
+    // On photographs the green of the street map disappears into fields and
+    // shadows, so the line is yellow with a dark outline, which stays
+    // readable over both desert and vegetation.
+    final qiblaColor = satellite
+        ? const Color(0xFFFFD60A)
+        : theme.colorScheme.primary;
+    final lineBorder = satellite ? const Color(0xCC000000) : Colors.white;
     final accuracy = view.accuracyMeters;
     final arrowAt = path[math.min(2, path.length - 1)];
 
@@ -617,8 +786,12 @@ class _MapAreaState extends ConsumerState<_MapArea> {
               ),
               children: [
                 TileLayer(
-                  urlTemplate: qiblaTileUrlTemplate,
+                  key: ValueKey('qibla-tiles-${style.name}'),
+                  urlTemplate: satellite
+                      ? qiblaSatelliteTileUrlTemplate
+                      : qiblaTileUrlTemplate,
                   userAgentPackageName: qiblaTileUserAgent,
+                  maxNativeZoom: satellite ? qiblaSatelliteNativeZoom : 19,
                   tileProvider: tileProvider,
                   errorTileCallback: (tile, error, stack) => _onTileError(),
                 ),
@@ -642,7 +815,7 @@ class _MapAreaState extends ConsumerState<_MapArea> {
                       strokeWidth: 4,
                       color: qiblaColor,
                       borderStrokeWidth: 2,
-                      borderColor: Colors.white,
+                      borderColor: lineBorder,
                     ),
                   ],
                 ),
@@ -659,6 +832,7 @@ class _MapAreaState extends ConsumerState<_MapArea> {
                           key: const Key('qibla-map-arrow'),
                           color: qiblaColor,
                           size: 28,
+                          shadows: [Shadow(color: lineBorder, blurRadius: 4)],
                         ),
                       ),
                     ),
@@ -702,7 +876,11 @@ class _MapAreaState extends ConsumerState<_MapArea> {
                 ),
                 RichAttributionWidget(
                   attributions: [
-                    TextSourceAttribution(l10n.qiblaMapAttribution),
+                    TextSourceAttribution(
+                      satellite
+                          ? l10n.qiblaMapAttributionSatellite
+                          : l10n.qiblaMapAttribution,
+                    ),
                   ],
                 ),
               ],
@@ -711,17 +889,10 @@ class _MapAreaState extends ConsumerState<_MapArea> {
               top: Gaps.s,
               start: Gaps.s,
               end: Gaps.s,
-              child: Align(
-                alignment: AlignmentDirectional.topStart,
-                child: Material(
-                  elevation: 2,
-                  borderRadius: BorderRadius.circular(24),
-                  color: theme.colorScheme.surface,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: Gaps.s,
-                      vertical: 4,
-                    ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _OverlayPill(
                     child: Wrap(
                       spacing: Gaps.s,
                       children: [
@@ -739,7 +910,43 @@ class _MapAreaState extends ConsumerState<_MapArea> {
                       ],
                     ),
                   ),
-                ),
+                  const SizedBox(height: Gaps.s),
+                  _OverlayPill(
+                    child: Semantics(
+                      container: true,
+                      label: l10n.qiblaStyleLabel,
+                      child: Wrap(
+                        spacing: Gaps.s,
+                        children: [
+                          for (final entry in [
+                            (
+                              QiblaMapStyle.street,
+                              l10n.qiblaStyleStreet,
+                              Icons.map_outlined,
+                            ),
+                            (
+                              QiblaMapStyle.satellite,
+                              l10n.qiblaStyleSatellite,
+                              Icons.satellite_alt,
+                            ),
+                          ])
+                            ChoiceChip(
+                              key: Key('qibla-style-${entry.$1.name}'),
+                              avatar: Icon(entry.$3, size: 18),
+                              label: Text(entry.$2),
+                              selected: style == entry.$1,
+                              onSelected: (_) {
+                                setState(() => _tileErrors = 0);
+                                ref
+                                    .read(settingsProvider.notifier)
+                                    .setQiblaMapStyle(entry.$1);
+                              },
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             if (_tileErrors >= offlineAfterErrors)
@@ -774,6 +981,24 @@ class _MapAreaState extends ConsumerState<_MapArea> {
       ),
     );
   }
+}
+
+/// A rounded white strip floating over the map that holds a few chips.
+class _OverlayPill extends StatelessWidget {
+  const _OverlayPill({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => Material(
+    elevation: 2,
+    borderRadius: BorderRadius.circular(24),
+    color: Theme.of(context).colorScheme.surface,
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: Gaps.s, vertical: 4),
+      child: child,
+    ),
+  );
 }
 
 class _ConsentCard extends ConsumerWidget {

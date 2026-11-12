@@ -23,7 +23,7 @@ enum CatchUpDecision {
 
 /// Rules for events whose time has passed (start, resume, clock change).
 ///
-/// See "Schedule engine" in `docs/04-DOMAIN-SPEC.md`.
+/// See `docs/prayer-times.md`.
 class CatchUpPolicy {
   /// Creates a policy.
   const CatchUpPolicy({

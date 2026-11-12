@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:owghat_lib/src/features/azan/application/azan_playback.dart';
+import 'package:owghat_lib/src/features/clock/application/clock_providers.dart';
 import 'package:owghat_lib/src/features/locations/application/location_providers.dart';
 import 'package:owghat_lib/src/features/locations/domain/city.dart';
 import 'package:owghat_lib/src/features/locations/domain/saved_location.dart';
+import 'package:owghat_lib/src/features/places/application/place_location.dart';
+import 'package:owghat_lib/src/features/places/application/place_search_model.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
 import 'package:owghat_lib/src/features/settings/domain/app_settings.dart';
 import 'package:owghat_lib/src/features/settings/domain/sound_ref.dart';
@@ -72,15 +75,14 @@ class OnboardingController extends Notifier<OnboardingState> {
     if (state.step > 0) state = state.copyWith(step: state.step - 1);
   }
 
-  /// Chooses the UI language. English also switches to Latin digits and
-  /// Persian to Persian digits, which is the sensible pairing; the digit
-  /// style can be changed independently later in the settings.
+  /// Chooses the UI language together with the digit style that goes with it
+  /// (`AppLanguage.digits`: Persian digits for Persian and Urdu, Arabic-Indic
+  /// for Arabic, Latin for the rest). The digit style can be changed on its
+  /// own later in the settings.
   void chooseLanguage(AppLanguage language) {
     ref.read(settingsProvider.notifier)
       ..setLanguage(language)
-      ..setDigits(
-        language == AppLanguage.fa ? DigitStyle.persian : DigitStyle.latin,
-      );
+      ..setDigits(language.digits);
   }
 
   /// Sets the search text.
@@ -105,6 +107,27 @@ class OnboardingController extends Notifier<OnboardingState> {
     controller.addLocation(
       SavedLocation.builtin(id: 'city:${city.id}', cityId: city.id),
     );
+  }
+
+  /// Makes a place found by an online search the active location (a custom
+  /// location with the time zone and height that came with it). Returns
+  /// false when the place cannot be used, for example because its time zone
+  /// is not in the bundled database.
+  bool selectPlace(PickedPlace picked) {
+    final settings = ref.read(settingsProvider);
+    final controller = ref.read(settingsProvider.notifier);
+    final same = sameSavedPlace(picked, settings.locations);
+    if (same != null) {
+      controller.setActiveLocation(same.id);
+      return true;
+    }
+    final location = savedLocationFromPlace(
+      picked,
+      existingIds: [for (final l in settings.locations) l.id],
+      resolver: ref.read(zoneOffsetResolverProvider),
+    );
+    if (location == null) return false;
+    return controller.addLocation(location) == null;
   }
 
   /// Ends the flow (also used by "skip": every default stays).

@@ -6,11 +6,15 @@ import 'package:owghat_lib/src/core/platform/device_location.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_app_notifier.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_audio_output.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_device_location.dart';
+import 'package:owghat_lib/src/core/platform/fakes/fake_link_opener.dart';
+import 'package:owghat_lib/src/core/platform/fakes/fake_place_search.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_simple_services.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_tray_host.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_window_host.dart';
 import 'package:owghat_lib/src/core/platform/file_dialogs.dart';
 import 'package:owghat_lib/src/core/platform/launch_args.dart';
+import 'package:owghat_lib/src/core/platform/link_opener.dart';
+import 'package:owghat_lib/src/core/platform/place_search.dart';
 import 'package:owghat_lib/src/core/platform/platform_paths.dart';
 import 'package:owghat_lib/src/core/platform/single_instance.dart';
 import 'package:owghat_lib/src/core/platform/tray_host.dart';
@@ -41,6 +45,14 @@ final autostartServiceProvider = Provider<AutostartService>(
 /// Reads the device position on request. Overridden by `bootstrap`.
 final deviceLocationProvider = Provider<DeviceLocationService>(
   (ref) => FakeDeviceLocation(),
+);
+
+/// Opens web and mail links. Overridden by `bootstrap`.
+final linkOpenerProvider = Provider<LinkOpener>((ref) => FakeLinkOpener());
+
+/// Searches places by name. Overridden by `bootstrap`.
+final placeSearchProvider = Provider<PlaceSearchService>(
+  (ref) => FakePlaceSearch(),
 );
 
 /// File pickers. Overridden by `bootstrap`.

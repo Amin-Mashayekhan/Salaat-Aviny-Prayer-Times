@@ -92,7 +92,7 @@ void main() {
             await tapKey(tester, 'set-loc-edit-city:1');
             await tapKey(tester, 'set-loc-city:1-offset-mode-1');
             await tapKey(tester, 'set-loc-edit-custom:1');
-            await tapKey(tester, 'set-loc-add-mode-1');
+            await tapKey(tester, 'set-loc-add-mode-2');
             await tapKey(tester, 'set-loc-submit');
             await tapKey(tester, 'set-loc-format-1');
             await tapKey(tester, 'set-loc-submit');

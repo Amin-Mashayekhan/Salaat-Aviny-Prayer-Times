@@ -55,8 +55,7 @@ class AppRuntime {
 ///
 /// [services] holds the platform implementations (Windows plugins in the app
 /// package). [extraOverrides] lets the runner add providers of its own, such
-/// as the wake-up feature. Startup order follows `docs/03-ARCHITECTURE.md`
-/// section 7: single-instance check, load settings and state, build the
+/// as the wake-up feature. Startup order: single-instance check, load settings and state, build the
 /// container, start the schedule engine, then tray and window, and only then
 /// the UI.
 Future<void> bootstrap(
@@ -126,6 +125,8 @@ Future<AppRuntime> prepareApp({
       powerEventsProvider.overrideWithValue(services.power),
       audioOutputProvider.overrideWithValue(services.audio),
       deviceLocationProvider.overrideWithValue(services.deviceLocation),
+      linkOpenerProvider.overrideWithValue(services.linkOpener),
+      placeSearchProvider.overrideWithValue(services.placeSearch),
       appNotifierProvider.overrideWithValue(services.notifier),
       windowHostProvider.overrideWithValue(services.window),
       trayHostProvider.overrideWithValue(services.tray),
