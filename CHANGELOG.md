@@ -29,7 +29,9 @@ First public release (Windows 10 and 11, 64-bit).
 
 ### Choosing a place
 - Offline list of Iranian cities, or search any city in the world online once; the app then keeps
-  what it needs and works offline. Map pictures are never downloaded in bulk (16 MB cache at most).
+  what it needs and works offline. The search box says what is sent where: the typed text to
+  OpenStreetMap's search, and the coordinates of the chosen place to Open-Meteo for its time zone.
+  Map pictures are never downloaded in bulk (16 MB cache at most).
 
 ### Command line
 - `--minimized`, `--wake <id>` and `--page <home|timetable|calendar|qibla|wakeup|settings>` (open on a
@@ -37,8 +39,8 @@ First public release (Windows 10 and 11, 64-bit).
 
 ### Languages
 - Persian, English, Arabic, Turkish, Urdu, Azerbaijani, Indonesian and French, with right-to-left
-  layout and matching digit styles. Translations other than Persian and English await a native
-  speaker's review.
+  layout and matching digit styles. City names are shown in Arabic script for Persian, Arabic and
+  Urdu. Translations other than Persian and English await a native speaker's review.
 
 ### About
 - Developer information (name, GitHub, Telegram, e-mail, mobile with a note that calls and texts work only from Iran), the MIT licence, ways to support the project and how to contribute, with the countries each

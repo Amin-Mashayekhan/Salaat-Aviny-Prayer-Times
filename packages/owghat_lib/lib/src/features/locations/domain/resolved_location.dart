@@ -82,7 +82,7 @@ class ResolvedLocation {
 
   /// The name in [language].
   String nameIn(AppLanguage language) =>
-      language == AppLanguage.fa ? nameFa : nameEn;
+      language.pickName(arabicScript: nameFa, latin: nameEn);
 
   @override
   bool operator ==(Object other) =>

@@ -827,6 +827,10 @@ class AppLocalizationsId extends AppLocalizations {
       'Pencarian hanya membutuhkan internet kali ini saja. Teks yang Anda ketik dikirim ke layanan pencarian OpenStreetMap (Nominatim); tidak ada hal lain yang dikirim. Setelah Anda memilih tempat, aplikasi menyimpan yang diperlukan dan kembali bekerja tanpa internet.';
 
   @override
+  String get placeSearchNoticeDetails =>
+      'Saat Anda memilih tempat, koordinat tempat itu dikirim ke Open-Meteo untuk mengambil zona waktu dan ketinggiannya.';
+
+  @override
   String placeSearchResolving(String place) {
     return 'Mengambil zona waktu dan ketinggian $place…';
   }
@@ -1467,6 +1471,11 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get settingsLocAlreadySaved => 'Sudah disimpan';
+
+  @override
+  String settingsLocAlreadySavedName(String name) {
+    return '$name sudah ada di lokasi tersimpan Anda.';
+  }
 
   @override
   String get settingsLocClose => 'Tutup';

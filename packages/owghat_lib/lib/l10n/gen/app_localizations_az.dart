@@ -828,6 +828,10 @@ class AppLocalizationsAz extends AppLocalizations {
       'Axtarış üçün internet yalnız indi lazımdır. Yazdığınız mətn OpenStreetMap axtarış xidmətinə (Nominatim) göndərilir; başqa heç nə göndərilmir. Yeri seçdikdən sonra tətbiq lazım olanı saxlayır və yenidən internetsiz işləyir.';
 
   @override
+  String get placeSearchNoticeDetails =>
+      'Bir yer seçdikdə onun saat qurşağını və hündürlüyünü almaq üçün həmin yerin koordinatları Open-Meteo xidmətinə göndərilir.';
+
+  @override
   String placeSearchResolving(String place) {
     return '$place üçün saat qurşağı və hündürlük alınır…';
   }
@@ -1470,6 +1474,11 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get settingsLocAlreadySaved => 'Artıq saxlanılıb';
+
+  @override
+  String settingsLocAlreadySavedName(String name) {
+    return '$name artıq yadda saxlanmış məkanlarınızdadır.';
+  }
 
   @override
   String get settingsLocClose => 'Bağla';

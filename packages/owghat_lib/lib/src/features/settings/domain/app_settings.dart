@@ -49,6 +49,16 @@ enum AppLanguage {
   /// The digit style that goes with this language by default; it can be
   /// changed on its own in the settings.
   final DigitStyle digits;
+
+  /// Whether place names are shown in their Persian (Arabic-script) form.
+  /// The bundled city names exist in Persian and in Latin letters; readers of
+  /// Persian, Arabic and Urdu get the Arabic-script one, so no Latin word
+  /// sits inside right-to-left text.
+  bool get usesArabicScriptNames => rtl;
+
+  /// [arabicScript] or [latin], whichever this language reads.
+  String pickName({required String arabicScript, required String latin}) =>
+      usesArabicScriptNames ? arabicScript : latin;
 }
 
 /// Theme choice.

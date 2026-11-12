@@ -1286,6 +1286,12 @@ abstract class AppLocalizations {
   /// **'جستجو فقط همین یک بار به اینترنت نیاز دارد. متنی که می‌نویسید به سرویس جستجوی OpenStreetMap (Nominatim) فرستاده می‌شود و چیز دیگری فرستاده نمی‌شود. بعد از انتخاب مکان، برنامه آنچه لازم دارد را نگه می‌دارد و دوباره بدون اینترنت کار می‌کند.'**
   String get placeSearchNotice;
 
+  /// No description provided for @placeSearchNoticeDetails.
+  ///
+  /// In fa, this message translates to:
+  /// **'وقتی مکانی را انتخاب کنید، مختصات همان مکان به Open-Meteo فرستاده می‌شود تا منطقه‌ی زمانی و ارتفاعش گرفته شود.'**
+  String get placeSearchNoticeDetails;
+
   /// No description provided for @placeSearchResolving.
   ///
   /// In fa, this message translates to:
@@ -2395,6 +2401,12 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'ذخیره شده'**
   String get settingsLocAlreadySaved;
+
+  /// No description provided for @settingsLocAlreadySavedName.
+  ///
+  /// In fa, this message translates to:
+  /// **'{name} از قبل در مکان‌های ذخیره‌شده هست.'**
+  String settingsLocAlreadySavedName(String name);
 
   /// No description provided for @settingsLocClose.
   ///

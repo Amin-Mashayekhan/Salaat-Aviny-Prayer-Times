@@ -4,6 +4,8 @@ import 'dart:typed_data';
 import 'package:flutter/painting.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/retry.dart';
 
 /// The tile server the map reads from (OpenStreetMap standard layer).
 const String qiblaTileUrlTemplate =
@@ -36,11 +38,28 @@ final qiblaTileProviderProvider = Provider<TileProvider?>((ref) => null);
 /// that moving the map back and forth does not ask the server again.
 const int qiblaTileCacheBytes = 16 * 1000 * 1000;
 
-/// The provider that downloads tiles for real, with a small disk cache.
-TileProvider createNetworkTileProvider() => NetworkTileProvider(
-  cachingProvider: BuiltInMapCachingProvider.getOrCreateInstance(
-    maxCacheSize: qiblaTileCacheBytes,
-  ),
+/// An HTTP client for map tiles that retries a failed request a few times.
+http.Client createTileHttpClient() => RetryClient(http.Client());
+
+/// The provider that downloads tiles for real over [client], with a small
+/// disk cache.
+///
+/// Every `TileLayer` disposes its provider when it goes away (a change of map
+/// style, the map switched off). A provider that made its own HTTP client
+/// closes it then, and the next layer gets only errors. With a client passed
+/// in, the provider leaves it open; the caller owns and closes it.
+///
+/// [cachingProvider] defaults to the bounded disk cache.
+TileProvider createNetworkTileProvider(
+  http.Client client, {
+  MapCachingProvider? cachingProvider,
+}) => NetworkTileProvider(
+  httpClient: client,
+  cachingProvider:
+      cachingProvider ??
+      BuiltInMapCachingProvider.getOrCreateInstance(
+        maxCacheSize: qiblaTileCacheBytes,
+      ),
 );
 
 /// A tile provider that shows empty tiles and never uses the network.

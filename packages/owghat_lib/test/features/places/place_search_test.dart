@@ -679,6 +679,16 @@ void main() {
       expect(find.byKey(const Key('place-progress')), findsNothing);
     });
 
+    testWidgets('the notice names Open-Meteo only when the coordinates of '
+        'the chosen place are sent there', (tester) async {
+      await pump(tester);
+      String notice() =>
+          tester.widget<Text>(find.byKey(const Key('place-notice-text'))).data!;
+      expect(notice(), contains('Open-Meteo'));
+      await pump(tester, resolve: false);
+      expect(notice(), isNot(contains('Open-Meteo')));
+    });
+
     testWidgets('the credit names both services', (tester) async {
       await pump(tester);
       final credit = tester

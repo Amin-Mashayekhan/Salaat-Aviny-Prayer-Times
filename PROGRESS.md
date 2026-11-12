@@ -1,6 +1,15 @@
 # Progress
 
-Status as of 2026-11-12. Version in `app/pubspec.yaml`: 1.0.0. Nothing is tagged or released yet.
+Status as of 2026-11-12. Version in `app/pubspec.yaml`: 1.0.0. The `v1.0.0` tag was pushed and the
+release workflow produced a draft release (installer, zip, checksums); the draft was built before the
+review fixes below (blank map after switching style) and is not published.
+
+Review of 2026-11-12, fixed: the qibla map went blank after switching street/satellite or turning the
+map off and on (the shared tile provider's HTTP client was closed by the disposed layer; the map state
+now owns the client); the map controller leaked; two taps on the same spot stopped the camera from
+following the next source; Arabic and Urdu showed Latin city names; the search notice did not say that
+the chosen place's coordinates go to Open-Meteo; settings said "added" for an already saved place;
+the installer had no icon or publisher links; the download page misspelt the name in Persian and Arabic.
 
 This page says what exists, how far each part has been verified, what is known to be missing and what
 the owner still has to decide. Keep it honest: when you change something that is only verified by tests,
@@ -61,7 +70,8 @@ toasts, sound, autostart, installer and wake-up alarms.
 
 ## Known limitations
 
-- City names exist only in Persian and English; other languages show the English name.
+- City names exist only in Persian and English: Persian, Arabic and Urdu show the Arabic-script name,
+  the other languages the Latin one.
 - The translations for Arabic, Turkish, Urdu, Azerbaijani, Indonesian and French have not been reviewed by
   native speakers.
 - The public Nominatim and Esri servers are meant for light use. For a wide release, a keyed or

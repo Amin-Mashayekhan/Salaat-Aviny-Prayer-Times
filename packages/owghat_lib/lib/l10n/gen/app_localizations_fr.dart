@@ -830,6 +830,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'La recherche a besoin d’internet, cette fois seulement. Le texte que vous saisissez est envoyé au service de recherche d’OpenStreetMap (Nominatim) ; rien d’autre n’est envoyé. Une fois le lieu choisi, l’application garde ce qu’il lui faut et refonctionne sans internet.';
 
   @override
+  String get placeSearchNoticeDetails =>
+      'Quand vous choisissez un lieu, ses coordonnées sont envoyées à Open-Meteo pour obtenir son fuseau horaire et son altitude.';
+
+  @override
   String placeSearchResolving(String place) {
     return 'Récupération du fuseau horaire et de l’altitude de $place…';
   }
@@ -1476,6 +1480,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get settingsLocAlreadySaved => 'Déjà enregistré';
+
+  @override
+  String settingsLocAlreadySavedName(String name) {
+    return '$name figure déjà dans vos lieux enregistrés.';
+  }
 
   @override
   String get settingsLocClose => 'Fermer';

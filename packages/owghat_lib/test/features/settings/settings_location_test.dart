@@ -102,6 +102,18 @@ void main() {
       final count = rig.settings.locations.length;
       await tapKey(tester, 'set-place-result-0');
       expect(rig.settings.locations.length, count);
+      // It says so instead of claiming it was added again.
+      expect(k('set-place-added'), findsNothing);
+      expect(
+        textOf(tester, 'set-place-already'),
+        'Mumbai is already in your saved locations.',
+      );
+    });
+
+    testWidgets('the notice also names Open-Meteo, which gets the coordinates '
+        'of the chosen place', (tester) async {
+      await openSearch(tester);
+      expect(textOf(tester, 'set-place-notice-text'), contains('Open-Meteo'));
     });
 
     testWidgets('a zone the app does not know is refused with an explanation', (

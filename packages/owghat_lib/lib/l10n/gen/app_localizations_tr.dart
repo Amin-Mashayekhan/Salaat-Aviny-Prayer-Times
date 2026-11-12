@@ -825,6 +825,10 @@ class AppLocalizationsTr extends AppLocalizations {
       'Arama yalnızca bu seferlik internet gerektirir. Yazdığınız metin OpenStreetMap arama hizmetine (Nominatim) gönderilir; başka hiçbir şey gönderilmez. Yeri seçtikten sonra uygulama gereken bilgiyi saklar ve yeniden internetsiz çalışır.';
 
   @override
+  String get placeSearchNoticeDetails =>
+      'Bir yer seçtiğinizde, saat dilimini ve yüksekliğini almak için o yerin koordinatları Open-Meteo hizmetine gönderilir.';
+
+  @override
   String placeSearchResolving(String place) {
     return '$place için saat dilimi ve yükseklik alınıyor…';
   }
@@ -1464,6 +1468,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get settingsLocAlreadySaved => 'Zaten kayıtlı';
+
+  @override
+  String settingsLocAlreadySavedName(String name) {
+    return '$name kayıtlı konumlarınızda zaten var.';
+  }
 
   @override
   String get settingsLocClose => 'Kapat';

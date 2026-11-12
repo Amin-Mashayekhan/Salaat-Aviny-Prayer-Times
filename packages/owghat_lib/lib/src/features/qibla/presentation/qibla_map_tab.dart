@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
 import 'package:latlong2/latlong.dart';
 import 'package:owghat_lib/l10n/gen/app_localizations.dart';
 import 'package:owghat_lib/src/app/theme/app_colors.dart';
@@ -648,15 +649,25 @@ class _MapAreaState extends ConsumerState<_MapArea> {
   static const int offlineAfterErrors = 4;
 
   final MapController _controller = MapController();
+
+  /// The HTTP client of the real tile provider, made on first use. It lives
+  /// as long as this state, across changes of map style.
+  http.Client? _tileClient;
   TileProvider? _ownTiles;
   _Camera _camera = _Camera.overview;
   bool _ready = false;
-  bool _fromMapTap = false;
+
+  /// Where the map was last tapped. The change it causes keeps the camera
+  /// where the user put it; any other change moves it. (Compared by point,
+  /// not with a flag: a tap on the same spot changes nothing and would leave
+  /// a flag set to swallow the next real change.)
+  LatLng? _tappedAt;
   int _tileErrors = 0;
 
   @override
   void dispose() {
-    _ownTiles?.dispose();
+    _tileClient?.close();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -724,9 +735,13 @@ class _MapAreaState extends ConsumerState<_MapArea> {
     // moves the camera to the current view mode. A tap on the map keeps the
     // camera where the user has put it.
     ref.listen(qiblaViewProvider, (previous, next) {
+      final tapped = _tappedAt;
+      _tappedAt = null;
       if (previous == next) return;
-      if (_fromMapTap) {
-        _fromMapTap = false;
+      if (tapped != null &&
+          next.kind == QiblaSourceKind.custom &&
+          next.latitude == tapped.latitude &&
+          next.longitude == tapped.longitude) {
         return;
       }
       // A place found by name is shown around its centre, at city scale.
@@ -747,7 +762,9 @@ class _MapAreaState extends ConsumerState<_MapArea> {
     );
     final tileProvider =
         ref.watch(qiblaTileProviderProvider) ??
-        (_ownTiles ??= createNetworkTileProvider());
+        (_ownTiles ??= createNetworkTileProvider(
+          _tileClient ??= createTileHttpClient(),
+        ));
     final style = ref.watch(settingsProvider.select((s) => s.qibla.mapStyle));
     final satellite = style == QiblaMapStyle.satellite;
     // On photographs the green of the street map disappears into fields and
@@ -778,7 +795,7 @@ class _MapAreaState extends ConsumerState<_MapArea> {
                 backgroundColor: theme.colorScheme.surfaceContainerHighest,
                 onMapReady: () => _ready = true,
                 onTap: (position, point) {
-                  _fromMapTap = true;
+                  _tappedAt = point;
                   ref
                       .read(qiblaPointProvider.notifier)
                       .setCustom(point.latitude, point.longitude);

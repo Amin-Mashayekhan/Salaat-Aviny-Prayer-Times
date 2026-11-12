@@ -129,6 +129,18 @@ void main() {
       final builtin = ResolvedLocation.from(AppSettings.defaultLocation, repo)!;
       expect(builtin.nameIn(AppLanguage.fa), 'تهران');
       expect(builtin.nameIn(AppLanguage.en), 'Tehran');
+      // Arabic and Urdu read the Arabic-script name; no Latin word lands in
+      // right-to-left text. Latin-script languages read the Latin name.
+      expect(builtin.nameIn(AppLanguage.ar), 'تهران');
+      expect(builtin.nameIn(AppLanguage.ur), 'تهران');
+      for (final language in [
+        AppLanguage.tr,
+        AppLanguage.az,
+        AppLanguage.id,
+        AppLanguage.fr,
+      ]) {
+        expect(builtin.nameIn(language), 'Tehran');
+      }
       expect(builtin.isCustom, isFalse);
       expect(builtin.zoneId, 'Asia/Tehran');
 

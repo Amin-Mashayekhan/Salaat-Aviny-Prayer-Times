@@ -824,6 +824,10 @@ class AppLocalizationsFa extends AppLocalizations {
       'جستجو فقط همین یک بار به اینترنت نیاز دارد. متنی که می‌نویسید به سرویس جستجوی OpenStreetMap (Nominatim) فرستاده می‌شود و چیز دیگری فرستاده نمی‌شود. بعد از انتخاب مکان، برنامه آنچه لازم دارد را نگه می‌دارد و دوباره بدون اینترنت کار می‌کند.';
 
   @override
+  String get placeSearchNoticeDetails =>
+      'وقتی مکانی را انتخاب کنید، مختصات همان مکان به Open-Meteo فرستاده می‌شود تا منطقه‌ی زمانی و ارتفاعش گرفته شود.';
+
+  @override
   String placeSearchResolving(String place) {
     return 'در حال دریافت منطقه‌ی زمانی و ارتفاع $place…';
   }
@@ -1463,6 +1467,11 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get settingsLocAlreadySaved => 'ذخیره شده';
+
+  @override
+  String settingsLocAlreadySavedName(String name) {
+    return '$name از قبل در مکان‌های ذخیره‌شده هست.';
+  }
 
   @override
   String get settingsLocClose => 'بستن';

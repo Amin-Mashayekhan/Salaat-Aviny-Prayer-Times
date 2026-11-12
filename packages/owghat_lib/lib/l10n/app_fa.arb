@@ -595,6 +595,7 @@
     }
   },
   "placeSearchNotice": "جستجو فقط همین یک بار به اینترنت نیاز دارد. متنی که می‌نویسید به سرویس جستجوی OpenStreetMap (Nominatim) فرستاده می‌شود و چیز دیگری فرستاده نمی‌شود. بعد از انتخاب مکان، برنامه آنچه لازم دارد را نگه می‌دارد و دوباره بدون اینترنت کار می‌کند.",
+  "placeSearchNoticeDetails": "وقتی مکانی را انتخاب کنید، مختصات همان مکان به Open-Meteo فرستاده می‌شود تا منطقه‌ی زمانی و ارتفاعش گرفته شود.",
   "placeSearchResolving": "در حال دریافت منطقه‌ی زمانی و ارتفاع {place}…",
   "@placeSearchResolving": {
     "placeholders": {
@@ -941,6 +942,14 @@
   },
   "settingsLocAllProvinces": "همه‌ی استان‌ها",
   "settingsLocAlreadySaved": "ذخیره شده",
+  "settingsLocAlreadySavedName": "{name} از قبل در مکان‌های ذخیره‌شده هست.",
+  "@settingsLocAlreadySavedName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "settingsLocClose": "بستن",
   "settingsLocCoords": "عرض {lat}، طول {lon}",
   "@settingsLocCoords": {

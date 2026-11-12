@@ -131,7 +131,11 @@ class _PlaceSearchPanelState extends ConsumerState<PlaceSearchPanel> {
                     const SizedBox(width: Gaps.s),
                     Expanded(
                       child: Text(
-                        l10n.placeSearchNotice,
+                        widget.resolveDetails
+                            ? '${l10n.placeSearchNotice} '
+                                  '${l10n.placeSearchNoticeDetails}'
+                            : l10n.placeSearchNotice,
+                        key: Key(_key('notice-text')),
                         style: theme.textTheme.bodySmall,
                       ),
                     ),

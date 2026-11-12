@@ -577,6 +577,22 @@ void main() {
       expect(zoom(tester), closeTo(overview, 0.5));
     });
 
+    testWidgets('two taps on the same spot do not stop the camera following '
+        'the next source', (tester) async {
+      await open(tester);
+      final map = find.byKey(const Key('qibla-map'));
+      for (var i = 0; i < 2; i++) {
+        await tester.tapAt(tester.getCenter(map));
+        await tester.pump(const Duration(milliseconds: 500));
+        await tester.pumpAndSettle();
+      }
+      await tapKey(tester, 'qibla-cam-nearby');
+      await chooseSource(tester, Icons.my_location);
+      final controller = tester.widget<FlutterMap>(map).mapController!;
+      expect(controller.camera.center.latitude, closeTo(36.2133, 1e-4));
+      expect(controller.camera.center.longitude, closeTo(58.7958, 1e-4));
+    });
+
     testWidgets('a new position moves the camera to the chosen view', (
       tester,
     ) async {

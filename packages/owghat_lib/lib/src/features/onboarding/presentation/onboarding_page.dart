@@ -238,13 +238,16 @@ class _CityStepState extends ConsumerState<_CityStep> {
     String cityName(int id) {
       final city = repository.cityById(id);
       if (city == null) return '';
-      return language == AppLanguage.fa ? city.nameFa : city.nameEn;
+      return language.pickName(arabicScript: city.nameFa, latin: city.nameEn);
     }
 
     String provinceName(int id) {
       final province = repository.provinceById(id);
       if (province == null) return '';
-      return language == AppLanguage.fa ? province.nameFa : province.nameEn;
+      return language.pickName(
+        arabicScript: province.nameFa,
+        latin: province.nameEn,
+      );
     }
 
     // One scroll view for the whole step: the small controls scroll away with

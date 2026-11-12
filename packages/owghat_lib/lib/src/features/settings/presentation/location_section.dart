@@ -16,7 +16,6 @@ import 'package:owghat_lib/src/features/settings/application/formatter_provider.
 import 'package:owghat_lib/src/features/settings/application/location_draft.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
 import 'package:owghat_lib/src/features/settings/application/zone_info.dart';
-import 'package:owghat_lib/src/features/settings/domain/app_settings.dart';
 import 'package:owghat_lib/src/features/settings/presentation/location_forms.dart';
 import 'package:owghat_lib/src/features/settings/presentation/setting_widgets.dart';
 
@@ -37,6 +36,7 @@ class _LocationSectionState extends ConsumerState<LocationSection> {
   String? _editing;
   _AddMode _addMode = _AddMode.list;
   bool _searchUnusable = false;
+  String? _alreadySavedName;
   int _customFormGeneration = 0;
   String? _customAddedName;
 
@@ -73,19 +73,23 @@ class _LocationSectionState extends ConsumerState<LocationSection> {
     final settings = ref.read(settingsProvider);
     final controller = ref.read(settingsProvider.notifier);
     final same = sameSavedPlace(picked, settings.locations);
-    final SavedLocation? location;
     if (same != null) {
-      location = same;
-    } else {
-      location = savedLocationFromPlace(
-        picked,
-        existingIds: [for (final l in settings.locations) l.id],
-        resolver: ref.read(zoneOffsetResolverProvider),
-      );
-      if (location != null) controller.addLocation(location, activate: false);
+      setState(() {
+        _searchUnusable = false;
+        _customAddedName = null;
+        _alreadySavedName = picked.place.name;
+      });
+      return;
     }
+    final location = savedLocationFromPlace(
+      picked,
+      existingIds: [for (final l in settings.locations) l.id],
+      resolver: ref.read(zoneOffsetResolverProvider),
+    );
+    if (location != null) controller.addLocation(location, activate: false);
     setState(() {
       _searchUnusable = location == null;
+      _alreadySavedName = null;
       _customAddedName = location == null ? null : picked.place.name;
     });
   }
@@ -153,6 +157,7 @@ class _LocationSectionState extends ConsumerState<LocationSection> {
               onChanged: (value) => setState(() {
                 _addMode = value;
                 _customAddedName = null;
+                _alreadySavedName = null;
                 _searchUnusable = false;
               }),
             ),
@@ -175,6 +180,18 @@ class _LocationSectionState extends ConsumerState<LocationSection> {
                         key: const Key('set-place-unusable'),
                         style: Theme.of(context).textTheme.bodyMedium
                             ?.copyWith(color: colors.danger),
+                      ),
+                    ),
+                  if (_alreadySavedName != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: Gaps.s),
+                      child: StatusLine(
+                        key: const Key('set-place-already'),
+                        text: l10n.settingsLocAlreadySavedName(
+                          _alreadySavedName!,
+                        ),
+                        icon: Icons.info_outline,
+                        color: colors.warning,
                       ),
                     ),
                   if (_customAddedName != null)
@@ -405,7 +422,7 @@ class _AddFromDatabaseState extends ConsumerState<_AddFromDatabase> {
     final results = _results();
 
     String provinceName(Province p) =>
-        language == AppLanguage.fa ? p.nameFa : p.nameEn;
+        language.pickName(arabicScript: p.nameFa, latin: p.nameEn);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -454,9 +471,10 @@ class _AddFromDatabaseState extends ConsumerState<_AddFromDatabase> {
                     final city = results[index];
                     final saved = savedIds.contains(builtinLocationId(city.id));
                     final province = repository.provinceById(city.provinceId);
-                    final name = language == AppLanguage.fa
-                        ? city.nameFa
-                        : city.nameEn;
+                    final name = language.pickName(
+                      arabicScript: city.nameFa,
+                      latin: city.nameEn,
+                    );
                     return Padding(
                       key: Key('set-loc-result-${city.id}'),
                       padding: const EdgeInsets.symmetric(vertical: Gaps.s / 2),

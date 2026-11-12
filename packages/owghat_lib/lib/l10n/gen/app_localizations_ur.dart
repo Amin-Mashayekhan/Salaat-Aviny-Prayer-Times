@@ -825,6 +825,10 @@ class AppLocalizationsUr extends AppLocalizations {
       'تلاش کے لیے انٹرنیٹ صرف اسی بار درکار ہے۔ آپ جو لکھتے ہیں وہ OpenStreetMap کی تلاش کی سروس (Nominatim) کو بھیجا جاتا ہے، اور کچھ اور نہیں بھیجا جاتا۔ جگہ منتخب کرنے کے بعد ایپ ضروری معلومات محفوظ رکھتی ہے اور دوبارہ انٹرنیٹ کے بغیر چلتی ہے۔';
 
   @override
+  String get placeSearchNoticeDetails =>
+      'جب آپ کوئی جگہ منتخب کرتے ہیں تو اس کا ٹائم زون اور بلندی معلوم کرنے کے لیے اس جگہ کے نقاط Open-Meteo کو بھیجے جاتے ہیں۔';
+
+  @override
   String placeSearchResolving(String place) {
     return '$place کا ٹائم زون اور بلندی حاصل کی جا رہی ہے…';
   }
@@ -1462,6 +1466,11 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get settingsLocAlreadySaved => 'پہلے سے محفوظ';
+
+  @override
+  String settingsLocAlreadySavedName(String name) {
+    return '$name پہلے سے محفوظ مقامات میں موجود ہے۔';
+  }
 
   @override
   String get settingsLocClose => 'بند کریں';

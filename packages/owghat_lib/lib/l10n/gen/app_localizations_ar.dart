@@ -823,6 +823,10 @@ class AppLocalizationsAr extends AppLocalizations {
       'البحث يحتاج إلى الإنترنت هذه المرة فقط. يُرسل النص الذي تكتبه إلى خدمة البحث في OpenStreetMap (Nominatim) ولا يُرسل أي شيء آخر. بعد اختيار المكان يحتفظ التطبيق بما يلزمه ويعمل بدون إنترنت من جديد.';
 
   @override
+  String get placeSearchNoticeDetails =>
+      'عند اختيار مكان تُرسل إحداثياته إلى Open-Meteo لجلب منطقته الزمنية وارتفاعه.';
+
+  @override
   String placeSearchResolving(String place) {
     return 'جارٍ جلب المنطقة الزمنية والارتفاع لـ $place…';
   }
@@ -1459,6 +1463,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settingsLocAlreadySaved => 'محفوظ مسبقًا';
+
+  @override
+  String settingsLocAlreadySavedName(String name) {
+    return '$name موجود مسبقاً في المواقع المحفوظة.';
+  }
 
   @override
   String get settingsLocClose => 'إغلاق';

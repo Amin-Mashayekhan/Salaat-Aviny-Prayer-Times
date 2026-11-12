@@ -595,6 +595,7 @@
     }
   },
   "placeSearchNotice": "Searching needs the internet, only this once. The text you type is sent to the OpenStreetMap search service (Nominatim); nothing else is sent. After you choose a place, the app keeps what it needs and works offline again.",
+  "placeSearchNoticeDetails": "When you choose a place, its coordinates are sent to Open-Meteo to get its time zone and height.",
   "placeSearchResolving": "Getting the time zone and height of {place}…",
   "@placeSearchResolving": {
     "placeholders": {
@@ -941,6 +942,14 @@
   },
   "settingsLocAllProvinces": "All provinces",
   "settingsLocAlreadySaved": "Already saved",
+  "settingsLocAlreadySavedName": "{name} is already in your saved locations.",
+  "@settingsLocAlreadySavedName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "settingsLocClose": "Close",
   "settingsLocCoords": "Lat {lat}, lon {lon}",
   "@settingsLocCoords": {

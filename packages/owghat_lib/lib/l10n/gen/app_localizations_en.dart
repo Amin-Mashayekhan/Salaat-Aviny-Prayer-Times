@@ -827,6 +827,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Searching needs the internet, only this once. The text you type is sent to the OpenStreetMap search service (Nominatim); nothing else is sent. After you choose a place, the app keeps what it needs and works offline again.';
 
   @override
+  String get placeSearchNoticeDetails =>
+      'When you choose a place, its coordinates are sent to Open-Meteo to get its time zone and height.';
+
+  @override
   String placeSearchResolving(String place) {
     return 'Getting the time zone and height of $place…';
   }
@@ -1467,6 +1471,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsLocAlreadySaved => 'Already saved';
+
+  @override
+  String settingsLocAlreadySavedName(String name) {
+    return '$name is already in your saved locations.';
+  }
 
   @override
   String get settingsLocClose => 'Close';
