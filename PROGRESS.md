@@ -3,18 +3,22 @@
 Legend: `[x]` done and covered by automated tests; `[~]` code written and analysed but NOT yet run on a
 real Windows PC (needs the manual checklist in `docs/manual-test-checklist*.md`); `[ ]` not done.
 
-## Status (2026-11-11)
+## Status (2026-11-12)
 
 - Library `packages/owghat_lib`: 767 tests, `flutter analyze` clean. `packages/prayer_core`: 374 tests,
   100 % line coverage, `dart analyze` clean. `app/`: `flutter analyze` clean.
-- **Nothing in `app/` has ever been compiled or run**: this machine has no Visual Studio (C++ workload),
-  so `flutter build windows` / `flutter run -d windows` were never executed. That covers the C++ runner
-  code, every plugin class (tray, window, audio, toasts, autostart, single instance, file dialogs) and the
-  wake-up FFI/Task Scheduler code. Install Visual Studio Build Tools (Desktop development with C++), run
-  `flutter build windows --release` in `app/`, then work through the manual checklists.
-- Next steps for the owner: (1) install the C++ toolchain, build, fix compile errors in `app/windows` and
-  `app/lib/src/platform`; (2) run `docs/manual-test-checklist.md` and `docs/manual-test-checklist-wake.md`
-  on Windows 10 and 11; (3) answer the open questions below; (4) tag `v1.0.0`.
+- **`flutter build windows --release` now succeeds** (Visual Studio Build Tools 2022 with the VCTools
+  workload + ATL, Windows SDK 10.0.22621, Developer Mode on). The first launch of `owghat.exe` was checked:
+  the window opens, responds, and shows the Persian onboarding screen; no crash in 10 s. This was a smoke
+  test only. Tray, toasts, audio, autostart, single instance, power events and every wake-up path are still
+  `[~]`: compiled, not exercised.
+- Build environment notes: the `audioplayers_windows` plugin fetches WIL through NuGet, so a NuGet source
+  (nuget.org) must be configured. `flutter_local_notifications_windows` needs the ATL component. If a
+  configure step fails once, delete `app/build/windows/x64/CMakeCache.txt`: the cache keeps the default
+  install prefix `C:/Program Files/owghat` and the INSTALL step then fails with "file cannot create directory".
+- Next steps for the owner: (1) run `docs/manual-test-checklist.md` and `docs/manual-test-checklist-wake.md`
+  on Windows 10 and 11; (2) compile `app/windows/installer/owghat.iss` (Inno Setup is not installed here);
+  (3) answer the open questions below; (4) tag `v1.0.0`.
 
 ## Blocked
 
@@ -49,7 +53,7 @@ See the table at the top of `docs/06-IMPLEMENTATION-PLAN.md` (Q-1 ... Q-5). Defa
 ### M4 - Schedule engine and audio
 - [x] M4.1 Derived prayer providers
 - [x] M4.2 ScheduleEngine (simulations a-g)
-- [~] M4.3 Power events (C++ uncompiled)
+- [~] M4.3 Power events (C++ compiled, not exercised)
 - [~] M4.4 Audio
 - [~] M4.5 Notifications and reminders
 - [ ] Gate: review + 1-hour manual run
