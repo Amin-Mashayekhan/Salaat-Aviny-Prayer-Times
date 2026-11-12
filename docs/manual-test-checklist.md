@@ -12,11 +12,11 @@ Preparation: build the installer (`flutter build windows --release`, then compil
 
 | # | Step | Expected |
 |---|---|---|
-| 1.1 | Run `Owghat-Setup-<version>.exe` as a standard user | No admin prompt. Installs to `%LOCALAPPDATA%\Programs\Owghat`. Start-menu shortcut exists. |
+| 1.1 | Run `Salaat-Setup-<version>.exe` as a standard user | No admin prompt. Installs to `%LOCALAPPDATA%\Programs\Salaat`. Start-menu shortcut exists. |
 | 1.2 | Start the app for the first time | Onboarding appears in Persian, right-to-left. Tehran is preselected. |
 | 1.3 | Finish onboarding | Home shows the next prayer and a running countdown. Tray icon appears. |
 | 1.4 | Upgrade: install a newer build over the old one | Settings and saved locations are kept. |
-| 1.5 | Uninstall | Asks whether to keep settings. The autostart entry and every `Owghat\Wake-*` scheduled task are gone (check Task Scheduler and `HKCU\...\Run`). |
+| 1.5 | Uninstall | Asks whether to keep settings. The autostart entry and every `Salaat\Wake-*` scheduled task are gone (check Task Scheduler and `HKCU\...\Run`). |
 
 ## 2. Tray and window
 
@@ -61,7 +61,7 @@ from now. Do not change the PC clock.
 | 5.1 | Wake-up screen, capability panel | Green, or amber with a plain reason and a button that opens Windows power options. The app never changes power settings itself. |
 | 5.2 | "Test in 2 minutes", then sleep the PC | The PC wakes by itself, plays the sound, and returns to sleep after the cancellable 30-second countdown. |
 | 5.3 | Cancel the countdown | The PC stays awake. |
-| 5.4 | Disable or delete the alarm | `schtasks /Query /TN "Owghat\Wake-<id>"` finds nothing. |
+| 5.4 | Disable or delete the alarm | `schtasks /Query /TN "Salaat\Wake-<id>"` finds nothing. |
 
 ## 6. Display, language, accessibility
 

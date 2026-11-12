@@ -1,6 +1,6 @@
-# اپ اوقات شرعی (جایگزین «اوقات شرعی آوینی»)
+# Salaat | Avini Prayer Times (جایگزین «اوقات شرعی آوینی»)
 
-این پوشه بسته‌ی کامل برنامه‌ریزی برای بازنویسی نرم‌افزار «اوقات شرعی آوینی» (نسخه‌ی ۱.۰.۸.۶، سال ۲۰۱۳) با **Flutter / Dart** است. کد اپ نوشته شده و بخش منطقی آن با آزمون خودکار تأیید شده است، اما **اپ ویندوز هنوز هیچ‌وقت کامپایل یا اجرا نشده** (روی سیستم توسعه Visual Studio نصب نبود). وضعیت دقیق در [PROGRESS.md](PROGRESS.md) است.
+این پوشه بسته‌ی کامل برنامه‌ریزی برای بازنویسی نرم‌افزار «اوقات شرعی آوینی» (نسخه‌ی ۱.۰.۸.۶، سال ۲۰۱۳) با **Flutter / Dart** است. کد اپ نوشته شده و بخش منطقی آن با آزمون خودکار تأیید شده است، اما **اپ ویندوز کامپایل می‌شود و بالا می‌آید (۲۰۲۶-۱۱-۱۲)، اما تری، نوتیفیکیشن، صدا و بیدارباش هنوز روی سخت‌افزار آزموده نشده‌اند**. وضعیت دقیق در [PROGRESS.md](PROGRESS.md) است.
 
 ## از کجا شروع کنم؟
 
@@ -38,9 +38,9 @@
 
 پنج تصمیم با شماست (نام نهایی اپ، فایل‌های صوتی اذان و …). در ابتدای [برنامه‌ی پیاده‌سازی](docs/06-IMPLEMENTATION-PLAN.md) فهرست شده‌اند و برای هرکدام یک پیش‌فرض گذاشته شده تا کار متوقف نشود.
 
-## Owghat for users (English)
+## Salaat | Avini Prayer Times for users (English)
 
-Owghat is a calm, ad-free prayer-times and azan app for Windows, made for Shia users in Iran and usable
+Salaat | Avini Prayer Times is a calm, ad-free prayer-times and azan app for Windows, made for Shia users in Iran and usable
 anywhere. It works offline, lives in the system tray and plays the azan on time.
 
 - **Times:** Imsak, Fajr, Sunrise, Dhuhr, Asr, Sunset, Maghrib, Isha and Islamic midnight, with the Tehran

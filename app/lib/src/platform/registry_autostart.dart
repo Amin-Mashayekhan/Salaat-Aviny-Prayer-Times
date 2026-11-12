@@ -5,7 +5,7 @@ import 'package:owghat_lib/owghat_lib.dart';
 /// [AutostartService] through `reg.exe` on
 /// `HKCU\Software\Microsoft\Windows\CurrentVersion\Run`.
 ///
-/// The value is named `Owghat` and holds `"<exe>" --minimized`, exactly what
+/// The value is named `Salaat` and holds `"<exe>" --minimized`, exactly what
 /// the installer writes. It lives in the current user hive, so it never
 /// needs administrator rights. (`launch_at_startup` is not used, see
 /// ADR 0001.)
@@ -19,7 +19,7 @@ class RegistryAutostart implements AutostartService {
       r'HKCU\Software\Microsoft\Windows\CurrentVersion\Run';
 
   /// The value name (the same one the installer uses).
-  static const String valueName = 'Owghat';
+  static const String valueName = 'Salaat';
 
   final String _executable;
 

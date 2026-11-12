@@ -187,7 +187,7 @@ void main() {
     });
 
     test('task name', () {
-      expect(wakeTaskName('wake-1'), r'Owghat\Wake-wake-1');
+      expect(wakeTaskName('wake-1'), r'Salaat\Wake-wake-1');
       expect(() => wakeTaskName('a b'), throwsArgumentError);
     });
 
@@ -206,20 +206,20 @@ void main() {
   group('schtasks arguments and parsing', () {
     test('argument lists', () {
       expect(
-        schtasksCreateArgs(taskName: r'Owghat\Wake-a', xmlPath: r'C:\t\a.xml'),
-        ['/Create', '/TN', r'Owghat\Wake-a', '/XML', r'C:\t\a.xml', '/F'],
+        schtasksCreateArgs(taskName: r'Salaat\Wake-a', xmlPath: r'C:\t\a.xml'),
+        ['/Create', '/TN', r'Salaat\Wake-a', '/XML', r'C:\t\a.xml', '/F'],
       );
-      expect(schtasksDeleteArgs(r'Owghat\Wake-a'), [
+      expect(schtasksDeleteArgs(r'Salaat\Wake-a'), [
         '/Delete',
         '/TN',
-        r'Owghat\Wake-a',
+        r'Salaat\Wake-a',
         '/F',
       ]);
       expect(schtasksQueryAllArgs(), ['/Query', '/FO', 'CSV', '/NH']);
-      expect(schtasksQueryOneArgs(r'Owghat\Wake-a'), [
+      expect(schtasksQueryOneArgs(r'Salaat\Wake-a'), [
         '/Query',
         '/TN',
-        r'Owghat\Wake-a',
+        r'Salaat\Wake-a',
         '/FO',
         'LIST',
       ]);
@@ -228,10 +228,10 @@ void main() {
     test('lists only our wake tasks', () {
       const csv = r'''
 "\Microsoft\Windows\Defrag\ScheduledDefrag","N/A","Ready"
-"\Owghat\Wake-wake-1","11/12/2026 4:00:00 AM","Ready"
-"\Owghat\Wake-wake-test-5","11/12/2026 5:00:00 AM","Ready"
-"\Owghat\Probe","N/A","Ready"
-"\Owghat\Wake-bad id","N/A","Ready"
+"\Salaat\Wake-wake-1","11/12/2026 4:00:00 AM","Ready"
+"\Salaat\Wake-wake-test-5","11/12/2026 5:00:00 AM","Ready"
+"\Salaat\Probe","N/A","Ready"
+"\Salaat\Wake-bad id","N/A","Ready"
 "\Other\Wake-x","N/A","Ready"
 ''';
       expect(parseWakeTaskIds(csv), {'wake-1', 'wake-test-5'});
@@ -440,7 +440,7 @@ void main() {
       final service = make();
       await service.scheduleWake(DateTime.utc(2026, 11, 12, 0, 30), 'wake-1');
       expect(timer.armed['wake-1'], DateTime.utc(2026, 11, 12, 0, 30));
-      expect(tasksExist, {r'Owghat\Wake-wake-1'});
+      expect(tasksExist, {r'Salaat\Wake-wake-1'});
       expect(await service.pendingIds(), {'wake-1'});
     });
 
@@ -448,7 +448,7 @@ void main() {
       failCreateUtc = true;
       final service = make();
       await service.scheduleWake(DateTime.utc(2026, 11, 12, 0, 30), 'wake-1');
-      expect(tasksExist, {r'Owghat\Wake-wake-1'});
+      expect(tasksExist, {r'Salaat\Wake-wake-1'});
       final creates = commands.where((c) => c[1] == '/Create').length;
       expect(creates, 2);
     });

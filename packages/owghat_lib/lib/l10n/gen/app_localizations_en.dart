@@ -33,7 +33,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get appName => 'Owghat';
+  String get appName => 'Salaat | Avini Prayer Times';
 
   @override
   String get calendarAdjustEarlier => 'One day earlier';

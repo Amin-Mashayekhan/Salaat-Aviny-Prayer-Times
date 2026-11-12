@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 /// Folder and name prefix of every task this app creates.
-const String wakeTaskFolder = 'Owghat';
+const String wakeTaskFolder = 'Salaat';
 
 /// Name prefix of a wake task inside [wakeTaskFolder].
 const String wakeTaskPrefix = 'Wake-';
@@ -133,7 +133,7 @@ String buildWakeTaskXml({
       'xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">',
     )
     ..writeln('  <RegistrationInfo>')
-    ..writeln('    <Description>Owghat wake-up alarm</Description>')
+    ..writeln('    <Description>Salaat wake-up alarm</Description>')
     ..writeln('  </RegistrationInfo>')
     ..writeln('  <Triggers>')
     ..writeln('    <TimeTrigger>')

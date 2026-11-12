@@ -33,7 +33,7 @@ class AppLocalizationsFa extends AppLocalizations {
   }
 
   @override
-  String get appName => 'اوقات';
+  String get appName => 'Salaat | Avini Prayer Times';
 
   @override
   String get calendarAdjustEarlier => 'یک روز زودتر';

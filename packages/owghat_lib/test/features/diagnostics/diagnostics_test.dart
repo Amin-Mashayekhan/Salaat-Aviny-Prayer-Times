@@ -356,7 +356,7 @@ void main() {
   group('about', () {
     diagTest('name, version, notes', (tester) async {
       await pump(tester);
-      expect(find.text('اوقات'), findsOneWidget);
+      expect(find.text('Salaat | Avini Prayer Times'), findsOneWidget);
       expect(text(tester, 'about-version'), contains('1.0.0'));
       expect(text(tester, 'about-version'), startsWith('نسخه‌ی'));
       expect(
@@ -651,7 +651,7 @@ void main() {
         'Copied to the clipboard. It has no names and no exact coordinates.',
       );
       final report = copied!;
-      expect(report, startsWith('Owghat diagnostics'));
+      expect(report, startsWith('Salaat diagnostics'));
       expect(report, contains('Latitude: 35.69'));
       expect(report, contains('Longitude: 51.39'));
       for (final secret in [

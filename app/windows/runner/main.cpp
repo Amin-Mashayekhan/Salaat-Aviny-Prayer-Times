@@ -36,7 +36,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   window.SetStartHidden(start_hidden);
   Win32Window::Point origin(10, 10);
   Win32Window::Size size(1040, 680);
-  if (!window.Create(L"Owghat", origin, size)) {
+  if (!window.Create(L"Salaat | Avini Prayer Times", origin, size)) {
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);

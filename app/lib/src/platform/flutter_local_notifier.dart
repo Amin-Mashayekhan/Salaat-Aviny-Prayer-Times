@@ -18,10 +18,10 @@ class FlutterLocalNotifier implements AppNotifier {
     : _plugin = plugin ?? FlutterLocalNotificationsPlugin();
 
   /// Display name of the app in the toast header.
-  static const String appName = 'Owghat';
+  static const String appName = 'Salaat';
 
   /// The app user model id (company.product), used to attribute toasts.
-  static const String appUserModelId = 'ir.owghat.Owghat';
+  static const String appUserModelId = 'app.salaat.Salaat';
 
   /// GUID of the toast activation callback (fixed for this app).
   static const String activationGuid = '6b1f2c0e-7d5a-4f36-9a3b-2c1e8d4f7a90';

@@ -137,7 +137,7 @@ abstract class AppLocalizations {
   /// No description provided for @appName.
   ///
   /// In fa, this message translates to:
-  /// **'اوقات'**
+  /// **'Salaat | Avini Prayer Times'**
   String get appName;
 
   /// No description provided for @calendarAdjustEarlier.

@@ -14,7 +14,7 @@ real Windows PC (needs the manual checklist in `docs/manual-test-checklist*.md`)
   `[~]`: compiled, not exercised.
 - Build environment notes: the `audioplayers_windows` plugin fetches WIL through NuGet, so a NuGet source
   (nuget.org) must be configured. `flutter_local_notifications_windows` needs the ATL component. If a
-  configure step fails once, delete `app/build/windows/x64/CMakeCache.txt`: the cache keeps the default
+  configure step fails once, or after renaming `BINARY_NAME` (the exe is now `salaat.exe`), delete `app/build/windows/x64/CMakeCache.txt`: the cache keeps the default
   install prefix `C:/Program Files/owghat` and the INSTALL step then fails with "file cannot create directory".
 - Next steps for the owner: (1) run `docs/manual-test-checklist.md` and `docs/manual-test-checklist-wake.md`
   on Windows 10 and 11; (2) compile `app/windows/installer/owghat.iss` (Inno Setup is not installed here);
@@ -28,7 +28,7 @@ real Windows PC (needs the manual checklist in `docs/manual-test-checklist*.md`)
 ## Open questions for the owner
 
 See the table at the top of `docs/06-IMPLEMENTATION-PLAN.md` (Q-1 ... Q-5). Defaults in force: name
-"Owghat", generated placeholder sounds only (no azan recording shipped), 566 verified cities.
+"Salaat | Avini Prayer Times" (decided 2026-11-12), generated placeholder sounds only (no azan recording shipped), 566 verified cities.
 
 ## Tasks
 
@@ -88,7 +88,7 @@ See the table at the top of `docs/06-IMPLEMENTATION-PLAN.md` (Q-1 ... Q-5). Defa
 - [ ] Parity checklist pass on a real run
 
 ### M9 - Packaging and release
-- [x] M9.1 Metadata and icons (Runner.rc company/product "Owghat", generated icons)
+- [x] M9.1 Metadata and icons (Runner.rc company/product "Salaat", generated icons)
 - [~] M9.2 Installer script `app/windows/installer/owghat.iss` (never compiled)
 - [x] M9.3 Manual test checklists
 - [ ] M9.4 Release build and tag

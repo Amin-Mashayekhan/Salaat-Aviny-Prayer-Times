@@ -1,22 +1,25 @@
-; Inno Setup 7 script for Owghat (per-user install, no administrator rights).
+; Inno Setup 7 script for Salaat | Avini Prayer Times (per-user install, no administrator rights).
 ;
 ; Build first:   flutter build windows --release        (inside app/)
-; Then compile:  iscc app\windows\installer\owghat.iss
-; Output:        app\build\installer\Owghat-Setup-<version>.exe
+; Then compile:  iscc app\windows\installer\salaat.iss
+; Output:        app\build\installer\Salaat-Setup-<version>.exe
 ;
 ; The data folder below must match Runner.rc (CompanyName\ProductName), because
 ; path_provider stores application support data in %APPDATA%\<Company>\<Product>.
 
-#define AppName "Owghat"
-#define AppExe "owghat.exe"
+#define AppName "Salaat"
+; Shown in the installer and in Add/Remove Programs. It contains a pipe, so it is
+; never used for a file, folder or shortcut name (AppName is used for those).
+#define AppTitle "Salaat | Avini Prayer Times"
+#define AppExe "salaat.exe"
 #define AppVersion "1.0.0"
-#define AppPublisher "Owghat"
-#define AppDataSub "Owghat\Owghat"
+#define AppPublisher "Salaat"
+#define AppDataSub "Salaat\Salaat"
 #define BuildDir "..\..\build\windows\x64\runner\Release"
 
 [Setup]
 AppId={{6B1F2C0E-7D5A-4F36-9A3B-2C1E8D4F7A90}
-AppName={#AppName}
+AppName={#AppTitle}
 AppVersion={#AppVersion}
 AppPublisher={#AppPublisher}
 DefaultDirName={localappdata}\Programs\{#AppName}
@@ -24,7 +27,7 @@ DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 OutputDir=..\..\build\installer
-OutputBaseFilename=Owghat-Setup-{#AppVersion}
+OutputBaseFilename=Salaat-Setup-{#AppVersion}
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
@@ -39,7 +42,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "persian"; MessagesFile: "compiler:Languages\Farsi.isl"
 
 [Tasks]
-Name: "autostart"; Description: "Start {#AppName} with Windows"; Flags: unchecked
+Name: "autostart"; Description: "Start {#AppTitle} with Windows"; Flags: unchecked
 
 [Files]
 Source: "{#BuildDir}\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs ignoreversion
@@ -53,11 +56,11 @@ Name: "{userprograms}\{#AppName}"; Filename: "{app}\{#AppExe}"
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "{#AppName}"; ValueData: """{app}\{#AppExe}"" --minimized"; Tasks: autostart; Flags: uninsdeletevalue
 
 [Run]
-Filename: "{app}\{#AppExe}"; Description: "Launch {#AppName}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#AppExe}"; Description: "Launch {#AppTitle}"; Flags: nowait postinstall skipifsilent
 
 [UninstallRun]
 ; Remove every wake-up task the app registered, then the autostart entry.
-Filename: "powershell.exe"; Parameters: "-NoProfile -NonInteractive -Command ""Get-ScheduledTask -TaskPath '\Owghat\' -ErrorAction SilentlyContinue | Unregister-ScheduledTask -Confirm:$false"""; Flags: runhidden; RunOnceId: "RemoveWakeTasks"
+Filename: "powershell.exe"; Parameters: "-NoProfile -NonInteractive -Command ""Get-ScheduledTask -TaskPath '\Salaat\' -ErrorAction SilentlyContinue | Unregister-ScheduledTask -Confirm:$false"""; Flags: runhidden; RunOnceId: "RemoveWakeTasks"
 Filename: "reg.exe"; Parameters: "delete ""HKCU\Software\Microsoft\Windows\CurrentVersion\Run"" /v {#AppName} /f"; Flags: runhidden; RunOnceId: "RemoveAutostart"
 
 [Code]
@@ -70,7 +73,7 @@ begin
     DataDir := ExpandConstant('{userappdata}\{#AppDataSub}');
     if DirExists(DataDir) then
     begin
-      if MsgBox('Keep your Owghat settings and saved locations?' + #13#10 +
+      if MsgBox('Keep your Salaat settings and saved locations?' + #13#10 +
                 '(They are stored in ' + DataDir + ')',
                 mbConfirmation, MB_YESNO) = IDNO then
         DelTree(DataDir, True, True, True);

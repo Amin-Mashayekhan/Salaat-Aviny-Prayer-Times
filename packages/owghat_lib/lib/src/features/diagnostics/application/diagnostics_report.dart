@@ -61,7 +61,7 @@ String buildDiagnosticsReport({
   String? logDirectory,
 }) {
   final out = StringBuffer()
-    ..writeln('Owghat diagnostics')
+    ..writeln('Salaat diagnostics')
     ..writeln('Generated: ${formatTimestamp(nowUtc)} UTC')
     ..writeln('App version: $version')
     ..writeln(
