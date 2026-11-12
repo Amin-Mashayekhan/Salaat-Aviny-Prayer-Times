@@ -33,7 +33,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get appName => 'Salaat | Avini Prayer Times';
+  String get appName => 'Salaat | Aviny Prayer Times';
 
   @override
   String get calendarAdjustEarlier => 'One day earlier';
@@ -732,12 +732,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get prayerSunset => 'Sunset';
 
   @override
+  String qiblaAccuracyValue(String meters) {
+    return 'Accuracy: about $meters m';
+  }
+
+  @override
   String get qiblaBearingLabel => 'Bearing (clockwise from true north)';
 
   @override
   String qiblaBearingValue(String degrees, String direction) {
     return '$degrees° ($direction)';
   }
+
+  @override
+  String get qiblaCamKaaba => 'Kaaba';
+
+  @override
+  String get qiblaCamNearby => 'Around me';
+
+  @override
+  String get qiblaCamOverview => 'Whole route';
 
   @override
   String qiblaCardinal(String point) {
@@ -762,6 +776,22 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get qiblaCoordsApply => 'Show';
+
+  @override
+  String get qiblaCoordsHint => 'for example 36.2133, 58.7958';
+
+  @override
+  String get qiblaCoordsInvalid =>
+      'Not valid coordinates. Latitude must be between -90 and 90 and longitude between -180 and 180.';
+
+  @override
+  String get qiblaCoordsLabel => 'Latitude and longitude';
+
+  @override
+  String get qiblaDeviceFixShown => 'Showing the position of this device.';
+
+  @override
   String get qiblaDistanceLabel => 'Distance to the Kaaba';
 
   @override
@@ -770,13 +800,114 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get qiblaFailGeneric =>
+      'The position could not be read; the selected city is shown.';
+
+  @override
+  String get qiblaFailPermissionDenied =>
+      'Windows has not allowed this app to read the position. In Windows Settings (Privacy and security, Location) turn on both Location services and Let desktop apps access your location, then try again; or use the selected city.';
+
+  @override
+  String get qiblaFailPermissionForever =>
+      'Location access was refused. In Windows Settings (Privacy and security, Location) turn on Let desktop apps access your location.';
+
+  @override
+  String get qiblaFailServiceDisabled =>
+      'Windows location services are off. Turn them on in Windows Settings (Privacy, Location), or use the selected city or any point.';
+
+  @override
+  String get qiblaFailTimeout =>
+      'No position arrived in time. PCs rarely have GPS and Windows estimates the position from Wi-Fi. Try again or use the city.';
+
+  @override
+  String get qiblaFailUnsupported =>
+      'This device cannot report a position; the selected city is shown.';
+
+  @override
   String qiblaForLocation(String place) {
     return 'Qibla direction for $place';
   }
 
   @override
+  String get qiblaLocateAgain => 'Find again';
+
+  @override
+  String get qiblaLocateButton => 'Find my position';
+
+  @override
+  String get qiblaLocating => 'Finding your position…';
+
+  @override
+  String get qiblaMapAttribution => '© OpenStreetMap contributors';
+
+  @override
+  String get qiblaMapConsentBody =>
+      'To draw the qibla line on a map, map pictures are fetched from the internet (OpenStreetMap) and the area you look at is sent to that server. Nothing is requested until you agree. The qibla angle and distance are shown correctly without the map too.';
+
+  @override
+  String get qiblaMapConsentButton => 'Show the map';
+
+  @override
+  String get qiblaMapConsentTitle => 'Qibla map';
+
+  @override
+  String get qiblaMapKaaba => 'Kaaba';
+
+  @override
+  String get qiblaMapLineNote =>
+      'The line is the shortest path on the globe to the centre of the Kaaba. It looks curved on a flat map, but it starts in the qibla direction. The Kaaba\'s gutter is only a few metres from the centre and makes no visible difference to the direction. Press Around me to compare with streets and buildings.';
+
+  @override
+  String get qiblaMapOfflineBanner =>
+      'Map pictures cannot be loaded (no internet?). The qibla line and angle are still correct.';
+
+  @override
+  String qiblaMapSemantics(String place, String bearing, String distance) {
+    return 'Qibla map: from $place to the Kaaba, $bearing, $distance';
+  }
+
+  @override
+  String get qiblaMapTapHint => 'Tap the map to pick another point.';
+
+  @override
+  String get qiblaMapTurnOff => 'Turn the map off';
+
+  @override
+  String get qiblaMapYou => 'Your position';
+
+  @override
   String get qiblaNoCompassNote =>
       'A PC has no compass, so the drawing is relative to true north (north is at the top).';
+
+  @override
+  String get qiblaSourceCity => 'Selected city';
+
+  @override
+  String qiblaSourceCityHelp(String city) {
+    return 'The city you chose for the prayer times: $city.';
+  }
+
+  @override
+  String get qiblaSourceCustom => 'Any point';
+
+  @override
+  String get qiblaSourceCustomHelp => 'Tap the map or enter coordinates.';
+
+  @override
+  String get qiblaSourceDevice => 'This device';
+
+  @override
+  String get qiblaSourceDeviceHelp =>
+      'The position is read from the device only when you press the button; it is not stored or sent anywhere.';
+
+  @override
+  String get qiblaSourceTitle => 'Measure the qibla from';
+
+  @override
+  String get qiblaStatLatitude => 'Latitude';
+
+  @override
+  String get qiblaStatLongitude => 'Longitude';
 
   @override
   String get qiblaSunBelow => 'The sun is below the horizon.';
@@ -808,6 +939,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get qiblaSunTimesTitle => 'The sun and the qibla today';
+
+  @override
+  String get qiblaTabCompass => 'Compass and sun';
+
+  @override
+  String get qiblaTabMap => 'Map';
 
   @override
   String get qiblaTitle => 'Qibla';

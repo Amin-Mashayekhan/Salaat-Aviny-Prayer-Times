@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart' hide HourFormat;
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:owghat_lib/src/core/platform/fakes/fake_audio_output.dart';
+import 'package:owghat_lib/src/core/platform/platform_providers.dart';
 import 'package:owghat_lib/src/features/azan/application/azan_playback.dart';
 import 'package:owghat_lib/src/features/locations/data/location_repository.dart';
 import 'package:owghat_lib/src/features/onboarding/application/onboarding_providers.dart';
 import 'package:owghat_lib/src/features/settings/domain/app_settings.dart';
+import 'package:owghat_lib/src/features/settings/domain/sound_ref.dart';
 
 import '../../support/app_harness.dart';
 import '../../support/test_data.dart';
@@ -298,13 +301,37 @@ void main() {
       expect(previews, 1);
     });
 
-    testWidgets('the default preview is a harmless no-op', (tester) async {
-      final harness = await open(tester);
+    testWidgets('the default preview plays the bundled azan and the button '
+        'turns into Stop (it used to do nothing)', (tester) async {
+      final audio = FakeAudioOutput();
+      final harness = await open(
+        tester,
+        overrides: [audioOutputProvider.overrideWithValue(audio)],
+      );
       await tapKey(tester, 'onboarding-next');
       await tapKey(tester, 'onboarding-next');
       await tapKey(tester, 'onboarding-preview');
       expect(tester.takeException(), isNull);
+      expect(audio.plays.single.sound, SoundRef.defaultAzan);
+      expect(find.byKey(const Key('onboarding-stop')), findsOneWidget);
       expect(harness.current.onboardingCompleted, isFalse);
+
+      await tapKey(tester, 'onboarding-stop');
+      expect(audio.stopCount, 1);
+      expect(find.byKey(const Key('onboarding-preview')), findsOneWidget);
+    });
+
+    testWidgets('a failing preview does not crash the step', (tester) async {
+      final audio = FakeAudioOutput()..failAll = true;
+      await open(
+        tester,
+        overrides: [audioOutputProvider.overrideWithValue(audio)],
+      );
+      await tapKey(tester, 'onboarding-next');
+      await tapKey(tester, 'onboarding-next');
+      await tapKey(tester, 'onboarding-preview');
+      expect(tester.takeException(), isNull);
+      expect(find.byKey(const Key('onboarding-preview')), findsOneWidget);
     });
 
     testWidgets('while playing a Stop button replaces the preview', (

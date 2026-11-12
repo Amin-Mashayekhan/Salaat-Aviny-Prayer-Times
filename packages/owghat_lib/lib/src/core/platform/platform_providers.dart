@@ -2,8 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:owghat_lib/src/core/platform/app_notifier.dart';
 import 'package:owghat_lib/src/core/platform/audio_output.dart';
 import 'package:owghat_lib/src/core/platform/autostart_service.dart';
+import 'package:owghat_lib/src/core/platform/device_location.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_app_notifier.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_audio_output.dart';
+import 'package:owghat_lib/src/core/platform/fakes/fake_device_location.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_simple_services.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_tray_host.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_window_host.dart';
@@ -34,6 +36,11 @@ final trayHostProvider = Provider<TrayHost>((ref) => FakeTrayHost());
 /// Start-with-Windows. Overridden by `bootstrap`.
 final autostartServiceProvider = Provider<AutostartService>(
   (ref) => FakeAutostartService(),
+);
+
+/// Reads the device position on request. Overridden by `bootstrap`.
+final deviceLocationProvider = Provider<DeviceLocationService>(
+  (ref) => FakeDeviceLocation(),
 );
 
 /// File pickers. Overridden by `bootstrap`.

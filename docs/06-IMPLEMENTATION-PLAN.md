@@ -24,6 +24,8 @@ Difficulty tags tell you which model to give a task to: **[S]** simple and mecha
 | Q-3 | Sources for the occasions data (F-21). | Deferred to P1. |
 | Q-4 | Where releases are published (for the update check, F-28). | Deferred to P1. |
 | Q-5 | Should the 175 unverified legacy cities be reviewed and added? | No; ship the 566 verified ones that have a province. |
+| Q-6 | Which map tile server for the qibla map? The default is the public OpenStreetMap server, whose usage policy discourages heavy use by many users. | Keep it for now (opt-in, light use); for a wide release move to a hosted provider with an API key (MapTiler, Stadia, Thunderforest) or self-host. One constant: `qiblaTileUrlTemplate`. |
+| Q-7 | Survey-grade coordinates of the Kaaba gutter (Mizab al-Rahma)? None could be verified, so the line ends at the Kaaba reference point 21.422487, 39.826206. | Keep; add a second target only from a cited source. |
 
 ---
 

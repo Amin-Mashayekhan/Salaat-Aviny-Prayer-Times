@@ -1,21 +1,27 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:owghat_lib/src/features/azan/application/azan_playback.dart';
 import 'package:owghat_lib/src/features/locations/application/location_providers.dart';
 import 'package:owghat_lib/src/features/locations/domain/city.dart';
 import 'package:owghat_lib/src/features/locations/domain/saved_location.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
 import 'package:owghat_lib/src/features/settings/domain/app_settings.dart';
+import 'package:owghat_lib/src/features/settings/domain/sound_ref.dart';
 
 /// Number of steps of the first-run flow: language, city, azan.
 const int onboardingStepCount = 3;
 
-/// INJECTION POINT: plays a short sample of the azan for the third step.
+/// Plays the bundled azan for the third step through the shared azan player,
+/// so `azanPlaybackProvider` reports `playing` and the button turns into
+/// "stop".
 ///
-/// The default does nothing. The platform layer overrides this provider with
-/// a function that starts the preview through the audio output (and
-/// `azanPlaybackProvider` then reports `playing`).
+/// This used to be a no-op that the platform layer was supposed to override;
+/// nobody did, so the button did nothing. It now works by default and tests
+/// can still override it.
 final onboardingPreviewProvider = Provider<Future<void> Function()>(
-  (ref) => () async {},
+  (ref) => () async {
+    await ref.read(azanPlaybackProvider.notifier).preview(SoundRef.defaultAzan);
+  },
 );
 
 /// Where the first-run flow is.

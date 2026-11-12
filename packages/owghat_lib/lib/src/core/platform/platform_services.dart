@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:owghat_lib/src/core/platform/app_notifier.dart';
 import 'package:owghat_lib/src/core/platform/audio_output.dart';
 import 'package:owghat_lib/src/core/platform/autostart_service.dart';
+import 'package:owghat_lib/src/core/platform/device_location.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_app_notifier.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_audio_output.dart';
+import 'package:owghat_lib/src/core/platform/fakes/fake_device_location.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_simple_services.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_tray_host.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_window_host.dart';
@@ -32,6 +34,7 @@ class PlatformServices {
     required this.power,
     required this.singleInstance,
     required this.assetLoader,
+    this.deviceLocation = const UnsupportedDeviceLocation(),
   });
 
   /// A bundle of in-memory fakes. [supportDir] defaults to a new temporary
@@ -46,6 +49,7 @@ class PlatformServices {
     TrayHost? tray,
     AutostartService? autostart,
     SingleInstance? singleInstance,
+    DeviceLocationService? deviceLocation,
   }) => PlatformServices(
     audio: audio ?? FakeAudioOutput(),
     notifier: notifier ?? FakeAppNotifier(),
@@ -57,6 +61,7 @@ class PlatformServices {
     power: power,
     singleInstance: singleInstance ?? FakeSingleInstance(),
     assetLoader: assetLoader ?? _missingAsset,
+    deviceLocation: deviceLocation ?? FakeDeviceLocation(),
   );
 
   static Future<String> _missingAsset(String path) =>
@@ -91,4 +96,7 @@ class PlatformServices {
 
   /// Loads bundled text assets (the city database).
   final AssetTextLoader assetLoader;
+
+  /// Reads the device position when the user asks (qibla map).
+  final DeviceLocationService deviceLocation;
 }

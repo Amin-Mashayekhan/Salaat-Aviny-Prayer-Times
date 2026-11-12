@@ -2,6 +2,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:owghat/src/platform/audioplayers_output.dart';
 import 'package:owghat/src/platform/file_selector_dialogs.dart';
 import 'package:owghat/src/platform/flutter_local_notifier.dart';
+import 'package:owghat/src/platform/geolocator_device_location.dart';
 import 'package:owghat/src/platform/path_provider_paths.dart';
 import 'package:owghat/src/platform/registry_autostart.dart';
 import 'package:owghat/src/platform/tray_manager_host.dart';
@@ -27,5 +28,6 @@ Future<PlatformServices> createWindowsPlatformServices() async {
     power: WindowsPowerEvents(),
     singleInstance: WindowsSingleInstanceGuard(),
     assetLoader: rootBundle.loadString,
+    deviceLocation: const GeolocatorDeviceLocation(),
   );
 }

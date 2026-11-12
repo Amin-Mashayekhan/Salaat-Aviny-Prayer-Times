@@ -3,6 +3,10 @@ import 'package:owghat_lib/src/features/settings/domain/app_settings.dart';
 /// Length of the optional fade-in at the start of an azan.
 const Duration azanFadeInDuration = Duration(seconds: 2);
 
+/// How long a preview (the "test sound" buttons) plays before it stops by
+/// itself. Real azans are never cut.
+const Duration azanPreviewLimit = Duration(seconds: 15);
+
 /// The volume an azan plays at: the master volume times the volume of the
 /// prayer, both 0 to 1, so the result is also 0 to 1.
 double effectiveAzanVolume({

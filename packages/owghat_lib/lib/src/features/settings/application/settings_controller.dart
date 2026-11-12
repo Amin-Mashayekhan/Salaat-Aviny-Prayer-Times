@@ -284,6 +284,10 @@ class SettingsController extends Notifier<AppSettings> {
   void setNetworkTime(NetworkTimeSettings value) =>
       state = state.copyWith(networkTime: value);
 
+  /// Agrees (or stops agreeing) to load qibla map tiles from the internet.
+  void setQiblaMapEnabled({required bool enabled}) =>
+      state = state.copyWith(qibla: state.qibla.copyWith(mapEnabled: enabled));
+
   // ---- wake-up alarms ------------------------------------------------
 
   /// Adds or replaces a wake-up alarm.

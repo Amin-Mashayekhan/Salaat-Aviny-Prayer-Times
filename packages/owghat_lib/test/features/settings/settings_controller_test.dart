@@ -253,6 +253,17 @@ void main() {
       );
       expect(state().networkTime.host, 'time.google.com');
     });
+
+    test('the qibla map switch writes only its own field', () {
+      expect(state().qibla.mapEnabled, isFalse);
+      final before = state().copyWith(
+        qibla: const QiblaSettings(mapEnabled: true),
+      );
+      controller().setQiblaMapEnabled(enabled: true);
+      expect(state(), before);
+      controller().setQiblaMapEnabled(enabled: false);
+      expect(state().qibla.mapEnabled, isFalse);
+    });
   });
 
   group('wake alarms', () {

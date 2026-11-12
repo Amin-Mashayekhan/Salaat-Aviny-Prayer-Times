@@ -33,7 +33,7 @@ class AppLocalizationsFa extends AppLocalizations {
   }
 
   @override
-  String get appName => 'Salaat | Avini Prayer Times';
+  String get appName => 'Salaat | Aviny Prayer Times';
 
   @override
   String get calendarAdjustEarlier => 'یک روز زودتر';
@@ -729,12 +729,26 @@ class AppLocalizationsFa extends AppLocalizations {
   String get prayerSunset => 'غروب آفتاب';
 
   @override
+  String qiblaAccuracyValue(String meters) {
+    return 'دقت تقریبی: $meters متر';
+  }
+
+  @override
   String get qiblaBearingLabel => 'زاویه‌ی قبله (از شمال حقیقی، ساعت‌گرد)';
 
   @override
   String qiblaBearingValue(String degrees, String direction) {
     return '$degrees° ($direction)';
   }
+
+  @override
+  String get qiblaCamKaaba => 'کعبه';
+
+  @override
+  String get qiblaCamNearby => 'اطراف من';
+
+  @override
+  String get qiblaCamOverview => 'مسیر کامل';
 
   @override
   String qiblaCardinal(String point) {
@@ -759,6 +773,22 @@ class AppLocalizationsFa extends AppLocalizations {
   }
 
   @override
+  String get qiblaCoordsApply => 'نمایش';
+
+  @override
+  String get qiblaCoordsHint => 'مثلاً ۳۶٫۲۱۳۳، ۵۸٫۷۹۵۸';
+
+  @override
+  String get qiblaCoordsInvalid =>
+      'مختصات معتبر نیست. عرض باید بین ۹۰- و ۹۰ و طول بین ۱۸۰- و ۱۸۰ باشد.';
+
+  @override
+  String get qiblaCoordsLabel => 'عرض و طول جغرافیایی';
+
+  @override
+  String get qiblaDeviceFixShown => 'موقعیت دستگاه نشان داده می‌شود.';
+
+  @override
   String get qiblaDistanceLabel => 'فاصله تا کعبه';
 
   @override
@@ -767,13 +797,114 @@ class AppLocalizationsFa extends AppLocalizations {
   }
 
   @override
+  String get qiblaFailGeneric =>
+      'موقعیت خوانده نشد؛ شهر انتخاب‌شده نشان داده می‌شود.';
+
+  @override
+  String get qiblaFailPermissionDenied =>
+      'ویندوز اجازه‌ی خواندن موقعیت را به این برنامه نداده است. در تنظیمات ویندوز (حریم خصوصی و امنیت، موقعیت مکانی) هم «موقعیت مکانی» و هم «اجازه به برنامه‌های رومیزی» را روشن کنید و دوباره امتحان کنید؛ یا از شهر انتخاب‌شده استفاده کنید.';
+
+  @override
+  String get qiblaFailPermissionForever =>
+      'دسترسی به موقعیت مکانی رد شده است. در تنظیمات ویندوز (حریم خصوصی و امنیت، موقعیت مکانی) «اجازه به برنامه‌های رومیزی» را روشن کنید.';
+
+  @override
+  String get qiblaFailServiceDisabled =>
+      'سرویس موقعیت‌یابی ویندوز خاموش است. آن را در تنظیمات ویندوز (حریم خصوصی، موقعیت مکانی) روشن کنید، یا «شهر انتخاب‌شده» و «نقطه‌ی دلخواه» را به کار ببرید.';
+
+  @override
+  String get qiblaFailTimeout =>
+      'موقعیت به‌موقع به دست نیامد. رایانه‌ها معمولاً GPS ندارند و ویندوز موقعیت را از Wi-Fi تخمین می‌زند. دوباره امتحان کنید یا شهر را به کار ببرید.';
+
+  @override
+  String get qiblaFailUnsupported =>
+      'این دستگاه موقعیت‌یابی ندارد؛ شهر انتخاب‌شده نشان داده می‌شود.';
+
+  @override
   String qiblaForLocation(String place) {
     return 'جهت قبله برای $place';
   }
 
   @override
+  String get qiblaLocateAgain => 'یافتن دوباره';
+
+  @override
+  String get qiblaLocateButton => 'یافتن موقعیت من';
+
+  @override
+  String get qiblaLocating => 'در حال یافتن موقعیت…';
+
+  @override
+  String get qiblaMapAttribution => '© مشارکت‌کنندگان OpenStreetMap';
+
+  @override
+  String get qiblaMapConsentBody =>
+      'برای دیدن خط قبله روی نقشه، تصاویر نقشه از اینترنت (OpenStreetMap) گرفته می‌شود و ناحیه‌ای که می‌بینید به آن سرور فرستاده می‌شود. تا شما نخواهید هیچ درخواستی فرستاده نمی‌شود. بدون نقشه هم زاویه و فاصله‌ی قبله درست نشان داده می‌شود.';
+
+  @override
+  String get qiblaMapConsentButton => 'نمایش نقشه';
+
+  @override
+  String get qiblaMapConsentTitle => 'نقشه‌ی قبله';
+
+  @override
+  String get qiblaMapKaaba => 'کعبه';
+
+  @override
+  String get qiblaMapLineNote =>
+      'خط، کوتاه‌ترین مسیر روی کره‌ی زمین تا مرکز کعبه است. روی نقشه‌ی تخت منحنی دیده می‌شود، ولی جهت شروعش همان زاویه‌ی قبله است. ناودان کعبه فقط چند متر با مرکز فاصله دارد و در جهت قبله اثری قابل‌دیدن ندارد. برای مقایسه با خیابان‌ها و ساختمان‌ها «اطراف من» را بزنید.';
+
+  @override
+  String get qiblaMapOfflineBanner =>
+      'تصاویر نقشه گرفته نمی‌شود (اینترنت قطع است؟). خط و زاویه‌ی قبله همچنان درست است.';
+
+  @override
+  String qiblaMapSemantics(String place, String bearing, String distance) {
+    return 'نقشه‌ی قبله: از $place تا کعبه، $bearing، $distance';
+  }
+
+  @override
+  String get qiblaMapTapHint => 'برای انتخاب نقطه‌ی دیگر، روی نقشه بزنید.';
+
+  @override
+  String get qiblaMapTurnOff => 'خاموش‌کردن نقشه';
+
+  @override
+  String get qiblaMapYou => 'موقعیت شما';
+
+  @override
   String get qiblaNoCompassNote =>
       'رایانه قطب‌نما ندارد؛ شکل نسبت به شمال حقیقی رسم شده است (شمال بالاست).';
+
+  @override
+  String get qiblaSourceCity => 'شهر انتخاب‌شده';
+
+  @override
+  String qiblaSourceCityHelp(String city) {
+    return 'شهری که برای اوقات شرعی انتخاب کرده‌اید: $city.';
+  }
+
+  @override
+  String get qiblaSourceCustom => 'نقطه‌ی دلخواه';
+
+  @override
+  String get qiblaSourceCustomHelp => 'روی نقشه بزنید یا مختصات را وارد کنید.';
+
+  @override
+  String get qiblaSourceDevice => 'موقعیت دستگاه';
+
+  @override
+  String get qiblaSourceDeviceHelp =>
+      'موقعیت فقط وقتی دکمه را بزنید از دستگاه خوانده می‌شود و ذخیره یا فرستاده نمی‌شود.';
+
+  @override
+  String get qiblaSourceTitle => 'قبله را از کجا حساب کنم؟';
+
+  @override
+  String get qiblaStatLatitude => 'عرض جغرافیایی';
+
+  @override
+  String get qiblaStatLongitude => 'طول جغرافیایی';
 
   @override
   String get qiblaSunBelow => 'خورشید زیر افق است.';
@@ -805,6 +936,12 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get qiblaSunTimesTitle => 'خورشید و قبله امروز';
+
+  @override
+  String get qiblaTabCompass => 'قطب‌نما و خورشید';
+
+  @override
+  String get qiblaTabMap => 'نقشه';
 
   @override
   String get qiblaTitle => 'قبله';

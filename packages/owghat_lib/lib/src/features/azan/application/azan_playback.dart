@@ -80,6 +80,17 @@ class AzanPlaybackController extends Notifier<AzanPlaybackState> {
   /// tracked: it is short and does not show in the UI).
   bool _tracking = false;
 
+  /// Whether the current session is known to be playing on the device: a
+  /// `playing` event arrived, or `play` returned. Until then an "ended" report
+  /// can only belong to the sound that was playing before, and is ignored.
+  bool _confirmed = false;
+
+  /// Whether the current session is a preview. A preview is ended by the
+  /// position reports once it has played for [azanPreviewLimit], so testing a
+  /// full-length azan does not keep the "stop" button up for minutes. (It is
+  /// driven by the audio output's own position events, not by a timer.)
+  bool _isPreview = false;
+
   /// The sound of the tracked session and how it was requested, so that an
   /// asynchronous playback failure can fall back to the default sound.
   SoundRef? _sound;
@@ -116,12 +127,15 @@ class AzanPlaybackController extends Notifier<AzanPlaybackState> {
 
   /// Plays [sound] for the settings screen, at the master volume times
   /// [volume] (0 to 1).
+  ///
+  /// A preview ends by itself after [azanPreviewLimit].
   Future<AzanPlayResult> preview(SoundRef sound, {double volume = 1}) {
     final azan = ref.read(settingsProvider).azan;
     return _start(
       sound: sound,
       volume: effectiveAzanVolume(master: azan.masterVolume, perPrayer: volume),
       fadeIn: fadeInFor(azan),
+      limit: true,
     );
   }
 
@@ -144,8 +158,11 @@ class AzanPlaybackController extends Notifier<AzanPlaybackState> {
     if (!_tracking && !state.playing) return;
     _session++;
     _tracking = false;
+    _confirmed = false;
+    _isPreview = false;
     _sound = null;
     state = const AzanPlaybackState();
+    _log.info('Stopped');
     try {
       await ref.read(audioOutputProvider).stop();
     } on Object catch (error, stack) {
@@ -158,15 +175,22 @@ class AzanPlaybackController extends Notifier<AzanPlaybackState> {
     required double volume,
     required Duration fadeIn,
     Prayer? prayer,
+    bool limit = false,
   }) async {
     final output = ref.read(audioOutputProvider);
     _listenTo(output);
     final session = ++_session;
     _tracking = true;
+    _confirmed = false;
+    _isPreview = limit;
     _sound = sound;
     _volume = volume;
     _fadeIn = fadeIn;
     state = AzanPlaybackState(playing: true, prayer: prayer);
+    _log.info(
+      'Start ${prayer?.name ?? 'preview'}: $sound '
+      'volume=${volume.toStringAsFixed(2)} fadeIn=${fadeIn.inSeconds}s',
+    );
 
     var usedFallback = false;
     try {
@@ -189,6 +213,7 @@ class AzanPlaybackController extends Notifier<AzanPlaybackState> {
       }
     }
     if (session != _session) return AzanPlayResult.played;
+    _confirmed = true;
     final length = output.duration;
     if (length != null && state.duration == null) {
       state = AzanPlaybackState(
@@ -204,6 +229,8 @@ class AzanPlaybackController extends Notifier<AzanPlaybackState> {
   AzanPlayResult _giveUp(int session) {
     if (session == _session) {
       _tracking = false;
+      _confirmed = false;
+      _isPreview = false;
       _sound = null;
       state = const AzanPlaybackState();
     }
@@ -221,6 +248,12 @@ class AzanPlaybackController extends Notifier<AzanPlaybackState> {
     if (!_tracking) return;
     switch (audio.status) {
       case AudioStatus.playing:
+        _confirmed = true;
+        if (_isPreview && audio.position >= azanPreviewLimit) {
+          _log.info('Preview limit reached');
+          unawaited(stop());
+          break;
+        }
         state = AzanPlaybackState(
           playing: true,
           prayer: state.prayer,
@@ -229,7 +262,16 @@ class AzanPlaybackController extends Notifier<AzanPlaybackState> {
           duration: audio.duration ?? state.duration,
         );
       case AudioStatus.completed:
+        // A "completed" that arrives before this session is known to be
+        // playing is left over from the previous sound.
+        if (!_confirmed) {
+          _log.fine('Ignored an "ended" report from the previous sound');
+          break;
+        }
+        _log.info('Finished');
         _tracking = false;
+        _confirmed = false;
+        _isPreview = false;
         _sound = null;
         state = const AzanPlaybackState();
       case AudioStatus.failed:

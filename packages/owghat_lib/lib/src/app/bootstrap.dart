@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:logging/logging.dart';
 import 'package:owghat_lib/src/app/app.dart';
 import 'package:owghat_lib/src/app/startup_info.dart';
+import 'package:owghat_lib/src/core/logging/file_log_sink.dart';
 import 'package:owghat_lib/src/core/platform/launch_args.dart';
 import 'package:owghat_lib/src/core/platform/platform_providers.dart';
 import 'package:owghat_lib/src/core/platform/platform_services.dart';
@@ -63,7 +65,7 @@ Future<void> bootstrap(
   List<Override> extraOverrides = const [],
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
-  _initLogging();
+  _initLogging(services.paths.logDir);
   FlutterError.onError = (details) {
     _log.severe('Flutter error', details.exception, details.stack);
     FlutterError.presentError(details);
@@ -123,6 +125,7 @@ Future<AppRuntime> prepareApp({
       eventDispatcherProvider.overrideWith(AppScheduleDispatcher.new),
       powerEventsProvider.overrideWithValue(services.power),
       audioOutputProvider.overrideWithValue(services.audio),
+      deviceLocationProvider.overrideWithValue(services.deviceLocation),
       appNotifierProvider.overrideWithValue(services.notifier),
       windowHostProvider.overrideWithValue(services.window),
       trayHostProvider.overrideWithValue(services.tray),
@@ -172,7 +175,7 @@ Future<AppRuntime> prepareApp({
   final wakeController = container.read(wakeAlarmControllerProvider.notifier);
   final wakeId = args.wakeAlarmId;
   if (wakeId != null) unawaited(wakeController.noteWakeLaunch(wakeId));
-  _log.fine('Started: ${engine.events.length} events scheduled');
+  _log.info('Started: ${engine.events.length} events scheduled');
 
   return AppRuntime(
     container: container,
@@ -184,9 +187,13 @@ Future<AppRuntime> prepareApp({
   );
 }
 
-void _initLogging() {
+void _initLogging(Directory logDirectory) {
   Logger.root.level = kDebugMode ? Level.ALL : Level.INFO;
+  // Until now nothing was written to disk even though the About page shows a
+  // log folder, so problems seen on a user's PC could not be investigated.
+  final sink = FileLogSink(logDirectory);
   Logger.root.onRecord.listen((record) {
+    sink.write(record);
     if (!kDebugMode) return;
     final error = record.error == null ? '' : ' ${record.error}';
     debugPrint(

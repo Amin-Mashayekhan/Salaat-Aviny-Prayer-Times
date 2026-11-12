@@ -13,7 +13,7 @@
       }
     }
   },
-  "appName": "Salaat | Avini Prayer Times",
+  "appName": "Salaat | Aviny Prayer Times",
   "calendarAdjustEarlier": "یک روز زودتر",
   "calendarAdjustLater": "یک روز دیرتر",
   "calendarAdjustValue": "{value} روز",
@@ -563,6 +563,14 @@
   "prayerMidnight": "نیمه‌شب شرعی",
   "prayerSunrise": "طلوع آفتاب",
   "prayerSunset": "غروب آفتاب",
+  "qiblaAccuracyValue": "دقت تقریبی: {meters} متر",
+  "@qiblaAccuracyValue": {
+    "placeholders": {
+      "meters": {
+        "type": "String"
+      }
+    }
+  },
   "qiblaBearingLabel": "زاویه‌ی قبله (از شمال حقیقی، ساعت‌گرد)",
   "qiblaBearingValue": "{degrees}° ({direction})",
   "@qiblaBearingValue": {
@@ -575,6 +583,9 @@
       }
     }
   },
+  "qiblaCamKaaba": "کعبه",
+  "qiblaCamNearby": "اطراف من",
+  "qiblaCamOverview": "مسیر کامل",
   "qiblaCardinal": "{point, select, n{شمال} e{شرق} s{جنوب} w{غرب} other{}}",
   "@qiblaCardinal": {
     "placeholders": {
@@ -605,6 +616,11 @@
       }
     }
   },
+  "qiblaCoordsApply": "نمایش",
+  "qiblaCoordsHint": "مثلاً ۳۶٫۲۱۳۳، ۵۸٫۷۹۵۸",
+  "qiblaCoordsInvalid": "مختصات معتبر نیست. عرض باید بین ۹۰- و ۹۰ و طول بین ۱۸۰- و ۱۸۰ باشد.",
+  "qiblaCoordsLabel": "عرض و طول جغرافیایی",
+  "qiblaDeviceFixShown": "موقعیت دستگاه نشان داده می‌شود.",
   "qiblaDistanceLabel": "فاصله تا کعبه",
   "qiblaDistanceValue": "{km} کیلومتر",
   "@qiblaDistanceValue": {
@@ -614,6 +630,12 @@
       }
     }
   },
+  "qiblaFailGeneric": "موقعیت خوانده نشد؛ شهر انتخاب‌شده نشان داده می‌شود.",
+  "qiblaFailPermissionDenied": "ویندوز اجازه‌ی خواندن موقعیت را به این برنامه نداده است. در تنظیمات ویندوز (حریم خصوصی و امنیت، موقعیت مکانی) هم «موقعیت مکانی» و هم «اجازه به برنامه‌های رومیزی» را روشن کنید و دوباره امتحان کنید؛ یا از شهر انتخاب‌شده استفاده کنید.",
+  "qiblaFailPermissionForever": "دسترسی به موقعیت مکانی رد شده است. در تنظیمات ویندوز (حریم خصوصی و امنیت، موقعیت مکانی) «اجازه به برنامه‌های رومیزی» را روشن کنید.",
+  "qiblaFailServiceDisabled": "سرویس موقعیت‌یابی ویندوز خاموش است. آن را در تنظیمات ویندوز (حریم خصوصی، موقعیت مکانی) روشن کنید، یا «شهر انتخاب‌شده» و «نقطه‌ی دلخواه» را به کار ببرید.",
+  "qiblaFailTimeout": "موقعیت به‌موقع به دست نیامد. رایانه‌ها معمولاً GPS ندارند و ویندوز موقعیت را از Wi-Fi تخمین می‌زند. دوباره امتحان کنید یا شهر را به کار ببرید.",
+  "qiblaFailUnsupported": "این دستگاه موقعیت‌یابی ندارد؛ شهر انتخاب‌شده نشان داده می‌شود.",
   "qiblaForLocation": "جهت قبله برای {place}",
   "@qiblaForLocation": {
     "placeholders": {
@@ -622,7 +644,50 @@
       }
     }
   },
+  "qiblaLocateAgain": "یافتن دوباره",
+  "qiblaLocateButton": "یافتن موقعیت من",
+  "qiblaLocating": "در حال یافتن موقعیت…",
+  "qiblaMapAttribution": "© مشارکت‌کنندگان OpenStreetMap",
+  "qiblaMapConsentBody": "برای دیدن خط قبله روی نقشه، تصاویر نقشه از اینترنت (OpenStreetMap) گرفته می‌شود و ناحیه‌ای که می‌بینید به آن سرور فرستاده می‌شود. تا شما نخواهید هیچ درخواستی فرستاده نمی‌شود. بدون نقشه هم زاویه و فاصله‌ی قبله درست نشان داده می‌شود.",
+  "qiblaMapConsentButton": "نمایش نقشه",
+  "qiblaMapConsentTitle": "نقشه‌ی قبله",
+  "qiblaMapKaaba": "کعبه",
+  "qiblaMapLineNote": "خط، کوتاه‌ترین مسیر روی کره‌ی زمین تا مرکز کعبه است. روی نقشه‌ی تخت منحنی دیده می‌شود، ولی جهت شروعش همان زاویه‌ی قبله است. ناودان کعبه فقط چند متر با مرکز فاصله دارد و در جهت قبله اثری قابل‌دیدن ندارد. برای مقایسه با خیابان‌ها و ساختمان‌ها «اطراف من» را بزنید.",
+  "qiblaMapOfflineBanner": "تصاویر نقشه گرفته نمی‌شود (اینترنت قطع است؟). خط و زاویه‌ی قبله همچنان درست است.",
+  "qiblaMapSemantics": "نقشه‌ی قبله: از {place} تا کعبه، {bearing}، {distance}",
+  "@qiblaMapSemantics": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      },
+      "bearing": {
+        "type": "String"
+      },
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaMapTapHint": "برای انتخاب نقطه‌ی دیگر، روی نقشه بزنید.",
+  "qiblaMapTurnOff": "خاموش‌کردن نقشه",
+  "qiblaMapYou": "موقعیت شما",
   "qiblaNoCompassNote": "رایانه قطب‌نما ندارد؛ شکل نسبت به شمال حقیقی رسم شده است (شمال بالاست).",
+  "qiblaSourceCity": "شهر انتخاب‌شده",
+  "qiblaSourceCityHelp": "شهری که برای اوقات شرعی انتخاب کرده‌اید: {city}.",
+  "@qiblaSourceCityHelp": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaSourceCustom": "نقطه‌ی دلخواه",
+  "qiblaSourceCustomHelp": "روی نقشه بزنید یا مختصات را وارد کنید.",
+  "qiblaSourceDevice": "موقعیت دستگاه",
+  "qiblaSourceDeviceHelp": "موقعیت فقط وقتی دکمه را بزنید از دستگاه خوانده می‌شود و ذخیره یا فرستاده نمی‌شود.",
+  "qiblaSourceTitle": "قبله را از کجا حساب کنم؟",
+  "qiblaStatLatitude": "عرض جغرافیایی",
+  "qiblaStatLongitude": "طول جغرافیایی",
   "qiblaSunBelow": "خورشید زیر افق است.",
   "qiblaSunInHelp": "در این لحظه خورشید دقیقاً در جهت قبله است؛ رو به خورشید بایستید.",
   "qiblaSunInTitle": "خورشید در جهت قبله (مقارنه)",
@@ -642,6 +707,8 @@
   "qiblaSunOppHelp": "در این لحظه سایه‌ی شاخص جهت قبله را نشان می‌دهد.",
   "qiblaSunOppTitle": "خورشید در جهت مخالف قبله (مقابله)",
   "qiblaSunTimesTitle": "خورشید و قبله امروز",
+  "qiblaTabCompass": "قطب‌نما و خورشید",
+  "qiblaTabMap": "نقشه",
   "qiblaTitle": "قبله",
   "settingsAboutPlaceholder": "نسخه، مجوزها و صفحه‌ی عیب‌یابی در این بخش نمایش داده می‌شود.",
   "settingsAppAutostart": "اجرا با ویندوز",

@@ -356,7 +356,7 @@ void main() {
   group('about', () {
     diagTest('name, version, notes', (tester) async {
       await pump(tester);
-      expect(find.text('Salaat | Avini Prayer Times'), findsOneWidget);
+      expect(find.text('Salaat | Aviny Prayer Times'), findsOneWidget);
       expect(text(tester, 'about-version'), contains('1.0.0'));
       expect(text(tester, 'about-version'), startsWith('نسخه‌ی'));
       expect(

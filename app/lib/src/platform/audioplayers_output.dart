@@ -34,6 +34,7 @@ class AudioplayersOutput implements AudioOutput {
       StreamController<AudioPlaybackState>.broadcast();
 
   StreamSubscription<double>? _fade;
+  Timer? _watchdog;
   AudioStatus _status = AudioStatus.stopped;
   Duration _position = Duration.zero;
   Duration? _duration;
@@ -54,6 +55,10 @@ class AudioplayersOutput implements AudioOutput {
     await _cancelFade();
     _duration = null;
     _position = Duration.zero;
+    // A new sound starts from "nothing yet". Without this reset the previous
+    // sound's `completed` status was re-sent by the next position or duration
+    // event, which made the library think the new sound had already ended.
+    _status = AudioStatus.stopped;
     final target = volume.clamp(0.0, 1.0);
     // With a fade-in the sound starts silent and the ramp raises the volume.
     await _player.play(source, volume: fadeIn > Duration.zero ? 0 : target);
@@ -74,6 +79,7 @@ class AudioplayersOutput implements AudioOutput {
 
   /// Releases the native player.
   Future<void> dispose() async {
+    _stopWatchdog();
     await _cancelFade();
     for (final subscription in _subscriptions) {
       await subscription.cancel();
@@ -117,23 +123,52 @@ class AudioplayersOutput implements AudioOutput {
     }
   }
 
+  // Position and duration updates are only forwarded while a sound is really
+  // playing; before that they are remembered and ride along with the next
+  // `playing` snapshot.
   void _onPosition(Duration position) {
     _position = position;
-    _emit(_status);
+    if (_status == AudioStatus.playing) _emit(AudioStatus.playing);
   }
 
   void _onDuration(Duration duration) {
     _duration = duration;
-    _emit(_status);
+    if (_status == AudioStatus.playing) _emit(AudioStatus.playing);
   }
 
   void _onComplete() {
     unawaited(_cancelFade());
-    _emit(AudioStatus.completed);
+    if (_status != AudioStatus.completed) _emit(AudioStatus.completed);
+  }
+
+  /// While a sound plays, ask the native player once a second whether it is
+  /// still playing. The end-of-sound event comes from a native thread (the
+  /// engine logs "message sent on a non-platform thread"), so it must not be
+  /// the only thing that can end a playback.
+  void _startWatchdog() {
+    _watchdog ??= Timer.periodic(const Duration(seconds: 1), (_) {
+      if (_status != AudioStatus.playing) return;
+      final state = _player.state;
+      if (state == PlayerState.completed ||
+          state == PlayerState.stopped ||
+          state == PlayerState.disposed) {
+        _onComplete();
+      }
+    });
+  }
+
+  void _stopWatchdog() {
+    _watchdog?.cancel();
+    _watchdog = null;
   }
 
   void _emit(AudioStatus status) {
     _status = status;
+    if (status == AudioStatus.playing) {
+      _startWatchdog();
+    } else {
+      _stopWatchdog();
+    }
     if (_states.isClosed) return;
     _states.add(
       AudioPlaybackState(

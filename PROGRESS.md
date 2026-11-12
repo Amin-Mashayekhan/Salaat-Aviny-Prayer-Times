@@ -5,19 +5,32 @@ real Windows PC (needs the manual checklist in `docs/manual-test-checklist*.md`)
 
 ## Status (2026-11-12)
 
-- Library `packages/owghat_lib`: 767 tests, `flutter analyze` clean. `packages/prayer_core`: 374 tests,
-  100 % line coverage, `dart analyze` clean. `app/`: `flutter analyze` clean.
+- Library `packages/owghat_lib`: 841 tests, `flutter analyze` clean. `packages/prayer_core`: 390 tests,
+  100 % line coverage (427/427), `dart analyze` clean. `app/`: `flutter analyze` clean.
 - **`flutter build windows --release` now succeeds** (Visual Studio Build Tools 2022 with the VCTools
   workload + ATL, Windows SDK 10.0.22621, Developer Mode on). The first launch of `owghat.exe` was checked:
   the window opens, responds, and shows the Persian onboarding screen; no crash in 10 s. This was a smoke
   test only. Tray, toasts, audio, autostart, single instance, power events and every wake-up path are still
   `[~]`: compiled, not exercised.
+- 2026-11-12 fixes from the first hands-on session: (1) onboarding step 3 "play sample" did nothing (its
+  injection point was never overridden) and now plays the bundled azan; (2) the sound test could show
+  "stop" with the sound already over: the Windows output re-sent the previous sound's `completed` status
+  during the next sound's start (reproduced with a probe against the real plugin, fixed in
+  `AudioplayersOutput` and guarded in `AzanPlaybackController`), and previews now end after 15 s;
+  (3) a rotating file log (`<app data>\logs\salaat.log`) now exists; the About page showed a log folder
+  that was never written.
+- Qibla map (new, 2026-11-12): the Qibla page has a Map tab (position pin, great-circle line, arrow and
+  Kaaba marker on OpenStreetMap tiles; sources: prayer-times city, this device, any point by tap or
+  coordinates; camera: whole route / around me / Kaaba) next to the old compass tab. The map is opt-in
+  (`qibla.mapEnabled`, off by default). Checked in the real app window with real tiles (overview). Not
+  checked visually: the street-level zoom (only by tests) and a successful GPS fix: on the dev PC Windows
+  answers `permissionDenied` to desktop apps, which the page explains.
 - Build environment notes: the `audioplayers_windows` plugin fetches WIL through NuGet, so a NuGet source
   (nuget.org) must be configured. `flutter_local_notifications_windows` needs the ATL component. If a
   configure step fails once, or after renaming `BINARY_NAME` (the exe is now `salaat.exe`), delete `app/build/windows/x64/CMakeCache.txt`: the cache keeps the default
   install prefix `C:/Program Files/owghat` and the INSTALL step then fails with "file cannot create directory".
 - Next steps for the owner: (1) run `docs/manual-test-checklist.md` and `docs/manual-test-checklist-wake.md`
-  on Windows 10 and 11; (2) compile `app/windows/installer/owghat.iss` (Inno Setup is not installed here);
+  on Windows 10 and 11; (2) compile `app/windows/installer/salaat.iss` (Inno Setup is not installed here);
   (3) answer the open questions below; (4) tag `v1.0.0`.
 
 ## Blocked
@@ -28,12 +41,12 @@ real Windows PC (needs the manual checklist in `docs/manual-test-checklist*.md`)
 ## Open questions for the owner
 
 See the table at the top of `docs/06-IMPLEMENTATION-PLAN.md` (Q-1 ... Q-5). Defaults in force: name
-"Salaat | Avini Prayer Times" (decided 2026-11-12), generated placeholder sounds only (no azan recording shipped), 566 verified cities.
+"Salaat | Aviny Prayer Times" (decided 2026-11-12), generated placeholder sounds only (no azan recording shipped), 566 verified cities.
 
 ## Tasks
 
 ### M0 - Repository and toolchain
-- [x] M0.1 Install and pin the toolchain (Flutter 3.47.9 at `E:\Ermile	oolslutter`; VS C++ missing)
+- [x] M0.1 Install and pin the toolchain (Flutter 3.47.9 at `E:\Ermile\tools\flutter`; VS C++ missing)
 - [x] M0.2 Create the workspace
 - [x] M0.3 CI (`.github/workflows/ci.yml`, not yet run on GitHub)
 - [x] M0.4 App skeleton
@@ -89,7 +102,7 @@ See the table at the top of `docs/06-IMPLEMENTATION-PLAN.md` (Q-1 ... Q-5). Defa
 
 ### M9 - Packaging and release
 - [x] M9.1 Metadata and icons (Runner.rc company/product "Salaat", generated icons)
-- [~] M9.2 Installer script `app/windows/installer/owghat.iss` (never compiled)
+- [~] M9.2 Installer script `app/windows/installer/salaat.iss` (never compiled)
 - [x] M9.3 Manual test checklists
 - [ ] M9.4 Release build and tag
 - [x] M9.5 User README, CONTRIBUTING

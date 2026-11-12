@@ -50,6 +50,14 @@ void main() {
         .read(destinationProvider.notifier)
         .select(Destination.qibla);
     await tester.pumpAndSettle();
+    // The page opens on the map tab; these tests are about the compass tab.
+    await tester.tap(
+      find.descendant(
+        of: find.byKey(const Key('qibla-tabs')),
+        matching: find.byIcon(Icons.explore_outlined),
+      ),
+    );
+    await tester.pumpAndSettle();
     return harness;
   }
 

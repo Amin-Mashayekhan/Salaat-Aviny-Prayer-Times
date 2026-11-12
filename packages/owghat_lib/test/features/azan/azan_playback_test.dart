@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:owghat_lib/src/core/platform/audio_output.dart';
 import 'package:owghat_lib/src/core/time/fade_ramp.dart';
 import 'package:owghat_lib/src/features/azan/application/azan_playback.dart';
 import 'package:owghat_lib/src/features/azan/application/mute_providers.dart';
@@ -229,6 +232,76 @@ void main() {
       addTearDown(w.dispose);
       w.audio.failAll = true;
       await w.read(azanPlaybackProvider.notifier).playChime();
+    });
+  });
+
+  group('sound test regressions (2026-11-12)', () {
+    test('an "ended" report left over from the previous sound is ignored '
+        'while the new one is still starting', () async {
+      final w = PlatformWorld(repo, settings: _settings());
+      addTearDown(w.dispose);
+      final controller = w.read(azanPlaybackProvider.notifier);
+      const sound = SoundRef.file('C:/sounds/x.mp3');
+
+      final gate = Completer<void>();
+      w.audio.playGate = gate.future;
+      final starting = controller.preview(sound);
+      // The previous sound's "completed" arrives before the device reports
+      // that the new one plays (this is what the Windows backend did).
+      w.audio.emit(const AudioPlaybackState(status: AudioStatus.completed));
+      await settle();
+      expect(w.read(azanPlaybackProvider).playing, isTrue);
+
+      gate.complete();
+      await starting;
+      expect(w.read(azanPlaybackProvider).playing, isTrue);
+
+      // The real end of the new sound still ends it.
+      w.audio.complete();
+      await settle();
+      expect(w.read(azanPlaybackProvider), const AzanPlaybackState());
+    });
+
+    test(
+      'a preview stops by itself once it has played for the limit',
+      () async {
+        final w = PlatformWorld(repo, settings: _settings());
+        addTearDown(w.dispose);
+        await w
+            .read(azanPlaybackProvider.notifier)
+            .preview(const SoundRef.file('C:/sounds/long.mp3'));
+        w.audio.emitPosition(azanPreviewLimit - const Duration(seconds: 1));
+        await settle();
+        expect(w.read(azanPlaybackProvider).playing, isTrue);
+
+        w.audio.emitPosition(azanPreviewLimit);
+        await settle();
+        expect(w.read(azanPlaybackProvider).playing, isFalse);
+        expect(w.audio.stopCount, 1);
+      },
+    );
+
+    test('a real azan is never cut by the preview limit', () async {
+      final w = PlatformWorld(repo, settings: _settings());
+      addTearDown(w.dispose);
+      await w.read(azanPlaybackProvider.notifier).playAzan(Prayer.fajr);
+      w.audio.emitPosition(azanPreviewLimit * 4);
+      await settle();
+      expect(w.read(azanPlaybackProvider).playing, isTrue);
+      expect(w.audio.stopCount, 0);
+    });
+
+    test('a new preview starts counting from zero again', () async {
+      final w = PlatformWorld(repo, settings: _settings());
+      addTearDown(w.dispose);
+      final controller = w.read(azanPlaybackProvider.notifier);
+      await controller.preview(const SoundRef.file('C:/a.mp3'));
+      w.audio.emitPosition(const Duration(seconds: 10));
+      await controller.preview(const SoundRef.file('C:/b.mp3'));
+      w.audio.emitPosition(const Duration(seconds: 10));
+      await settle();
+      expect(w.read(azanPlaybackProvider).playing, isTrue);
+      expect(w.audio.stopCount, 0);
     });
   });
 

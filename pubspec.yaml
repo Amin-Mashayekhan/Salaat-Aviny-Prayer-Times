@@ -1,5 +1,5 @@
 name: owghat_workspace
-description: Workspace root for the Salaat | Avini Prayer Times app. Holds no code of its own.
+description: Workspace root for the Salaat | Aviny Prayer Times app. Holds no code of its own.
 publish_to: none
 
 environment:

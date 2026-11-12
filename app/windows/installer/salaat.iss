@@ -1,4 +1,4 @@
-; Inno Setup 7 script for Salaat | Avini Prayer Times (per-user install, no administrator rights).
+; Inno Setup 7 script for Salaat | Aviny Prayer Times (per-user install, no administrator rights).
 ;
 ; Build first:   flutter build windows --release        (inside app/)
 ; Then compile:  iscc app\windows\installer\salaat.iss
@@ -10,7 +10,7 @@
 #define AppName "Salaat"
 ; Shown in the installer and in Add/Remove Programs. It contains a pipe, so it is
 ; never used for a file, folder or shortcut name (AppName is used for those).
-#define AppTitle "Salaat | Avini Prayer Times"
+#define AppTitle "Salaat | Aviny Prayer Times"
 #define AppExe "salaat.exe"
 #define AppVersion "1.0.0"
 #define AppPublisher "Salaat"

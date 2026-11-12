@@ -90,7 +90,7 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "Salaat" "\0"
-            VALUE "FileDescription", "Salaat | Avini Prayer Times" "\0"
+            VALUE "FileDescription", "Salaat | Aviny Prayer Times" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "salaat" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2026 Salaat. All rights reserved." "\0"

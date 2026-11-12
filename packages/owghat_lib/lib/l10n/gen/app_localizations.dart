@@ -137,7 +137,7 @@ abstract class AppLocalizations {
   /// No description provided for @appName.
   ///
   /// In fa, this message translates to:
-  /// **'Salaat | Avini Prayer Times'**
+  /// **'Salaat | Aviny Prayer Times'**
   String get appName;
 
   /// No description provided for @calendarAdjustEarlier.
@@ -1124,6 +1124,12 @@ abstract class AppLocalizations {
   /// **'غروب آفتاب'**
   String get prayerSunset;
 
+  /// No description provided for @qiblaAccuracyValue.
+  ///
+  /// In fa, this message translates to:
+  /// **'دقت تقریبی: {meters} متر'**
+  String qiblaAccuracyValue(String meters);
+
   /// No description provided for @qiblaBearingLabel.
   ///
   /// In fa, this message translates to:
@@ -1135,6 +1141,24 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'{degrees}° ({direction})'**
   String qiblaBearingValue(String degrees, String direction);
+
+  /// No description provided for @qiblaCamKaaba.
+  ///
+  /// In fa, this message translates to:
+  /// **'کعبه'**
+  String get qiblaCamKaaba;
+
+  /// No description provided for @qiblaCamNearby.
+  ///
+  /// In fa, this message translates to:
+  /// **'اطراف من'**
+  String get qiblaCamNearby;
+
+  /// No description provided for @qiblaCamOverview.
+  ///
+  /// In fa, this message translates to:
+  /// **'مسیر کامل'**
+  String get qiblaCamOverview;
 
   /// No description provided for @qiblaCardinal.
   ///
@@ -1154,6 +1178,36 @@ abstract class AppLocalizations {
   /// **'{base}؛ خورشید در {azimuth} درجه'**
   String qiblaCompassSemanticsSun(String base, String azimuth);
 
+  /// No description provided for @qiblaCoordsApply.
+  ///
+  /// In fa, this message translates to:
+  /// **'نمایش'**
+  String get qiblaCoordsApply;
+
+  /// No description provided for @qiblaCoordsHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'مثلاً ۳۶٫۲۱۳۳، ۵۸٫۷۹۵۸'**
+  String get qiblaCoordsHint;
+
+  /// No description provided for @qiblaCoordsInvalid.
+  ///
+  /// In fa, this message translates to:
+  /// **'مختصات معتبر نیست. عرض باید بین ۹۰- و ۹۰ و طول بین ۱۸۰- و ۱۸۰ باشد.'**
+  String get qiblaCoordsInvalid;
+
+  /// No description provided for @qiblaCoordsLabel.
+  ///
+  /// In fa, this message translates to:
+  /// **'عرض و طول جغرافیایی'**
+  String get qiblaCoordsLabel;
+
+  /// No description provided for @qiblaDeviceFixShown.
+  ///
+  /// In fa, this message translates to:
+  /// **'موقعیت دستگاه نشان داده می‌شود.'**
+  String get qiblaDeviceFixShown;
+
   /// No description provided for @qiblaDistanceLabel.
   ///
   /// In fa, this message translates to:
@@ -1166,17 +1220,191 @@ abstract class AppLocalizations {
   /// **'{km} کیلومتر'**
   String qiblaDistanceValue(String km);
 
+  /// No description provided for @qiblaFailGeneric.
+  ///
+  /// In fa, this message translates to:
+  /// **'موقعیت خوانده نشد؛ شهر انتخاب‌شده نشان داده می‌شود.'**
+  String get qiblaFailGeneric;
+
+  /// No description provided for @qiblaFailPermissionDenied.
+  ///
+  /// In fa, this message translates to:
+  /// **'ویندوز اجازه‌ی خواندن موقعیت را به این برنامه نداده است. در تنظیمات ویندوز (حریم خصوصی و امنیت، موقعیت مکانی) هم «موقعیت مکانی» و هم «اجازه به برنامه‌های رومیزی» را روشن کنید و دوباره امتحان کنید؛ یا از شهر انتخاب‌شده استفاده کنید.'**
+  String get qiblaFailPermissionDenied;
+
+  /// No description provided for @qiblaFailPermissionForever.
+  ///
+  /// In fa, this message translates to:
+  /// **'دسترسی به موقعیت مکانی رد شده است. در تنظیمات ویندوز (حریم خصوصی و امنیت، موقعیت مکانی) «اجازه به برنامه‌های رومیزی» را روشن کنید.'**
+  String get qiblaFailPermissionForever;
+
+  /// No description provided for @qiblaFailServiceDisabled.
+  ///
+  /// In fa, this message translates to:
+  /// **'سرویس موقعیت‌یابی ویندوز خاموش است. آن را در تنظیمات ویندوز (حریم خصوصی، موقعیت مکانی) روشن کنید، یا «شهر انتخاب‌شده» و «نقطه‌ی دلخواه» را به کار ببرید.'**
+  String get qiblaFailServiceDisabled;
+
+  /// No description provided for @qiblaFailTimeout.
+  ///
+  /// In fa, this message translates to:
+  /// **'موقعیت به‌موقع به دست نیامد. رایانه‌ها معمولاً GPS ندارند و ویندوز موقعیت را از Wi-Fi تخمین می‌زند. دوباره امتحان کنید یا شهر را به کار ببرید.'**
+  String get qiblaFailTimeout;
+
+  /// No description provided for @qiblaFailUnsupported.
+  ///
+  /// In fa, this message translates to:
+  /// **'این دستگاه موقعیت‌یابی ندارد؛ شهر انتخاب‌شده نشان داده می‌شود.'**
+  String get qiblaFailUnsupported;
+
   /// No description provided for @qiblaForLocation.
   ///
   /// In fa, this message translates to:
   /// **'جهت قبله برای {place}'**
   String qiblaForLocation(String place);
 
+  /// No description provided for @qiblaLocateAgain.
+  ///
+  /// In fa, this message translates to:
+  /// **'یافتن دوباره'**
+  String get qiblaLocateAgain;
+
+  /// No description provided for @qiblaLocateButton.
+  ///
+  /// In fa, this message translates to:
+  /// **'یافتن موقعیت من'**
+  String get qiblaLocateButton;
+
+  /// No description provided for @qiblaLocating.
+  ///
+  /// In fa, this message translates to:
+  /// **'در حال یافتن موقعیت…'**
+  String get qiblaLocating;
+
+  /// No description provided for @qiblaMapAttribution.
+  ///
+  /// In fa, this message translates to:
+  /// **'© مشارکت‌کنندگان OpenStreetMap'**
+  String get qiblaMapAttribution;
+
+  /// No description provided for @qiblaMapConsentBody.
+  ///
+  /// In fa, this message translates to:
+  /// **'برای دیدن خط قبله روی نقشه، تصاویر نقشه از اینترنت (OpenStreetMap) گرفته می‌شود و ناحیه‌ای که می‌بینید به آن سرور فرستاده می‌شود. تا شما نخواهید هیچ درخواستی فرستاده نمی‌شود. بدون نقشه هم زاویه و فاصله‌ی قبله درست نشان داده می‌شود.'**
+  String get qiblaMapConsentBody;
+
+  /// No description provided for @qiblaMapConsentButton.
+  ///
+  /// In fa, this message translates to:
+  /// **'نمایش نقشه'**
+  String get qiblaMapConsentButton;
+
+  /// No description provided for @qiblaMapConsentTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'نقشه‌ی قبله'**
+  String get qiblaMapConsentTitle;
+
+  /// No description provided for @qiblaMapKaaba.
+  ///
+  /// In fa, this message translates to:
+  /// **'کعبه'**
+  String get qiblaMapKaaba;
+
+  /// No description provided for @qiblaMapLineNote.
+  ///
+  /// In fa, this message translates to:
+  /// **'خط، کوتاه‌ترین مسیر روی کره‌ی زمین تا مرکز کعبه است. روی نقشه‌ی تخت منحنی دیده می‌شود، ولی جهت شروعش همان زاویه‌ی قبله است. ناودان کعبه فقط چند متر با مرکز فاصله دارد و در جهت قبله اثری قابل‌دیدن ندارد. برای مقایسه با خیابان‌ها و ساختمان‌ها «اطراف من» را بزنید.'**
+  String get qiblaMapLineNote;
+
+  /// No description provided for @qiblaMapOfflineBanner.
+  ///
+  /// In fa, this message translates to:
+  /// **'تصاویر نقشه گرفته نمی‌شود (اینترنت قطع است؟). خط و زاویه‌ی قبله همچنان درست است.'**
+  String get qiblaMapOfflineBanner;
+
+  /// No description provided for @qiblaMapSemantics.
+  ///
+  /// In fa, this message translates to:
+  /// **'نقشه‌ی قبله: از {place} تا کعبه، {bearing}، {distance}'**
+  String qiblaMapSemantics(String place, String bearing, String distance);
+
+  /// No description provided for @qiblaMapTapHint.
+  ///
+  /// In fa, this message translates to:
+  /// **'برای انتخاب نقطه‌ی دیگر، روی نقشه بزنید.'**
+  String get qiblaMapTapHint;
+
+  /// No description provided for @qiblaMapTurnOff.
+  ///
+  /// In fa, this message translates to:
+  /// **'خاموش‌کردن نقشه'**
+  String get qiblaMapTurnOff;
+
+  /// No description provided for @qiblaMapYou.
+  ///
+  /// In fa, this message translates to:
+  /// **'موقعیت شما'**
+  String get qiblaMapYou;
+
   /// No description provided for @qiblaNoCompassNote.
   ///
   /// In fa, this message translates to:
   /// **'رایانه قطب‌نما ندارد؛ شکل نسبت به شمال حقیقی رسم شده است (شمال بالاست).'**
   String get qiblaNoCompassNote;
+
+  /// No description provided for @qiblaSourceCity.
+  ///
+  /// In fa, this message translates to:
+  /// **'شهر انتخاب‌شده'**
+  String get qiblaSourceCity;
+
+  /// No description provided for @qiblaSourceCityHelp.
+  ///
+  /// In fa, this message translates to:
+  /// **'شهری که برای اوقات شرعی انتخاب کرده‌اید: {city}.'**
+  String qiblaSourceCityHelp(String city);
+
+  /// No description provided for @qiblaSourceCustom.
+  ///
+  /// In fa, this message translates to:
+  /// **'نقطه‌ی دلخواه'**
+  String get qiblaSourceCustom;
+
+  /// No description provided for @qiblaSourceCustomHelp.
+  ///
+  /// In fa, this message translates to:
+  /// **'روی نقشه بزنید یا مختصات را وارد کنید.'**
+  String get qiblaSourceCustomHelp;
+
+  /// No description provided for @qiblaSourceDevice.
+  ///
+  /// In fa, this message translates to:
+  /// **'موقعیت دستگاه'**
+  String get qiblaSourceDevice;
+
+  /// No description provided for @qiblaSourceDeviceHelp.
+  ///
+  /// In fa, this message translates to:
+  /// **'موقعیت فقط وقتی دکمه را بزنید از دستگاه خوانده می‌شود و ذخیره یا فرستاده نمی‌شود.'**
+  String get qiblaSourceDeviceHelp;
+
+  /// No description provided for @qiblaSourceTitle.
+  ///
+  /// In fa, this message translates to:
+  /// **'قبله را از کجا حساب کنم؟'**
+  String get qiblaSourceTitle;
+
+  /// No description provided for @qiblaStatLatitude.
+  ///
+  /// In fa, this message translates to:
+  /// **'عرض جغرافیایی'**
+  String get qiblaStatLatitude;
+
+  /// No description provided for @qiblaStatLongitude.
+  ///
+  /// In fa, this message translates to:
+  /// **'طول جغرافیایی'**
+  String get qiblaStatLongitude;
 
   /// No description provided for @qiblaSunBelow.
   ///
@@ -1231,6 +1459,18 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'خورشید و قبله امروز'**
   String get qiblaSunTimesTitle;
+
+  /// No description provided for @qiblaTabCompass.
+  ///
+  /// In fa, this message translates to:
+  /// **'قطب‌نما و خورشید'**
+  String get qiblaTabCompass;
+
+  /// No description provided for @qiblaTabMap.
+  ///
+  /// In fa, this message translates to:
+  /// **'نقشه'**
+  String get qiblaTabMap;
 
   /// No description provided for @qiblaTitle.
   ///

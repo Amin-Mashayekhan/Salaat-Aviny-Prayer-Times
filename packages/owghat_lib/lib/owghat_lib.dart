@@ -7,6 +7,7 @@ export 'src/app/startup_info.dart';
 export 'src/core/platform/app_notifier.dart';
 export 'src/core/platform/audio_output.dart';
 export 'src/core/platform/autostart_service.dart';
+export 'src/core/platform/device_location.dart';
 export 'src/core/platform/file_dialogs.dart';
 export 'src/core/platform/launch_args.dart';
 export 'src/core/platform/platform_paths.dart';

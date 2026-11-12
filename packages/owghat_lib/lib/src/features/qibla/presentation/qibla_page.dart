@@ -7,13 +7,18 @@ import 'package:owghat_lib/src/core/format/formatter.dart';
 import 'package:owghat_lib/src/features/locations/application/location_providers.dart';
 import 'package:owghat_lib/src/features/qibla/application/qibla_providers.dart';
 import 'package:owghat_lib/src/features/qibla/presentation/compass_painter.dart';
+import 'package:owghat_lib/src/features/qibla/presentation/qibla_map_tab.dart';
 import 'package:owghat_lib/src/features/settings/application/formatter_provider.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
 
-/// The Qibla screen (`docs/05-UI-UX-SPEC.md` 4.4): a compass rose with the
-/// qibla line and the sun, the bearing, the distance to the Kaaba, today's
-/// sun-on-qibla times and the note that a PC has no compass.
-class QiblaPage extends ConsumerWidget {
+/// The Qibla screen (`docs/05-UI-UX-SPEC.md` 4.4) with two tabs:
+///
+/// * **Map**: the line from the chosen position (the prayer-times city, this
+///   device, or any point) to the Kaaba on a map, with the angle and distance.
+/// * **Compass and sun**: a compass rose with the qibla line and the sun, the
+///   bearing, the distance, today's sun-on-qibla times and the note that a PC
+///   has no compass. It works without the internet.
+class QiblaPage extends ConsumerStatefulWidget {
   /// Creates the page.
   const QiblaPage({super.key});
 
@@ -21,10 +26,64 @@ class QiblaPage extends ConsumerWidget {
   static const double twoColumnWidth = 720;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<QiblaPage> createState() => _QiblaPageState();
+}
+
+enum _QiblaTab { map, compass }
+
+class _QiblaPageState extends ConsumerState<QiblaPage> {
+  _QiblaTab _tab = _QiblaTab.map;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(Gaps.l, Gaps.l, Gaps.l, 0),
+          child: Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: SegmentedButton<_QiblaTab>(
+              key: const Key('qibla-tabs'),
+              showSelectedIcon: false,
+              segments: [
+                ButtonSegment(
+                  value: _QiblaTab.map,
+                  label: Text(l10n.qiblaTabMap),
+                  icon: const Icon(Icons.map_outlined),
+                ),
+                ButtonSegment(
+                  value: _QiblaTab.compass,
+                  label: Text(l10n.qiblaTabCompass),
+                  icon: const Icon(Icons.explore_outlined),
+                ),
+              ],
+              selected: {_tab},
+              onSelectionChanged: (selection) =>
+                  setState(() => _tab = selection.first),
+            ),
+          ),
+        ),
+        Expanded(
+          child: switch (_tab) {
+            _QiblaTab.map => const QiblaMapTab(),
+            _QiblaTab.compass => const _CompassTab(),
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class _CompassTab extends StatelessWidget {
+  const _CompassTab();
+
+  @override
+  Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final twoColumns = constraints.maxWidth >= twoColumnWidth;
+        final twoColumns = constraints.maxWidth >= QiblaPage.twoColumnWidth;
         const compass = _CompassCard();
         const facts = _Facts();
         return SingleChildScrollView(

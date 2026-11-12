@@ -112,7 +112,23 @@ stepper (−2…+2) lives here and in Settings.
 
 ### 4.4 Qibla
 
-Left: a compass rose (N/E/S/W in the current language) with a line to the qibla bearing and a sun
+Two tabs at the top: **نقشه / Map** (default) and **قطب‌نما و خورشید / Compass and sun**.
+
+**Map tab.** A side panel and a map (side by side from 900 px, stacked below). The panel asks
+"قبله را از کجا حساب کنم؟" with three choices: the prayer-times city (default, e.g. نیشابور), this
+device (a "find my position" button; GPS, or a Wi-Fi estimate on a PC) and any point (tap the map or
+type "36.2133, 58.7958"). Below it: the bearing, the distance, latitude and longitude. The map
+shows the position pin, the Kaaba, the great-circle line between them and an arrow turned to the
+bearing; chips over the map switch the camera between the whole route, "around me" (street level,
+to compare the line with buildings) and the Kaaba. The line ends at the centre of the Kaaba; the
+gutter is a few metres away, which does not change the direction (stated on the page).
+Privacy: map pictures come from OpenStreetMap, so the map is off until the user presses "show the
+map" (setting `qibla.mapEnabled`); the device position is read only when asked, is never stored,
+and every failure (service off, permission refused, timeout) shows its reason and keeps the
+city. Without internet the line, the bearing and the numbers still work and a banner says the map
+pictures could not be loaded.
+
+**Compass tab** (works offline). Left: a compass rose (N/E/S/W in the current language) with a line to the qibla bearing and a sun
 marker at the sun's current azimuth (hidden at night). Right: bearing "۲۱۸٫۴° (جنوب غربی)",
 distance to the Kaaba, today's sun-on-qibla time with a two-sentence explanation ("در این لحظه
 خورشید دقیقاً در جهت قبله است؛ رو به خورشید بایستید." / "… سایه‌ی شاخص جهت قبله را نشان می‌دهد."),

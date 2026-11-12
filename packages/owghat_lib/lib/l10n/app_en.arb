@@ -13,7 +13,7 @@
       }
     }
   },
-  "appName": "Salaat | Avini Prayer Times",
+  "appName": "Salaat | Aviny Prayer Times",
   "calendarAdjustEarlier": "One day earlier",
   "calendarAdjustLater": "One day later",
   "calendarAdjustValue": "{value} days",
@@ -563,6 +563,14 @@
   "prayerMidnight": "Midnight",
   "prayerSunrise": "Sunrise",
   "prayerSunset": "Sunset",
+  "qiblaAccuracyValue": "Accuracy: about {meters} m",
+  "@qiblaAccuracyValue": {
+    "placeholders": {
+      "meters": {
+        "type": "String"
+      }
+    }
+  },
   "qiblaBearingLabel": "Bearing (clockwise from true north)",
   "qiblaBearingValue": "{degrees}° ({direction})",
   "@qiblaBearingValue": {
@@ -575,6 +583,9 @@
       }
     }
   },
+  "qiblaCamKaaba": "Kaaba",
+  "qiblaCamNearby": "Around me",
+  "qiblaCamOverview": "Whole route",
   "qiblaCardinal": "{point, select, n{N} e{E} s{S} w{W} other{}}",
   "@qiblaCardinal": {
     "placeholders": {
@@ -605,6 +616,11 @@
       }
     }
   },
+  "qiblaCoordsApply": "Show",
+  "qiblaCoordsHint": "for example 36.2133, 58.7958",
+  "qiblaCoordsInvalid": "Not valid coordinates. Latitude must be between -90 and 90 and longitude between -180 and 180.",
+  "qiblaCoordsLabel": "Latitude and longitude",
+  "qiblaDeviceFixShown": "Showing the position of this device.",
   "qiblaDistanceLabel": "Distance to the Kaaba",
   "qiblaDistanceValue": "{km} km",
   "@qiblaDistanceValue": {
@@ -614,6 +630,12 @@
       }
     }
   },
+  "qiblaFailGeneric": "The position could not be read; the selected city is shown.",
+  "qiblaFailPermissionDenied": "Windows has not allowed this app to read the position. In Windows Settings (Privacy and security, Location) turn on both Location services and Let desktop apps access your location, then try again; or use the selected city.",
+  "qiblaFailPermissionForever": "Location access was refused. In Windows Settings (Privacy and security, Location) turn on Let desktop apps access your location.",
+  "qiblaFailServiceDisabled": "Windows location services are off. Turn them on in Windows Settings (Privacy, Location), or use the selected city or any point.",
+  "qiblaFailTimeout": "No position arrived in time. PCs rarely have GPS and Windows estimates the position from Wi-Fi. Try again or use the city.",
+  "qiblaFailUnsupported": "This device cannot report a position; the selected city is shown.",
   "qiblaForLocation": "Qibla direction for {place}",
   "@qiblaForLocation": {
     "placeholders": {
@@ -622,7 +644,50 @@
       }
     }
   },
+  "qiblaLocateAgain": "Find again",
+  "qiblaLocateButton": "Find my position",
+  "qiblaLocating": "Finding your position…",
+  "qiblaMapAttribution": "© OpenStreetMap contributors",
+  "qiblaMapConsentBody": "To draw the qibla line on a map, map pictures are fetched from the internet (OpenStreetMap) and the area you look at is sent to that server. Nothing is requested until you agree. The qibla angle and distance are shown correctly without the map too.",
+  "qiblaMapConsentButton": "Show the map",
+  "qiblaMapConsentTitle": "Qibla map",
+  "qiblaMapKaaba": "Kaaba",
+  "qiblaMapLineNote": "The line is the shortest path on the globe to the centre of the Kaaba. It looks curved on a flat map, but it starts in the qibla direction. The Kaaba's gutter is only a few metres from the centre and makes no visible difference to the direction. Press Around me to compare with streets and buildings.",
+  "qiblaMapOfflineBanner": "Map pictures cannot be loaded (no internet?). The qibla line and angle are still correct.",
+  "qiblaMapSemantics": "Qibla map: from {place} to the Kaaba, {bearing}, {distance}",
+  "@qiblaMapSemantics": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      },
+      "bearing": {
+        "type": "String"
+      },
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaMapTapHint": "Tap the map to pick another point.",
+  "qiblaMapTurnOff": "Turn the map off",
+  "qiblaMapYou": "Your position",
   "qiblaNoCompassNote": "A PC has no compass, so the drawing is relative to true north (north is at the top).",
+  "qiblaSourceCity": "Selected city",
+  "qiblaSourceCityHelp": "The city you chose for the prayer times: {city}.",
+  "@qiblaSourceCityHelp": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaSourceCustom": "Any point",
+  "qiblaSourceCustomHelp": "Tap the map or enter coordinates.",
+  "qiblaSourceDevice": "This device",
+  "qiblaSourceDeviceHelp": "The position is read from the device only when you press the button; it is not stored or sent anywhere.",
+  "qiblaSourceTitle": "Measure the qibla from",
+  "qiblaStatLatitude": "Latitude",
+  "qiblaStatLongitude": "Longitude",
   "qiblaSunBelow": "The sun is below the horizon.",
   "qiblaSunInHelp": "At this moment the sun is exactly in the qibla direction; face the sun.",
   "qiblaSunInTitle": "Sun in the qibla direction",
@@ -642,6 +707,8 @@
   "qiblaSunOppHelp": "At this moment the shadow of an upright rod points toward the qibla.",
   "qiblaSunOppTitle": "Sun opposite the qibla",
   "qiblaSunTimesTitle": "The sun and the qibla today",
+  "qiblaTabCompass": "Compass and sun",
+  "qiblaTabMap": "Map",
   "qiblaTitle": "Qibla",
   "settingsAboutPlaceholder": "Version, licences and the diagnostics page appear in this section.",
   "settingsAppAutostart": "Start with Windows",

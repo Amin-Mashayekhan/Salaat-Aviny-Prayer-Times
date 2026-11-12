@@ -543,6 +543,29 @@ class NetworkTimeSettings extends JsonValue {
   };
 }
 
+/// Qibla page.
+class QiblaSettings extends JsonValue {
+  /// Creates the settings.
+  const QiblaSettings({this.mapEnabled = false});
+
+  /// Reads the JSON form.
+  factory QiblaSettings.fromJson(Object? raw) => QiblaSettings(
+    mapEnabled: Json.boolean(Json.map(raw)['mapEnabled'], fallback: false),
+  );
+
+  /// Whether the user agreed to load map tiles from the internet. Off until
+  /// they press "show the map": the app works offline and does not contact
+  /// any map server on its own.
+  final bool mapEnabled;
+
+  /// Copy with changes.
+  QiblaSettings copyWith({bool? mapEnabled}) =>
+      QiblaSettings(mapEnabled: mapEnabled ?? this.mapEnabled);
+
+  @override
+  Map<String, Object?> toJson() => {'mapEnabled': mapEnabled};
+}
+
 /// All user settings. The only writer is `SettingsController`.
 class AppSettings extends JsonValue {
   /// Creates settings; prefer [AppSettings.defaults] and [copyWith].
@@ -560,6 +583,7 @@ class AppSettings extends JsonValue {
     this.hijriAdjustmentDays = 0,
     this.window = const WindowSettings(),
     this.networkTime = const NetworkTimeSettings(),
+    this.qibla = const QiblaSettings(),
     this.wakeAlarms = const [],
     this.onboardingCompleted = false,
   });
@@ -622,6 +646,7 @@ class AppSettings extends JsonValue {
       ).clamp(-maxHijriAdjustment, maxHijriAdjustment),
       window: WindowSettings.fromJson(map['window']),
       networkTime: NetworkTimeSettings.fromJson(map['networkTime']),
+      qibla: QiblaSettings.fromJson(map['qibla']),
       wakeAlarms: alarms,
       onboardingCompleted: Json.boolean(
         map['onboardingCompleted'],
@@ -681,6 +706,9 @@ class AppSettings extends JsonValue {
   /// Network time check.
   final NetworkTimeSettings networkTime;
 
+  /// Qibla page.
+  final QiblaSettings qibla;
+
   /// Wake-up alarms.
   final List<WakeAlarm> wakeAlarms;
 
@@ -706,6 +734,7 @@ class AppSettings extends JsonValue {
     int? hijriAdjustmentDays,
     WindowSettings? window,
     NetworkTimeSettings? networkTime,
+    QiblaSettings? qibla,
     List<WakeAlarm>? wakeAlarms,
     bool? onboardingCompleted,
   }) => AppSettings(
@@ -722,6 +751,7 @@ class AppSettings extends JsonValue {
     hijriAdjustmentDays: hijriAdjustmentDays ?? this.hijriAdjustmentDays,
     window: window ?? this.window,
     networkTime: networkTime ?? this.networkTime,
+    qibla: qibla ?? this.qibla,
     wakeAlarms: wakeAlarms ?? this.wakeAlarms,
     onboardingCompleted: onboardingCompleted ?? this.onboardingCompleted,
   );
@@ -742,6 +772,7 @@ class AppSettings extends JsonValue {
     'hijriAdjustmentDays': hijriAdjustmentDays,
     'window': window.toJson(),
     'networkTime': networkTime.toJson(),
+    'qibla': qibla.toJson(),
     'wakeAlarms': [for (final a in wakeAlarms) a.toJson()],
     'onboardingCompleted': onboardingCompleted,
   };

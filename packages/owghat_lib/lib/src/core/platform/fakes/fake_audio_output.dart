@@ -48,6 +48,11 @@ class FakeAudioOutput implements AudioOutput {
   /// What is playing now, or null.
   SoundRef? current;
 
+  /// When set, `play` waits for it before reporting anything. The real
+  /// device takes a few hundred milliseconds to start, and an event of the
+  /// previous sound can arrive in that window.
+  Future<void>? playGate;
+
   @override
   Stream<AudioPlaybackState> get states => _states.stream;
 
@@ -58,6 +63,8 @@ class FakeAudioOutput implements AudioOutput {
     Duration fadeIn = Duration.zero,
   }) async {
     plays.add(FakePlay(sound, volume, fadeIn));
+    final gate = playGate;
+    if (gate != null) await gate;
     if (failAll || failing.contains(sound)) {
       throw AudioOutputException('cannot play $sound');
     }
@@ -75,6 +82,10 @@ class FakeAudioOutput implements AudioOutput {
       _states.add(const AudioPlaybackState(status: AudioStatus.stopped));
     }
   }
+
+  /// Sends [state] to the listeners as it is, for example a stale "completed"
+  /// that arrives while a new sound is starting.
+  void emit(AudioPlaybackState state) => _states.add(state);
 
   /// Simulates a position update of the current sound.
   void emitPosition(Duration position) => _states.add(

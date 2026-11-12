@@ -8,6 +8,7 @@ export 'src/calculation/civil_date.dart';
 export 'src/calculation/prayer.dart';
 export 'src/calculation/prayer_calculator.dart';
 export 'src/calculation/prayer_times.dart';
+export 'src/qibla/geodesy.dart';
 export 'src/qibla/qibla.dart';
 export 'src/qibla/sun_on_qibla.dart';
 export 'src/schedule/catch_up_policy.dart';

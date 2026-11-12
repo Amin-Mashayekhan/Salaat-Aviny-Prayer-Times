@@ -73,6 +73,19 @@ from now. Do not change the PC clock.
 | 6.4 | Keyboard only: Tab through Home and Settings, Ctrl+1..6, Esc, Ctrl+, | Visible focus; every control reachable; shortcuts work. |
 | 6.5 | Narrator on Home | Prayer names and times are read; the countdown is announced about once a minute, not every second. |
 
+## 6b. Qibla map
+
+| # | Step | Expected |
+|---|---|---|
+| 6b.1 | Open Qibla (Map tab) with the map never enabled | A card explains that tiles come from OpenStreetMap; no network request is made. The angle and distance are already shown. |
+| 6b.2 | Press "Show the map" | Tiles load; a pin at the selected city, a line to the Kaaba, an arrow turned to the bearing. |
+| 6b.3 | "Around me" | Street level around the pin; the line can be compared with real streets and buildings. "Kaaba" shows the Kaaba; "Whole route" returns. |
+| 6b.4 | Choose "This device" with Windows location off | A message says how to turn it on; the city stays in use. |
+| 6b.5 | Turn on Settings > Privacy > Location (and desktop apps), press "Find my position" | The pin moves to the PC position with its accuracy circle (Wi-Fi estimates can be 100 m or more off). |
+| 6b.6 | "Any point": tap the map, then type `36.2133, 58.7958` | The pin, bearing and distance follow; bad coordinates show an error and change nothing. |
+| 6b.7 | Disconnect the network, reopen the tab | A banner says map pictures cannot be loaded; angle, line and numbers still work. |
+| 6b.8 | Compare with a real compass or the sun-on-qibla time (Compass tab) | The bearing agrees within the compass error. |
+
 ## 7. Start with Windows
 
 | # | Step | Expected |

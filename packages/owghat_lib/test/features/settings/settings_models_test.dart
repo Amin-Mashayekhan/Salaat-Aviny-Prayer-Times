@@ -184,6 +184,38 @@ void main() {
     });
   });
 
+  group('QiblaSettings', () {
+    test(
+      'the map is off by default: no map server is contacted on its own',
+      () {
+        expect(const AppSettings.defaults().qibla.mapEnabled, isFalse);
+        expect(const QiblaSettings().mapEnabled, isFalse);
+      },
+    );
+
+    test('an old file without the key and a damaged key read as off', () {
+      expect(QiblaSettings.fromJson(null).mapEnabled, isFalse);
+      expect(QiblaSettings.fromJson(<String, Object?>{}).mapEnabled, isFalse);
+      expect(
+        QiblaSettings.fromJson(<String, Object?>{'mapEnabled': 'yes'})
+            .mapEnabled,
+        isFalse,
+      );
+      final old = AppSettings.fromJson(<String, Object?>{'schemaVersion': 1});
+      expect(old.qibla.mapEnabled, isFalse);
+    });
+
+    test('survives a round trip and copyWith', () {
+      final on = const AppSettings.defaults().copyWith(
+        qibla: const QiblaSettings(mapEnabled: true),
+      );
+      expect(on.toJson()['qibla'], {'mapEnabled': true});
+      expect(AppSettings.fromJson(on.toJson()).qibla.mapEnabled, isTrue);
+      expect(on.qibla.copyWith().mapEnabled, isTrue);
+      expect(on.qibla.copyWith(mapEnabled: false).mapEnabled, isFalse);
+    });
+  });
+
   group('migrations', () {
     test('a file without a version counts as version 1', () {
       expect(SettingsMigrations.versionOf(<String, Object?>{}), 1);
