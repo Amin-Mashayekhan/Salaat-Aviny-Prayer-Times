@@ -1,17 +1,13 @@
-# owghat
+# Salaat (Windows runner)
 
-A new Flutter project.
+The thin Windows application of *Salaat | Aviny Prayer Times*. All logic and screens live in
+`packages/owghat_lib`; this package only starts the app and provides the Windows implementations of the
+platform interfaces (sound, toasts, tray, window, autostart, location, links, wake-up timers) in
+`lib/src/platform`.
 
-## Getting Started
+```
+flutter run -d windows
+flutter build windows --release
+```
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The installer script is `windows/installer/salaat.iss` (Inno Setup).
