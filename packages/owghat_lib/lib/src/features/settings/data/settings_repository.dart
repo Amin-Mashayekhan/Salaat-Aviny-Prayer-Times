@@ -23,7 +23,7 @@ class SettingsRepository {
     Duration debounce = const Duration(milliseconds: 300),
   }) : _debouncer = Debouncer(debounce);
 
-  final JsonFileStore _store;
+  final JsonStore _store;
   final Debouncer _debouncer;
   AppSettings? _pending;
 

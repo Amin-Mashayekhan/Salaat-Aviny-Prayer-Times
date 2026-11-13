@@ -79,13 +79,17 @@ toasts, sound, autostart, installer and wake-up alarms.
   `OnlinePlaceSearch` class for names).
 - No surveyed coordinates of the Kaaba gutter (Mizab al-Rahma) are available, so the qibla line ends at
   the Kaaba reference point (21.422487, 39.826206). The difference does not change the direction.
-- Platforms: Windows and Android (from 1.1.0). `app/` has Windows and Android runners; `main.dart`
-  picks the services by platform. On Android the azan and reminders are planned with the system ten
-  days ahead (`NoticePlanner`, `MobileNotifications`); if the app is not opened for longer, they stop
-  until it is opened again. The Android notification plays the bundled azan sound, not the sound
-  chosen in the settings (a channel's sound is fixed when it is created). Not yet: web (the library
-  imports `dart:io` for files, HTTP and processes), Linux, macOS, iOS (needs a Mac and, to install,
-  an Apple developer account).
+- Platforms: Windows and Android, plus Linux, macOS and the web (all from 1.1.0); iOS is built unsigned
+  by CI only. Linux, macOS and iOS have never run on real hardware here (no such machines); CI only
+  proves they compile. The web version was run in a browser: onboarding, online city search
+  (Nominatim and Open-Meteo answer cross-origin requests), home screen and settings kept in local
+  storage across a reload.
+- Phones: on Android and iOS the azan and reminders are planned with the system ten days ahead
+  (`NoticePlanner`, `MobileNotifications`); if the app is not opened for longer, they stop until it is
+  opened again. The Android notification plays the bundled azan sound, not the sound chosen in the
+  settings (a channel's sound is fixed when it is created); iOS plays its default sound and keeps at
+  most 64 pending notifications. Linux and macOS have no autostart or wake-up alarms yet, and Linux
+  has no device position (geolocator has no Linux backend).
 - Android signing: without the `ANDROID_KEYSTORE_*` repository secrets the release APK is signed with
   a debug key; a later APK signed with a real key will not install over it (the user must uninstall
   first). Create the key before the first Android release that people install.

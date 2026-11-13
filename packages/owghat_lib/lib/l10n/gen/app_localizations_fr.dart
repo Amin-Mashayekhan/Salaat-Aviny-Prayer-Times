@@ -504,7 +504,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get homeBannerExactTiming =>
-      'Android peut délivrer l’adhan avec quelques minutes de retard. Appuyez sur Autoriser et activez Alarms & reminders pour Salaat sur la page qui s’ouvre, afin que l’adhan arrive à la minute exacte.';
+      'Android peut délivrer l’adhan en retard, parfois jusqu’à une heure. Appuyez sur Autoriser et activez Alarms & reminders pour Salaat sur la page qui s’ouvre, afin que l’adhan arrive à la minute exacte.';
 
   @override
   String get homeBannerMutedIndefinite =>
@@ -730,7 +730,14 @@ class AppLocalizationsFr extends AppLocalizations {
       'Écoutez l’adhan et choisissez si l’application démarre avec Windows.';
 
   @override
+  String get onboardingAzanBodyOnly =>
+      'Écoutez l’adhan. Vous pourrez changer plus tard le son et le volume de chaque prière dans les réglages.';
+
+  @override
   String get onboardingAzanTitle => 'Adhan et démarrage';
+
+  @override
+  String get onboardingAzanTitleOnly => 'Son de l’adhan';
 
   @override
   String get onboardingBack => 'Retour';
@@ -841,8 +848,8 @@ class AppLocalizationsFr extends AppLocalizations {
       'La recherche a besoin d’internet, cette fois seulement. Le texte que vous saisissez est envoyé au service de recherche d’OpenStreetMap (Nominatim) ; rien d’autre n’est envoyé. Une fois le lieu choisi, l’application garde ce qu’il lui faut et refonctionne sans internet.';
 
   @override
-  String get placeSearchNoticeDetails =>
-      'Quand vous choisissez un lieu, ses coordonnées sont envoyées à Open-Meteo pour obtenir son fuseau horaire et son altitude.';
+  String get placeSearchNoticeWithDetails =>
+      'La recherche a besoin d’internet, cette fois seulement. Le texte saisi est envoyé au service de recherche d’OpenStreetMap (Nominatim), et quand vous choisissez un lieu, seules ses coordonnées vont à Open-Meteo pour obtenir son fuseau horaire et son altitude. Rien d’autre n’est envoyé, et ensuite l’application fonctionne sans internet.';
 
   @override
   String placeSearchResolving(String place) {

@@ -226,12 +226,13 @@ class _PrayerAzanCardState extends ConsumerState<_PrayerAzanCard> {
             spacing: Gaps.s,
             runSpacing: Gaps.s,
             children: [
-              OutlinedButton.icon(
-                key: Key('set-azan-pick-${prayer.name}'),
-                icon: const Icon(Icons.folder_open_outlined),
-                label: Text(l10n.settingsAzanChoose),
-                onPressed: () => actions.pickSound(prayer),
-              ),
+              if (ref.watch(platformCapabilitiesProvider).fileAccess)
+                OutlinedButton.icon(
+                  key: Key('set-azan-pick-${prayer.name}'),
+                  icon: const Icon(Icons.folder_open_outlined),
+                  label: Text(l10n.settingsAzanChoose),
+                  onPressed: () => actions.pickSound(prayer),
+                ),
               if (isFile)
                 TextButton(
                   key: Key('set-azan-default-${prayer.name}'),

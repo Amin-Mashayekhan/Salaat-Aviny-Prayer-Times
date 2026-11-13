@@ -3,11 +3,13 @@
 // everything else is plain text.
 window.STRINGS = {
   en: {
+    'hero.downloadAndroid': 'Download for Android', 'hero.subAndroid': 'APK · Android 7 or later',
+    'dl.machow': 'Unzip it and move Salaat to Applications. It is not notarised yet, so the first time right-click it and choose Open.', 'dl.linuxhow': 'Unpack it anywhere and run salaat. The tray icon needs AppIndicator support (standard on Ubuntu).', 'dl.webname': 'In the browser', 'dl.webany': 'Any system', 'dl.webopen': 'Open the web version', 'dl.webnote': 'Nothing to install. The azan sounds only while the page is open; for an azan with the app closed, install it on Windows or Android.', 'dl.iosnote': 'Needs publishing through the App Store; use the web version on iPhone for now.', 'dl.available3': 'Available', 'dl.available4': 'Available', 'dl.available5': 'Available',
     'dl.androidver': 'Android 7 or later', 'dl.apk': 'Install file', 'dl.available2': 'Available', 'dl.apkhow': 'How to install the APK', 'dl.apkhowbody': 'Open the downloaded file on the phone. Android asks to allow installing apps from your browser or file manager: allow it once, then press Install. On first start, allow notifications so the azan can sound while the app is closed, and allow "Alarms &amp; reminders" when the app asks, so it comes at the exact minute.',
     'nav.download': 'Download', 'nav.install': 'Install', 'nav.screens': 'Screenshots', 'nav.privacy': 'Privacy', 'nav.help': 'Help',
     'hero.lead': 'Prayer times and azan for Windows. It works offline, lives in the system tray and plays the azan on time. No ads, no account, no tracking.',
     'hero.download': 'Download for Windows', 'hero.sub': 'Installer · Windows 10 and 11, 64-bit', 'hero.how': 'How to install',
-    'hero.osnote': 'Salaat is for Windows for now. Versions for macOS, Linux and phones do not exist yet.',
+    'hero.osnote': 'Choose your system below. On a phone or any other computer you can also use the web version in the browser.',
     'dl.title': 'Download', 'dl.sub': 'Choose the file for your computer. Both are free.',
     'dl.os': 'System', 'dl.file': 'File', 'dl.status': 'Status',
     'dl.installer': 'Installer', 'dl.portable': 'Portable ZIP', 'dl.recommended': 'Recommended', 'dl.available': 'Available',
@@ -38,11 +40,13 @@ window.STRINGS = {
     'ver.latest': 'Latest version', 'ver.none': 'First release coming soon'
   },
   fa: {
+    'hero.downloadAndroid': 'دانلود برای اندروید', 'hero.subAndroid': 'فایل APK · اندروید ۷ یا جدیدتر',
+    'dl.machow': 'فایل را باز کنید و Salaat را به Applications ببرید. هنوز توسط اپل تأیید (notarize) نشده، پس بار اول روی آن کلیک راست کنید و Open را بزنید.', 'dl.linuxhow': 'فایل را هر جا باز کنید و salaat را اجرا کنید. آیکن سینی سیستم به پشتیبانی AppIndicator نیاز دارد (در اوبونتو هست).', 'dl.webname': 'در مرورگر', 'dl.webany': 'هر سیستم‌عاملی', 'dl.webopen': 'باز کردن نسخه‌ی وب', 'dl.webnote': 'نصب لازم ندارد. اذان فقط تا وقتی صفحه باز است پخش می‌شود؛ برای اذان وقتی برنامه بسته است، نسخه‌ی ویندوز یا اندروید را نصب کنید.', 'dl.iosnote': 'باید از طریق App Store منتشر شود؛ فعلاً روی آیفون از نسخه‌ی وب استفاده کنید.', 'dl.available3': 'موجود', 'dl.available4': 'موجود', 'dl.available5': 'موجود',
     'dl.androidver': 'اندروید ۷ یا جدیدتر', 'dl.apk': 'فایل نصب', 'dl.available2': 'موجود', 'dl.apkhow': 'روش نصب فایل APK', 'dl.apkhowbody': 'فایل دانلودشده را روی گوشی باز کنید. اندروید می‌پرسد اجازه‌ی نصب برنامه از مرورگر یا مدیر فایل را می‌دهید یا نه: یک بار اجازه دهید و بعد «نصب» را بزنید. در اولین اجرا به اعلان‌ها اجازه دهید تا اذان وقتی برنامه بسته است هم پخش شود، و وقتی برنامه خواست «هشدارها و یادآوری‌ها» (Alarms &amp; reminders) را هم مجاز کنید تا اذان سر دقیقه بیاید.',
     'nav.download': 'دانلود', 'nav.install': 'نصب', 'nav.screens': 'تصاویر', 'nav.privacy': 'حریم خصوصی', 'nav.help': 'راهنما',
     'hero.lead': 'اوقات شرعی و اذان برای ویندوز. بدون اینترنت کار می‌کند، در سینی سیستم می‌نشیند و اذان را سروقت پخش می‌کند. بدون تبلیغ، بدون ثبت‌نام، بدون ردیابی.',
     'hero.download': 'دانلود برای ویندوز', 'hero.sub': 'نصب‌کننده · ویندوز ۱۰ و ۱۱، ۶۴ بیتی', 'hero.how': 'روش نصب',
-    'hero.osnote': 'Salaat فعلاً فقط برای ویندوز است. نسخه‌ی macOS، لینوکس و موبایل هنوز وجود ندارد.',
+    'hero.osnote': 'سیستم‌عامل خود را از جدول زیر انتخاب کنید. روی گوشی یا هر رایانه‌ی دیگری می‌توانید نسخه‌ی وب را هم در مرورگر باز کنید.',
     'dl.title': 'دانلود', 'dl.sub': 'فایل مناسب رایانه‌ی خود را انتخاب کنید. هر دو رایگان‌اند.',
     'dl.os': 'سیستم‌عامل', 'dl.file': 'فایل', 'dl.status': 'وضعیت',
     'dl.installer': 'نصب‌کننده', 'dl.portable': 'نسخه‌ی قابل‌حمل (ZIP)', 'dl.recommended': 'پیشنهادی', 'dl.available': 'موجود',
@@ -73,11 +77,13 @@ window.STRINGS = {
     'ver.latest': 'آخرین نسخه', 'ver.none': 'نخستین انتشار به‌زودی'
   },
   ar: {
+    'hero.downloadAndroid': 'تنزيل لأندرويد', 'hero.subAndroid': 'ملف APK · أندرويد 7 أو أحدث',
+    'dl.machow': 'فك ضغط الملف وانقل Salaat إلى Applications. لم توثّقه Apple بعد، لذا انقر بالزر الأيمن واختر Open في المرة الأولى.', 'dl.linuxhow': 'فك الضغط في أي مكان وشغّل salaat. تحتاج أيقونة علبة النظام إلى دعم AppIndicator (موجود في أوبونتو).', 'dl.webname': 'في المتصفح', 'dl.webany': 'أي نظام', 'dl.webopen': 'افتح نسخة الويب', 'dl.webnote': 'لا حاجة للتثبيت. يُرفع الأذان فقط ما دامت الصفحة مفتوحة؛ ليُرفع الأذان والتطبيق مغلق، ثبّته على ويندوز أو أندرويد.', 'dl.iosnote': 'يحتاج إلى النشر عبر App Store؛ استخدم نسخة الويب على آيفون حالياً.', 'dl.available3': 'متاح', 'dl.available4': 'متاح', 'dl.available5': 'متاح',
     'dl.androidver': 'أندرويد 7 أو أحدث', 'dl.apk': 'ملف التثبيت', 'dl.available2': 'متاح', 'dl.apkhow': 'طريقة تثبيت ملف APK', 'dl.apkhowbody': 'افتح الملف الذي نزّلته على الهاتف. سيطلب أندرويد السماح بتثبيت التطبيقات من المتصفح أو مدير الملفات: اسمح مرة واحدة ثم اضغط «تثبيت». عند أول تشغيل اسمح بالإشعارات ليُرفع الأذان والتطبيق مغلق، واسمح بـ Alarms &amp; reminders عندما يطلب التطبيق ذلك ليأتي الأذان في دقيقته.',
     'nav.download': 'تنزيل', 'nav.install': 'التثبيت', 'nav.screens': 'لقطات', 'nav.privacy': 'الخصوصية', 'nav.help': 'مساعدة',
     'hero.lead': 'أوقات الصلاة والأذان لنظام ويندوز. يعمل بدون إنترنت ويبقى في علبة النظام ويرفع الأذان في وقته. بلا إعلانات ولا حساب ولا تتبع.',
     'hero.download': 'تنزيل لنظام ويندوز', 'hero.sub': 'مثبّت · ويندوز 10 و11، 64 بت', 'hero.how': 'طريقة التثبيت',
-    'hero.osnote': 'برنامج Salaat متاح حالياً لنظام ويندوز فقط. لا توجد بعد نسخ لأنظمة macOS أو لينكس أو الهواتف.',
+    'hero.osnote': 'اختر نظامك من الجدول أدناه. على الهاتف أو أي حاسوب آخر يمكنك أيضاً فتح نسخة الويب في المتصفح.',
     'dl.title': 'التنزيل', 'dl.sub': 'اختر الملف المناسب لحاسوبك. كلاهما مجاني.',
     'dl.os': 'النظام', 'dl.file': 'الملف', 'dl.status': 'الحالة',
     'dl.installer': 'المثبّت', 'dl.portable': 'نسخة محمولة (ZIP)', 'dl.recommended': 'موصى به', 'dl.available': 'متاح',

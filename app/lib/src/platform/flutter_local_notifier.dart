@@ -6,7 +6,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:owghat_lib/owghat_lib.dart';
 import 'package:path/path.dart' as p;
 
-/// [AppNotifier] on `flutter_local_notifications` (Windows toasts).
+/// [AppNotifier] on `flutter_local_notifications` for the desktop: Windows
+/// toasts, Linux desktop notifications (libnotify) and macOS notifications.
 ///
 /// Only immediate toasts are used: on an unpackaged Windows app scheduling
 /// and cancelling are unreliable, so the schedule engine does the timing.
@@ -57,6 +58,17 @@ class FlutterLocalNotifier implements AppNotifier {
                 ),
             ],
           ),
+          linux: LinuxNotificationDetails(
+            suppressSound: spec.silent,
+            actions: [
+              for (final button in spec.buttons.take(2))
+                LinuxNotificationAction(
+                  key: _encode(button.kind, spec.tag),
+                  label: button.label,
+                ),
+            ],
+          ),
+          macOS: DarwinNotificationDetails(presentSound: !spec.silent),
         ),
       );
     } on Object catch (error, stack) {
@@ -69,6 +81,8 @@ class FlutterLocalNotifier implements AppNotifier {
     try {
       final result = await _plugin.initialize(
         settings: InitializationSettings(
+          linux: const LinuxInitializationSettings(defaultActionName: 'Open'),
+          macOS: const DarwinInitializationSettings(),
           windows: WindowsInitializationSettings(
             appName: appName,
             appUserModelId: appUserModelId,

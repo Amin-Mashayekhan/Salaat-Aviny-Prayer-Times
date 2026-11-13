@@ -8,11 +8,21 @@ All notable changes to this project are written here. The format follows
 
 ### Added
 - **Android app** (Android 7 and later), as an APK. The azan and the reminders are planned with
-  Android ten days ahead, so they come even when the app is closed and after the phone restarts. On
-  first start the app asks for notifications; if Android does not allow exact alarm times, a banner
-  explains it and its Allow button opens the right system page.
+  Android ten days ahead, so they come even when the app is closed and after the phone restarts. The
+  app asks for notifications when the first-run steps end; if Android does not allow exact alarm
+  times (the azan could then come up to an hour late), a banner explains it and its Allow button opens
+  the right system page.
+- **Linux and macOS desktop apps** (`Salaat-linux-x64.tar.gz`, `Salaat-macos.zip`): window, tray icon,
+  notifications and the azan while the app runs. Start-with-the-system and wake-up alarms remain
+  Windows-only. The macOS app is not notarised yet (right-click > Open the first time).
+- **Web version** at https://amin-mashayekhan.github.io/Salaat-Aviny-Prayer-Times/app/ for any system,
+  iPhone included: settings stay in the browser; the azan sounds while the page is open. Backup files,
+  sound files and the clock check are not available there.
+- iOS project (built unsigned by CI); publishing it needs an Apple developer account.
+- Every platform shows Salaat with its own icon.
 - Phone layout: a navigation bar at the bottom on narrow screens. Options that do not exist on a phone
   (start with the system, start minimised, close to tray, the Wake-up screen) are hidden there.
+  The first-run steps use the whole screen.
 
 ### Notes
 - On a phone the azan notification plays the azan sound that comes with the app; the sound chosen in

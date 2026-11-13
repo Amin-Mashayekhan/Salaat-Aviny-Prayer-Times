@@ -16,7 +16,10 @@ plays the azan on time. It is a from-scratch rewrite, in Flutter, of the old *Av
 |---|---|
 | Windows 10 / 11 (64-bit) | `Salaat-Setup.exe` (installer, recommended) or `Salaat-windows-x64.zip` (portable) |
 | Android 7 and later | `Salaat-android.apk` (from version 1.1.0) |
-| macOS, Linux, iOS, web | not available yet |
+| Linux (64-bit) | `Salaat-linux-x64.tar.gz` (from 1.1.0) |
+| macOS 10.15 and later | `Salaat-macos.zip` (from 1.1.0, not notarised: right-click > Open the first time) |
+| Any system, iPhone included | [the web version](https://amin-mashayekhan.github.io/Salaat-Aviny-Prayer-Times/app/) in the browser (the azan sounds while the page is open) |
+| iOS app | not available yet (needs an Apple developer account) |
 
 The installer is not code-signed yet, so Windows SmartScreen may warn on the first run: press
 **More info**, then **Run anyway**. `SHA256SUMS.txt` lets you check the download.

@@ -1,11 +1,12 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:owghat_lib/owghat_lib.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-/// Notifications on Android with `flutter_local_notifications`: shown now
+/// Notifications on Android and iOS with `flutter_local_notifications`: shown now
 /// ([AppNotifier]) and planned ahead with the system ([NoticeScheduler]), so
 /// the azan and the reminders come at their time even when the app is closed
 /// and after the phone restarts.
@@ -25,6 +26,10 @@ class MobileNotifications implements AppNotifier, NoticeScheduler {
 
   /// First id of planned notifications; immediate ones use ids below it.
   static const int _plannedBase = 1000;
+
+  /// The most notifications iOS keeps pending (one is left for immediate
+  /// ones).
+  static const int _iosLimit = 63;
 
   static const _azan = AndroidNotificationChannel(
     'azan',
@@ -69,6 +74,12 @@ class MobileNotifications implements AppNotifier, NoticeScheduler {
       await _plugin.initialize(
         settings: const InitializationSettings(
           android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+          // Permission is asked by [requestPermissions], not at start-up.
+          iOS: DarwinInitializationSettings(
+            requestAlertPermission: false,
+            requestSoundPermission: false,
+            requestBadgePermission: false,
+          ),
         ),
         onDidReceiveNotificationResponse: (_) => _actions.add(
           const NotificationAction(kind: NotificationActionKind.open),
@@ -109,6 +120,9 @@ class MobileNotifications implements AppNotifier, NoticeScheduler {
               ? AndroidNotificationCategory.reminder
               : null,
         ),
+        // iOS plays its default notification sound; the bundled azan is not
+        // added to the iOS project yet.
+        iOS: DarwinNotificationDetails(presentSound: channel.playSound),
       );
 
   @override
@@ -135,8 +149,10 @@ class MobileNotifications implements AppNotifier, NoticeScheduler {
     final exact = await exactTimingAllowed();
     // Everything planned before goes; the new list is complete.
     await _plugin.cancelAll();
-    for (var i = 0; i < notices.length; i++) {
-      final notice = notices[i];
+    // iOS keeps at most 64 pending notifications; the earliest matter most.
+    final planned = Platform.isIOS ? notices.take(_iosLimit).toList() : notices;
+    for (var i = 0; i < planned.length; i++) {
+      final notice = planned[i];
       final channel = switch (notice.kind) {
         PlannedNoticeKind.azan => notice.sound ? _azan : _azanSilent,
         PlannedNoticeKind.reminder =>
@@ -163,6 +179,13 @@ class MobileNotifications implements AppNotifier, NoticeScheduler {
   Future<bool> requestPermissions() async {
     if (!await _started) return false;
     try {
+      final ios = _plugin
+          .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin
+          >();
+      if (ios != null) {
+        return await ios.requestPermissions(alert: true, sound: true) ?? false;
+      }
       return await _android?.requestNotificationsPermission() ?? true;
     } on Object {
       return false;

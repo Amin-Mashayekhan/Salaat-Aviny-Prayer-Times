@@ -502,7 +502,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get homeBannerExactTiming =>
-      'اینڈرائیڈ اذان چند منٹ دیر سے دے سکتا ہے۔ «اجازت» دبائیں اور کھلنے والے صفحے پر Salaat کے لیے Alarms & reminders آن کریں تاکہ اذان ٹھیک وقت پر آئے۔';
+      'اینڈرائیڈ اذان دیر سے دے سکتا ہے، کبھی ایک گھنٹے تک۔ «اجازت» دبائیں اور کھلنے والے صفحے پر Salaat کے لیے Alarms & reminders آن کریں تاکہ اذان ٹھیک وقت پر آئے۔';
 
   @override
   String get homeBannerMutedIndefinite =>
@@ -726,7 +726,14 @@ class AppLocalizationsUr extends AppLocalizations {
       'اذان سنیں اور طے کریں کہ ایپ Windows کے ساتھ شروع ہو یا نہیں۔';
 
   @override
+  String get onboardingAzanBodyOnly =>
+      'اذان سنیں۔ بعد میں ترتیبات میں ہر نماز کی آواز اور بلندی بدل سکتے ہیں۔';
+
+  @override
   String get onboardingAzanTitle => 'اذان اور آغاز';
+
+  @override
+  String get onboardingAzanTitleOnly => 'اذان کی آواز';
 
   @override
   String get onboardingBack => 'پیچھے';
@@ -836,8 +843,8 @@ class AppLocalizationsUr extends AppLocalizations {
       'تلاش کے لیے انٹرنیٹ صرف اسی بار درکار ہے۔ آپ جو لکھتے ہیں وہ OpenStreetMap کی تلاش کی سروس (Nominatim) کو بھیجا جاتا ہے، اور کچھ اور نہیں بھیجا جاتا۔ جگہ منتخب کرنے کے بعد ایپ ضروری معلومات محفوظ رکھتی ہے اور دوبارہ انٹرنیٹ کے بغیر چلتی ہے۔';
 
   @override
-  String get placeSearchNoticeDetails =>
-      'جب آپ کوئی جگہ منتخب کرتے ہیں تو اس کا ٹائم زون اور بلندی معلوم کرنے کے لیے اس جگہ کے نقاط Open-Meteo کو بھیجے جاتے ہیں۔';
+  String get placeSearchNoticeWithDetails =>
+      'تلاش کے لیے انٹرنیٹ صرف اسی بار درکار ہے۔ آپ جو لکھتے ہیں وہ OpenStreetMap کی تلاش کی سروس (Nominatim) کو بھیجا جاتا ہے، اور جگہ منتخب کرنے پر صرف اس کے نقاط ٹائم زون اور بلندی کے لیے Open-Meteo کو جاتے ہیں۔ اور کچھ نہیں بھیجا جاتا، اور اس کے بعد ایپ انٹرنیٹ کے بغیر چلتی ہے۔';
 
   @override
   String placeSearchResolving(String place) {

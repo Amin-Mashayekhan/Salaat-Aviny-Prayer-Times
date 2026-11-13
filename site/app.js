@@ -111,6 +111,7 @@
     if (os === 'windows') {
       main.href = DOWNLOAD + 'Salaat-Setup.exe';
     } else {
+      // Other systems: point at the table, where their row is highlighted.
       main.href = '#download';
       document.getElementById('os-note').hidden = false;
     }
@@ -136,6 +137,18 @@
     }
   }
 
+  // On an Android phone the big button offers the APK, once a release has it.
+  function offerAndroid(release) {
+    if (os !== 'android') return;
+    var has = (release.assets || []).some(function (a) { return a.name === 'Salaat-android.apk'; });
+    if (!has) return;
+    var main = document.getElementById('main-download');
+    main.href = DOWNLOAD + 'Salaat-android.apk';
+    document.getElementById('main-download-label').textContent = t('hero.downloadAndroid');
+    document.getElementById('main-download-sub').textContent = t('hero.subAndroid');
+    document.getElementById('os-note').hidden = true;
+  }
+
   function loadVersion() {
     if (!window.fetch) return;
     fetch('https://api.github.com/repos/' + REPO + '/releases/latest', { headers: { Accept: 'application/vnd.github+json' } })
@@ -145,6 +158,7 @@
           window.__latest = release;
           showVersion(release);
           markMissing(release);
+          offerAndroid(release);
         }
       })
       .catch(function () { /* offline or rate limited: keep the default line */ });

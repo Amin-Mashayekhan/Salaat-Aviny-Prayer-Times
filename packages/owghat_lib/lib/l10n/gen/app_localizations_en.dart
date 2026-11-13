@@ -502,7 +502,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeBannerExactTiming =>
-      'Android may deliver the azan a few minutes late. Press Allow and turn on Alarms & reminders for Salaat on the page that opens, so the azan comes at the exact minute.';
+      'Android may deliver the azan late, sometimes by up to an hour. Press Allow and turn on Alarms & reminders for Salaat on the page that opens, so the azan comes at the exact minute.';
 
   @override
   String get homeBannerMutedIndefinite =>
@@ -728,7 +728,14 @@ class AppLocalizationsEn extends AppLocalizations {
       'Listen to the azan and choose whether the app starts with Windows.';
 
   @override
+  String get onboardingAzanBodyOnly =>
+      'Listen to the azan. You can change the sound and the volume of each prayer later in the settings.';
+
+  @override
   String get onboardingAzanTitle => 'Azan and start-up';
+
+  @override
+  String get onboardingAzanTitleOnly => 'Azan sound';
 
   @override
   String get onboardingBack => 'Back';
@@ -838,8 +845,8 @@ class AppLocalizationsEn extends AppLocalizations {
       'Searching needs the internet, only this once. The text you type is sent to the OpenStreetMap search service (Nominatim); nothing else is sent. After you choose a place, the app keeps what it needs and works offline again.';
 
   @override
-  String get placeSearchNoticeDetails =>
-      'When you choose a place, its coordinates are sent to Open-Meteo to get its time zone and height.';
+  String get placeSearchNoticeWithDetails =>
+      'Searching needs the internet, only this once. The text you type is sent to the OpenStreetMap search service (Nominatim), and when you choose a place only its coordinates go to Open-Meteo to get its time zone and height. Nothing else is sent, and afterwards the app works offline.';
 
   @override
   String placeSearchResolving(String place) {

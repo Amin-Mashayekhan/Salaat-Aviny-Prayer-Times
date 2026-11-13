@@ -501,7 +501,7 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get homeBannerExactTiming =>
-      'اندروید ممکن است اذان را چند دقیقه دیرتر بفرستد. «اجازه» را بزنید و در صفحه‌ی بازشده «هشدارها و یادآوری‌ها» (Alarms & reminders) را برای Salaat روشن کنید تا اذان سر دقیقه بیاید.';
+      'اندروید ممکن است اذان را دیرتر بفرستد، گاهی تا یک ساعت. «اجازه» را بزنید و در صفحه‌ی بازشده «هشدارها و یادآوری‌ها» (Alarms & reminders) را برای Salaat روشن کنید تا اذان سر دقیقه بیاید.';
 
   @override
   String get homeBannerMutedIndefinite => 'اذان تا اطلاع ثانوی بی‌صدا است.';
@@ -725,7 +725,14 @@ class AppLocalizationsFa extends AppLocalizations {
       'صدای اذان را بشنوید و تعیین کنید برنامه با روشن شدن ویندوز هم اجرا شود.';
 
   @override
+  String get onboardingAzanBodyOnly =>
+      'صدای اذان را بشنوید. بعداً در تنظیمات می‌توانید برای هر نماز صدا و بلندی را عوض کنید.';
+
+  @override
   String get onboardingAzanTitle => 'اذان و شروع برنامه';
+
+  @override
+  String get onboardingAzanTitleOnly => 'صدای اذان';
 
   @override
   String get onboardingBack => 'قبلی';
@@ -835,8 +842,8 @@ class AppLocalizationsFa extends AppLocalizations {
       'جستجو فقط همین یک بار به اینترنت نیاز دارد. متنی که می‌نویسید به سرویس جستجوی OpenStreetMap (Nominatim) فرستاده می‌شود و چیز دیگری فرستاده نمی‌شود. بعد از انتخاب مکان، برنامه آنچه لازم دارد را نگه می‌دارد و دوباره بدون اینترنت کار می‌کند.';
 
   @override
-  String get placeSearchNoticeDetails =>
-      'وقتی مکانی را انتخاب کنید، مختصات همان مکان به Open-Meteo فرستاده می‌شود تا منطقه‌ی زمانی و ارتفاعش گرفته شود.';
+  String get placeSearchNoticeWithDetails =>
+      'جستجو فقط همین یک بار به اینترنت نیاز دارد. متنی که می‌نویسید به سرویس جستجوی OpenStreetMap (Nominatim) فرستاده می‌شود، و وقتی مکانی را انتخاب کنید فقط مختصات همان مکان به Open-Meteo می‌رود تا منطقه‌ی زمانی و ارتفاعش گرفته شود. چیز دیگری فرستاده نمی‌شود و بعد از آن برنامه بدون اینترنت کار می‌کند.';
 
   @override
   String placeSearchResolving(String place) {

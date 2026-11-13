@@ -13,7 +13,7 @@ import 'package:owghat_lib/src/features/settings/application/formatter_provider.
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
 import 'package:owghat_lib/src/features/settings/domain/app_settings.dart';
 
-/// The first-run flow: one centred card with
+/// The first-run flow: one centred card (on a phone, the whole screen) with
 /// three steps (language, city, azan sample and start with Windows), a
 /// progress indicator, "next" and "skip". Skipping keeps every default.
 class OnboardingPage extends ConsumerWidget {
@@ -28,6 +28,8 @@ class OnboardingPage extends ConsumerWidget {
     final state = ref.watch(onboardingProvider);
     final controller = ref.read(onboardingProvider.notifier);
     final last = state.step == onboardingStepCount - 1;
+    // A phone gives the steps its whole height (the city list needs it).
+    final compact = MediaQuery.sizeOf(context).width < compactLayoutWidth;
 
     final body = switch (state.step) {
       0 => const _LanguageStep(),
@@ -39,13 +41,16 @@ class OnboardingPage extends ConsumerWidget {
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 640, maxHeight: 640),
+            constraints: BoxConstraints(
+              maxWidth: 640,
+              maxHeight: compact ? double.infinity : 640,
+            ),
             child: Padding(
-              padding: const EdgeInsets.all(Gaps.l),
+              padding: EdgeInsets.all(compact ? Gaps.s : Gaps.l),
               child: Card(
                 key: const Key('onboarding-card'),
                 child: Padding(
-                  padding: const EdgeInsets.all(Gaps.xl),
+                  padding: EdgeInsets.all(compact ? Gaps.l : Gaps.xl),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -410,10 +415,18 @@ class _AzanStep extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _StepHeading(
-            title: l10n.onboardingAzanTitle,
-            body: l10n.onboardingAzanBody,
-          ),
+          // Where the app cannot start with the system, the step is about the
+          // azan only.
+          if (ref.watch(platformCapabilitiesProvider).autostart)
+            _StepHeading(
+              title: l10n.onboardingAzanTitle,
+              body: l10n.onboardingAzanBody,
+            )
+          else
+            _StepHeading(
+              title: l10n.onboardingAzanTitleOnly,
+              body: l10n.onboardingAzanBodyOnly,
+            ),
           const SizedBox(height: Gaps.l),
           Align(
             alignment: AlignmentDirectional.centerStart,

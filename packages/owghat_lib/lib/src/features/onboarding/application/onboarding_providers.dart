@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:owghat_lib/src/features/azan/application/azan_playback.dart';
@@ -7,6 +9,7 @@ import 'package:owghat_lib/src/features/locations/domain/city.dart';
 import 'package:owghat_lib/src/features/locations/domain/saved_location.dart';
 import 'package:owghat_lib/src/features/places/application/place_location.dart';
 import 'package:owghat_lib/src/features/places/application/place_search_model.dart';
+import 'package:owghat_lib/src/features/scheduler/application/notice_permissions.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
 import 'package:owghat_lib/src/features/settings/domain/app_settings.dart';
 import 'package:owghat_lib/src/features/settings/domain/sound_ref.dart';
@@ -130,10 +133,12 @@ class OnboardingController extends Notifier<OnboardingState> {
     return controller.addLocation(location) == null;
   }
 
-  /// Ends the flow (also used by "skip": every default stays).
+  /// Ends the flow (also used by "skip": every default stays). On phones the
+  /// system then asks for permission to notify.
   void finish() {
     ref.read(settingsProvider.notifier).completeOnboarding();
     state = const OnboardingState();
+    unawaited(ref.read(noticePermissionsProvider.notifier).requestAtStart());
   }
 }
 

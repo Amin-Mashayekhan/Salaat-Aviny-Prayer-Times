@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:owghat_lib/l10n/gen/app_localizations.dart';
 import 'package:owghat_lib/src/app/theme/app_colors.dart';
+import 'package:owghat_lib/src/core/platform/platform_providers.dart';
 import 'package:owghat_lib/src/core/time/clock_warning.dart';
 import 'package:owghat_lib/src/features/clock/application/clock_providers.dart';
 import 'package:owghat_lib/src/features/clock/application/clock_warning_provider.dart';
@@ -102,46 +103,49 @@ class TimeSection extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SettingsGroup(
-          children: [
-            SwitchRow(
-              key: const Key('set-time-enabled'),
-              title: l10n.settingsTimeCheck,
-              description: l10n.settingsTimeCheckHelp,
-              value: network.enabled,
-              onChanged: (value) =>
-                  controller.setNetworkTime(network.copyWith(enabled: value)),
-            ),
-            SwitchRow(
-              key: const Key('set-time-correct'),
-              title: l10n.settingsTimeCorrect,
-              description: l10n.settingsTimeCorrectHelp,
-              value: network.applyCorrection,
-              onChanged: network.enabled
-                  ? (value) => controller.setNetworkTime(
-                      network.copyWith(applyCorrection: value),
-                    )
-                  : null,
-            ),
-            SettingRow(
-              title: l10n.settingsTimeServer,
-              description: l10n.settingsTimeServerHelp,
-              controlWidth: 260,
-              control: CommitField(
-                key: const Key('set-time-server'),
-                value: network.host,
-                semanticsLabel: l10n.settingsTimeServer,
-                keyboardType: TextInputType.url,
-                onCommit: (text) {
-                  final host = text.trim();
-                  if (!isValidHost(host)) return l10n.settingsTimeServerInvalid;
-                  controller.setNetworkTime(network.copyWith(host: host));
-                  return null;
-                },
+        if (ref.watch(platformCapabilitiesProvider).networkClock)
+          SettingsGroup(
+            children: [
+              SwitchRow(
+                key: const Key('set-time-enabled'),
+                title: l10n.settingsTimeCheck,
+                description: l10n.settingsTimeCheckHelp,
+                value: network.enabled,
+                onChanged: (value) =>
+                    controller.setNetworkTime(network.copyWith(enabled: value)),
               ),
-            ),
-          ],
-        ),
+              SwitchRow(
+                key: const Key('set-time-correct'),
+                title: l10n.settingsTimeCorrect,
+                description: l10n.settingsTimeCorrectHelp,
+                value: network.applyCorrection,
+                onChanged: network.enabled
+                    ? (value) => controller.setNetworkTime(
+                        network.copyWith(applyCorrection: value),
+                      )
+                    : null,
+              ),
+              SettingRow(
+                title: l10n.settingsTimeServer,
+                description: l10n.settingsTimeServerHelp,
+                controlWidth: 260,
+                control: CommitField(
+                  key: const Key('set-time-server'),
+                  value: network.host,
+                  semanticsLabel: l10n.settingsTimeServer,
+                  keyboardType: TextInputType.url,
+                  onCommit: (text) {
+                    final host = text.trim();
+                    if (!isValidHost(host)) {
+                      return l10n.settingsTimeServerInvalid;
+                    }
+                    controller.setNetworkTime(network.copyWith(host: host));
+                    return null;
+                  },
+                ),
+              ),
+            ],
+          ),
         SettingsGroup(
           title: l10n.settingsTimeStatusTitle,
           children: [

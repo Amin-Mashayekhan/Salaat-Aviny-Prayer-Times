@@ -124,8 +124,13 @@ code is wrong, not the test.
 
 ## Platforms
 
-`app/lib/main.dart` chooses the platform services: Windows (`windows_platform_services.dart`, wake
-timers through Win32) or a phone (`mobile/mobile_platform_services.dart`). `PlatformCapabilities` says
+`app/lib/main.dart` calls `runOnPlatform` from `src/platform/entry.dart`, a conditional export: the
+browser build gets `entry_web.dart` (no `dart:io`, no Win32/FFI), everything else `entry_native.dart`,
+which picks Windows (`windows_platform_services.dart`, wake timers through Win32), phones
+(`mobile/mobile_platform_services.dart`, Android and iOS) or Linux/macOS
+(`desktop/desktop_platform_services.dart`). On the web the settings live in `localStorage`
+(`web/browser_json_store.dart` through `PlatformServices.storeFor`) and place search uses
+`package:http`. Never import `dart:ffi` or Win32 code from anything the web entry can reach. `PlatformCapabilities` says
 what exists (tray, autostart, wake timers, OS-scheduled notices); screens hide what does not exist, and
 `visibleDestinationsProvider` drops the Wake-up screen. On phones the system schedules the azan
 (`NoticePlanner` hands ten days of `PlannedNotice`s to `NoticeScheduler`), and the in-app dispatcher

@@ -3,6 +3,10 @@ analyzer:
     - build/**
     - windows/**
     - android/**
+    - ios/**
+    - web/**
+    - macos/**
+    - linux/**
 include: package:very_good_analysis/analysis_options.yaml
 
 linter:

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 import 'package:owghat_lib/src/core/platform/http_get.dart';
 import 'package:owghat_lib/src/core/platform/place_search.dart';
@@ -24,7 +25,7 @@ const String placeSearchUserAgent =
 /// nothing is sent in the background. The same query is not sent twice.
 class OnlinePlaceSearch implements PlaceSearchService {
   /// Creates the service. The HTTP function is injectable for tests.
-  OnlinePlaceSearch([this._get = ioHttpGetText]);
+  OnlinePlaceSearch([this._get = packageHttpGetText]);
 
   final HttpGetText _get;
   final Map<String, List<FoundPlace>> _cache = {};
@@ -86,6 +87,9 @@ class OnlinePlaceSearch implements PlaceSearchService {
     } on HandshakeException {
       throw const PlaceSearchException(PlaceSearchFailure.offline);
     } on HttpException {
+      throw const PlaceSearchException(PlaceSearchFailure.offline);
+    } on http.ClientException catch (error) {
+      _log.info('No connection: ${error.message}');
       throw const PlaceSearchException(PlaceSearchFailure.offline);
     } on Object catch (error) {
       throw PlaceSearchException(PlaceSearchFailure.failed, '$error');

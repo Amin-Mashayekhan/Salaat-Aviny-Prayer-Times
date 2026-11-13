@@ -333,7 +333,7 @@
     }
   },
   "homeBannerDismiss": "Dismiss",
-  "homeBannerExactTiming": "Android may deliver the azan a few minutes late. Press Allow and turn on Alarms & reminders for Salaat on the page that opens, so the azan comes at the exact minute.",
+  "homeBannerExactTiming": "Android may deliver the azan late, sometimes by up to an hour. Press Allow and turn on Alarms & reminders for Salaat on the page that opens, so the azan comes at the exact minute.",
   "homeBannerMutedIndefinite": "The azan is muted until you turn it back on.",
   "homeBannerMutedUntil": "The azan is muted until {time}.",
   "@homeBannerMutedUntil": {
@@ -543,7 +543,9 @@
   "notifStopAction": "Stop",
   "notifTrayHint": "The app keeps running next to the Windows clock.",
   "onboardingAzanBody": "Listen to the azan and choose whether the app starts with Windows.",
+  "onboardingAzanBodyOnly": "Listen to the azan. You can change the sound and the volume of each prayer later in the settings.",
   "onboardingAzanTitle": "Azan and start-up",
+  "onboardingAzanTitleOnly": "Azan sound",
   "onboardingBack": "Back",
   "onboardingCityBody": "Search for your city or pick it from a province.",
   "onboardingCityNone": "No city found.",
@@ -598,7 +600,7 @@
     }
   },
   "placeSearchNotice": "Searching needs the internet, only this once. The text you type is sent to the OpenStreetMap search service (Nominatim); nothing else is sent. After you choose a place, the app keeps what it needs and works offline again.",
-  "placeSearchNoticeDetails": "When you choose a place, its coordinates are sent to Open-Meteo to get its time zone and height.",
+  "placeSearchNoticeWithDetails": "Searching needs the internet, only this once. The text you type is sent to the OpenStreetMap search service (Nominatim), and when you choose a place only its coordinates go to Open-Meteo to get its time zone and height. Nothing else is sent, and afterwards the app works offline.",
   "placeSearchResolving": "Getting the time zone and height of {place}…",
   "@placeSearchResolving": {
     "placeholders": {

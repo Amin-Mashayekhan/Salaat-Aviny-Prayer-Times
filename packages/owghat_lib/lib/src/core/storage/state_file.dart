@@ -16,14 +16,14 @@ class StateFile {
 
   /// Loads the file; a missing or broken file gives an empty state.
   static Future<StateFile> load(
-    JsonFileStore store, {
+    JsonStore store, {
     Duration debounce = const Duration(milliseconds: 500),
   }) async {
     final result = await store.read();
     return StateFile(store, Json.map(result.json), debounce: debounce);
   }
 
-  final JsonFileStore _store;
+  final JsonStore _store;
   final Debouncer _debouncer;
   final Map<String, Object?> _data;
 

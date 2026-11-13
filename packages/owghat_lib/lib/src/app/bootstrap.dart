@@ -12,7 +12,6 @@ import 'package:owghat_lib/src/core/logging/file_log_sink.dart';
 import 'package:owghat_lib/src/core/platform/launch_args.dart';
 import 'package:owghat_lib/src/core/platform/platform_providers.dart';
 import 'package:owghat_lib/src/core/platform/platform_services.dart';
-import 'package:owghat_lib/src/core/storage/json_file_store.dart';
 import 'package:owghat_lib/src/core/storage/state_file.dart';
 import 'package:owghat_lib/src/core/time/tz_database.dart';
 import 'package:owghat_lib/src/features/diagnostics/presentation/about_diagnostics_section.dart';
@@ -66,7 +65,7 @@ Future<void> bootstrap(
   List<Override> extraOverrides = const [],
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
-  _initLogging(services.paths.logDir);
+  if (services.fileLogging) _initLogging(services.paths.logDir);
   FlutterError.onError = (details) {
     _log.severe('Flutter error', details.exception, details.stack);
     FlutterError.presentError(details);
@@ -106,12 +105,10 @@ Future<AppRuntime> prepareApp({
 
   // Settings and state: a missing or broken file never stops start-up.
   final settingsRepository = SettingsRepository(
-    JsonFileStore(services.paths.settingsFile),
+    services.store('settings.json'),
   );
   final loaded = await settingsRepository.load();
-  final stateFile = await StateFile.load(
-    JsonFileStore(services.paths.stateFile),
-  );
+  final stateFile = await StateFile.load(services.store('state.json'));
   final locations = await LocationRepository.load(services.assetLoader);
 
   final container = ProviderContainer(
@@ -176,8 +173,11 @@ Future<AppRuntime> prepareApp({
   unawaited(autostart.start());
   container.read(notificationActionRouterProvider);
   // Where the operating system sounds the azan, hand it the coming days now
-  // and ask (once; the system remembers) for permission to notify.
-  if (container.read(noticePlannerProvider) != null) {
+  // and ask (once; the system remembers) for permission to notify. On the
+  // first run the question waits for the end of onboarding, so the person
+  // knows what the app is before the system asks.
+  if (container.read(noticePlannerProvider) != null &&
+      container.read(settingsProvider).onboardingCompleted) {
     unawaited(
       container.read(noticePermissionsProvider.notifier).requestAtStart(),
     );

@@ -1,12 +1,17 @@
 name: pages
 
-# Publishes the download page (site/) to GitHub Pages. In the repository
-# settings, set Pages > Source to "GitHub Actions" once.
+# Publishes the download page (site/) and, under /app/, the browser version
+# of the app, to GitHub Pages. In the repository settings, Pages > Source must
+# be "GitHub Actions".
 
 on:
   push:
     branches: [main]
-    paths: ['site/**', '.github/workflows/pages.yml']
+    paths:
+      - 'site/**'
+      - 'app/**'
+      - 'packages/**'
+      - '.github/workflows/pages.yml'
   workflow_dispatch:
 
 permissions:
@@ -26,6 +31,18 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.9
+          channel: stable
+      - run: flutter pub get
+      - name: Build the browser version
+        working-directory: app
+        run: flutter build web --release --base-href /Salaat-Aviny-Prayer-Times/app/
+      - name: Put it under site/app
+        run: |
+          rm -rf site/app
+          cp -r app/build/web site/app
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

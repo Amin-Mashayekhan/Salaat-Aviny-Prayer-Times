@@ -503,7 +503,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get homeBannerExactTiming =>
-      'Android mungkin mengirim azan beberapa menit terlambat. Tekan Izinkan dan aktifkan Alarms & reminders untuk Salaat di halaman yang terbuka, agar azan datang tepat waktu.';
+      'Android mungkin mengirim azan terlambat, terkadang hingga satu jam. Tekan Izinkan dan aktifkan Alarms & reminders untuk Salaat di halaman yang terbuka, agar azan datang tepat waktu.';
 
   @override
   String get homeBannerMutedIndefinite =>
@@ -728,7 +728,14 @@ class AppLocalizationsId extends AppLocalizations {
       'Dengarkan azan dan pilih apakah aplikasi dimulai bersama Windows.';
 
   @override
+  String get onboardingAzanBodyOnly =>
+      'Dengarkan azan. Anda dapat mengubah suara dan volume tiap salat nanti di pengaturan.';
+
+  @override
   String get onboardingAzanTitle => 'Azan dan mulai otomatis';
+
+  @override
+  String get onboardingAzanTitleOnly => 'Suara azan';
 
   @override
   String get onboardingBack => 'Kembali';
@@ -838,8 +845,8 @@ class AppLocalizationsId extends AppLocalizations {
       'Pencarian hanya membutuhkan internet kali ini saja. Teks yang Anda ketik dikirim ke layanan pencarian OpenStreetMap (Nominatim); tidak ada hal lain yang dikirim. Setelah Anda memilih tempat, aplikasi menyimpan yang diperlukan dan kembali bekerja tanpa internet.';
 
   @override
-  String get placeSearchNoticeDetails =>
-      'Saat Anda memilih tempat, koordinat tempat itu dikirim ke Open-Meteo untuk mengambil zona waktu dan ketinggiannya.';
+  String get placeSearchNoticeWithDetails =>
+      'Pencarian hanya membutuhkan internet kali ini saja. Teks yang Anda ketik dikirim ke layanan pencarian OpenStreetMap (Nominatim), dan saat Anda memilih tempat hanya koordinatnya yang dikirim ke Open-Meteo untuk zona waktu dan ketinggiannya. Tidak ada hal lain yang dikirim, dan setelahnya aplikasi bekerja tanpa internet.';
 
   @override
   String placeSearchResolving(String place) {

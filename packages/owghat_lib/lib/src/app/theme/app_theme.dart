@@ -19,6 +19,10 @@ abstract final class Gaps {
   static const double xxl = 32;
 }
 
+/// Below this width the layout is a phone's: navigation at the bottom, the
+/// first-run flow on the whole screen.
+const double compactLayoutWidth = 600;
+
 /// Corner radii.
 abstract final class Radii {
   /// Cards.

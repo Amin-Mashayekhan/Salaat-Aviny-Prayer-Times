@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
+
+import 'package:http/http.dart' as http;
 
 /// What a plain HTTP GET returned.
 class HttpTextResponse {
@@ -15,28 +16,30 @@ class HttpTextResponse {
 }
 
 /// Fetches [uri] with GET and returns the answer as text. Throws
-/// [SocketException], [HandshakeException] or [TimeoutException] when the
-/// server cannot be reached.
+/// `http.ClientException` (or, on some platforms, a socket error) or a
+/// [TimeoutException] when the server cannot be reached.
 typedef HttpGetText = Future<HttpTextResponse> Function(
   Uri uri, {
   Map<String, String> headers,
   Duration timeout,
 });
 
-/// [HttpGetText] over `dart:io`.
-Future<HttpTextResponse> ioHttpGetText(
+/// [HttpGetText] over `package:http`, which works on every platform,
+/// including browsers (the servers used allow cross-origin requests; a browser
+/// ignores the User-Agent header and sends its own).
+Future<HttpTextResponse> packageHttpGetText(
   Uri uri, {
   Map<String, String> headers = const {},
   Duration timeout = const Duration(seconds: 15),
 }) async {
-  final client = HttpClient()..connectionTimeout = timeout;
+  final client = http.Client();
   try {
-    final request = await client.getUrl(uri).timeout(timeout);
-    headers.forEach(request.headers.set);
-    final response = await request.close().timeout(timeout);
-    final body = await response.transform(utf8.decoder).join().timeout(timeout);
-    return HttpTextResponse(response.statusCode, body);
+    final response = await client.get(uri, headers: headers).timeout(timeout);
+    return HttpTextResponse(
+      response.statusCode,
+      utf8.decode(response.bodyBytes, allowMalformed: true),
+    );
   } finally {
-    client.close(force: true);
+    client.close();
   }
 }

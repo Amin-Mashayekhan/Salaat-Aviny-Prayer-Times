@@ -132,8 +132,7 @@ class _PlaceSearchPanelState extends ConsumerState<PlaceSearchPanel> {
                     Expanded(
                       child: Text(
                         widget.resolveDetails
-                            ? '${l10n.placeSearchNotice} '
-                                  '${l10n.placeSearchNoticeDetails}'
+                            ? l10n.placeSearchNoticeWithDetails
                             : l10n.placeSearchNotice,
                         key: Key(_key('notice-text')),
                         style: theme.textTheme.bodySmall,

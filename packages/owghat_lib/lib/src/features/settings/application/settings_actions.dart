@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,7 +27,7 @@ final backupFilesProvider = Provider<BackupFiles>(
 final settingsBackupCodecProvider = Provider<SettingsRepository>(
   (ref) =>
       ref.watch(settingsRepositoryProvider) ??
-      SettingsRepository(JsonFileStore(File('unused.json'))),
+      SettingsRepository(MemoryJsonStore()),
 );
 
 /// How a backup export or import step ended.

@@ -8,7 +8,10 @@ import 'package:owghat_lib/src/core/platform/launch_args.dart';
 import 'package:owghat_lib/src/core/platform/notice_scheduler.dart';
 import 'package:owghat_lib/src/core/platform/platform_capabilities.dart';
 import 'package:owghat_lib/src/core/platform/platform_providers.dart';
+import 'package:owghat_lib/src/core/platform/platform_services.dart';
+import 'package:owghat_lib/src/core/storage/json_file_store.dart';
 import 'package:owghat_lib/src/features/locations/data/location_repository.dart';
+import 'package:owghat_lib/src/features/onboarding/application/onboarding_providers.dart';
 import 'package:owghat_lib/src/features/prayer_times/application/home_banners.dart';
 import 'package:owghat_lib/src/features/scheduler/application/notice_permissions.dart';
 import 'package:owghat_lib/src/features/scheduler/application/notice_planner.dart';
@@ -239,6 +242,17 @@ void main() {
       expect(scheduler.replaceCalls, before + 1);
     });
 
+    test('the first run asks for notifications when onboarding ends', () async {
+      final w = world(settings: const AppSettings.defaults());
+      await settle();
+      expect(scheduler.permissionRequests, 0);
+      w.read(onboardingProvider.notifier).finish();
+      await settle();
+      expect(w.read(settingsProvider).onboardingCompleted, isTrue);
+      expect(scheduler.permissionRequests, 1);
+      expect(w.read(noticePermissionsProvider).notifications, isTrue);
+    });
+
     test('nothing is asked on the desktop', () async {
       final desktopScheduler = FakeNoticeScheduler();
       final w = PlatformWorld(
@@ -250,6 +264,110 @@ void main() {
       await w.read(noticePermissionsProvider.notifier).refresh();
       expect(desktopScheduler.permissionRequests, 0);
       expect(w.read(noticePermissionsProvider), const NoticePermissions());
+    });
+  });
+
+  group('browser', () {
+    test('the store of a document follows storeFor, else a file', () async {
+      final memory = <String, MemoryJsonStore>{};
+      final services = PlatformServices.fake();
+      final web = PlatformServices(
+        audio: services.audio,
+        notifier: services.notifier,
+        window: services.window,
+        tray: services.tray,
+        autostart: services.autostart,
+        fileDialogs: services.fileDialogs,
+        paths: services.paths,
+        power: services.power,
+        singleInstance: services.singleInstance,
+        assetLoader: services.assetLoader,
+        capabilities: PlatformCapabilities.web,
+        storeFor: (name) => memory.putIfAbsent(name, MemoryJsonStore.new),
+        fileLogging: false,
+      );
+      await web.store('settings.json').write({'a': 1});
+      expect(memory['settings.json']!.json, {'a': 1});
+      expect((await web.store('settings.json').read()).existed, isTrue);
+      expect(web.fileLogging, isFalse);
+      expect(services.store('settings.json'), isA<JsonFileStore>());
+      expect(services.fileLogging, isTrue);
+    });
+
+    test('an empty memory store reads as missing', () async {
+      final store = MemoryJsonStore();
+      final result = await store.read();
+      expect(result.existed, isFalse);
+      expect(result.json, isNull);
+      expect(result.quarantined, isFalse);
+    });
+
+    Future<AppHarness> openBrowser(
+      WidgetTester tester, {
+      bool onboardingDone = true,
+    }) => AppHarness.pump(
+      tester,
+      repository: repo,
+      settings: englishSettings,
+      onboardingDone: onboardingDone,
+      overrides: [
+        platformCapabilitiesProvider.overrideWithValue(
+          PlatformCapabilities.web,
+        ),
+      ],
+    );
+
+    testWidgets('no backup, no sound files, no clock check, no Wake-up', (
+      tester,
+    ) async {
+      final h = await openBrowser(tester);
+      expect(h.container.read(visibleDestinationsProvider).length, 5);
+      h.container
+          .read(destinationProvider.notifier)
+          .select(Destination.settings);
+      for (final (section, hidden) in [
+        (SettingsSection.app, 'set-backup-export'),
+        (SettingsSection.app, 'set-app-autostart'),
+        (SettingsSection.time, 'set-time-enabled'),
+        (SettingsSection.azan, 'set-azan-pick-fajr'),
+      ]) {
+        h.container
+            .read(selectedSettingsSectionProvider.notifier)
+            .select(section);
+        await tester.pumpAndSettle();
+        expect(find.byKey(Key(hidden)), findsNothing, reason: hidden);
+      }
+      // The azan in the page keeps working: no phone note here.
+      expect(find.byKey(const Key('set-azan-phone-note')), findsNothing);
+    });
+
+    testWidgets('step 3 of the first run talks about the azan only', (
+      tester,
+    ) async {
+      await openBrowser(tester, onboardingDone: false);
+      await tester.tap(find.byKey(const Key('onboarding-next')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('onboarding-next')));
+      await tester.pumpAndSettle();
+      expect(find.text('Azan sound'), findsOneWidget);
+      expect(find.textContaining('Windows'), findsNothing);
+    });
+
+    testWidgets('on the desktop step 3 still offers starting with Windows', (
+      tester,
+    ) async {
+      await AppHarness.pump(
+        tester,
+        repository: repo,
+        settings: englishSettings,
+        onboardingDone: false,
+      );
+      await tester.tap(find.byKey(const Key('onboarding-next')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('onboarding-next')));
+      await tester.pumpAndSettle();
+      expect(find.text('Azan and start-up'), findsOneWidget);
+      expect(find.byKey(const Key('onboarding-startup')), findsOneWidget);
     });
   });
 

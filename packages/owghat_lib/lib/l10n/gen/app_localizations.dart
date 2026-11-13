@@ -785,7 +785,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeBannerExactTiming.
   ///
   /// In fa, this message translates to:
-  /// **'اندروید ممکن است اذان را چند دقیقه دیرتر بفرستد. «اجازه» را بزنید و در صفحه‌ی بازشده «هشدارها و یادآوری‌ها» (Alarms & reminders) را برای Salaat روشن کنید تا اذان سر دقیقه بیاید.'**
+  /// **'اندروید ممکن است اذان را دیرتر بفرستد، گاهی تا یک ساعت. «اجازه» را بزنید و در صفحه‌ی بازشده «هشدارها و یادآوری‌ها» (Alarms & reminders) را برای Salaat روشن کنید تا اذان سر دقیقه بیاید.'**
   String get homeBannerExactTiming;
 
   /// No description provided for @homeBannerMutedIndefinite.
@@ -1118,11 +1118,23 @@ abstract class AppLocalizations {
   /// **'صدای اذان را بشنوید و تعیین کنید برنامه با روشن شدن ویندوز هم اجرا شود.'**
   String get onboardingAzanBody;
 
+  /// No description provided for @onboardingAzanBodyOnly.
+  ///
+  /// In fa, this message translates to:
+  /// **'صدای اذان را بشنوید. بعداً در تنظیمات می‌توانید برای هر نماز صدا و بلندی را عوض کنید.'**
+  String get onboardingAzanBodyOnly;
+
   /// No description provided for @onboardingAzanTitle.
   ///
   /// In fa, this message translates to:
   /// **'اذان و شروع برنامه'**
   String get onboardingAzanTitle;
+
+  /// No description provided for @onboardingAzanTitleOnly.
+  ///
+  /// In fa, this message translates to:
+  /// **'صدای اذان'**
+  String get onboardingAzanTitleOnly;
 
   /// No description provided for @onboardingBack.
   ///
@@ -1304,11 +1316,11 @@ abstract class AppLocalizations {
   /// **'جستجو فقط همین یک بار به اینترنت نیاز دارد. متنی که می‌نویسید به سرویس جستجوی OpenStreetMap (Nominatim) فرستاده می‌شود و چیز دیگری فرستاده نمی‌شود. بعد از انتخاب مکان، برنامه آنچه لازم دارد را نگه می‌دارد و دوباره بدون اینترنت کار می‌کند.'**
   String get placeSearchNotice;
 
-  /// No description provided for @placeSearchNoticeDetails.
+  /// No description provided for @placeSearchNoticeWithDetails.
   ///
   /// In fa, this message translates to:
-  /// **'وقتی مکانی را انتخاب کنید، مختصات همان مکان به Open-Meteo فرستاده می‌شود تا منطقه‌ی زمانی و ارتفاعش گرفته شود.'**
-  String get placeSearchNoticeDetails;
+  /// **'جستجو فقط همین یک بار به اینترنت نیاز دارد. متنی که می‌نویسید به سرویس جستجوی OpenStreetMap (Nominatim) فرستاده می‌شود، و وقتی مکانی را انتخاب کنید فقط مختصات همان مکان به Open-Meteo می‌رود تا منطقه‌ی زمانی و ارتفاعش گرفته شود. چیز دیگری فرستاده نمی‌شود و بعد از آن برنامه بدون اینترنت کار می‌کند.'**
+  String get placeSearchNoticeWithDetails;
 
   /// No description provided for @placeSearchResolving.
   ///

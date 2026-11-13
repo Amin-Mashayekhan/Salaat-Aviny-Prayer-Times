@@ -26,6 +26,8 @@ void main() {
     (Size(800, 560), PlatformCapabilities.desktop, 'desktop'),
     (Size(390, 844), PlatformCapabilities.mobile, 'phone'),
     (Size(360, 740), PlatformCapabilities.mobile, 'phone'),
+    (Size(1200, 800), PlatformCapabilities.web, 'browser'),
+    (Size(390, 844), PlatformCapabilities.web, 'browser'),
   ];
 
   for (final language in AppLanguage.values) {

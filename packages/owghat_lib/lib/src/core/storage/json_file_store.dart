@@ -13,12 +13,39 @@ typedef StoreReadResult = ({
   bool quarantined,
 });
 
+/// Where one JSON document is kept: a file on the desktop and on phones,
+/// browser storage on the web.
+abstract interface class JsonStore {
+  /// Reads the document; never throws. A broken one is set aside and read as
+  /// missing.
+  Future<StoreReadResult> read();
+
+  /// Replaces the document.
+  Future<void> write(Object? json);
+}
+
+/// A [JsonStore] in memory (tests, and a fallback that keeps nothing).
+class MemoryJsonStore implements JsonStore {
+  /// Creates the store, optionally holding [json] already.
+  MemoryJsonStore([this.json]);
+
+  /// What the store holds.
+  Object? json;
+
+  @override
+  Future<StoreReadResult> read() async =>
+      (json: json, existed: json != null, quarantined: false);
+
+  @override
+  Future<void> write(Object? json) async => this.json = json;
+}
+
 /// Reads and writes one JSON file safely.
 ///
 /// Writes are atomic (temporary file, flush, rename), so a crash never
 /// leaves a half-written file. An unreadable file is renamed to
 /// `<name>.corrupt-<timestamp>` instead of being overwritten or deleted.
-class JsonFileStore {
+class JsonFileStore implements JsonStore {
   /// Creates a store for [file]. [now] names quarantined files and is
   /// injectable for tests.
   JsonFileStore(this.file, {DateTime Function()? now})
@@ -34,6 +61,7 @@ class JsonFileStore {
   static DateTime _systemNow() => DateTime.now(); // allow-now
 
   /// Reads the file.
+  @override
   Future<StoreReadResult> read() async {
     if (!file.existsSync()) {
       return (json: null, existed: false, quarantined: false);
@@ -48,6 +76,7 @@ class JsonFileStore {
   }
 
   /// Writes [json] atomically.
+  @override
   Future<void> write(Object? json) async {
     await file.parent.create(recursive: true);
     final temp = File('${file.path}.tmp');

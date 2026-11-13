@@ -73,8 +73,32 @@
               </td>
               <td><span class="ok" data-i18n="dl.available">Available</span></td>
             </tr>
-            <tr class="os-mac"><td><strong>macOS</strong></td><td class="muted">—</td><td><span class="soon" data-i18n="dl.soon">Not available yet</span></td></tr>
-            <tr class="os-linux"><td><strong>Linux</strong></td><td class="muted">—</td><td><span class="soon" data-i18n="dl.soon2">Not available yet</span></td></tr>
+            <tr class="os-mac" data-needs="Salaat-macos.zip">
+              <td><strong>macOS</strong><br><span class="muted">10.15+</span></td>
+              <td class="when-available">
+                <a class="btn" data-asset="Salaat-macos.zip" href="#"><code>Salaat-macos.zip</code></a>
+                <p class="muted small" data-i18n="dl.machow">Unzip it and move Salaat to Applications. It is not notarised yet, so the first time right-click it and choose Open.</p>
+              </td>
+              <td class="when-missing muted">—</td>
+              <td><span class="ok when-available" data-i18n="dl.available3">Available</span><span class="soon when-missing" data-i18n="dl.soon">Not available yet</span></td>
+            </tr>
+            <tr class="os-linux" data-needs="Salaat-linux-x64.tar.gz">
+              <td><strong>Linux</strong><br><span class="muted">x64</span></td>
+              <td class="when-available">
+                <a class="btn" data-asset="Salaat-linux-x64.tar.gz" href="#"><code>Salaat-linux-x64.tar.gz</code></a>
+                <p class="muted small" data-i18n="dl.linuxhow">Unpack it anywhere and run salaat. The tray icon needs AppIndicator support (standard on Ubuntu).</p>
+              </td>
+              <td class="when-missing muted">—</td>
+              <td><span class="ok when-available" data-i18n="dl.available4">Available</span><span class="soon when-missing" data-i18n="dl.soon2">Not available yet</span></td>
+            </tr>
+            <tr class="os-web">
+              <td><strong data-i18n="dl.webname">In the browser</strong><br><span class="muted" data-i18n="dl.webany">Any system</span></td>
+              <td>
+                <a class="btn" href="app/" data-i18n="dl.webopen">Open the web version</a>
+                <p class="muted small" data-i18n="dl.webnote">Nothing to install. The azan sounds only while the page is open; for an azan with the app closed, install it on Windows or Android.</p>
+              </td>
+              <td><span class="ok" data-i18n="dl.available5">Available</span></td>
+            </tr>
             <tr class="os-android" data-needs="Salaat-android.apk">
               <td><strong>Android</strong><br><span class="muted" data-i18n="dl.androidver">Android 7 or later</span></td>
               <td class="when-available">
@@ -87,7 +111,7 @@
               <td class="when-missing muted">—</td>
               <td><span class="ok when-available" data-i18n="dl.available2">Available</span><span class="soon when-missing" data-i18n="dl.soon3">Not available yet</span></td>
             </tr>
-            <tr class="os-ios"><td><strong>iOS</strong></td><td class="muted">—</td><td><span class="soon" data-i18n="dl.soon4">Not available yet</span></td></tr>
+            <tr class="os-ios"><td><strong>iOS</strong></td><td class="muted" data-i18n="dl.iosnote">Needs publishing through the App Store; use the web version on iPhone for now.</td><td><span class="soon" data-i18n="dl.soon4">Not available yet</span></td></tr>
           </tbody>
         </table>
       </div>

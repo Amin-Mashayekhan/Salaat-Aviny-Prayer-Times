@@ -7,6 +7,7 @@ import 'package:owghat_lib/l10n/gen/app_localizations.dart';
 import 'package:owghat_lib/src/app/shell/destination.dart';
 import 'package:owghat_lib/src/app/shell/destination_controller.dart';
 import 'package:owghat_lib/src/app/shell/destination_pages.dart';
+import 'package:owghat_lib/src/app/theme/app_theme.dart';
 import 'package:owghat_lib/src/features/azan/application/azan_playback.dart';
 import 'package:owghat_lib/src/features/onboarding/presentation/onboarding_page.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
@@ -26,7 +27,7 @@ class AppShell extends ConsumerWidget {
   static const double maxContentWidth = 960;
 
   /// Below this width the navigation moves to a bar at the bottom.
-  static const double compactWidth = 600;
+  static const double compactWidth = compactLayoutWidth;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

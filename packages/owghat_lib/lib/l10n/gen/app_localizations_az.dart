@@ -503,7 +503,7 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get homeBannerExactTiming =>
-      'Android azanı bir neçə dəqiqə gec çatdıra bilər. İcazə ver düyməsinə basın və açılan səhifədə Salaat üçün Alarms & reminders seçimini açın ki, azan dəqiq vaxtında gəlsin.';
+      'Android azanı gec, bəzən bir saatadək gecikmə ilə çatdıra bilər. İcazə ver düyməsinə basın və açılan səhifədə Salaat üçün Alarms & reminders seçimini açın ki, azan dəqiq vaxtında gəlsin.';
 
   @override
   String get homeBannerMutedIndefinite =>
@@ -729,7 +729,14 @@ class AppLocalizationsAz extends AppLocalizations {
       'Azana qulaq asın və tətbiqin Windows ilə birlikdə başlayıb-başlamayacağını seçin.';
 
   @override
+  String get onboardingAzanBodyOnly =>
+      'Azana qulaq asın. Hər namazın səsini və səs səviyyəsini sonra parametrlərdə dəyişə bilərsiniz.';
+
+  @override
   String get onboardingAzanTitle => 'Azan və başlanğıc';
+
+  @override
+  String get onboardingAzanTitleOnly => 'Azan səsi';
 
   @override
   String get onboardingBack => 'Geri';
@@ -839,8 +846,8 @@ class AppLocalizationsAz extends AppLocalizations {
       'Axtarış üçün internet yalnız indi lazımdır. Yazdığınız mətn OpenStreetMap axtarış xidmətinə (Nominatim) göndərilir; başqa heç nə göndərilmir. Yeri seçdikdən sonra tətbiq lazım olanı saxlayır və yenidən internetsiz işləyir.';
 
   @override
-  String get placeSearchNoticeDetails =>
-      'Bir yer seçdikdə onun saat qurşağını və hündürlüyünü almaq üçün həmin yerin koordinatları Open-Meteo xidmətinə göndərilir.';
+  String get placeSearchNoticeWithDetails =>
+      'Axtarış üçün internet yalnız indi lazımdır. Yazdığınız mətn OpenStreetMap axtarış xidmətinə (Nominatim) göndərilir, yer seçdikdə isə saat qurşağı və hündürlük üçün yalnız onun koordinatları Open-Meteo-ya gedir. Başqa heç nə göndərilmir və sonra tətbiq internetsiz işləyir.';
 
   @override
   String placeSearchResolving(String place) {

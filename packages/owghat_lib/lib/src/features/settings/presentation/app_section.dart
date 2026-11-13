@@ -165,54 +165,57 @@ class _AppSectionState extends ConsumerState<AppSection> {
               ],
             ],
           ),
-        SettingsGroup(
-          title: l10n.settingsBackupTitle,
-          children: [
-            SettingRow(
-              title: l10n.settingsBackupExport,
-              description: l10n.settingsBackupExportHelp,
-              control: OutlinedButton.icon(
-                key: const Key('set-backup-export'),
-                icon: const Icon(Icons.upload_file_outlined),
-                label: Text(l10n.settingsBackupExport),
-                onPressed: _export,
-              ),
-            ),
-            SettingRow(
-              title: l10n.settingsBackupImport,
-              description: l10n.settingsBackupImportHelp,
-              control: OutlinedButton.icon(
-                key: const Key('set-backup-import'),
-                icon: const Icon(Icons.download_outlined),
-                label: Text(l10n.settingsBackupImport),
-                onPressed: _import,
-              ),
-            ),
-            SettingRow(
-              title: l10n.settingsResetTitle,
-              description: l10n.settingsResetHelp,
-              control: OutlinedButton.icon(
-                key: const Key('set-reset'),
-                style: OutlinedButton.styleFrom(foregroundColor: colors.danger),
-                icon: const Icon(Icons.restart_alt),
-                label: Text(l10n.settingsResetTitle),
-                onPressed: _reset,
-              ),
-            ),
-            if (message.$1 != null)
-              Semantics(
-                liveRegion: true,
-                child: StatusLine(
-                  key: const Key('set-app-message'),
-                  text: message.$1!,
-                  icon: message.$2
-                      ? Icons.error_outline
-                      : Icons.check_circle_outline,
-                  color: message.$2 ? colors.danger : colors.success,
+        if (capabilities.fileAccess)
+          SettingsGroup(
+            title: l10n.settingsBackupTitle,
+            children: [
+              SettingRow(
+                title: l10n.settingsBackupExport,
+                description: l10n.settingsBackupExportHelp,
+                control: OutlinedButton.icon(
+                  key: const Key('set-backup-export'),
+                  icon: const Icon(Icons.upload_file_outlined),
+                  label: Text(l10n.settingsBackupExport),
+                  onPressed: _export,
                 ),
               ),
-          ],
-        ),
+              SettingRow(
+                title: l10n.settingsBackupImport,
+                description: l10n.settingsBackupImportHelp,
+                control: OutlinedButton.icon(
+                  key: const Key('set-backup-import'),
+                  icon: const Icon(Icons.download_outlined),
+                  label: Text(l10n.settingsBackupImport),
+                  onPressed: _import,
+                ),
+              ),
+              SettingRow(
+                title: l10n.settingsResetTitle,
+                description: l10n.settingsResetHelp,
+                control: OutlinedButton.icon(
+                  key: const Key('set-reset'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: colors.danger,
+                  ),
+                  icon: const Icon(Icons.restart_alt),
+                  label: Text(l10n.settingsResetTitle),
+                  onPressed: _reset,
+                ),
+              ),
+              if (message.$1 != null)
+                Semantics(
+                  liveRegion: true,
+                  child: StatusLine(
+                    key: const Key('set-app-message'),
+                    text: message.$1!,
+                    icon: message.$2
+                        ? Icons.error_outline
+                        : Icons.check_circle_outline,
+                    color: message.$2 ? colors.danger : colors.success,
+                  ),
+                ),
+            ],
+          ),
       ],
     );
   }

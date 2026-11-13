@@ -502,7 +502,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get homeBannerExactTiming =>
-      'قد يُصدر أندرويد الأذان متأخراً بضع دقائق. اضغط «سماح» وفعّل Alarms & reminders لتطبيق Salaat في الصفحة التي تُفتح، ليأتي الأذان في دقيقته تماماً.';
+      'قد يُصدر أندرويد الأذان متأخراً، أحياناً حتى ساعة. اضغط «سماح» وفعّل Alarms & reminders لتطبيق Salaat في الصفحة التي تُفتح، ليأتي الأذان في دقيقته تماماً.';
 
   @override
   String get homeBannerMutedIndefinite => 'الأذان مكتوم حتى تعيد تشغيله.';
@@ -726,7 +726,14 @@ class AppLocalizationsAr extends AppLocalizations {
       'استمع إلى الأذان واختر هل يبدأ التطبيق مع Windows.';
 
   @override
+  String get onboardingAzanBodyOnly =>
+      'استمع إلى الأذان. يمكنك لاحقاً تغيير الصوت ومستواه لكل صلاة من الإعدادات.';
+
+  @override
   String get onboardingAzanTitle => 'الأذان والبدء';
+
+  @override
+  String get onboardingAzanTitleOnly => 'صوت الأذان';
 
   @override
   String get onboardingBack => 'رجوع';
@@ -834,8 +841,8 @@ class AppLocalizationsAr extends AppLocalizations {
       'البحث يحتاج إلى الإنترنت هذه المرة فقط. يُرسل النص الذي تكتبه إلى خدمة البحث في OpenStreetMap (Nominatim) ولا يُرسل أي شيء آخر. بعد اختيار المكان يحتفظ التطبيق بما يلزمه ويعمل بدون إنترنت من جديد.';
 
   @override
-  String get placeSearchNoticeDetails =>
-      'عند اختيار مكان تُرسل إحداثياته إلى Open-Meteo لجلب منطقته الزمنية وارتفاعه.';
+  String get placeSearchNoticeWithDetails =>
+      'البحث يحتاج إلى الإنترنت هذه المرة فقط. يُرسل النص الذي تكتبه إلى خدمة البحث في OpenStreetMap (Nominatim)، وعند اختيار مكان تُرسل إحداثياته فقط إلى Open-Meteo لجلب منطقته الزمنية وارتفاعه. لا يُرسل أي شيء آخر، وبعدها يعمل التطبيق بدون إنترنت.';
 
   @override
   String placeSearchResolving(String place) {

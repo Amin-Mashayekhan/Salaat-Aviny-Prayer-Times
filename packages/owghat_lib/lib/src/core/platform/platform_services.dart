@@ -23,6 +23,7 @@ import 'package:owghat_lib/src/core/platform/power_events.dart';
 import 'package:owghat_lib/src/core/platform/single_instance.dart';
 import 'package:owghat_lib/src/core/platform/tray_host.dart';
 import 'package:owghat_lib/src/core/platform/window_host.dart';
+import 'package:owghat_lib/src/core/storage/json_file_store.dart';
 import 'package:owghat_lib/src/features/locations/data/location_repository.dart';
 
 /// Everything the library needs from the operating system, handed to
@@ -46,6 +47,8 @@ class PlatformServices {
     this.placeSearch = const UnsupportedPlaceSearch(),
     this.capabilities = PlatformCapabilities.desktop,
     this.noticeScheduler = const NoNoticeScheduler(),
+    this.storeFor,
+    this.fileLogging = true,
   });
 
   /// A bundle of in-memory fakes. [supportDir] defaults to a new temporary
@@ -131,4 +134,18 @@ class PlatformServices {
 
   /// Plans notifications with the operating system where it schedules them.
   final NoticeScheduler noticeScheduler;
+
+  /// Where the settings and state documents are kept, by file name
+  /// (`settings.json`, `state.json`). Null means files in [paths].
+  final JsonStore Function(String name)? storeFor;
+
+  /// Whether the log is also written to files in `paths.logDir`.
+  final bool fileLogging;
+
+  /// The store of the document called [name].
+  JsonStore store(String name) =>
+      storeFor?.call(name) ??
+      JsonFileStore(
+        File('${paths.appSupportDir.path}${Platform.pathSeparator}$name'),
+      );
 }

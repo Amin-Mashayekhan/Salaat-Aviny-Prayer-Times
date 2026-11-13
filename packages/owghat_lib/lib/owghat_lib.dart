@@ -21,6 +21,8 @@ export 'src/core/platform/single_instance.dart';
 export 'src/core/platform/tray_host.dart';
 export 'src/core/platform/tray_menu.dart';
 export 'src/core/platform/window_host.dart';
+export 'src/core/storage/json_file_store.dart'
+    show JsonStore, MemoryJsonStore, StoreReadResult;
 export 'src/core/time/fade_ramp.dart';
 export 'src/features/diagnostics/application/app_version.dart';
 export 'src/features/locations/data/location_repository.dart'

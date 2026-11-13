@@ -500,7 +500,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get homeBannerExactTiming =>
-      'Android ezanı birkaç dakika geç iletebilir. İzin ver düğmesine basın ve açılan sayfada Salaat için Alarms & reminders seçeneğini açın; ezan tam dakikasında gelsin.';
+      'Android ezanı geç, bazen bir saate kadar gecikmeyle iletebilir. İzin ver düğmesine basın ve açılan sayfada Salaat için Alarms & reminders seçeneğini açın; ezan tam dakikasında gelsin.';
 
   @override
   String get homeBannerMutedIndefinite =>
@@ -726,7 +726,14 @@ class AppLocalizationsTr extends AppLocalizations {
       'Ezanı dinleyin ve uygulamanın Windows ile başlayıp başlamayacağını seçin.';
 
   @override
+  String get onboardingAzanBodyOnly =>
+      'Ezanı dinleyin. Her namazın sesini ve ses düzeyini daha sonra ayarlardan değiştirebilirsiniz.';
+
+  @override
   String get onboardingAzanTitle => 'Ezan ve başlangıç';
+
+  @override
+  String get onboardingAzanTitleOnly => 'Ezan sesi';
 
   @override
   String get onboardingBack => 'Geri';
@@ -836,8 +843,8 @@ class AppLocalizationsTr extends AppLocalizations {
       'Arama yalnızca bu seferlik internet gerektirir. Yazdığınız metin OpenStreetMap arama hizmetine (Nominatim) gönderilir; başka hiçbir şey gönderilmez. Yeri seçtikten sonra uygulama gereken bilgiyi saklar ve yeniden internetsiz çalışır.';
 
   @override
-  String get placeSearchNoticeDetails =>
-      'Bir yer seçtiğinizde, saat dilimini ve yüksekliğini almak için o yerin koordinatları Open-Meteo hizmetine gönderilir.';
+  String get placeSearchNoticeWithDetails =>
+      'Arama yalnızca bu seferlik internet gerektirir. Yazdığınız metin OpenStreetMap arama hizmetine (Nominatim) gönderilir; bir yer seçtiğinizde saat dilimi ve yüksekliği için yalnızca o yerin koordinatları Open-Meteo’ya gider. Başka hiçbir şey gönderilmez ve sonrasında uygulama internetsiz çalışır.';
 
   @override
   String placeSearchResolving(String place) {
