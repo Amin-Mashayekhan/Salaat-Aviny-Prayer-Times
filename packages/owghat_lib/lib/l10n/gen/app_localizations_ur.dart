@@ -490,12 +490,19 @@ class AppLocalizationsUr extends AppLocalizations {
   String get homeBackToToday => 'آج پر واپس';
 
   @override
+  String get homeBannerAllow => 'اجازت';
+
+  @override
   String homeBannerClockSkew(String amount) {
     return 'کمپیوٹر کی گھڑی تقریباً $amount غلط ہے۔';
   }
 
   @override
   String get homeBannerDismiss => 'بند کریں';
+
+  @override
+  String get homeBannerExactTiming =>
+      'اینڈرائیڈ اذان چند منٹ دیر سے دے سکتا ہے۔ «اجازت» دبائیں اور کھلنے والے صفحے پر Salaat کے لیے Alarms & reminders آن کریں تاکہ اذان ٹھیک وقت پر آئے۔';
 
   @override
   String get homeBannerMutedIndefinite =>
@@ -505,6 +512,10 @@ class AppLocalizationsUr extends AppLocalizations {
   String homeBannerMutedUntil(String time) {
     return 'اذان $time تک خاموش ہے۔';
   }
+
+  @override
+  String get homeBannerNotificationsOff =>
+      'اطلاعات بند ہیں، اس لیے ایپ بند ہونے پر اذان نہیں بجے گی۔ «اجازت» دبائیں اور Salaat کے لیے اطلاعات آن کریں۔';
 
   @override
   String get homeBannerSettingsReset =>
@@ -1207,6 +1218,10 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get settingsAzanNotMuted => 'خاموش نہیں';
+
+  @override
+  String get settingsAzanPhoneNote =>
+      'فون پر اذان اور یاددہانیاں سسٹم کی اطلاعات کے طور پر آتی ہیں، اس لیے ایپ بند ہونے پر بھی پہنچتی ہیں۔ اذان کی اطلاع ایپ کے ساتھ آنے والی اذان کی آواز بجاتی ہے؛ اس صفحے پر چنی گئی آواز اور بلندی ایپ کے اندر پیش نظارے کے لیے ہیں۔ آواز کی بلندی فون کی اطلاعات کی آواز سے طے کریں۔';
 
   @override
   String settingsAzanPrayerSwitch(String prayer) {

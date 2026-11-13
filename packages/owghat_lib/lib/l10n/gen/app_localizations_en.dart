@@ -490,12 +490,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeBackToToday => 'Back to today';
 
   @override
+  String get homeBannerAllow => 'Allow';
+
+  @override
   String homeBannerClockSkew(String amount) {
     return 'The PC clock is off by about $amount.';
   }
 
   @override
   String get homeBannerDismiss => 'Dismiss';
+
+  @override
+  String get homeBannerExactTiming =>
+      'Android may deliver the azan a few minutes late. Press Allow and turn on Alarms & reminders for Salaat on the page that opens, so the azan comes at the exact minute.';
 
   @override
   String get homeBannerMutedIndefinite =>
@@ -505,6 +512,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String homeBannerMutedUntil(String time) {
     return 'The azan is muted until $time.';
   }
+
+  @override
+  String get homeBannerNotificationsOff =>
+      'Notifications are off, so the azan cannot sound while the app is closed. Press Allow and turn on notifications for Salaat.';
 
   @override
   String get homeBannerSettingsReset =>
@@ -1210,6 +1221,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsAzanNotMuted => 'Not muted';
+
+  @override
+  String get settingsAzanPhoneNote =>
+      'On a phone the azan and reminders come as system notifications, so they arrive even when the app is closed. The azan notification plays the azan sound that comes with the app; the sound and volume chosen on this page are for previews in the app. Set the loudness with the phone\'s notification volume.';
 
   @override
   String settingsAzanPrayerSwitch(String prayer) {

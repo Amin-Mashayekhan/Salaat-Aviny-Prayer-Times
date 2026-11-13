@@ -3,6 +3,7 @@
 // everything else is plain text.
 window.STRINGS = {
   en: {
+    'dl.androidver': 'Android 7 or later', 'dl.apk': 'Install file', 'dl.available2': 'Available', 'dl.apkhow': 'How to install the APK', 'dl.apkhowbody': 'Open the downloaded file on the phone. Android asks to allow installing apps from your browser or file manager: allow it once, then press Install. On first start, allow notifications so the azan can sound while the app is closed, and allow "Alarms &amp; reminders" when the app asks, so it comes at the exact minute.',
     'nav.download': 'Download', 'nav.install': 'Install', 'nav.screens': 'Screenshots', 'nav.privacy': 'Privacy', 'nav.help': 'Help',
     'hero.lead': 'Prayer times and azan for Windows. It works offline, lives in the system tray and plays the azan on time. No ads, no account, no tracking.',
     'hero.download': 'Download for Windows', 'hero.sub': 'Installer · Windows 10 and 11, 64-bit', 'hero.how': 'How to install',
@@ -37,6 +38,7 @@ window.STRINGS = {
     'ver.latest': 'Latest version', 'ver.none': 'First release coming soon'
   },
   fa: {
+    'dl.androidver': 'اندروید ۷ یا جدیدتر', 'dl.apk': 'فایل نصب', 'dl.available2': 'موجود', 'dl.apkhow': 'روش نصب فایل APK', 'dl.apkhowbody': 'فایل دانلودشده را روی گوشی باز کنید. اندروید می‌پرسد اجازه‌ی نصب برنامه از مرورگر یا مدیر فایل را می‌دهید یا نه: یک بار اجازه دهید و بعد «نصب» را بزنید. در اولین اجرا به اعلان‌ها اجازه دهید تا اذان وقتی برنامه بسته است هم پخش شود، و وقتی برنامه خواست «هشدارها و یادآوری‌ها» (Alarms &amp; reminders) را هم مجاز کنید تا اذان سر دقیقه بیاید.',
     'nav.download': 'دانلود', 'nav.install': 'نصب', 'nav.screens': 'تصاویر', 'nav.privacy': 'حریم خصوصی', 'nav.help': 'راهنما',
     'hero.lead': 'اوقات شرعی و اذان برای ویندوز. بدون اینترنت کار می‌کند، در سینی سیستم می‌نشیند و اذان را سروقت پخش می‌کند. بدون تبلیغ، بدون ثبت‌نام، بدون ردیابی.',
     'hero.download': 'دانلود برای ویندوز', 'hero.sub': 'نصب‌کننده · ویندوز ۱۰ و ۱۱، ۶۴ بیتی', 'hero.how': 'روش نصب',
@@ -71,6 +73,7 @@ window.STRINGS = {
     'ver.latest': 'آخرین نسخه', 'ver.none': 'نخستین انتشار به‌زودی'
   },
   ar: {
+    'dl.androidver': 'أندرويد 7 أو أحدث', 'dl.apk': 'ملف التثبيت', 'dl.available2': 'متاح', 'dl.apkhow': 'طريقة تثبيت ملف APK', 'dl.apkhowbody': 'افتح الملف الذي نزّلته على الهاتف. سيطلب أندرويد السماح بتثبيت التطبيقات من المتصفح أو مدير الملفات: اسمح مرة واحدة ثم اضغط «تثبيت». عند أول تشغيل اسمح بالإشعارات ليُرفع الأذان والتطبيق مغلق، واسمح بـ Alarms &amp; reminders عندما يطلب التطبيق ذلك ليأتي الأذان في دقيقته.',
     'nav.download': 'تنزيل', 'nav.install': 'التثبيت', 'nav.screens': 'لقطات', 'nav.privacy': 'الخصوصية', 'nav.help': 'مساعدة',
     'hero.lead': 'أوقات الصلاة والأذان لنظام ويندوز. يعمل بدون إنترنت ويبقى في علبة النظام ويرفع الأذان في وقته. بلا إعلانات ولا حساب ولا تتبع.',
     'hero.download': 'تنزيل لنظام ويندوز', 'hero.sub': 'مثبّت · ويندوز 10 و11، 64 بت', 'hero.how': 'طريقة التثبيت',

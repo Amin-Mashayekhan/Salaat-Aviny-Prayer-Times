@@ -63,7 +63,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="os-windows">
+            <tr class="os-windows" data-needs="Salaat-Setup.exe">
               <td><strong>Windows 10 / 11</strong><br><span class="muted">64-bit</span></td>
               <td>
                 <a class="btn primary" data-asset="Salaat-Setup.exe" href="#"><span data-i18n="dl.installer">Installer</span> <code>Salaat-Setup.exe</code></a>
@@ -75,7 +75,18 @@
             </tr>
             <tr class="os-mac"><td><strong>macOS</strong></td><td class="muted">—</td><td><span class="soon" data-i18n="dl.soon">Not available yet</span></td></tr>
             <tr class="os-linux"><td><strong>Linux</strong></td><td class="muted">—</td><td><span class="soon" data-i18n="dl.soon2">Not available yet</span></td></tr>
-            <tr class="os-android"><td><strong>Android</strong></td><td class="muted">—</td><td><span class="soon" data-i18n="dl.soon3">Not available yet</span></td></tr>
+            <tr class="os-android" data-needs="Salaat-android.apk">
+              <td><strong>Android</strong><br><span class="muted" data-i18n="dl.androidver">Android 7 or later</span></td>
+              <td class="when-available">
+                <a class="btn primary" data-asset="Salaat-android.apk" href="#"><span data-i18n="dl.apk">Install file</span> <code>Salaat-android.apk</code></a>
+                <details class="more small-more">
+                  <summary data-i18n="dl.apkhow">How to install the APK</summary>
+                  <p data-i18n="dl.apkhowbody">Open the downloaded file on the phone. Android asks to allow installing apps from your browser or file manager: allow it once, then press Install. On first start, allow notifications so the azan can sound while the app is closed, and allow "Alarms &amp; reminders" when the app asks, so it comes at the exact minute.</p>
+                </details>
+              </td>
+              <td class="when-missing muted">—</td>
+              <td><span class="ok when-available" data-i18n="dl.available2">Available</span><span class="soon when-missing" data-i18n="dl.soon3">Not available yet</span></td>
+            </tr>
             <tr class="os-ios"><td><strong>iOS</strong></td><td class="muted">—</td><td><span class="soon" data-i18n="dl.soon4">Not available yet</span></td></tr>
           </tbody>
         </table>

@@ -122,6 +122,20 @@ code is wrong, not the test.
 12. Do not ship audio of unknown licence. The bundled sounds are generated placeholders
     (`tools/make_placeholder_audio.py`); users choose their own azan file.
 
+## Platforms
+
+`app/lib/main.dart` chooses the platform services: Windows (`windows_platform_services.dart`, wake
+timers through Win32) or a phone (`mobile/mobile_platform_services.dart`). `PlatformCapabilities` says
+what exists (tray, autostart, wake timers, OS-scheduled notices); screens hide what does not exist, and
+`visibleDestinationsProvider` drops the Wake-up screen. On phones the system schedules the azan
+(`NoticePlanner` hands ten days of `PlannedNotice`s to `NoticeScheduler`), and the in-app dispatcher
+does not sound them, so nothing plays twice. Every screen is tested at 390 and 360 px wide with the
+phone capabilities in all languages (`test/app/all_languages_test.dart`).
+
+Android tooling on the development PC: JDK 17 at `E:\Ermile\tools\jdk-17`, SDK at
+`E:\Ermile\tools\android-sdk` (platforms 36 and 37, NDK 28.2; `flutter_local_notifications` needs
+compileSdk 37 and core-library desugaring), emulator AVD `salaat_phone` in `E:\Ermile\tools\android-avd`.
+
 ## Pitfalls that cost time
 
 - **Translations.** Edit the messages in the ARB files, then run `flutter gen-l10n` inside

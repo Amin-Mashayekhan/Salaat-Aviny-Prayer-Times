@@ -492,12 +492,19 @@ class AppLocalizationsFr extends AppLocalizations {
   String get homeBackToToday => 'Retour à aujourd’hui';
 
   @override
+  String get homeBannerAllow => 'Autoriser';
+
+  @override
   String homeBannerClockSkew(String amount) {
     return 'L’horloge du PC est décalée d’environ $amount.';
   }
 
   @override
   String get homeBannerDismiss => 'Fermer';
+
+  @override
+  String get homeBannerExactTiming =>
+      'Android peut délivrer l’adhan avec quelques minutes de retard. Appuyez sur Autoriser et activez Alarms & reminders pour Salaat sur la page qui s’ouvre, afin que l’adhan arrive à la minute exacte.';
 
   @override
   String get homeBannerMutedIndefinite =>
@@ -507,6 +514,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String homeBannerMutedUntil(String time) {
     return 'L’adhan est en sourdine jusqu’à $time.';
   }
+
+  @override
+  String get homeBannerNotificationsOff =>
+      'Les notifications sont désactivées : l’adhan ne peut pas sonner quand l’application est fermée. Appuyez sur Autoriser et activez les notifications de Salaat.';
 
   @override
   String get homeBannerSettingsReset =>
@@ -1217,6 +1228,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get settingsAzanNotMuted => 'Pas en sourdine';
+
+  @override
+  String get settingsAzanPhoneNote =>
+      'Sur un téléphone, l’adhan et les rappels arrivent sous forme de notifications du système, même quand l’application est fermée. La notification d’adhan joue le son d’adhan fourni avec l’application ; le son et le volume choisis sur cette page servent aux aperçus dans l’application. Réglez la puissance avec le volume des notifications du téléphone.';
 
   @override
   String settingsAzanPrayerSwitch(String prayer) {

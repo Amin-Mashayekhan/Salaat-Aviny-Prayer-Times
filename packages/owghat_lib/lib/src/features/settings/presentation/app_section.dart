@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:owghat_lib/l10n/gen/app_localizations.dart';
 import 'package:owghat_lib/src/app/theme/app_colors.dart';
+import 'package:owghat_lib/src/core/platform/platform_providers.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_actions.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
 import 'package:owghat_lib/src/features/settings/presentation/setting_widgets.dart';
@@ -128,36 +129,42 @@ class _AppSectionState extends ConsumerState<AppSection> {
       _Notice.reset => (l10n.settingsResetDone, false),
     };
 
+    final capabilities = ref.watch(platformCapabilitiesProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SettingsGroup(
-          children: [
-            SwitchRow(
-              key: const Key('set-app-autostart'),
-              title: l10n.settingsAppAutostart,
-              description: l10n.settingsAppAutostartHelp,
-              value: window.launchAtStartup,
-              onChanged: (value) =>
-                  controller.setLaunchAtStartup(enabled: value),
-            ),
-            SwitchRow(
-              key: const Key('set-app-minimized'),
-              title: l10n.settingsAppMinimized,
-              description: l10n.settingsAppMinimizedHelp,
-              value: window.startMinimized,
-              onChanged: (value) =>
-                  controller.setStartMinimized(enabled: value),
-            ),
-            SwitchRow(
-              key: const Key('set-app-close-to-tray'),
-              title: l10n.settingsAppCloseToTray,
-              description: l10n.settingsAppCloseToTrayHelp,
-              value: window.closeToTray,
-              onChanged: (value) => controller.setCloseToTray(enabled: value),
-            ),
-          ],
-        ),
+        if (capabilities.autostart || capabilities.desktopWindow)
+          SettingsGroup(
+            children: [
+              if (capabilities.autostart)
+                SwitchRow(
+                  key: const Key('set-app-autostart'),
+                  title: l10n.settingsAppAutostart,
+                  description: l10n.settingsAppAutostartHelp,
+                  value: window.launchAtStartup,
+                  onChanged: (value) =>
+                      controller.setLaunchAtStartup(enabled: value),
+                ),
+              if (capabilities.desktopWindow) ...[
+                SwitchRow(
+                  key: const Key('set-app-minimized'),
+                  title: l10n.settingsAppMinimized,
+                  description: l10n.settingsAppMinimizedHelp,
+                  value: window.startMinimized,
+                  onChanged: (value) =>
+                      controller.setStartMinimized(enabled: value),
+                ),
+                SwitchRow(
+                  key: const Key('set-app-close-to-tray'),
+                  title: l10n.settingsAppCloseToTray,
+                  description: l10n.settingsAppCloseToTrayHelp,
+                  value: window.closeToTray,
+                  onChanged: (value) =>
+                      controller.setCloseToTray(enabled: value),
+                ),
+              ],
+            ],
+          ),
         SettingsGroup(
           title: l10n.settingsBackupTitle,
           children: [

@@ -79,9 +79,16 @@ toasts, sound, autostart, installer and wake-up alarms.
   `OnlinePlaceSearch` class for names).
 - No surveyed coordinates of the Kaaba gutter (Mizab al-Rahma) are available, so the qibla line ends at
   the Kaaba reference point (21.422487, 39.826206). The difference does not change the direction.
-- Windows only. `app/` has only a Windows runner, and the library imports `dart:io` (files, HTTP,
-  processes), so a web build is not possible without changing it. No macOS, Linux, Android or iOS build
-  exists.
+- Platforms: Windows and Android (from 1.1.0). `app/` has Windows and Android runners; `main.dart`
+  picks the services by platform. On Android the azan and reminders are planned with the system ten
+  days ahead (`NoticePlanner`, `MobileNotifications`); if the app is not opened for longer, they stop
+  until it is opened again. The Android notification plays the bundled azan sound, not the sound
+  chosen in the settings (a channel's sound is fixed when it is created). Not yet: web (the library
+  imports `dart:io` for files, HTTP and processes), Linux, macOS, iOS (needs a Mac and, to install,
+  an Apple developer account).
+- Android signing: without the `ANDROID_KEYSTORE_*` repository secrets the release APK is signed with
+  a debug key; a later APK signed with a real key will not install over it (the user must uninstall
+  first). Create the key before the first Android release that people install.
 - The project is under the MIT licence (`LICENSE`, 2026). The city database was decoded from the files of the previous Aviny program; the owner should be comfortable that those place names and coordinates (facts, not creative work) may be republished, or replace them over time.
 - The developer's mobile number (`+9892128870991`) and Telegram are on the About page; the number has 11 digits after +98 where an Iranian mobile number normally has 10, so the owner should confirm it. Calls and texts work only from Iran, which the page says.
 - The bundled azan and chime are generated placeholders, not recordings; users choose their own sound.
@@ -118,8 +125,10 @@ Decided: the product name is "Salaat | Aviny Prayer Times" (2026-11-12).
    wake-up alarms on several PCs (standard account, battery, Modern Standby), then update the table above.
 4. **Wide-release readiness:** a keyed or self-hosted tile and place-search provider; city names in the
    other languages.
-5. **Other platforms:** mobile and other desktop runners. The platform interfaces and fakes are already in
-   `packages/owghat_lib`; each platform needs a runner and its own implementations, and the `dart:io`
-   dependency of the library must be handled for web.
+5. **Other platforms:** web (replace the `dart:io` uses with conditional imports: settings and state in
+   browser storage, HTTP through `package:http`; no background azan in a closed tab), Linux and macOS
+   desktop (window, tray and autostart plugins support them; wake timers and single instance need their
+   own implementations), iOS (same mobile layer as Android; build on a Mac, distribute with an Apple
+   developer account).
 6. **Later ideas:** mini always-on-top widget, holidays and occasions, Ramadan mode, timetable export
    (PDF, CSV), global hotkeys, a prayer-time display mode for mosques.

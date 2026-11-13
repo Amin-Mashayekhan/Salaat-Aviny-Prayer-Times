@@ -8,13 +8,16 @@ import 'package:owghat_lib/src/core/platform/fakes/fake_app_notifier.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_audio_output.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_device_location.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_link_opener.dart';
+import 'package:owghat_lib/src/core/platform/fakes/fake_notice_scheduler.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_place_search.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_simple_services.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_tray_host.dart';
 import 'package:owghat_lib/src/core/platform/fakes/fake_window_host.dart';
 import 'package:owghat_lib/src/core/platform/file_dialogs.dart';
 import 'package:owghat_lib/src/core/platform/link_opener.dart';
+import 'package:owghat_lib/src/core/platform/notice_scheduler.dart';
 import 'package:owghat_lib/src/core/platform/place_search.dart';
+import 'package:owghat_lib/src/core/platform/platform_capabilities.dart';
 import 'package:owghat_lib/src/core/platform/platform_paths.dart';
 import 'package:owghat_lib/src/core/platform/power_events.dart';
 import 'package:owghat_lib/src/core/platform/single_instance.dart';
@@ -41,6 +44,8 @@ class PlatformServices {
     this.deviceLocation = const UnsupportedDeviceLocation(),
     this.linkOpener = const UnsupportedLinkOpener(),
     this.placeSearch = const UnsupportedPlaceSearch(),
+    this.capabilities = PlatformCapabilities.desktop,
+    this.noticeScheduler = const NoNoticeScheduler(),
   });
 
   /// A bundle of in-memory fakes. [supportDir] defaults to a new temporary
@@ -58,6 +63,8 @@ class PlatformServices {
     DeviceLocationService? deviceLocation,
     LinkOpener? linkOpener,
     PlaceSearchService? placeSearch,
+    PlatformCapabilities capabilities = PlatformCapabilities.desktop,
+    NoticeScheduler? noticeScheduler,
   }) => PlatformServices(
     audio: audio ?? FakeAudioOutput(),
     notifier: notifier ?? FakeAppNotifier(),
@@ -72,6 +79,8 @@ class PlatformServices {
     deviceLocation: deviceLocation ?? FakeDeviceLocation(),
     linkOpener: linkOpener ?? FakeLinkOpener(),
     placeSearch: placeSearch ?? FakePlaceSearch(),
+    capabilities: capabilities,
+    noticeScheduler: noticeScheduler ?? FakeNoticeScheduler(),
   );
 
   static Future<String> _missingAsset(String path) =>
@@ -115,4 +124,11 @@ class PlatformServices {
 
   /// Searches places by name on the internet (city choice, qibla map).
   final PlaceSearchService placeSearch;
+
+  /// What this platform can do (tray, autostart, wake timers, OS-scheduled
+  /// notifications).
+  final PlatformCapabilities capabilities;
+
+  /// Plans notifications with the operating system where it schedules them.
+  final NoticeScheduler noticeScheduler;
 }

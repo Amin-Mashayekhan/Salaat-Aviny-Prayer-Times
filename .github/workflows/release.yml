@@ -1,11 +1,18 @@
 name: release
 
-# Builds the Windows installer and the portable zip for a version tag and
-# attaches them to a DRAFT GitHub release. Read the draft, then press Publish.
+# Builds every platform for a version tag and attaches the files to ONE draft
+# GitHub release. Read the draft, then press Publish.
 #
-#   git tag v1.0.0 && git push origin v1.0.0
+#   git tag v1.1.0 && git push origin v1.1.0
 #
 # The tag must match `version:` in app/pubspec.yaml (without the +build part).
+#
+# Android signing: add these repository secrets to sign the APK with your own
+# key (needed so later versions install as updates):
+#   ANDROID_KEYSTORE_BASE64  the .jks file, base64-encoded
+#   ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD
+# Without them the APK is signed with a throw-away debug key: it installs, but
+# a later APK signed with the real key will not install over it.
 
 on:
   push:
@@ -13,48 +20,61 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Existing tag to build, for example v1.0.0'
+        description: 'Existing tag to build, for example v1.1.0'
         required: true
 
 permissions:
   contents: write
 
+env:
+  TAG: ${{ github.event.inputs.tag || github.ref_name }}
+  FLUTTER_VERSION: 3.47.9
+
 jobs:
-  windows:
-    runs-on: windows-latest
-    env:
-      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ env.TAG }}
-
+      - id: version
+        name: The tag must match the app version
+        run: |
+          version="${TAG#v}"
+          pubspec=$(sed -n 's/^version:[[:space:]]*\([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' app/pubspec.yaml)
+          if [ "$pubspec" != "$version" ]; then
+            echo "Tag $TAG does not match app/pubspec.yaml version $pubspec"; exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.47.9
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: stable
-
       - run: flutter pub get
-
-      - name: The tag must match the app version
-        shell: pwsh
-        run: |
-          $version = $env:TAG.TrimStart('v')
-          $line = Select-String -Path app/pubspec.yaml -Pattern '^version:\s*([0-9]+\.[0-9]+\.[0-9]+)'
-          $pubspec = $line.Matches[0].Groups[1].Value
-          if ($pubspec -ne $version) { throw "Tag $env:TAG does not match app/pubspec.yaml version $pubspec" }
-          "VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Append
-
       - name: Tests
-        shell: pwsh
         run: |
-          Push-Location packages/prayer_core; dart test; Pop-Location
-          Push-Location packages/owghat_lib; flutter test; Pop-Location
+          (cd packages/prayer_core && dart test)
+          (cd packages/owghat_lib && flutter test)
 
+  windows:
+    needs: check
+    runs-on: windows-latest
+    env:
+      VERSION: ${{ needs.check.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+      - run: flutter pub get
       - name: Build
         working-directory: app
         run: flutter build windows --release
-
       # The app folder must also run on a PC that has never had the Visual C++
       # runtime installed, so its three DLLs travel with the program.
       - name: Bundle the Visual C++ runtime
@@ -63,13 +83,11 @@ jobs:
           foreach ($dll in 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll') {
             Copy-Item "$env:WINDIR\System32\$dll" app/build/windows/x64/runner/Release/
           }
-
       - name: Portable zip
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Path dist -Force | Out-Null
           Compress-Archive -Path app/build/windows/x64/runner/Release/* -DestinationPath dist/Salaat-windows-x64.zip
-
       - name: Installer
         shell: pwsh
         run: |
@@ -77,32 +95,91 @@ jobs:
           & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" "/DAppVersion=$env:VERSION" app/windows/installer/salaat.iss
           if ($LASTEXITCODE -ne 0) { throw 'Inno Setup failed' }
           Copy-Item app/build/installer/Salaat-Setup.exe dist/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: dist/*
 
+  android:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+      - run: flutter pub get
+      - name: Signing key from the repository secrets (if set)
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ]; then
+            echo "::warning::No Android signing secrets: the APK is signed with a debug key."
+            exit 0
+          fi
+          echo "$KEYSTORE_BASE64" | base64 -d > app/android/release.jks
+          {
+            echo "storeFile=release.jks"
+            echo "storePassword=$KEYSTORE_PASSWORD"
+            echo "keyAlias=$KEY_ALIAS"
+            echo "keyPassword=$KEY_PASSWORD"
+          } > app/android/key.properties
+      - name: Build
+        working-directory: app
+        run: flutter build apk --release
+      - run: |
+          mkdir -p dist
+          cp app/build/app/outputs/flutter-apk/app-release.apk dist/Salaat-android.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android
+          path: dist/*
+
+  release:
+    needs: [check, windows, android]
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.check.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
       - name: Checksums
-        shell: pwsh
-        run: |
-          Get-ChildItem dist -File | ForEach-Object {
-            $hash = (Get-FileHash -Algorithm SHA256 $_.FullName).Hash.ToLower()
-            "$hash  $($_.Name)"
-          } | Set-Content -Encoding ascii dist/SHA256SUMS.txt
-
+        run: (cd dist && sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt)
       - name: Release notes from CHANGELOG.md
-        shell: pwsh
         run: |
-          $text = Get-Content CHANGELOG.md -Raw
-          $pattern = "(?ms)^## \[$([regex]::Escape($env:VERSION))\][^\r\n]*\r?\n(.*?)(?=^## \[|\z)"
-          $match = [regex]::Match($text, $pattern)
-          if ($match.Success) { $notes = $match.Groups[1].Value.Trim() } else { $notes = "Salaat $env:VERSION" }
-          $notes += "`n`nDownload **Salaat-Setup.exe** (installer) or **Salaat-windows-x64.zip** (portable). Checksums are in SHA256SUMS.txt. Guide with screenshots: https://amin-mashayekhan.github.io/Salaat-Aviny-Prayer-Times/"
-          Set-Content -Path release-notes.md -Value $notes -Encoding utf8
+          awk -v v="$VERSION" '
+            $0 ~ "^## \\[" v "\\]" { found = 1; next }
+            found && /^## \[/ { exit }
+            found { print }
+          ' CHANGELOG.md > release-notes.md
+          [ -s release-notes.md ] || echo "Salaat $VERSION" > release-notes.md
+          cat >> release-notes.md <<'EOF'
 
+          ### Downloads
+          - **Windows 10/11:** `Salaat-Setup.exe` (installer) or `Salaat-windows-x64.zip` (portable)
+          - **Android 7 and later:** `Salaat-android.apk`
+
+          Checksums are in `SHA256SUMS.txt`. Guide with screenshots: https://amin-mashayekhan.github.io/Salaat-Aviny-Prayer-Times/
+          EOF
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.TAG }}
           name: Salaat ${{ env.VERSION }}
           body_path: release-notes.md
           draft: true
-          files: |
-            dist/Salaat-Setup.exe
-            dist/Salaat-windows-x64.zip
-            dist/SHA256SUMS.txt
+          files: dist/*

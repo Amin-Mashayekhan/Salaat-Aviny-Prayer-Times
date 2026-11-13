@@ -4,6 +4,7 @@ import 'package:owghat_lib/l10n/gen/app_localizations.dart';
 import 'package:owghat_lib/src/app/theme/app_colors.dart';
 import 'package:owghat_lib/src/app/theme/app_theme.dart';
 import 'package:owghat_lib/src/core/format/formatter.dart';
+import 'package:owghat_lib/src/core/platform/platform_providers.dart';
 import 'package:owghat_lib/src/features/azan/application/azan_playback.dart';
 import 'package:owghat_lib/src/features/azan/application/mute_providers.dart';
 import 'package:owghat_lib/src/features/clock/application/clock_providers.dart';
@@ -48,9 +49,20 @@ class AzanSection extends ConsumerWidget {
       return l10n.homeAzanMutedUntil(fmt.formatInstant(until, offset));
     }
 
+    final osNotices = ref
+        .watch(platformCapabilitiesProvider)
+        .osScheduledNotices;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        if (osNotices)
+          Padding(
+            padding: const EdgeInsets.only(bottom: Gaps.m),
+            child: InfoNote(
+              l10n.settingsAzanPhoneNote,
+              key: const Key('set-azan-phone-note'),
+            ),
+          ),
         SettingsGroup(
           children: [
             SwitchRow(

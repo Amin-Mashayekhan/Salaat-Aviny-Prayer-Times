@@ -13,14 +13,20 @@ import 'package:owghat_lib/src/features/settings/application/settings_controller
 import 'package:owghat_lib/src/features/wake_alarm/application/wake_alarm_controller.dart';
 import 'package:owghat_lib/src/features/wake_alarm/presentation/countdown_overlay.dart';
 
-/// Navigation rail plus the page of the selected destination; the first-run
-/// flow instead while `settings.onboardingCompleted` is false.
+/// Navigation plus the page of the selected destination; the first-run flow
+/// instead while `settings.onboardingCompleted` is false.
+///
+/// A window at least [compactWidth] wide has a navigation rail at the side;
+/// a narrower one (a phone) a navigation bar at the bottom.
 class AppShell extends ConsumerWidget {
   /// Creates the shell.
   const AppShell({super.key});
 
   /// Content is never wider than this, however large the window.
   static const double maxContentWidth = 960;
+
+  /// Below this width the navigation moves to a bar at the bottom.
+  static const double compactWidth = 600;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,24 +37,19 @@ class AppShell extends ConsumerWidget {
 
     final l10n = AppLocalizations.of(context);
     final current = ref.watch(destinationProvider);
-    final narrow = MediaQuery.sizeOf(context).width < 900;
-
-    final items = [
-      for (final d in Destination.values)
-        NavigationRailDestination(
-          icon: Icon(d.icon),
-          selectedIcon: Icon(d.selectedIcon),
-          label: Text(d.label(l10n)),
-        ),
-    ];
+    final visible = ref.watch(visibleDestinationsProvider);
+    final width = MediaQuery.sizeOf(context).width;
+    final compact = width < compactWidth;
+    final narrow = width < 900;
+    final selected = visible.indexOf(current).clamp(0, visible.length - 1);
+    void select(int i) =>
+        ref.read(destinationProvider.notifier).select(visible[i]);
 
     final shortcuts = <ShortcutActivator, VoidCallback>{
       // Ctrl+1..6 jump to the destinations in rail order, Ctrl+, opens
       // Settings, Esc stops a playing azan from any screen.
-      for (var i = 0; i < Destination.values.length; i++)
-        SingleActivator(_digitKeys[i], control: true): () => ref
-            .read(destinationProvider.notifier)
-            .select(Destination.values[i]),
+      for (var i = 0; i < visible.length; i++)
+        SingleActivator(_digitKeys[i], control: true): () => select(i),
       const SingleActivator(LogicalKeyboardKey.comma, control: true): () =>
           ref.read(destinationProvider.notifier).select(Destination.settings),
       const SingleActivator(LogicalKeyboardKey.escape): () {
@@ -73,17 +74,24 @@ class AppShell extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    NavigationRail(
-                      labelType: narrow
-                          ? NavigationRailLabelType.none
-                          : NavigationRailLabelType.all,
-                      selectedIndex: Destination.values.indexOf(current),
-                      onDestinationSelected: (i) => ref
-                          .read(destinationProvider.notifier)
-                          .select(Destination.values[i]),
-                      destinations: items,
-                    ),
-                    const VerticalDivider(width: 1),
+                    if (!compact) ...[
+                      NavigationRail(
+                        labelType: narrow
+                            ? NavigationRailLabelType.none
+                            : NavigationRailLabelType.all,
+                        selectedIndex: selected,
+                        onDestinationSelected: select,
+                        destinations: [
+                          for (final d in visible)
+                            NavigationRailDestination(
+                              icon: Icon(d.icon),
+                              selectedIcon: Icon(d.selectedIcon),
+                              label: Text(d.label(l10n)),
+                            ),
+                        ],
+                      ),
+                      const VerticalDivider(width: 1),
+                    ],
                     Expanded(
                       child: Align(
                         alignment: Alignment.topCenter,
@@ -112,6 +120,23 @@ class AppShell extends ConsumerWidget {
               ],
             ),
           ),
+          bottomNavigationBar: compact
+              ? NavigationBar(
+                  key: const Key('shell-bottom-nav'),
+                  selectedIndex: selected,
+                  onDestinationSelected: select,
+                  labelBehavior:
+                      NavigationDestinationLabelBehavior.onlyShowSelected,
+                  destinations: [
+                    for (final d in visible)
+                      NavigationDestination(
+                        icon: Icon(d.icon),
+                        selectedIcon: Icon(d.selectedIcon),
+                        label: d.label(l10n),
+                      ),
+                  ],
+                )
+              : null,
         ),
       ),
     );

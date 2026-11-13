@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:owghat_lib/l10n/gen/app_localizations.dart';
@@ -5,6 +7,7 @@ import 'package:owghat_lib/src/app/theme/app_colors.dart';
 import 'package:owghat_lib/src/app/theme/app_theme.dart';
 import 'package:owghat_lib/src/core/format/formatter.dart';
 import 'package:owghat_lib/src/features/prayer_times/application/home_banners.dart';
+import 'package:owghat_lib/src/features/scheduler/application/notice_permissions.dart';
 import 'package:owghat_lib/src/features/settings/application/formatter_provider.dart';
 
 /// The banner above the hero card (one at a time, by priority), with a
@@ -22,7 +25,26 @@ class HomeBannerBar extends ConsumerWidget {
     final colors = context.appColors;
     final scheme = Theme.of(context).colorScheme;
 
+    final permissions = ref.read(noticePermissionsProvider.notifier);
+    // Banners that the person can act on get a button.
+    final action = switch (banner) {
+      NotificationsOffBanner() => () => unawaited(
+        permissions.askNotifications(),
+      ),
+      ExactTimingBanner() => () => unawaited(permissions.askExactTiming()),
+      _ => null,
+    };
     final (IconData icon, Color tint, String text) = switch (banner) {
+      NotificationsOffBanner() => (
+        Icons.notifications_off_outlined,
+        colors.danger,
+        l10n.homeBannerNotificationsOff,
+      ),
+      ExactTimingBanner() => (
+        Icons.alarm_off_outlined,
+        colors.warning,
+        l10n.homeBannerExactTiming,
+      ),
       MutedBanner(:final until, :final utcOffset) => (
         Icons.volume_off_outlined,
         scheme.primary,
@@ -73,6 +95,12 @@ class HomeBannerBar extends ConsumerWidget {
                 ),
               ),
             ),
+            if (action != null)
+              TextButton(
+                key: const Key('banner-action'),
+                onPressed: action,
+                child: Text(l10n.homeBannerAllow),
+              ),
             IconButton(
               key: const Key('banner-dismiss'),
               tooltip: l10n.homeBannerDismiss,

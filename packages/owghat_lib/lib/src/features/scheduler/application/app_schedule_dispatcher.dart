@@ -8,6 +8,7 @@ import 'package:owghat_lib/src/features/azan/application/azan_playback.dart';
 import 'package:owghat_lib/src/features/clock/application/clock_providers.dart';
 import 'package:owghat_lib/src/features/locations/application/location_providers.dart';
 import 'package:owghat_lib/src/features/notifications/application/notice_texts.dart';
+import 'package:owghat_lib/src/features/scheduler/application/notice_planner.dart';
 import 'package:owghat_lib/src/features/scheduler/application/wake_alarm_hook.dart';
 import 'package:owghat_lib/src/features/scheduler/domain/event_dispatcher.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
@@ -35,15 +36,22 @@ class AppScheduleDispatcher implements ScheduleDispatcher {
     // that call stack first.
     await Future<void>.microtask(() {});
     try {
+      // Where the operating system shows the azan and reminders (phones),
+      // it already did so at their time; sounding them here would double them.
+      final osShowsNotices = _ref
+          .read(platformCapabilitiesProvider)
+          .osScheduledNotices;
       switch (event.kind) {
         case EventKind.azan:
-          await _azan(event, decision);
+          if (!osShowsNotices) await _azan(event, decision);
         case EventKind.reminder:
-          await _reminder(event, decision);
+          if (!osShowsNotices) await _reminder(event, decision);
         case EventKind.wakeAlarm:
           await _wakeAlarm(event, decision);
         case EventKind.dayRollover:
-          break; // The engine rebuilds the schedule itself.
+          // The engine rebuilds its own schedule; the days planned with the
+          // operating system move on by one.
+          await _ref.read(noticePlannerProvider)?.replan();
       }
     } on Object catch (error, stack) {
       _log.severe('Handling ${event.id} failed', error, stack);

@@ -15,7 +15,8 @@ plays the azan on time. It is a from-scratch rewrite, in Flutter, of the old *Av
 | System | File |
 |---|---|
 | Windows 10 / 11 (64-bit) | `Salaat-Setup.exe` (installer, recommended) or `Salaat-windows-x64.zip` (portable) |
-| macOS, Linux, Android, iOS | not available yet |
+| Android 7 and later | `Salaat-android.apk` (from version 1.1.0) |
+| macOS, Linux, iOS, web | not available yet |
 
 The installer is not code-signed yet, so Windows SmartScreen may warn on the first run: press
 **More info**, then **Run anyway**. `SHA256SUMS.txt` lets you check the download.

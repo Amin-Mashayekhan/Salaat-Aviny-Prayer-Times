@@ -323,6 +323,7 @@
     }
   },
   "homeBackToToday": "بازگشت به امروز",
+  "homeBannerAllow": "اجازه",
   "homeBannerClockSkew": "ساعت رایانه حدود {amount} با ساعت دقیق اختلاف دارد.",
   "@homeBannerClockSkew": {
     "placeholders": {
@@ -332,6 +333,7 @@
     }
   },
   "homeBannerDismiss": "بستن",
+  "homeBannerExactTiming": "اندروید ممکن است اذان را چند دقیقه دیرتر بفرستد. «اجازه» را بزنید و در صفحه‌ی بازشده «هشدارها و یادآوری‌ها» (Alarms & reminders) را برای Salaat روشن کنید تا اذان سر دقیقه بیاید.",
   "homeBannerMutedIndefinite": "اذان تا اطلاع ثانوی بی‌صدا است.",
   "homeBannerMutedUntil": "اذان تا {time} بی‌صدا است.",
   "@homeBannerMutedUntil": {
@@ -341,6 +343,7 @@
       }
     }
   },
+  "homeBannerNotificationsOff": "اعلان‌ها خاموش است، پس وقتی برنامه بسته است اذان پخش نمی‌شود. «اجازه» را بزنید و اعلان‌ها را برای Salaat روشن کنید.",
   "homeBannerSettingsReset": "فایل تنظیمات خوانده نشد و تنظیمات به حالت اولیه برگشت.",
   "homeBannerStaleZone": "ویندوز برای این مکان ساعتی متفاوت از پایگاه داده‌ی منطقه‌ی زمانی نشان می‌دهد. اوقات برنامه درست است؛ ساعت ویندوز را بررسی کنید.",
   "homeCompass": "{point, select, p0{شمال} p1{شمال شرقی} p2{شرق} p3{جنوب شرقی} p4{جنوب} p5{جنوب غربی} p6{غرب} p7{شمال غربی} other{}}",
@@ -805,6 +808,7 @@
   "settingsAzanMute": "بی‌صدا",
   "settingsAzanMuteHelp": "اذان را موقتاً بی‌صدا کنید.",
   "settingsAzanNotMuted": "بی‌صدا نیست",
+  "settingsAzanPhoneNote": "روی گوشی، اذان و یادآوری‌ها با اعلان‌های خود سیستم می‌آیند تا وقتی برنامه بسته است هم برسند. اعلان اذان صدای اذانِ همراه برنامه را پخش می‌کند؛ صدا و بلندیِ انتخاب‌شده در این صفحه برای پیش‌شنوی در برنامه است. بلندی را با صدای اعلان گوشی تنظیم کنید.",
   "settingsAzanPrayerSwitch": "اذان {prayer}",
   "@settingsAzanPrayerSwitch": {
     "placeholders": {

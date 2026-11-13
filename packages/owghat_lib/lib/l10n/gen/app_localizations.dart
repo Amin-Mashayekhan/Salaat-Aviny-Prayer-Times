@@ -764,6 +764,12 @@ abstract class AppLocalizations {
   /// **'بازگشت به امروز'**
   String get homeBackToToday;
 
+  /// No description provided for @homeBannerAllow.
+  ///
+  /// In fa, this message translates to:
+  /// **'اجازه'**
+  String get homeBannerAllow;
+
   /// No description provided for @homeBannerClockSkew.
   ///
   /// In fa, this message translates to:
@@ -776,6 +782,12 @@ abstract class AppLocalizations {
   /// **'بستن'**
   String get homeBannerDismiss;
 
+  /// No description provided for @homeBannerExactTiming.
+  ///
+  /// In fa, this message translates to:
+  /// **'اندروید ممکن است اذان را چند دقیقه دیرتر بفرستد. «اجازه» را بزنید و در صفحه‌ی بازشده «هشدارها و یادآوری‌ها» (Alarms & reminders) را برای Salaat روشن کنید تا اذان سر دقیقه بیاید.'**
+  String get homeBannerExactTiming;
+
   /// No description provided for @homeBannerMutedIndefinite.
   ///
   /// In fa, this message translates to:
@@ -787,6 +799,12 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'اذان تا {time} بی‌صدا است.'**
   String homeBannerMutedUntil(String time);
+
+  /// No description provided for @homeBannerNotificationsOff.
+  ///
+  /// In fa, this message translates to:
+  /// **'اعلان‌ها خاموش است، پس وقتی برنامه بسته است اذان پخش نمی‌شود. «اجازه» را بزنید و اعلان‌ها را برای Salaat روشن کنید.'**
+  String get homeBannerNotificationsOff;
 
   /// No description provided for @homeBannerSettingsReset.
   ///
@@ -1933,6 +1951,12 @@ abstract class AppLocalizations {
   /// In fa, this message translates to:
   /// **'بی‌صدا نیست'**
   String get settingsAzanNotMuted;
+
+  /// No description provided for @settingsAzanPhoneNote.
+  ///
+  /// In fa, this message translates to:
+  /// **'روی گوشی، اذان و یادآوری‌ها با اعلان‌های خود سیستم می‌آیند تا وقتی برنامه بسته است هم برسند. اعلان اذان صدای اذانِ همراه برنامه را پخش می‌کند؛ صدا و بلندیِ انتخاب‌شده در این صفحه برای پیش‌شنوی در برنامه است. بلندی را با صدای اعلان گوشی تنظیم کنید.'**
+  String get settingsAzanPhoneNote;
 
   /// No description provided for @settingsAzanPrayerSwitch.
   ///

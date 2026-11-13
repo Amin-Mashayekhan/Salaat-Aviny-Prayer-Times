@@ -489,6 +489,9 @@ class AppLocalizationsFa extends AppLocalizations {
   String get homeBackToToday => 'بازگشت به امروز';
 
   @override
+  String get homeBannerAllow => 'اجازه';
+
+  @override
   String homeBannerClockSkew(String amount) {
     return 'ساعت رایانه حدود $amount با ساعت دقیق اختلاف دارد.';
   }
@@ -497,12 +500,20 @@ class AppLocalizationsFa extends AppLocalizations {
   String get homeBannerDismiss => 'بستن';
 
   @override
+  String get homeBannerExactTiming =>
+      'اندروید ممکن است اذان را چند دقیقه دیرتر بفرستد. «اجازه» را بزنید و در صفحه‌ی بازشده «هشدارها و یادآوری‌ها» (Alarms & reminders) را برای Salaat روشن کنید تا اذان سر دقیقه بیاید.';
+
+  @override
   String get homeBannerMutedIndefinite => 'اذان تا اطلاع ثانوی بی‌صدا است.';
 
   @override
   String homeBannerMutedUntil(String time) {
     return 'اذان تا $time بی‌صدا است.';
   }
+
+  @override
+  String get homeBannerNotificationsOff =>
+      'اعلان‌ها خاموش است، پس وقتی برنامه بسته است اذان پخش نمی‌شود. «اجازه» را بزنید و اعلان‌ها را برای Salaat روشن کنید.';
 
   @override
   String get homeBannerSettingsReset =>
@@ -1207,6 +1218,10 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get settingsAzanNotMuted => 'بی‌صدا نیست';
+
+  @override
+  String get settingsAzanPhoneNote =>
+      'روی گوشی، اذان و یادآوری‌ها با اعلان‌های خود سیستم می‌آیند تا وقتی برنامه بسته است هم برسند. اعلان اذان صدای اذانِ همراه برنامه را پخش می‌کند؛ صدا و بلندیِ انتخاب‌شده در این صفحه برای پیش‌شنوی در برنامه است. بلندی را با صدای اعلان گوشی تنظیم کنید.';
 
   @override
   String settingsAzanPrayerSwitch(String prayer) {

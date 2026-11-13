@@ -491,12 +491,19 @@ class AppLocalizationsId extends AppLocalizations {
   String get homeBackToToday => 'Kembali ke hari ini';
 
   @override
+  String get homeBannerAllow => 'Izinkan';
+
+  @override
   String homeBannerClockSkew(String amount) {
     return 'Jam PC meleset sekitar $amount.';
   }
 
   @override
   String get homeBannerDismiss => 'Tutup';
+
+  @override
+  String get homeBannerExactTiming =>
+      'Android mungkin mengirim azan beberapa menit terlambat. Tekan Izinkan dan aktifkan Alarms & reminders untuk Salaat di halaman yang terbuka, agar azan datang tepat waktu.';
 
   @override
   String get homeBannerMutedIndefinite =>
@@ -506,6 +513,10 @@ class AppLocalizationsId extends AppLocalizations {
   String homeBannerMutedUntil(String time) {
     return 'Azan dibisukan sampai $time.';
   }
+
+  @override
+  String get homeBannerNotificationsOff =>
+      'Notifikasi mati, jadi azan tidak dapat berbunyi saat aplikasi tertutup. Tekan Izinkan dan aktifkan notifikasi untuk Salaat.';
 
   @override
   String get homeBannerSettingsReset =>
@@ -1210,6 +1221,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get settingsAzanNotMuted => 'Tidak dibisukan';
+
+  @override
+  String get settingsAzanPhoneNote =>
+      'Di ponsel, azan dan pengingat datang sebagai notifikasi sistem, jadi tetap sampai meskipun aplikasi tertutup. Notifikasi azan memutar suara azan bawaan aplikasi; suara dan volume yang dipilih di halaman ini untuk pratinjau di dalam aplikasi. Atur kerasnya dengan volume notifikasi ponsel.';
 
   @override
   String settingsAzanPrayerSwitch(String prayer) {

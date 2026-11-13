@@ -125,6 +125,17 @@
     line.textContent = t('ver.latest') + ': ' + release.tag_name;
   }
 
+  // Rows whose file is not in the latest release say "not available yet"
+  // instead of offering a link that would fail.
+  function markMissing(release) {
+    var names = (release.assets || []).map(function (a) { return a.name; });
+    var rows = document.querySelectorAll('tr[data-needs]');
+    for (var i = 0; i < rows.length; i++) {
+      var missing = names.indexOf(rows[i].getAttribute('data-needs')) < 0;
+      rows[i].classList.toggle('missing', missing);
+    }
+  }
+
   function loadVersion() {
     if (!window.fetch) return;
     fetch('https://api.github.com/repos/' + REPO + '/releases/latest', { headers: { Accept: 'application/vnd.github+json' } })
@@ -133,6 +144,7 @@
         if (release && release.tag_name) {
           window.__latest = release;
           showVersion(release);
+          markMissing(release);
         }
       })
       .catch(function () { /* offline or rate limited: keep the default line */ });

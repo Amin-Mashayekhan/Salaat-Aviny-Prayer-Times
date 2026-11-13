@@ -20,6 +20,8 @@ import 'package:owghat_lib/src/features/locations/application/location_providers
 import 'package:owghat_lib/src/features/locations/data/location_repository.dart';
 import 'package:owghat_lib/src/features/notifications/application/notification_actions.dart';
 import 'package:owghat_lib/src/features/scheduler/application/app_schedule_dispatcher.dart';
+import 'package:owghat_lib/src/features/scheduler/application/notice_permissions.dart';
+import 'package:owghat_lib/src/features/scheduler/application/notice_planner.dart';
 import 'package:owghat_lib/src/features/scheduler/application/scheduler_providers.dart';
 import 'package:owghat_lib/src/features/scheduler/application/wake_alarm_hook.dart';
 import 'package:owghat_lib/src/features/scheduler/data/file_handled_events_store.dart';
@@ -127,6 +129,8 @@ Future<AppRuntime> prepareApp({
       deviceLocationProvider.overrideWithValue(services.deviceLocation),
       linkOpenerProvider.overrideWithValue(services.linkOpener),
       placeSearchProvider.overrideWithValue(services.placeSearch),
+      platformCapabilitiesProvider.overrideWithValue(services.capabilities),
+      noticeSchedulerProvider.overrideWithValue(services.noticeScheduler),
       appNotifierProvider.overrideWithValue(services.notifier),
       windowHostProvider.overrideWithValue(services.window),
       trayHostProvider.overrideWithValue(services.tray),
@@ -171,6 +175,13 @@ Future<AppRuntime> prepareApp({
   );
   unawaited(autostart.start());
   container.read(notificationActionRouterProvider);
+  // Where the operating system sounds the azan, hand it the coming days now
+  // and ask (once; the system remembers) for permission to notify.
+  if (container.read(noticePlannerProvider) != null) {
+    unawaited(
+      container.read(noticePermissionsProvider.notifier).requestAtStart(),
+    );
+  }
   // Starting the wake controller syncs the OS wake requests with the saved
   // alarms; a --wake <id> launch tells it which alarm woke the PC.
   final wakeController = container.read(wakeAlarmControllerProvider.notifier);

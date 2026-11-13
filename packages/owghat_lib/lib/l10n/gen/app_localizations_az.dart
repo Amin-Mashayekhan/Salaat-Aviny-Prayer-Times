@@ -491,12 +491,19 @@ class AppLocalizationsAz extends AppLocalizations {
   String get homeBackToToday => 'Bu günə qayıt';
 
   @override
+  String get homeBannerAllow => 'İcazə ver';
+
+  @override
   String homeBannerClockSkew(String amount) {
     return 'Kompüterin saatı təxminən $amount fərqlənir.';
   }
 
   @override
   String get homeBannerDismiss => 'Bağla';
+
+  @override
+  String get homeBannerExactTiming =>
+      'Android azanı bir neçə dəqiqə gec çatdıra bilər. İcazə ver düyməsinə basın və açılan səhifədə Salaat üçün Alarms & reminders seçimini açın ki, azan dəqiq vaxtında gəlsin.';
 
   @override
   String get homeBannerMutedIndefinite =>
@@ -506,6 +513,10 @@ class AppLocalizationsAz extends AppLocalizations {
   String homeBannerMutedUntil(String time) {
     return 'Azan $time vaxtınadək səssizdir.';
   }
+
+  @override
+  String get homeBannerNotificationsOff =>
+      'Bildirişlər söndürülüb, ona görə tətbiq bağlı olanda azan səslənə bilməz. İcazə ver düyməsinə basın və Salaat üçün bildirişləri açın.';
 
   @override
   String get homeBannerSettingsReset =>
@@ -1213,6 +1224,10 @@ class AppLocalizationsAz extends AppLocalizations {
 
   @override
   String get settingsAzanNotMuted => 'Səssiz deyil';
+
+  @override
+  String get settingsAzanPhoneNote =>
+      'Telefonda azan və xatırlatmalar sistem bildirişi kimi gəlir, ona görə tətbiq bağlı olanda da çatır. Azan bildirişi tətbiqlə gələn azan səsini çalır; bu səhifədə seçilən səs və səs səviyyəsi tətbiq daxilində önizləmə üçündür. Səsin ucalığını telefonun bildiriş səsi ilə tənzimləyin.';
 
   @override
   String settingsAzanPrayerSwitch(String prayer) {

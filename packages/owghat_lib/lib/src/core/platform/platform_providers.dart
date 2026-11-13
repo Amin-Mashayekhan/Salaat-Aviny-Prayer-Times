@@ -14,7 +14,9 @@ import 'package:owghat_lib/src/core/platform/fakes/fake_window_host.dart';
 import 'package:owghat_lib/src/core/platform/file_dialogs.dart';
 import 'package:owghat_lib/src/core/platform/launch_args.dart';
 import 'package:owghat_lib/src/core/platform/link_opener.dart';
+import 'package:owghat_lib/src/core/platform/notice_scheduler.dart';
 import 'package:owghat_lib/src/core/platform/place_search.dart';
+import 'package:owghat_lib/src/core/platform/platform_capabilities.dart';
 import 'package:owghat_lib/src/core/platform/platform_paths.dart';
 import 'package:owghat_lib/src/core/platform/single_instance.dart';
 import 'package:owghat_lib/src/core/platform/tray_host.dart';
@@ -53,6 +55,17 @@ final linkOpenerProvider = Provider<LinkOpener>((ref) => FakeLinkOpener());
 /// Searches places by name. Overridden by `bootstrap`.
 final placeSearchProvider = Provider<PlaceSearchService>(
   (ref) => FakePlaceSearch(),
+);
+
+/// What the platform can do. Overridden by `bootstrap`; the desktop by
+/// default.
+final platformCapabilitiesProvider = Provider<PlatformCapabilities>(
+  (ref) => PlatformCapabilities.desktop,
+);
+
+/// Plans notifications with the operating system. Overridden by `bootstrap`.
+final noticeSchedulerProvider = Provider<NoticeScheduler>(
+  (ref) => const NoNoticeScheduler(),
 );
 
 /// File pickers. Overridden by `bootstrap`.

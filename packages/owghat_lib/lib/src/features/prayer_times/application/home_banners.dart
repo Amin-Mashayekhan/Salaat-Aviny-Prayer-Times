@@ -5,6 +5,7 @@ import 'package:owghat_lib/src/features/clock/application/clock_providers.dart';
 import 'package:owghat_lib/src/features/clock/application/clock_warning_provider.dart';
 import 'package:owghat_lib/src/features/locations/application/location_providers.dart';
 import 'package:owghat_lib/src/features/prayer_times/application/prayer_providers.dart';
+import 'package:owghat_lib/src/features/scheduler/application/notice_permissions.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_controller.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_reset_notice.dart';
 
@@ -63,6 +64,26 @@ final class SettingsResetBanner extends HomeBanner {
   String get key => 'settings-reset';
 }
 
+/// The system refuses notifications, so the azan cannot come while the app
+/// is closed (phones).
+final class NotificationsOffBanner extends HomeBanner {
+  /// Creates the banner.
+  const NotificationsOffBanner();
+
+  @override
+  String get key => 'notifications-off';
+}
+
+/// The system may deliver the azan some minutes late because exact alarms
+/// are not allowed (Android "Alarms & reminders").
+final class ExactTimingBanner extends HomeBanner {
+  /// Creates the banner.
+  const ExactTimingBanner();
+
+  @override
+  String get key => 'exact-timing';
+}
+
 /// Banners the user closed during this run (not persisted).
 class DismissedBanners extends Notifier<Set<String>> {
   @override
@@ -76,7 +97,8 @@ class DismissedBanners extends Notifier<Set<String>> {
 final dismissedBannersProvider =
     NotifierProvider<DismissedBanners, Set<String>>(DismissedBanners.new);
 
-/// All banners that currently apply, highest priority first: azan muted,
+/// All banners that currently apply, highest priority first: notifications
+/// refused or not on time (phones), azan muted,
 /// clock skew, stale Windows zone rules, settings reset.
 final activeBannersProvider = Provider<List<HomeBanner>>((ref) {
   final now = ref.watch(nowProvider);
@@ -85,7 +107,11 @@ final activeBannersProvider = Provider<List<HomeBanner>>((ref) {
   final wasReset = ref.watch(settingsWasResetProvider);
   final location = ref.watch(activeLocationProvider);
   final resolver = ref.watch(zoneOffsetResolverProvider);
+  final permissions = ref.watch(noticePermissionsProvider);
   return [
+    if (permissions.notifications == false) const NotificationsOffBanner(),
+    if (permissions.notifications != false && permissions.exactTiming == false)
+      const ExactTimingBanner(),
     if (mute.isActiveAt(now))
       MutedBanner(
         until: mute.indefinite ? null : mute.until,

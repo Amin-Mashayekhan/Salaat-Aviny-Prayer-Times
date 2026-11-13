@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:owghat_lib/l10n/gen/app_localizations.dart';
 import 'package:owghat_lib/src/app/shell/destination.dart';
 import 'package:owghat_lib/src/app/shell/destination_controller.dart';
+import 'package:owghat_lib/src/core/platform/platform_capabilities.dart';
+import 'package:owghat_lib/src/core/platform/platform_providers.dart';
 import 'package:owghat_lib/src/features/diagnostics/presentation/about_diagnostics_section.dart';
 import 'package:owghat_lib/src/features/locations/data/location_repository.dart';
 import 'package:owghat_lib/src/features/settings/application/settings_ui.dart';
@@ -17,16 +19,26 @@ void main() {
   late LocationRepository repo;
   setUpAll(() async => repo = await loadTestRepository());
 
+  // Desktop windows, and a phone in portrait with the phone's capabilities
+  // (bottom navigation, no tray, no Wake-up screen).
+  const layouts = [
+    (Size(1200, 800), PlatformCapabilities.desktop, 'desktop'),
+    (Size(800, 560), PlatformCapabilities.desktop, 'desktop'),
+    (Size(390, 844), PlatformCapabilities.mobile, 'phone'),
+    (Size(360, 740), PlatformCapabilities.mobile, 'phone'),
+  ];
+
   for (final language in AppLanguage.values) {
-    for (final size in const [Size(1200, 800), Size(800, 560)]) {
-      testWidgets('${language.name} ${size.width.toInt()}px: all screens and '
-          'settings sections', (tester) async {
+    for (final (size, capabilities, kind) in layouts) {
+      testWidgets('${language.name} $kind ${size.width.toInt()}px: all screens '
+          'and settings sections', (tester) async {
         final harness = await AppHarness.pump(
           tester,
           repository: repo,
           size: size,
           settings: AppSettings(language: language, digits: language.digits),
           overrides: [
+            platformCapabilitiesProvider.overrideWithValue(capabilities),
             aboutSectionBuilderProvider.overrideWithValue(
               (context) => const AboutDiagnosticsSection(),
             ),
@@ -41,7 +53,9 @@ void main() {
         );
         expect(find.text(Destination.home.label(l10n)), findsWidgets);
 
-        for (final destination in Destination.values) {
+        for (final destination in harness.container.read(
+          visibleDestinationsProvider,
+        )) {
           harness.container
               .read(destinationProvider.notifier)
               .select(destination);

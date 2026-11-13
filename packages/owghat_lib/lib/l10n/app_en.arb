@@ -323,6 +323,7 @@
     }
   },
   "homeBackToToday": "Back to today",
+  "homeBannerAllow": "Allow",
   "homeBannerClockSkew": "The PC clock is off by about {amount}.",
   "@homeBannerClockSkew": {
     "placeholders": {
@@ -332,6 +333,7 @@
     }
   },
   "homeBannerDismiss": "Dismiss",
+  "homeBannerExactTiming": "Android may deliver the azan a few minutes late. Press Allow and turn on Alarms & reminders for Salaat on the page that opens, so the azan comes at the exact minute.",
   "homeBannerMutedIndefinite": "The azan is muted until you turn it back on.",
   "homeBannerMutedUntil": "The azan is muted until {time}.",
   "@homeBannerMutedUntil": {
@@ -341,6 +343,7 @@
       }
     }
   },
+  "homeBannerNotificationsOff": "Notifications are off, so the azan cannot sound while the app is closed. Press Allow and turn on notifications for Salaat.",
   "homeBannerSettingsReset": "The settings file could not be read and the settings were reset to the defaults.",
   "homeBannerStaleZone": "Windows shows a different time for this place than the time-zone database. The times in this app are correct; check the Windows clock.",
   "homeCompass": "{point, select, p0{north} p1{north-east} p2{east} p3{south-east} p4{south} p5{south-west} p6{west} p7{north-west} other{}}",
@@ -805,6 +808,7 @@
   "settingsAzanMute": "Quick mute",
   "settingsAzanMuteHelp": "Silence the azan for a while.",
   "settingsAzanNotMuted": "Not muted",
+  "settingsAzanPhoneNote": "On a phone the azan and reminders come as system notifications, so they arrive even when the app is closed. The azan notification plays the azan sound that comes with the app; the sound and volume chosen on this page are for previews in the app. Set the loudness with the phone's notification volume.",
   "settingsAzanPrayerSwitch": "{prayer} azan",
   "@settingsAzanPrayerSwitch": {
     "placeholders": {

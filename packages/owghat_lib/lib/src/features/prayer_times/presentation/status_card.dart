@@ -5,6 +5,7 @@ import 'package:owghat_lib/src/app/shell/destination.dart';
 import 'package:owghat_lib/src/app/shell/destination_controller.dart';
 import 'package:owghat_lib/src/app/theme/app_theme.dart';
 import 'package:owghat_lib/src/core/format/formatter.dart';
+import 'package:owghat_lib/src/core/platform/platform_providers.dart';
 import 'package:owghat_lib/src/features/calendar/application/calendar_names.dart';
 import 'package:owghat_lib/src/features/clock/application/clock_providers.dart';
 import 'package:owghat_lib/src/features/clock/application/local_offset_provider.dart';
@@ -112,12 +113,13 @@ class StatusCard extends ConsumerWidget {
               text: qiblaText,
               onTap: () => destinations.select(Destination.qibla),
             ),
-            _StatusLine(
-              key: const Key('status-wake'),
-              icon: Icons.alarm_outlined,
-              text: l10n.homeNextWakeAlarm(wakeText),
-              onTap: () => destinations.select(Destination.wakeUp),
-            ),
+            if (ref.watch(platformCapabilitiesProvider).wakeTimers)
+              _StatusLine(
+                key: const Key('status-wake'),
+                icon: Icons.alarm_outlined,
+                text: l10n.homeNextWakeAlarm(wakeText),
+                onTap: () => destinations.select(Destination.wakeUp),
+              ),
           ],
         ),
       ),

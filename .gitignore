@@ -10,3 +10,6 @@ app/pubspec.lock
 packages/prayer_core/pubspec.lock
 .flutter-plugins*
 coverage/
+
+# Locally built files for sharing (releases are built by CI)
+/dist/

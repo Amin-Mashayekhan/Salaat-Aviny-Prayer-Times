@@ -4,6 +4,20 @@ All notable changes to this project are written here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-11-13
+
+### Added
+- **Android app** (Android 7 and later), as an APK. The azan and the reminders are planned with
+  Android ten days ahead, so they come even when the app is closed and after the phone restarts. On
+  first start the app asks for notifications; if Android does not allow exact alarm times, a banner
+  explains it and its Allow button opens the right system page.
+- Phone layout: a navigation bar at the bottom on narrow screens. Options that do not exist on a phone
+  (start with the system, start minimised, close to tray, the Wake-up screen) are hidden there.
+
+### Notes
+- On a phone the azan notification plays the azan sound that comes with the app; the sound chosen in
+  the settings is used for previews in the app. Set the loudness with the phone's notification volume.
+
 ## [1.0.1] - 2026-11-13
 
 First public release (Windows 10 and 11, 64-bit). It contains every feature listed under 1.0.0 in

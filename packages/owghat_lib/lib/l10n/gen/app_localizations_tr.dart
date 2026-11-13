@@ -488,12 +488,19 @@ class AppLocalizationsTr extends AppLocalizations {
   String get homeBackToToday => 'Bugüne dön';
 
   @override
+  String get homeBannerAllow => 'İzin ver';
+
+  @override
   String homeBannerClockSkew(String amount) {
     return 'Bilgisayarın saati yaklaşık $amount yanlış.';
   }
 
   @override
   String get homeBannerDismiss => 'Kapat';
+
+  @override
+  String get homeBannerExactTiming =>
+      'Android ezanı birkaç dakika geç iletebilir. İzin ver düğmesine basın ve açılan sayfada Salaat için Alarms & reminders seçeneğini açın; ezan tam dakikasında gelsin.';
 
   @override
   String get homeBannerMutedIndefinite =>
@@ -503,6 +510,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String homeBannerMutedUntil(String time) {
     return 'Ezan $time saatine kadar sessizde.';
   }
+
+  @override
+  String get homeBannerNotificationsOff =>
+      'Bildirimler kapalı; bu yüzden uygulama kapalıyken ezan okunamaz. İzin ver düğmesine basın ve Salaat için bildirimleri açın.';
 
   @override
   String get homeBannerSettingsReset =>
@@ -1207,6 +1218,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get settingsAzanNotMuted => 'Sessizde değil';
+
+  @override
+  String get settingsAzanPhoneNote =>
+      'Telefonda ezan ve hatırlatmalar sistem bildirimi olarak gelir; böylece uygulama kapalıyken de ulaşırlar. Ezan bildirimi uygulamayla gelen ezan sesini çalar; bu sayfada seçilen ses ve ses düzeyi uygulama içindeki önizleme içindir. Sesin yüksekliğini telefonun bildirim sesiyle ayarlayın.';
 
   @override
   String settingsAzanPrayerSwitch(String prayer) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:owghat_lib/l10n/gen/app_localizations.dart';
 import 'package:owghat_lib/src/app/theme/app_theme.dart';
+import 'package:owghat_lib/src/core/platform/platform_providers.dart';
 import 'package:owghat_lib/src/features/azan/application/azan_playback.dart';
 import 'package:owghat_lib/src/features/locations/application/location_providers.dart';
 import 'package:owghat_lib/src/features/locations/domain/saved_location.dart';
@@ -431,17 +432,19 @@ class _AzanStep extends ConsumerWidget {
                     label: Text(l10n.onboardingPreview),
                   ),
           ),
-          const SizedBox(height: Gaps.m),
-          SwitchListTile(
-            key: const Key('onboarding-startup'),
-            contentPadding: EdgeInsets.zero,
-            value: launch,
-            title: Text(l10n.onboardingStartWithWindows),
-            subtitle: Text(l10n.onboardingStartWithWindowsHint),
-            onChanged: (value) => ref
-                .read(settingsProvider.notifier)
-                .setLaunchAtStartup(enabled: value),
-          ),
+          if (ref.watch(platformCapabilitiesProvider).autostart) ...[
+            const SizedBox(height: Gaps.m),
+            SwitchListTile(
+              key: const Key('onboarding-startup'),
+              contentPadding: EdgeInsets.zero,
+              value: launch,
+              title: Text(l10n.onboardingStartWithWindows),
+              subtitle: Text(l10n.onboardingStartWithWindowsHint),
+              onChanged: (value) => ref
+                  .read(settingsProvider.notifier)
+                  .setLaunchAtStartup(enabled: value),
+            ),
+          ],
         ],
       ),
     );

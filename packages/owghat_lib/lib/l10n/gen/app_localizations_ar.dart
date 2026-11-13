@@ -490,6 +490,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeBackToToday => 'العودة إلى اليوم';
 
   @override
+  String get homeBannerAllow => 'سماح';
+
+  @override
   String homeBannerClockSkew(String amount) {
     return 'ساعة الكمبيوتر تختلف عن الوقت الصحيح بنحو $amount.';
   }
@@ -498,12 +501,20 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeBannerDismiss => 'إغلاق';
 
   @override
+  String get homeBannerExactTiming =>
+      'قد يُصدر أندرويد الأذان متأخراً بضع دقائق. اضغط «سماح» وفعّل Alarms & reminders لتطبيق Salaat في الصفحة التي تُفتح، ليأتي الأذان في دقيقته تماماً.';
+
+  @override
   String get homeBannerMutedIndefinite => 'الأذان مكتوم حتى تعيد تشغيله.';
 
   @override
   String homeBannerMutedUntil(String time) {
     return 'الأذان مكتوم حتى $time.';
   }
+
+  @override
+  String get homeBannerNotificationsOff =>
+      'الإشعارات متوقفة، لذلك لا يُرفع الأذان عندما يكون التطبيق مغلقاً. اضغط «سماح» وفعّل الإشعارات لتطبيق Salaat.';
 
   @override
   String get homeBannerSettingsReset =>
@@ -1203,6 +1214,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get settingsAzanNotMuted => 'غير مكتوم';
+
+  @override
+  String get settingsAzanPhoneNote =>
+      'على الهاتف يأتي الأذان والتذكيرات كإشعارات من النظام، فتصل حتى عندما يكون التطبيق مغلقاً. يشغّل إشعار الأذان صوت الأذان المرفق بالتطبيق؛ أما الصوت ومستوى الصوت المختاران في هذه الصفحة فهما للمعاينة داخل التطبيق. اضبط شدة الصوت بمستوى صوت الإشعارات في الهاتف.';
 
   @override
   String settingsAzanPrayerSwitch(String prayer) {
