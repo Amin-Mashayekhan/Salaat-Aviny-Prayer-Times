@@ -125,6 +125,9 @@ class PlatformWorld {
     await window.dispose();
     await tray.close();
     await singleInstance.dispose();
+    // A write still waiting in the debouncer would run after the folder is
+    // gone and fail after the test has ended.
+    stateFile.dispose();
     try {
       tempDir.deleteSync(recursive: true);
     } on Object {

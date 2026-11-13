@@ -21,7 +21,7 @@ abstract final class ProjectInfo {
   /// The developer's mobile number, with the country code. Calls and text
   /// messages work only from inside Iran; from abroad, Telegram. Empty hides
   /// the row.
-  static const String authorPhone = '+9892128870991';
+  static const String authorPhone = '+989212887091';
 
   /// The code repository.
   static const String repository =

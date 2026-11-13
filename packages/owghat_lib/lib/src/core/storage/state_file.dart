@@ -27,6 +27,10 @@ class StateFile {
   final Debouncer _debouncer;
   final Map<String, Object?> _data;
 
+  /// The write in progress (or the last one): the next waits for it, because
+  /// two writes of one file at once can fail (Windows refuses the rename).
+  Future<void> _lastWrite = Future<void>.value();
+
   /// The value stored under [key].
   Object? operator [](String key) => _data[key];
 
@@ -36,11 +40,20 @@ class StateFile {
     _debouncer.run(_write);
   }
 
+  /// Drops a write that is still waiting; what was set since the last write
+  /// is not saved. A write already running finishes.
+  void dispose() => _debouncer.dispose();
+
   /// Writes immediately.
   Future<void> flush() async {
     _debouncer.dispose();
     await _write();
   }
 
-  Future<void> _write() => _store.write(_data);
+  Future<void> _write() {
+    final next = _lastWrite.then((_) => _store.write(_data));
+    // A failed write must not stop the ones after it.
+    _lastWrite = next.then((_) {}, onError: (Object _) {});
+    return next;
+  }
 }

@@ -94,7 +94,7 @@ toasts, sound, autostart, installer and wake-up alarms.
   a debug key; a later APK signed with a real key will not install over it (the user must uninstall
   first). Create the key before the first Android release that people install.
 - The project is under the MIT licence (`LICENSE`, 2026). The city database was decoded from the files of the previous Aviny program; the owner should be comfortable that those place names and coordinates (facts, not creative work) may be republished, or replace them over time.
-- The developer's mobile number (`+9892128870991`) and Telegram are on the About page; the number has 11 digits after +98 where an Iranian mobile number normally has 10, so the owner should confirm it. Calls and texts work only from Iran, which the page says.
+- The developer's mobile number (`+989212887091`) and Telegram are on the About page; the number has 11 digits after +98 where an Iranian mobile number normally has 10, so the owner should confirm it. Calls and texts work only from Iran, which the page says.
 - The bundled azan and chime are generated placeholders, not recordings; users choose their own sound.
 - No holidays or religious occasions in the calendar, and no in-app update check.
 
