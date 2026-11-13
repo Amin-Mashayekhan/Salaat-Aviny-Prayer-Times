@@ -357,7 +357,7 @@ void main() {
     diagTest('name, version, notes', (tester) async {
       await pump(tester);
       expect(find.text('Salaat | Aviny Prayer Times'), findsOneWidget);
-      expect(text(tester, 'about-version'), contains('1.0.0'));
+      expect(text(tester, 'about-version'), contains(appVersion));
       expect(text(tester, 'about-version'), startsWith('نسخه‌ی'));
       expect(
         text(tester, 'about-font-note'),
@@ -667,7 +667,7 @@ void main() {
       // No coordinate (or any number) with more than two decimals.
       expect(RegExp(r'\d\.\d{3,}').hasMatch(report), isFalse, reason: report);
       // It holds what the screen shows: the version and the events.
-      expect(report, contains('App version: 1.0.0'));
+      expect(report, contains('App version: $appVersion'));
       expect(report, contains('1. reminder maghrib: 2026-11-11 13:40:00 UTC'));
       expect(report, contains('Alarms: 1 saved, 1 on'));
     });

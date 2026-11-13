@@ -1,7 +1,7 @@
 name: owghat
 description: Salaat | Aviny Prayer Times - prayer times, azan and wake-up alarms for Windows.
 publish_to: none
-version: 1.0.0+1
+version: 1.0.1+2
 resolution: workspace
 
 environment:

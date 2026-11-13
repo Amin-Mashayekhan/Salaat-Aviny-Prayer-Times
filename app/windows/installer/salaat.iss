@@ -1,7 +1,7 @@
 ; Inno Setup script for Salaat | Aviny Prayer Times (per-user install, no administrator rights).
 ;
 ; Build first:   flutter build windows --release        (inside app/)
-; Then compile:  iscc /DAppVersion=1.0.0 app\windows\installer\salaat.iss
+; Then compile:  iscc /DAppVersion=1.0.1 app\windows\installer\salaat.iss
 ; Output:        app\build\installer\Salaat-Setup.exe
 ;
 ; The release workflow (.github/workflows/release.yml) does both steps and passes the
@@ -16,7 +16,7 @@
 #define AppTitle "Salaat | Aviny Prayer Times"
 #define AppExe "salaat.exe"
 #ifndef AppVersion
-#define AppVersion "1.0.0"
+#define AppVersion "1.0.1"
 #endif
 #define AppPublisher "Salaat"
 #define AppDataSub "Salaat\Salaat"

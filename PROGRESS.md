@@ -1,8 +1,8 @@
 # Progress
 
-Status as of 2026-11-12. Version in `app/pubspec.yaml`: 1.0.0. The `v1.0.0` tag was pushed and the
-release workflow produced a draft release (installer, zip, checksums); the draft was built before the
-review fixes below (blank map after switching style) and is not published.
+Status as of 2026-11-13. Version in `app/pubspec.yaml`: 1.0.1. `v1.0.0` was tagged but its draft
+release (built before the review fixes below) is not to be published; `v1.0.1` is the first public
+release.
 
 Review of 2026-11-12, fixed: the qibla map went blank after switching street/satellite or turning the
 map off and on (the shared tile provider's HTTP client was closed by the disposed layer; the map state
@@ -107,7 +107,7 @@ Decided: the product name is "Salaat | Aviny Prayer Times" (2026-11-12).
 1. **First public release.** Run [docs/manual-test-checklist.md](docs/manual-test-checklist.md) and
    [docs/manual-test-checklist-wake.md](docs/manual-test-checklist-wake.md) on Windows 10 and 11; choose a
    make sure `CHANGELOG.md` and the `app/pubspec.yaml` version agree; push the
-   work, then a `v1.0.0` tag so the release workflow builds the installer and the portable zip as a draft
+   work, then a version tag (`v1.0.1` is the first) so the release workflow builds the installer and the portable zip as a draft
    (fix the workflow if its first run fails: Inno Setup via Chocolatey is the likeliest place); set
    Pages > Source to "GitHub Actions" so `pages.yml` publishes `site/`; read the draft and publish. The
    installer is not code-signed, so Windows SmartScreen warns on first run (the page explains how to
